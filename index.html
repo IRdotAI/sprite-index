@@ -66,6 +66,8 @@ img.art{object-fit:contain;background:transparent}
 .card.mastered .star{background:var(--mythic);color:#1a1400}
 .card.mastered{border-color:var(--mythic)}
 .empty{color:var(--dim);text-align:center;padding:40px 12px}
+.synced{color:var(--dim);font-size:12px;text-align:center;margin:2px 0 10px}
+.card{cursor:default}
 
 dialog{border:1px solid var(--line);background:var(--panel);color:var(--text);
   border-radius:14px;padding:0;width:min(92vw,420px)}
@@ -240,7 +242,7 @@ function cardHTML(e){
   const s=st(e.key), col=DB.rarities.find(r=>r.id===e.sprite.rarity).color;
   return `<div class="card ${s.owned?'owned':''} ${s.mastered?'mastered':''}"
     style="--r:${col}" data-k="${e.key}">
-    <button class="star" data-star="${e.key}" aria-label="Toggle mastered">★</button>
+    <span class="star" aria-hidden="true">★</span>
     ${e.img
       ? `<img class="art" src="${e.img}" alt="" loading="lazy" decoding="async">`
       : `<div class="art">${e.sprite.name[0]}</div>`}
@@ -266,20 +268,8 @@ function render(){
 }
 
 // --- interaction ---
+// Collection state comes from the synced export, not from tapping.
 document.addEventListener('click',ev=>{
-  const star=ev.target.closest('[data-star]');
-  if(star){
-    ev.stopPropagation();
-    const k=star.dataset.star, s={...st(k)};
-    s.mastered=!s.mastered; if(s.mastered) s.owned=true;
-    state[k]=s; save(); render(); return;
-  }
-  const card=ev.target.closest('[data-k]');
-  if(card){
-    const k=card.dataset.k, s={...st(k)};
-    s.owned=!s.owned; if(!s.owned) s.mastered=false;
-    state[k]=s; save(); render(); return;
-  }
   const c=ev.target.closest('.chip');
   if(c){
     if(c.dataset.s) filters.status=c.dataset.s;
@@ -469,11 +459,40 @@ resetBtn.onclick=()=>{
 };
 
 // --- boot ---
-fetch('data/sprites.json').then(r=>r.json()).then(d=>{
-  DB=d; buildEntries(); render();
-}).catch(()=>{
-  content.innerHTML='<p class="empty">Could not load sprite data.</p>';
-});
+const SYNCKEY='spriteIndex.lastSync';
+async function boot(){
+  try{
+    DB=await (await fetch('data/sprites.json',{cache:'no-cache'})).json();
+  }catch{
+    content.innerHTML='<p class="empty">Could not load sprite data.</p>'; return;
+  }
+  buildEntries(); render();
+
+  // Pull the published collection. This is what makes the app self-updating:
+  // sync once on the Deck, and every device picks it up on next open.
+  try{
+    const r=await fetch('data/collection.json?t='+Date.now(),{cache:'no-store'});
+    if(r.ok){
+      const d=await r.json();
+      const stamp=d.exportedAt||'';
+      if(stamp && stamp!==localStorage.getItem(SYNCKEY)){
+        importExport(d);
+        localStorage.setItem(SYNCKEY,stamp);
+      }
+      showSynced(d.exportedAt);
+    }
+  }catch{ /* offline: keep whatever we already had */ }
+}
+function showSynced(when){
+  if(!when) return;
+  const d=new Date(when);
+  const el=document.createElement('div');
+  el.className='synced';
+  el.textContent='Synced from Epic via SpriteTrading · '+
+    d.toLocaleString(undefined,{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'});
+  document.querySelector('main').prepend(el);
+}
+boot();
 if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});
 </script>
 </body>
