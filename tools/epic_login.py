@@ -16,7 +16,21 @@ Note: this authenticates as the Fortnite game client, which is outside
 Epic's documented/public API surface. Read-only, but it is against Epic's
 ToS and may stop working after any patch.
 """
-import json, os, sys, base64, urllib.request, urllib.parse, urllib.error
+import json, os, sys, time, base64, socket, urllib.request, urllib.parse, urllib.error
+
+# Epic's hosts advertise AAAA records that stall on some networks (the Deck
+# included), which shows up as a TLS handshake timeout. curl falls back to
+# IPv4; Python doesn't. Force IPv4 for every lookup.
+_orig_getaddrinfo = socket.getaddrinfo
+
+
+def _ipv4_only(host, port, family=0, type=0, proto=0, flags=0):
+    return _orig_getaddrinfo(host, port, socket.AF_INET, type, proto, flags)
+
+
+socket.getaddrinfo = _ipv4_only
+
+UA = ("Fortnite/++Fortnite+Release-Live Windows/10.0.19041.1.256.64bit")
 
 # Fortnite iOS game client - the credentials community tools use.
 CLIENT_ID = "3446cd72694c4a4485d81b77adbb2141"
@@ -36,15 +50,26 @@ CFG = os.path.join(CFG_DIR, "device_auth.json")
 HERE = os.path.dirname(os.path.abspath(__file__))
 
 
-def post(url, data, headers):
+def post(url, data, headers, tries=3):
     body = urllib.parse.urlencode(data).encode() if isinstance(data, dict) else data
-    req = urllib.request.Request(url, data=body, headers=headers, method="POST")
-    try:
-        with urllib.request.urlopen(req, timeout=30) as r:
-            return json.load(r)
-    except urllib.error.HTTPError as e:
-        detail = e.read().decode(errors="replace")
-        raise SystemExit(f"\nEpic returned HTTP {e.code}:\n{detail}\n")
+    headers = {**headers, "User-Agent": UA}
+    last = None
+    for attempt in range(1, tries + 1):
+        req = urllib.request.Request(url, data=body, headers=headers, method="POST")
+        try:
+            with urllib.request.urlopen(req, timeout=45) as r:
+                return json.load(r)
+        except urllib.error.HTTPError as e:
+            # A real answer from Epic - retrying won't change it.
+            detail = e.read().decode(errors="replace")
+            raise SystemExit(f"\nEpic returned HTTP {e.code}:\n{detail}\n")
+        except (urllib.error.URLError, TimeoutError, socket.timeout) as e:
+            last = e
+            if attempt < tries:
+                print(f"  network hiccup ({e}) - retrying {attempt}/{tries - 1}…")
+                time.sleep(2 * attempt)
+    raise SystemExit(f"\nCould not reach Epic after {tries} tries: {last}\n"
+                     "Check your connection and run the script again.")
 
 
 def main():
