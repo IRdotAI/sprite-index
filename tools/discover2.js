@@ -71,7 +71,7 @@
   } catch {}
 
   // ---- 4. what does the page actually say? ------------------------------
-  const txt = document.body.innerText || '';
+  const txt = (document.body && document.body.innerText) || '';
   out.looksLoggedIn = /sign out|log ?out|my collection|my profile|my index/i.test(txt);
   out.looksLoggedOut = /sign in|log ?in|connect (your )?epic|link account/i.test(txt);
   out.pageTextSample = txt.replace(/\s+/g, ' ').slice(0, 700);
