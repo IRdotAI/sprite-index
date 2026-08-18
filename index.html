@@ -56,6 +56,7 @@ main{padding:12px}
 .art{width:46px;height:46px;margin:5px auto 6px;border-radius:10px;
   display:grid;place-items:center;font-size:20px;font-weight:800;color:#0c0e14;
   background:var(--r)}
+img.art{object-fit:contain;background:transparent}
 .nm{font-size:12px;font-weight:650;line-height:1.2;
   overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .vr{font-size:10.5px;color:var(--dim);margin-top:1px}
@@ -123,31 +124,80 @@ dialog::backdrop{background:rgba(0,0,0,.6)}
   <h2>Data</h2>
   <p>Your progress is stored on this device only.</p>
   <div class="dlg-actions" style="flex-direction:column">
+    <button id="importBtn" class="btn-accent">Import from SpriteTrading</button>
     <button id="backupBtn">Back up progress (JSON)</button>
     <button id="restoreBtn">Restore from backup</button>
     <button id="resetBtn">Reset all progress</button>
-    <button id="menuClose" class="btn-accent">Done</button>
+    <button id="menuClose">Done</button>
   </div>
   <input type="file" id="restoreFile" accept="application/json" hidden>
+  <input type="file" id="importFile" accept="application/json" hidden>
 </div></dialog>
 
 <script>
-const KEY='spriteIndex.v1';
-let DB=null, state=load(), filters={status:'all',rarity:'all',q:''};
+const KEY='spriteIndex.v1', CATKEY='spriteIndex.catalog.v1';
+let DB=null, state=load(), catalog=loadCat(), filters={status:'all',rarity:'all',q:''};
 
 function load(){ try{return JSON.parse(localStorage.getItem(KEY))||{}}catch{return {}} }
 function save(){ localStorage.setItem(KEY,JSON.stringify(state)) }
+function loadCat(){ try{return JSON.parse(localStorage.getItem(CATKEY))||null}catch{return null} }
 const uid=(s,v)=>s+':'+v;
 const st=k=>state[k]||{owned:false,mastered:false};
 
-// Build the flat 117-entry list once.
+const norm=s=>(s||'').toLowerCase().replace(/[^a-z0-9]/g,'');
+const findSprite=name=>DB.sprites.find(s=>norm(s.name)===norm(name))
+  || DB.sprites.find(s=>norm(s.id)===norm(name));
+const findVariant=name=>DB.variants.find(v=>norm(v.name)===norm(name))
+  || (norm(name)==='base' ? DB.variants.find(v=>v.id==='normal') : null);
+
+// Entries come from an imported SpriteTrading catalog when we have one —
+// that's authoritative for which variants actually exist per sprite.
+// Otherwise fall back to the shipped (partly inferred) database.
 let ENTRIES=[];
 function buildEntries(){
   ENTRIES=[];
-  for(const s of DB.sprites)
-    for(const v of s.variants)
-      ENTRIES.push({key:uid(s.id,v),sprite:s,variantId:v,
-        variant:DB.variants.find(x=>x.id===v)});
+  if(catalog && catalog.entries && catalog.entries.length){
+    for(const e of catalog.entries){
+      const s=findSprite(e.sprite);
+      const v=findVariant(e.variant);
+      const vid=v?v.id:norm(e.variant);
+      ENTRIES.push({
+        key:uid(s?s.id:norm(e.sprite),vid),
+        sprite:s||{id:norm(e.sprite),name:e.sprite,
+          rarity:(e.rarity||'rare').toLowerCase(),ability:'',howToGet:''},
+        variantId:vid,
+        variant:v||{id:vid,name:e.variant,effect:''},
+        img:e.img||null
+      });
+    }
+    // Keep the shipped rarity where we have it; "Special" isn't a real tier.
+    for(const e of ENTRIES)
+      if(!DB.rarities.some(r=>r.id===e.sprite.rarity)) e.sprite.rarity='rare';
+  } else {
+    for(const s of DB.sprites)
+      for(const v of s.variants)
+        ENTRIES.push({key:uid(s.id,v),sprite:s,variantId:v,
+          variant:DB.variants.find(x=>x.id===v),img:null});
+  }
+}
+
+// Apply a spritetrading-export.json file.
+function importExport(d){
+  if(!d || !Array.isArray(d.entries)) throw new Error('not a SpriteTrading export');
+  catalog={entries:d.entries};
+  localStorage.setItem(CATKEY,JSON.stringify(catalog));
+  buildEntries();
+  const byKey=new Map(ENTRIES.map(e=>[e.key,e]));
+  let n=0;
+  for(const e of d.entries){
+    const s=findSprite(e.sprite), v=findVariant(e.variant);
+    const k=uid(s?s.id:norm(e.sprite), v?v.id:norm(e.variant));
+    if(!byKey.has(k)) continue;
+    state[k]={owned:!!e.collected, mastered:!!e.mastered, level:e.level||null};
+    n++;
+  }
+  save(); render();
+  return {applied:n, total:d.entries.length};
 }
 
 function visible(){
@@ -191,9 +241,12 @@ function cardHTML(e){
   return `<div class="card ${s.owned?'owned':''} ${s.mastered?'mastered':''}"
     style="--r:${col}" data-k="${e.key}">
     <button class="star" data-star="${e.key}" aria-label="Toggle mastered">★</button>
-    <div class="art">${e.sprite.name[0]}</div>
+    ${e.img
+      ? `<img class="art" src="${e.img}" alt="" loading="lazy" decoding="async">`
+      : `<div class="art">${e.sprite.name[0]}</div>`}
     <div class="nm">${e.sprite.name}</div>
-    <div class="vr">${e.variant.name}</div>
+    <div class="vr">${e.variant.name}${
+      s.owned && !s.mastered && s.level ? ` · Lv${s.level}` : ''}</div>
   </div>`;
 }
 
@@ -252,9 +305,28 @@ function exportSet(view){
   });
 }
 
-function drawPNG(view,groupBy){
+// Load with crossOrigin so the canvas stays exportable. If the host sends no
+// CORS headers the load fails (rather than tainting the canvas) and we fall
+// back to a coloured letter tile — export must never break.
+function loadArt(url){
+  return new Promise(res=>{
+    if(!url) return res(null);
+    const i=new Image();
+    i.crossOrigin='anonymous';
+    i.onload=()=>res(i);
+    i.onerror=()=>res(null);
+    i.src=url;
+    setTimeout(()=>res(null),6000);
+  });
+}
+
+async function drawPNG(view,groupBy){
   const list=exportSet(view);
   if(!list.length){ alert('Nothing to export for that selection.'); return }
+
+  const art=new Map();
+  await Promise.all([...new Set(list.map(e=>e.img).filter(Boolean))]
+    .map(async u=>art.set(u,await loadArt(u))));
 
   const S=2, CW=124, CH=140, GAP=12, PAD=32, COLS=Math.min(8,Math.max(4,Math.ceil(Math.sqrt(list.length))));
   // group
@@ -314,9 +386,15 @@ function drawPNG(view,groupBy){
       x.strokeStyle=s.mastered?'#F5C542':(dim?'#2a3145':col);
       x.lineWidth=s.mastered?2.5:1.5; rr(cx,cy,CW,CH,14); x.stroke();
 
-      x.fillStyle=col; rr(cx+CW/2-27,cy+18,54,54,13); x.fill();
-      x.fillStyle='#0c0e14'; x.font='800 24px system-ui,sans-serif';
-      x.textAlign='center'; x.fillText(e.sprite.name[0],cx+CW/2,cy+53);
+      const im=e.img?art.get(e.img):null;
+      x.textAlign='center';
+      if(im){
+        x.drawImage(im,cx+CW/2-27,cy+18,54,54);
+      } else {
+        x.fillStyle=col; rr(cx+CW/2-27,cy+18,54,54,13); x.fill();
+        x.fillStyle='#0c0e14'; x.font='800 24px system-ui,sans-serif';
+        x.fillText(e.sprite.name[0],cx+CW/2,cy+53);
+      }
 
       x.fillStyle='#e8ecf6'; x.font='650 14px system-ui,sans-serif';
       let nm=e.sprite.name;
@@ -342,11 +420,16 @@ function drawPNG(view,groupBy){
   x.fillStyle='#4a5268'; x.font='400 12px system-ui,sans-serif';
   x.fillText('Sprite Index',PAD,h-PAD+12);
 
-  cv.toBlob(b=>{
-    const u=URL.createObjectURL(b), a=document.createElement('a');
-    a.href=u; a.download=`sprite-index-${view}-${new Date().toISOString().slice(0,10)}.png`;
-    a.click(); setTimeout(()=>URL.revokeObjectURL(u),1000);
-  },'image/png');
+  try{
+    cv.toBlob(b=>{
+      if(!b){ alert('Export failed while encoding the image.'); return }
+      const u=URL.createObjectURL(b), a=document.createElement('a');
+      a.href=u; a.download=`sprite-index-${view}-${new Date().toISOString().slice(0,10)}.png`;
+      a.click(); setTimeout(()=>URL.revokeObjectURL(u),1000);
+    },'image/png');
+  }catch(err){
+    alert('Export failed: '+err.message);
+  }
 }
 
 // --- data menu ---
@@ -358,6 +441,16 @@ backupBtn.onclick=()=>{
   const u=URL.createObjectURL(b),a=document.createElement('a');
   a.href=u;a.download='sprite-index-backup.json';a.click();
   setTimeout(()=>URL.revokeObjectURL(u),1000);
+};
+importBtn.onclick=()=>importFile.click();
+importFile.onchange=async e=>{
+  const f=e.target.files[0]; if(!f) return;
+  try{
+    const r=importExport(JSON.parse(await f.text()));
+    menuDlg.close();
+    alert(`Imported ${r.applied} of ${r.total} sprites from SpriteTrading.`);
+  }catch(err){ alert('Could not read that file: '+err.message) }
+  e.target.value='';
 };
 restoreBtn.onclick=()=>restoreFile.click();
 restoreFile.onchange=async e=>{
