@@ -88,8 +88,49 @@
     entries: list
   };
 
+  // ---- verify against the page's own totals -----------------------------
+  // The profile header states the truth ("117 / 117 SPRITES INDEXED",
+  // "CUBE 9/9"). If our scrape disagrees, something didn't render.
+  const page = (document.body.innerText || '').replace(/\s+/g, ' ');
+  const check = { ok: true, problems: [] };
+
+  const totalM = page.match(/(\d+)\s*\/\s*(\d+)\s*SPRITES INDEXED/i);
+  if (totalM) {
+    const expected = +totalM[2];
+    check.expectedEntries = expected;
+    if (list.length !== expected) {
+      check.ok = false;
+      check.problems.push(`page says ${expected} sprites, scraped ${list.length}`);
+    }
+  }
+
+  const VNAMES = ['BASE', 'GOLD', 'GUMMY', 'GALAXY', 'GEM', 'HOLOFOIL', 'CUBE', 'QUACK'];
+  const got = {};
+  for (const e of list) got[(e.variant === 'Normal' ? 'BASE' : e.variant).toUpperCase()] =
+    (got[(e.variant === 'Normal' ? 'BASE' : e.variant).toUpperCase()] || 0) + 1;
+  for (const v of VNAMES) {
+    const m = page.match(new RegExp(v + '\\s+(\\d+)\\s*/\\s*(\\d+)', 'i'));
+    if (!m) continue;
+    const expected = +m[2], mine = got[v] || 0;
+    if (mine !== expected) {
+      check.ok = false;
+      check.problems.push(`${v}: page says ${expected}, scraped ${mine}`);
+    }
+  }
+  payload.check = check;
+
   const text = JSON.stringify(payload, null, 2);
   window.__export = text;
+
+  if (!check.ok) {
+    console.log('%c⚠ INCOMPLETE SCRAPE — do not sync this file',
+      'color:#ffb454;font-weight:bold;font-size:14px');
+    check.problems.forEach(p => console.log('   • ' + p));
+    console.log('%cScroll to the very bottom of the collection (and back up), ' +
+      'then run this script again.', 'color:#ffb454');
+  } else {
+    console.log('%c✓ Complete — matches the page totals', 'color:#7bd88f;font-weight:bold');
+  }
 
   console.log('%c===== SPRITE EXPORT =====', 'color:#4dd4ff;font-weight:bold');
   console.log('entries:', payload.totals.entries,
