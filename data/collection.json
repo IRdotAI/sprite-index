@@ -1,0 +1,1172 @@
+{
+  "source": "spritetrading.com",
+  "exportedAt": "2026-08-18T23:23:24.167Z",
+  "totals": {
+    "entries": 116,
+    "collected": 116,
+    "mastered": 86,
+    "notMastered": 30
+  },
+  "entries": [
+    {
+      "sprite": "Water",
+      "variant": "Normal",
+      "label": "Water",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Rare",
+      "img": "https://api.spritetrading.com/sprites/water.webp?w=192"
+    },
+    {
+      "sprite": "Water",
+      "variant": "Gold",
+      "label": "Gold Water",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/gold-water.webp?w=192"
+    },
+    {
+      "sprite": "Water",
+      "variant": "Gummy",
+      "label": "Gummy Water",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/gummy-water.webp?w=192"
+    },
+    {
+      "sprite": "Water",
+      "variant": "Galaxy",
+      "label": "Galaxy Water",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/galaxy-water.webp?w=192"
+    },
+    {
+      "sprite": "Water",
+      "variant": "Gem",
+      "label": "Gem Water",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/gem-water.webp?w=192"
+    },
+    {
+      "sprite": "Water",
+      "variant": "Holofoil",
+      "label": "Holofoil Water",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/holofoil-water.webp?w=192"
+    },
+    {
+      "sprite": "Water",
+      "variant": "Quack",
+      "label": "Quack Water",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/quack-water.webp?w=192"
+    },
+    {
+      "sprite": "Earth",
+      "variant": "Normal",
+      "label": "Earth",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Rare",
+      "img": "https://api.spritetrading.com/sprites/earth.webp?w=192"
+    },
+    {
+      "sprite": "Earth",
+      "variant": "Gold",
+      "label": "Gold Earth",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/gold-earth.webp?w=192"
+    },
+    {
+      "sprite": "Earth",
+      "variant": "Gummy",
+      "label": "Gummy Earth",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/gummy-earth.webp?w=192"
+    },
+    {
+      "sprite": "Earth",
+      "variant": "Galaxy",
+      "label": "Galaxy Earth",
+      "collected": true,
+      "mastered": false,
+      "level": 1,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/galaxy-earth.webp?w=192"
+    },
+    {
+      "sprite": "Earth",
+      "variant": "Gem",
+      "label": "Gem Earth",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/gem-earth.webp?w=192"
+    },
+    {
+      "sprite": "Earth",
+      "variant": "Cube",
+      "label": "Cube Earth",
+      "collected": true,
+      "mastered": false,
+      "level": 1,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/cube-earth.webp?w=192"
+    },
+    {
+      "sprite": "Earth",
+      "variant": "Quack",
+      "label": "Quack Earth",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/quack-earth.webp?w=192"
+    },
+    {
+      "sprite": "Fire",
+      "variant": "Normal",
+      "label": "Fire",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Rare",
+      "img": "https://api.spritetrading.com/sprites/fire.webp?w=192"
+    },
+    {
+      "sprite": "Fire",
+      "variant": "Gold",
+      "label": "Gold Fire",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/gold-fire.webp?w=192"
+    },
+    {
+      "sprite": "Fire",
+      "variant": "Gummy",
+      "label": "Gummy Fire",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/gummy-fire.webp?w=192"
+    },
+    {
+      "sprite": "Fire",
+      "variant": "Galaxy",
+      "label": "Galaxy Fire",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/galaxy-fire.webp?w=192"
+    },
+    {
+      "sprite": "Fire",
+      "variant": "Holofoil",
+      "label": "Holofoil Fire",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/holofoil-fire.webp?w=192"
+    },
+    {
+      "sprite": "Fire",
+      "variant": "Cube",
+      "label": "Cube Fire",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/cube-fire.webp?w=192"
+    },
+    {
+      "sprite": "Fire",
+      "variant": "Quack",
+      "label": "Quack Fire",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/quack-fire.webp?w=192"
+    },
+    {
+      "sprite": "Duck",
+      "variant": "Normal",
+      "label": "Duck",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Epic",
+      "img": "https://api.spritetrading.com/sprites/duck.webp?w=192"
+    },
+    {
+      "sprite": "Duck",
+      "variant": "Gold",
+      "label": "Gold Duck",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/gold-duck.webp?w=192"
+    },
+    {
+      "sprite": "Duck",
+      "variant": "Gummy",
+      "label": "Gummy Duck",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/gummy-duck.webp?w=192"
+    },
+    {
+      "sprite": "Duck",
+      "variant": "Galaxy",
+      "label": "Galaxy Duck",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/galaxy-duck.webp?w=192"
+    },
+    {
+      "sprite": "Duck",
+      "variant": "Gem",
+      "label": "Gem Duck",
+      "collected": true,
+      "mastered": false,
+      "level": 1,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/gem-duck.webp?w=192"
+    },
+    {
+      "sprite": "Ghost",
+      "variant": "Normal",
+      "label": "Ghost",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Epic",
+      "img": "https://api.spritetrading.com/sprites/ghost.webp?w=192"
+    },
+    {
+      "sprite": "Ghost",
+      "variant": "Gold",
+      "label": "Gold Ghost",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/gold-ghost.webp?w=192"
+    },
+    {
+      "sprite": "Ghost",
+      "variant": "Gummy",
+      "label": "Gummy Ghost",
+      "collected": true,
+      "mastered": false,
+      "level": 1,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/gummy-ghost.webp?w=192"
+    },
+    {
+      "sprite": "Ghost",
+      "variant": "Galaxy",
+      "label": "Galaxy Ghost",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/galaxy-ghost.webp?w=192"
+    },
+    {
+      "sprite": "Ghost",
+      "variant": "Holofoil",
+      "label": "Holofoil Ghost",
+      "collected": true,
+      "mastered": false,
+      "level": 2,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/holofoil-ghost.webp?w=192"
+    },
+    {
+      "sprite": "Dream",
+      "variant": "Normal",
+      "label": "Dream",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Legendary",
+      "img": "https://api.spritetrading.com/sprites/dream.webp?w=192"
+    },
+    {
+      "sprite": "Dream",
+      "variant": "Gold",
+      "label": "Gold Dream",
+      "collected": true,
+      "mastered": false,
+      "level": 1,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/gold-dream.webp?w=192"
+    },
+    {
+      "sprite": "Dream",
+      "variant": "Gummy",
+      "label": "Gummy Dream",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/gummy-dream.webp?w=192"
+    },
+    {
+      "sprite": "Dream",
+      "variant": "Galaxy",
+      "label": "Galaxy Dream",
+      "collected": true,
+      "mastered": false,
+      "level": 1,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/galaxy-dream.webp?w=192"
+    },
+    {
+      "sprite": "Dream",
+      "variant": "Cube",
+      "label": "Cube Dream",
+      "collected": true,
+      "mastered": false,
+      "level": 2,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/cube-dream.webp?w=192"
+    },
+    {
+      "sprite": "Demon",
+      "variant": "Normal",
+      "label": "Demon",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Epic",
+      "img": "https://api.spritetrading.com/sprites/demon.webp?w=192"
+    },
+    {
+      "sprite": "Demon",
+      "variant": "Gold",
+      "label": "Gold Demon",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/gold-demon.webp?w=192"
+    },
+    {
+      "sprite": "Demon",
+      "variant": "Gummy",
+      "label": "Gummy Demon",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/gummy-demon.webp?w=192"
+    },
+    {
+      "sprite": "Demon",
+      "variant": "Galaxy",
+      "label": "Galaxy Demon",
+      "collected": true,
+      "mastered": false,
+      "level": 1,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/galaxy-demon.webp?w=192"
+    },
+    {
+      "sprite": "Demon",
+      "variant": "Gem",
+      "label": "Gem Demon",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/gem-demon.webp?w=192"
+    },
+    {
+      "sprite": "Punk",
+      "variant": "Normal",
+      "label": "Punk",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Legendary",
+      "img": "https://api.spritetrading.com/sprites/punk.webp?w=192"
+    },
+    {
+      "sprite": "Punk",
+      "variant": "Gold",
+      "label": "Gold Punk",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/gold-punk.webp?w=192"
+    },
+    {
+      "sprite": "Punk",
+      "variant": "Gummy",
+      "label": "Gummy Punk",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/gummy-punk.webp?w=192"
+    },
+    {
+      "sprite": "Punk",
+      "variant": "Galaxy",
+      "label": "Galaxy Punk",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/galaxy-punk.webp?w=192"
+    },
+    {
+      "sprite": "Punk",
+      "variant": "Cube",
+      "label": "Cube Punk",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/cube-punk.webp?w=192"
+    },
+    {
+      "sprite": "King",
+      "variant": "Normal",
+      "label": "King",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Epic",
+      "img": "https://api.spritetrading.com/sprites/king.webp?w=192"
+    },
+    {
+      "sprite": "King",
+      "variant": "Gold",
+      "label": "Gold King",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/gold-king.webp?w=192"
+    },
+    {
+      "sprite": "King",
+      "variant": "Gummy",
+      "label": "Gummy King",
+      "collected": true,
+      "mastered": false,
+      "level": 1,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/gummy-king.webp?w=192"
+    },
+    {
+      "sprite": "King",
+      "variant": "Galaxy",
+      "label": "Galaxy King",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/galaxy-king.webp?w=192"
+    },
+    {
+      "sprite": "King",
+      "variant": "Holofoil",
+      "label": "Holofoil King",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/holofoil-king.webp?w=192"
+    },
+    {
+      "sprite": "Burnt Peanut",
+      "variant": "Normal",
+      "label": "Burnt Peanut",
+      "collected": true,
+      "mastered": false,
+      "level": 1,
+      "rarity": "Mythic",
+      "img": "https://api.spritetrading.com/sprites/burntpeanut.webp?w=192"
+    },
+    {
+      "sprite": "Vini Jr.",
+      "variant": "Normal",
+      "label": "Vini Jr.",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Mythic",
+      "img": "https://api.spritetrading.com/sprites/cokeparmesan.webp?w=192"
+    },
+    {
+      "sprite": "Zero Point",
+      "variant": "Normal",
+      "label": "Zero Point",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/cube-zeropoint.webp?w=192"
+    },
+    {
+      "sprite": "Zero Point",
+      "variant": "Gold",
+      "label": "Gold Zero Point",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/gold-zeropoint.webp?w=192"
+    },
+    {
+      "sprite": "Zero Point",
+      "variant": "Gummy",
+      "label": "Gummy Zero Point",
+      "collected": true,
+      "mastered": false,
+      "level": 1,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/gummy-zeropoint.webp?w=192"
+    },
+    {
+      "sprite": "Zero Point",
+      "variant": "Galaxy",
+      "label": "Galaxy Zero Point",
+      "collected": true,
+      "mastered": false,
+      "level": 1,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/galaxy-zeropoint.webp?w=192"
+    },
+    {
+      "sprite": "Zero Point",
+      "variant": "Gem",
+      "label": "Gem Zero Point",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/gem-zeropoint.webp?w=192"
+    },
+    {
+      "sprite": "Zero Point",
+      "variant": "Holofoil",
+      "label": "Holofoil Zero Point",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/holofoil-zeropoint.webp?w=192"
+    },
+    {
+      "sprite": "Zero Point",
+      "variant": "Quack",
+      "label": "Quack Zero Point",
+      "collected": true,
+      "mastered": false,
+      "level": 1,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/quack-zeropoint.webp?w=192"
+    },
+    {
+      "sprite": "Fishy",
+      "variant": "Normal",
+      "label": "Fishy",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Rare",
+      "img": "https://api.spritetrading.com/sprites/fishy.webp?w=192"
+    },
+    {
+      "sprite": "Fishy",
+      "variant": "Gold",
+      "label": "Gold Fishy",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/gold-fishy.webp?w=192"
+    },
+    {
+      "sprite": "Fishy",
+      "variant": "Gummy",
+      "label": "Gummy Fishy",
+      "collected": true,
+      "mastered": false,
+      "level": 1,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/gummy-fishy.webp?w=192"
+    },
+    {
+      "sprite": "Fishy",
+      "variant": "Galaxy",
+      "label": "Galaxy Fishy",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/galaxy-fishy.webp?w=192"
+    },
+    {
+      "sprite": "Fishy",
+      "variant": "Cube",
+      "label": "Cube Fishy",
+      "collected": true,
+      "mastered": false,
+      "level": 1,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/cube-fishy.webp?w=192"
+    },
+    {
+      "sprite": "Striker",
+      "variant": "Normal",
+      "label": "Striker",
+      "collected": true,
+      "mastered": false,
+      "level": 1,
+      "rarity": "Epic",
+      "img": "https://api.spritetrading.com/sprites/striker.webp?w=192"
+    },
+    {
+      "sprite": "Striker",
+      "variant": "Gold",
+      "label": "Gold Striker",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/gold-striker.webp?w=192"
+    },
+    {
+      "sprite": "Striker",
+      "variant": "Gummy",
+      "label": "Gummy Striker",
+      "collected": true,
+      "mastered": false,
+      "level": 1,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/gummy-striker.webp?w=192"
+    },
+    {
+      "sprite": "Striker",
+      "variant": "Galaxy",
+      "label": "Galaxy Striker",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/galaxy-striker.webp?w=192"
+    },
+    {
+      "sprite": "Striker",
+      "variant": "Holofoil",
+      "label": "Holofoil Striker",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/holofoil-striker.webp?w=192"
+    },
+    {
+      "sprite": "Aura",
+      "variant": "Normal",
+      "label": "Aura",
+      "collected": true,
+      "mastered": false,
+      "level": 1,
+      "rarity": "Epic",
+      "img": "https://api.spritetrading.com/sprites/aura.webp?w=192"
+    },
+    {
+      "sprite": "Aura",
+      "variant": "Gold",
+      "label": "Gold Aura",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/gold-aura.webp?w=192"
+    },
+    {
+      "sprite": "Aura",
+      "variant": "Gummy",
+      "label": "Gummy Aura",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/gummy-aura.webp?w=192"
+    },
+    {
+      "sprite": "Aura",
+      "variant": "Galaxy",
+      "label": "Galaxy Aura",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/galaxy-aura.webp?w=192"
+    },
+    {
+      "sprite": "Aura",
+      "variant": "Gem",
+      "label": "Gem Aura",
+      "collected": true,
+      "mastered": false,
+      "level": 1,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/gem-aura.webp?w=192"
+    },
+    {
+      "sprite": "Boss",
+      "variant": "Normal",
+      "label": "Boss",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Legendary",
+      "img": "https://api.spritetrading.com/sprites/boss.webp?w=192"
+    },
+    {
+      "sprite": "Boss",
+      "variant": "Gold",
+      "label": "Gold Boss",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/gold-boss.webp?w=192"
+    },
+    {
+      "sprite": "Boss",
+      "variant": "Gummy",
+      "label": "Gummy Boss",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/gummy-boss.webp?w=192"
+    },
+    {
+      "sprite": "Boss",
+      "variant": "Galaxy",
+      "label": "Galaxy Boss",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/galaxy-boss.webp?w=192"
+    },
+    {
+      "sprite": "Boss",
+      "variant": "Cube",
+      "label": "Cube Boss",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/cube-boss.webp?w=192"
+    },
+    {
+      "sprite": "Grim Reaper",
+      "variant": "Normal",
+      "label": "Grim",
+      "collected": true,
+      "mastered": false,
+      "level": 1,
+      "rarity": "Mythic",
+      "img": "https://api.spritetrading.com/sprites/grim.webp?w=192"
+    },
+    {
+      "sprite": "Grim Reaper",
+      "variant": "Gold",
+      "label": "Gold Grim",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/gold-grim.webp?w=192"
+    },
+    {
+      "sprite": "Grim Reaper",
+      "variant": "Gummy",
+      "label": "Gummy Grim",
+      "collected": true,
+      "mastered": false,
+      "level": 1,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/gummy-grim.webp?w=192"
+    },
+    {
+      "sprite": "Grim Reaper",
+      "variant": "Galaxy",
+      "label": "Galaxy Grim",
+      "collected": true,
+      "mastered": false,
+      "level": 1,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/galaxy-grim.webp?w=192"
+    },
+    {
+      "sprite": "Grim Reaper",
+      "variant": "Gem",
+      "label": "Gem Grim",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/gem-grim.webp?w=192"
+    },
+    {
+      "sprite": "Grim Reaper",
+      "variant": "Holofoil",
+      "label": "Holofoil Grim",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/holofoil-grim.webp?w=192"
+    },
+    {
+      "sprite": "Grim Reaper",
+      "variant": "Cube",
+      "label": "Cube Grim",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/cube-grim.webp?w=192"
+    },
+    {
+      "sprite": "Air",
+      "variant": "Normal",
+      "label": "Air",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Rare",
+      "img": "https://api.spritetrading.com/sprites/air.webp?w=192"
+    },
+    {
+      "sprite": "Air",
+      "variant": "Gold",
+      "label": "Gold Air",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/gold-air.webp?w=192"
+    },
+    {
+      "sprite": "Air",
+      "variant": "Gummy",
+      "label": "Gummy Air",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/gummy-air.webp?w=192"
+    },
+    {
+      "sprite": "Air",
+      "variant": "Galaxy",
+      "label": "Galaxy Air",
+      "collected": true,
+      "mastered": false,
+      "level": 1,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/galaxy-air.webp?w=192"
+    },
+    {
+      "sprite": "Air",
+      "variant": "Holofoil",
+      "label": "Holofoil Air",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/holofoil-air.webp?w=192"
+    },
+    {
+      "sprite": "Seven",
+      "variant": "Normal",
+      "label": "Seven",
+      "collected": true,
+      "mastered": false,
+      "level": 1,
+      "rarity": "Legendary",
+      "img": "https://api.spritetrading.com/sprites/seven.webp?w=192"
+    },
+    {
+      "sprite": "Seven",
+      "variant": "Gold",
+      "label": "Gold Seven",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/gold-seven.webp?w=192"
+    },
+    {
+      "sprite": "Seven",
+      "variant": "Gummy",
+      "label": "Gummy Seven",
+      "collected": true,
+      "mastered": false,
+      "level": 1,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/gummy-seven.webp?w=192"
+    },
+    {
+      "sprite": "Seven",
+      "variant": "Galaxy",
+      "label": "Galaxy Seven",
+      "collected": true,
+      "mastered": false,
+      "level": 1,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/galaxy-seven.webp?w=192"
+    },
+    {
+      "sprite": "Seven",
+      "variant": "Holofoil",
+      "label": "Holofoil Seven",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/holofoil-seven.webp?w=192"
+    },
+    {
+      "sprite": "Ironmouse",
+      "variant": "Normal",
+      "label": "Ironmouse",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Mythic",
+      "img": "https://api.spritetrading.com/sprites/pedicureantacid.webp?w=192"
+    },
+    {
+      "sprite": "Pollo",
+      "variant": "Normal",
+      "label": "Pollo",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Mythic",
+      "img": "https://api.spritetrading.com/sprites/companystargazer.webp?w=192"
+    },
+    {
+      "sprite": "Llama",
+      "variant": "Normal",
+      "label": "Llama",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Legendary",
+      "img": "https://api.spritetrading.com/sprites/llama.webp?w=192"
+    },
+    {
+      "sprite": "Llama",
+      "variant": "Gold",
+      "label": "Gold Llama",
+      "collected": true,
+      "mastered": false,
+      "level": 1,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/gold-llama.webp?w=192"
+    },
+    {
+      "sprite": "Llama",
+      "variant": "Gummy",
+      "label": "Gummy Llama",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/gummy-llama.webp?w=192"
+    },
+    {
+      "sprite": "Llama",
+      "variant": "Galaxy",
+      "label": "Galaxy Llama",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/galaxy-llama.webp?w=192"
+    },
+    {
+      "sprite": "Llama",
+      "variant": "Gem",
+      "label": "Gem Llama",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/gem-llama.webp?w=192"
+    },
+    {
+      "sprite": "Peely",
+      "variant": "Normal",
+      "label": "Peely",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Legendary",
+      "img": "https://api.spritetrading.com/sprites/peely.webp?w=192"
+    },
+    {
+      "sprite": "Peely",
+      "variant": "Gold",
+      "label": "Gold Peely",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/gold-peely.webp?w=192"
+    },
+    {
+      "sprite": "Peely",
+      "variant": "Gummy",
+      "label": "Gummy Peely",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/gummy-peely.webp?w=192"
+    },
+    {
+      "sprite": "Peely",
+      "variant": "Galaxy",
+      "label": "Galaxy Peely",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/galaxy-peely.webp?w=192"
+    },
+    {
+      "sprite": "Peely",
+      "variant": "Holofoil",
+      "label": "Holofoil Peely",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/holofoil-peely.webp?w=192"
+    },
+    {
+      "sprite": "John Wick",
+      "variant": "Normal",
+      "label": "John Wick",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Mythic",
+      "img": "https://api.spritetrading.com/sprites/fillergrunt.webp?w=192"
+    },
+    {
+      "sprite": "Batman",
+      "variant": "Normal",
+      "label": "Batman",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Mythic",
+      "img": "https://api.spritetrading.com/sprites/fossilmeal.webp?w=192"
+    },
+    {
+      "sprite": "Batman",
+      "variant": "Gold",
+      "label": "Gold Batman",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/gold-fossilmeal.webp?w=192"
+    },
+    {
+      "sprite": "Batman",
+      "variant": "Gummy",
+      "label": "Gummy Batman",
+      "collected": true,
+      "mastered": false,
+      "level": 1,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/gummy-fossilmeal.webp?w=192"
+    },
+    {
+      "sprite": "Batman",
+      "variant": "Galaxy",
+      "label": "Galaxy Batman",
+      "collected": true,
+      "mastered": false,
+      "level": 1,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/galaxy-fossilmeal.webp?w=192"
+    },
+    {
+      "sprite": "Batman",
+      "variant": "Holofoil",
+      "label": "Holofoil Batman",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/holofoil-fossilmeal.webp?w=192"
+    },
+    {
+      "sprite": "Batman",
+      "variant": "Cube",
+      "label": "Cube Batman",
+      "collected": true,
+      "mastered": true,
+      "level": 5,
+      "rarity": "Special",
+      "img": "https://api.spritetrading.com/sprites/cube-fossilmeal.webp?w=192"
+    }
+  ]
+}
