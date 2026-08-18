@@ -1,0 +1,17 @@
+{
+  "name": "Sprite Index",
+  "short_name": "Sprites",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#0d0f16",
+  "theme_color": "#0d0f16",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='42' fill='%230d0f16'/%3E%3Crect x='38' y='38' width='48' height='48' rx='12' fill='%234dd4ff'/%3E%3Crect x='106' y='38' width='48' height='48' rx='12' fill='%23A64BF4'/%3E%3Crect x='38' y='106' width='48' height='48' rx='12' fill='%23F0862E'/%3E%3Crect x='106' y='106' width='48' height='48' rx='12' fill='%23F5C542'/%3E%3C/svg%3E",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
