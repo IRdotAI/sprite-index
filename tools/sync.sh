@@ -34,6 +34,17 @@ mas = sum(1 for x in e if x.get("mastered"))
 print(f"  {len(e)} entries | {col} collected | {mas} mastered | {col-mas} not mastered")
 if len(e) < 50:
     sys.exit(f"Only {len(e)} entries - looks truncated. Scroll to the bottom and re-run.")
+
+# The grab script compares itself against the page's own totals.
+chk = d.get("check")
+if chk and not chk.get("ok", True):
+    print("\n  INCOMPLETE - the scrape disagrees with spritetrading's own counts:")
+    for p in chk.get("problems", []):
+        print("    * " + p)
+    sys.exit("\nNot publishing. Scroll the collection to the very bottom, re-run "
+             "tools/grab2.js, then try again.")
+if chk is None:
+    print("  (no completeness check in this file - from an older grab script)")
 PY
 
 mkdir -p data
