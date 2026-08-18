@@ -1,2 +1,6 @@
 _*.html
 _*.png
+tools/profile_dump.json
+device_auth.json
+*.pyc
+__pycache__/
