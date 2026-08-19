@@ -51,7 +51,7 @@ input[type=search]{flex:1;min-width:120px}
   background:var(--panel);border:1px solid var(--line);color:var(--dim)}
 .chip.on{background:var(--accent);color:#04202b;border-color:transparent;font-weight:650}
 
-/* tap-to-track control on cards (My Sprites mode) */
+/* tap-to-track control on cards */
 .track-btn{position:absolute;top:7px;right:7px;z-index:2;width:30px;height:30px;border-radius:9px;
   border:1px solid var(--line);background:rgba(13,15,22,.72);color:#6b748a;
   font-size:15px;line-height:1;display:grid;place-items:center;padding:0}
@@ -188,10 +188,6 @@ dialog::backdrop{background:rgba(0,0,0,.6)}
     <button id="exportBtn" class="btn-accent">Export</button>
     <button id="menuBtn" aria-label="Data menu">⋯</button>
   </div>
-  <div class="modes" id="modeTabs">
-    <button class="mtab" data-mode="showcase" id="tabShowcase">RdotA's Dex</button>
-    <button class="mtab" data-mode="mine" id="tabMine">My Sprites</button>
-  </div>
   <div class="row" style="margin-top:9px">
     <input type="search" id="search" placeholder="Search sprites…" autocomplete="off">
   </div>
@@ -248,24 +244,15 @@ dialog::backdrop{background:rgba(0,0,0,.6)}
 </div></dialog>
 
 <script>
-const KEY='spriteIndex.v1', CATKEY='spriteIndex.catalog.v1', MINEKEY='spriteIndex.mine.v1', MODEKEY='spriteIndex.mode';
-const OWNER='RdotA';
-// state  = the showcase (owner's live synced collection)
-// mine   = this visitor's own tracking, saved only in their browser
-let DB=null, state=load(), mine=loadMine(), catalog=loadCat(),
-    mode=localStorage.getItem(MODEKEY)||'showcase',
-    filters={status:'all',rarity:'all',q:''};
+const KEY='spriteIndex.v1', CATKEY='spriteIndex.catalog.v1';
+// state = this visitor's own collection, saved only in their browser.
+let DB=null, state=load(), catalog=loadCat(), filters={status:'all',rarity:'all',q:''};
 
 function load(){ try{return JSON.parse(localStorage.getItem(KEY))||{}}catch{return {}} }
 function save(){ localStorage.setItem(KEY,JSON.stringify(state)) }
-function loadMine(){ try{return JSON.parse(localStorage.getItem(MINEKEY))||{}}catch{return {}} }
-function saveMine(){ localStorage.setItem(MINEKEY,JSON.stringify(mine)) }
 function loadCat(){ try{return JSON.parse(localStorage.getItem(CATKEY))||null}catch{return null} }
 const uid=(s,v)=>s+':'+v;
-// The active collection depends on which tab you're on.
-const track=()=>mode==='mine'?mine:state;
-const st=k=>track()[k]||{owned:false,mastered:false};
-const editable=()=>mode==='mine';
+const st=k=>state[k]||{owned:false,mastered:false};
 
 const norm=s=>(s||'').toLowerCase().replace(/[^a-z0-9]/g,'');
 const findSprite=name=>DB.sprites.find(s=>norm(s.name)===norm(name))
@@ -305,28 +292,33 @@ function buildEntries(){
   }
 }
 
-// Apply a spritetrading-export.json file into a chosen collection.
-// target 'state' = the showcase (owner sync); 'mine' = this visitor's tracking.
-function importExport(d, target){
+// Import a spritetrading-export.json as this visitor's own collection.
+function importExport(d){
   if(!d || !Array.isArray(d.entries)) throw new Error('not a SpriteTrading export');
-  target=target||'state';
   catalog={entries:d.entries};
   localStorage.setItem(CATKEY,JSON.stringify(catalog));
   buildEntries();
   const byKey=new Map(ENTRIES.map(e=>[e.key,e]));
-  const dest={};
+  state={};
   let n=0;
   for(const e of d.entries){
     const s=findSprite(e.sprite), v=findVariant(e.variant);
     const k=uid(s?s.id:norm(e.sprite), v?v.id:norm(e.variant));
     if(!byKey.has(k)) continue;
-    dest[k]={owned:!!e.collected, mastered:!!e.mastered, level:e.level||null};
+    state[k]={owned:!!e.collected, mastered:!!e.mastered, level:e.level||null};
     n++;
   }
-  if(target==='mine'){ mine=dest; saveMine(); }
-  else { state=dest; save(); }
-  render();
+  save(); render();
   return {applied:n, total:d.entries.length};
+}
+
+// Refresh just the sprite catalogue (list + art) from the published file, so
+// new sprites show up for everyone, without touching what the visitor owns.
+function applyCatalog(d){
+  if(!d || !Array.isArray(d.entries)) return;
+  catalog={entries:d.entries};
+  localStorage.setItem(CATKEY,JSON.stringify(catalog));
+  buildEntries(); render();
 }
 
 function visible(){
@@ -350,13 +342,6 @@ const VCOL={normal:'#8b94ad',base:'#8b94ad',gold:'#F5C542',gummy:'#4dd4ff',
 const vcol=id=>VCOL[(id||'').toLowerCase()]||'#8b94ad';
 const VORDER=[['normal','Base'],['gold','Gold'],['gummy','Gummy'],['galaxy','Galaxy'],
   ['gem','Gem'],['holofoil','Holofoil'],['cube','Cube'],['quack','Quack']];
-let syncedAt=null;
-
-function fmtSync(when){
-  if(!when) return '';
-  const d=new Date(when);
-  return d.toLocaleString(undefined,{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'});
-}
 
 function renderHero(){
   const owned=ENTRIES.filter(e=>st(e.key).owned).length;
@@ -376,11 +361,9 @@ function renderHero(){
     </div>`;
   }).join('');
 
-  const syncLine=(mode==='showcase'&&syncedAt)?`<span class="hs-sync">⚡ Synced ${fmtSync(syncedAt)}</span>`:'';
   return `<section class="hero">
     <div class="hero-count"><b>${owned}</b><span>of ${t} sprites collected</span></div>
     <div class="hero-sub">
-      ${syncLine}
       <span class="hs-mast">★ ${mast} mastered</span>
       <span class="hs-pct">${pct}%</span>
     </div>
@@ -405,9 +388,7 @@ function cardHTML(e){
   const status=s.mastered ? '<span class="tag-mast">★ MASTERED</span>'
     : s.owned ? (s.level?`<span class="tag-lvl">LVL ${s.level}</span>`:'<span class="tag-lvl">COLLECTED</span>')
     : '<span class="tag-miss">MISSING</span>';
-  const trackBtn=editable()
-    ? `<button class="track-btn" data-toggle="${e.key}" aria-label="Track">${s.mastered?'★':s.owned?'✓':'+'}</button>`
-    : '';
+  const trackBtn=`<button class="track-btn" data-toggle="${e.key}" aria-label="Track">${s.mastered?'★':s.owned?'✓':'+'}</button>`;
   return `<div class="card ${s.owned?'owned':''} ${s.mastered?'mastered':''}"
     style="--r:${col};--vc:${vc}" data-k="${e.key}">
     ${trackBtn}
@@ -421,20 +402,12 @@ function cardHTML(e){
   </div>`;
 }
 
-function renderModes(){
-  tabShowcase.textContent=OWNER+"'s Dex";
-  tabShowcase.classList.toggle('on',mode==='showcase');
-  tabMine.classList.toggle('on',mode==='mine');
-  // The refresh button only means something for the live showcase.
-  refreshBtn.style.display=mode==='showcase'?'':'none';
-}
-
 function render(){
-  renderModes(); renderFilters();
+  renderFilters();
   const list=visible();
   let html='';
-  // First time on "My Sprites" with nothing tracked yet: explain how to start.
-  if(mode==='mine' && !Object.keys(mine).length){
+  // Nothing tracked yet: explain how to start.
+  if(!Object.keys(state).length){
     html+=`<div class="onboard">
       <h3>Track your own collection</h3>
       <p>Tap the <b>+</b> on any sprite to mark it collected, tap again for mastered.
@@ -460,28 +433,20 @@ function render(){
 }
 
 // --- interaction ---
-function setMode(m){
-  if(m===mode) return;
-  mode=m; localStorage.setItem(MODEKEY,mode);
-  render();
-}
 function cycle(k){
-  const s={...(mine[k]||{owned:false,mastered:false})};
+  const s={...(state[k]||{owned:false,mastered:false})};
   // none -> collected -> mastered -> none
   if(!s.owned){ s.owned=true; s.mastered=false; }
   else if(!s.mastered){ s.mastered=true; }
   else { s.owned=false; s.mastered=false; }
-  if(s.owned) mine[k]=s; else delete mine[k];
-  saveMine(); render();
+  if(s.owned) state[k]=s; else delete state[k];
+  save(); render();
 }
 
 document.addEventListener('click',ev=>{
-  const tab=ev.target.closest('[data-mode]');
-  if(tab){ setMode(tab.dataset.mode); return; }
-
   if(ev.target.closest('#onboardImport')){ importFile.click(); return; }
 
-  // In "My Sprites" the + button tracks; a card tap still opens the details.
+  // The + button tracks; a card tap opens the details.
   const tg=ev.target.closest('[data-toggle]');
   if(tg){ ev.stopPropagation(); cycle(tg.dataset.toggle); return; }
 
@@ -552,22 +517,21 @@ function openInfo(key){
     `<div class="facts">${facts.map(([b,l])=>
       `<div class="fact"><b>${esc(b)}</b><span>${esc(l)}</span></div>`).join('')}</div>`;
 
-  // In "My Sprites" mode, let people set their status right from the details.
-  infoTrack.innerHTML = editable()
-    ? `<div class="track-set">
-        <button class="ts ${s.owned&&!s.mastered?'on':''}" data-set="owned" data-k="${e.key}">✓ Collected</button>
-        <button class="ts ${s.mastered?'on gold':''}" data-set="mastered" data-k="${e.key}">★ Mastered</button>
-        <button class="ts ${!s.owned?'on':''}" data-set="none" data-k="${e.key}">Not owned</button>
-      </div>`
-    : '';
+  // Let people set their status right from the details panel.
+  infoTrack.innerHTML =
+    `<div class="track-set">
+      <button class="ts ${s.owned&&!s.mastered?'on':''}" data-set="owned" data-k="${e.key}">✓ Collected</button>
+      <button class="ts ${s.mastered?'on gold':''}" data-set="mastered" data-k="${e.key}">★ Mastered</button>
+      <button class="ts ${!s.owned?'on':''}" data-set="none" data-k="${e.key}">Not owned</button>
+    </div>`;
 
   if(!infoDlg.open) infoDlg.showModal();
 }
 function setStatus(k,which){
-  if(which==='none') delete mine[k];
-  else if(which==='owned') mine[k]={owned:true,mastered:false};
-  else if(which==='mastered') mine[k]={owned:true,mastered:true};
-  saveMine();
+  if(which==='none') delete state[k];
+  else if(which==='owned') state[k]={owned:true,mastered:false};
+  else if(which==='mastered') state[k]={owned:true,mastered:true};
+  save();
   openInfo(k);   // refresh the panel's highlighted state
   render();      // and the grid behind it
 }
@@ -721,9 +685,9 @@ async function drawPNG(view,groupBy){
 // --- data menu ---
 menuBtn.onclick=()=>menuDlg.showModal();
 menuClose.onclick=()=>menuDlg.close();
-// The Data menu manages YOUR personal tracking (the "My Sprites" tab).
+// The Data menu manages your own collection, stored on this device.
 backupBtn.onclick=()=>{
-  const b=new Blob([JSON.stringify({v:1,saved:new Date().toISOString(),state:mine},null,2)],
+  const b=new Blob([JSON.stringify({v:1,saved:new Date().toISOString(),state},null,2)],
     {type:'application/json'});
   const u=URL.createObjectURL(b),a=document.createElement('a');
   a.href=u;a.download='sprite-index-backup.json';a.click();
@@ -733,8 +697,8 @@ importBtn.onclick=()=>importFile.click();
 importFile.onchange=async e=>{
   const f=e.target.files[0]; if(!f) return;
   try{
-    const r=importExport(JSON.parse(await f.text()),'mine');
-    setMode('mine'); menuDlg.close();
+    const r=importExport(JSON.parse(await f.text()));
+    menuDlg.close();
     alert(`Imported ${r.applied} of ${r.total} sprites into your collection.`);
   }catch(err){ alert('Could not read that file: '+err.message) }
   e.target.value='';
@@ -745,13 +709,13 @@ restoreFile.onchange=async e=>{
   try{
     const d=JSON.parse(await f.text());
     if(!d.state) throw 0;
-    mine=d.state; saveMine(); setMode('mine'); render(); menuDlg.close();
+    state=d.state; save(); render(); menuDlg.close();
     alert('Progress restored.');
   }catch{ alert('That file is not a valid backup.') }
 };
 resetBtn.onclick=()=>{
   if(confirm('Erase your tracked collection on this device?')){
-    mine={}; saveMine(); render(); menuDlg.close();
+    state={}; save(); render(); menuDlg.close();
   }
 };
 
@@ -769,54 +733,29 @@ function toast(msg,bad){
   toastT=setTimeout(()=>toastEl.classList.remove('on'),2600);
 }
 
-// --- sync ---
-const SYNCKEY='spriteIndex.lastSync';
-const tally=()=>({
-  owned:ENTRIES.filter(e=>st(e.key).owned).length,
-  mast:ENTRIES.filter(e=>st(e.key).mastered).length
-});
-
-// The published collection is what makes the app self-updating. It runs on
-// open, and the ↻ button runs it on demand for when you've just finished a
-// match and don't want to wait for the next visit.
-async function pullCollection(manual){
+// --- catalogue refresh ---
+// The published file is the master list of every sprite (and its art). Pulling
+// it keeps the sprite LIST current for everyone as new sprites release - it
+// never touches what each visitor owns, which is theirs and local.
+async function pullCatalog(manual){
   if(manual){ refreshBtn.dataset.busy='1'; refreshBtn.disabled=true }
-  const before=tally();
   try{
     const r=await fetch('data/collection.json?t='+Date.now(),{cache:'no-store'});
     if(!r.ok) throw new Error('HTTP '+r.status);
     const d=await r.json();
-    const stamp=d.exportedAt||'';
-    // On open, skip the work when nothing has changed. On a manual refresh
-    // always re-apply: pressing ↻ is a request to match the published data,
-    // which is also how local state gets repaired if it ever drifts.
-    if(manual || (stamp && stamp!==localStorage.getItem(SYNCKEY))){
-      importExport(d);
-      if(stamp) localStorage.setItem(SYNCKEY,stamp);
-    }
-    showSynced(stamp);
+    const before=ENTRIES.length;
+    applyCatalog(d);
     if(manual){
-      const after=tally();
-      const bits=[];
-      if(after.owned!==before.owned) bits.push((after.owned-before.owned>0?'+':'')+(after.owned-before.owned)+' collected');
-      if(after.mast!==before.mast) bits.push((after.mast-before.mast>0?'+':'')+(after.mast-before.mast)+' mastered');
-      toast(bits.length ? 'Updated · '+bits.join(' · ') : 'Already up to date');
+      const added=ENTRIES.length-before;
+      toast(added>0 ? `Sprite list updated · ${added} new` : 'Sprite list up to date');
     }
   }catch(err){
-    // Offline or the file didn't load: keep whatever we already had.
-    if(manual) toast('Could not reach the server — showing your last synced data',true);
+    if(manual) toast('Could not reach the server — showing the last list',true);
   }finally{
     if(manual){ delete refreshBtn.dataset.busy; refreshBtn.disabled=false }
   }
 }
-refreshBtn.onclick=()=>pullCollection(true);
-
-// The sync time lives in the hero now; just record it and repaint.
-function showSynced(when){
-  if(!when) return;
-  syncedAt=when;
-  render();
-}
+refreshBtn.onclick=()=>pullCatalog(true);
 
 // --- creator code ---
 creatorBar.onclick=async()=>{
@@ -832,7 +771,7 @@ async function boot(){
     content.innerHTML='<p class="empty">Could not load sprite data.</p>'; return;
   }
   buildEntries(); render();
-  await pullCollection(false);
+  await pullCatalog(false);
 }
 boot();
 if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});
