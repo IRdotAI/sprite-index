@@ -1,11 +1,11 @@
 {
   "source": "spritetrading.com",
-  "exportedAt": "2026-08-19T18:50:29.749Z",
+  "exportedAt": "2026-08-19T19:48:57.103Z",
   "totals": {
     "entries": 117,
     "collected": 117,
-    "mastered": 107,
-    "notMastered": 10
+    "mastered": 108,
+    "notMastered": 9
   },
   "entries": [
     {
@@ -1189,8 +1189,8 @@
       "variant": "Galaxy",
       "label": "Galaxy Grim",
       "collected": true,
-      "mastered": false,
-      "level": 1,
+      "mastered": true,
+      "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/galaxy-grim.webp?w=192",
       "slug": "galaxy-grim",
