@@ -52,6 +52,19 @@
         break;
       }
     }
+
+    // The label is not always right: spritetrading renders Cube Zero Point
+    // as plain "Zero Point", which collides with its own Normal. The image
+    // filename (cube-zeropoint.webp vs zeropoint.webp) is authoritative.
+    const artEl = [...card.querySelectorAll('img')]
+      .find(i => /\/sprites\//.test(i.getAttribute('src') || ''));
+    const src = artEl ? (artEl.getAttribute('src') || '') : '';
+    if (src) {
+      const file = src.split('/').pop().split('?')[0];
+      const fileVariant = VARIANTS.find(v => file.toLowerCase().startsWith(v.toLowerCase() + '-'));
+      variant = fileVariant || 'Normal';
+    }
+
     sprite = ALIAS[sprite] || sprite;
 
     const mastered = visible(q('.masteredline'));
