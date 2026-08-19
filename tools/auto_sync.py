@@ -288,11 +288,11 @@ ExecStart=/usr/bin/python3 {script}
 """
 
 TIMER = """[Unit]
-Description=Sprite Index auto-sync every 30 minutes
+Description=Sprite Index auto-sync every 10 minutes
 
 [Timer]
-OnBootSec=5min
-OnUnitActiveSec=30min
+OnBootSec=2min
+OnUnitActiveSec=10min
 Persistent=true
 
 [Install]
@@ -308,7 +308,7 @@ def install():
     open(os.path.join(d, "sprite-sync.timer"), "w").write(TIMER)
     subprocess.run(["systemctl", "--user", "daemon-reload"], check=True)
     subprocess.run(["systemctl", "--user", "enable", "--now", "sprite-sync.timer"], check=True)
-    print("Installed. It will sync every 30 minutes while the Deck is on.")
+    print("Installed. It will sync every 10 minutes while the Deck is on.")
     print("  status:  systemctl --user list-timers sprite-sync.timer")
     print("  logs:    journalctl --user -u sprite-sync.service -n 40")
     print("  stop:    systemctl --user disable --now sprite-sync.timer")
