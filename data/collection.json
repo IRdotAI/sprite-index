@@ -1,11 +1,11 @@
 {
   "source": "spritetrading.com",
-  "exportedAt": "2026-08-19T20:48:13.895Z",
+  "exportedAt": "2026-08-19T21:44:06.545Z",
   "totals": {
     "entries": 117,
     "collected": 117,
-    "mastered": 111,
-    "notMastered": 6
+    "mastered": 113,
+    "notMastered": 4
   },
   "entries": [
     {
@@ -181,8 +181,8 @@
       "variant": "Cube",
       "label": "Cube Earth",
       "collected": true,
-      "mastered": false,
-      "level": 1,
+      "mastered": true,
+      "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/cube-earth.webp?w=192",
       "slug": "cube-earth",
@@ -1427,8 +1427,8 @@
       "variant": "Gold",
       "label": "Gold Llama",
       "collected": true,
-      "mastered": false,
-      "level": 1,
+      "mastered": true,
+      "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/gold-llama.webp?w=192",
       "slug": "gold-llama",
