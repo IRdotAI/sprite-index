@@ -153,8 +153,9 @@
   console.table(list.filter(e => e.collected && !e.mastered)
     .map(e => ({ sprite: e.sprite, variant: e.variant, level: e.level })));
 
-  // auto_sync.py reads window.__export directly over DevTools, so a download
-  // there would only litter ~/Downloads with a file per run.
+  // Set window.__SPRITE_NO_DOWNLOAD before running this if you only want
+  // window.__export - an automated caller downloading a file per run is what
+  // once filled ~/Downloads with 35 copies of the export.
   if (window.__SPRITE_NO_DOWNLOAD) return;
 
   try {
