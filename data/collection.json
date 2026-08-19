@@ -1,11 +1,11 @@
 {
   "source": "spritetrading.com",
-  "exportedAt": "2026-08-19T22:03:10.542Z",
+  "exportedAt": "2026-08-19T23:27:16.231Z",
   "totals": {
     "entries": 117,
     "collected": 117,
-    "mastered": 115,
-    "notMastered": 2
+    "mastered": 117,
+    "notMastered": 0
   },
   "entries": [
     {
@@ -937,8 +937,8 @@
       "variant": "Normal",
       "label": "Striker",
       "collected": true,
-      "mastered": false,
-      "level": 1,
+      "mastered": true,
+      "level": 5,
       "rarity": "Epic",
       "img": "https://api.spritetrading.com/sprites/striker.webp?w=192",
       "slug": "striker",
@@ -1315,8 +1315,8 @@
       "variant": "Normal",
       "label": "Seven",
       "collected": true,
-      "mastered": false,
-      "level": 1,
+      "mastered": true,
+      "level": 5,
       "rarity": "Legendary",
       "img": "https://api.spritetrading.com/sprites/seven.webp?w=192",
       "slug": "seven",
