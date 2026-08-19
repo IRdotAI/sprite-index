@@ -39,11 +39,29 @@ input[type=search]{flex:1;min-width:120px}
 .creator .cc-note{color:#04374a;font-weight:600;font-size:11.5px}
 @media (max-width:420px){.creator .cc-note{display:none}}
 
+.modes{display:flex;gap:4px;margin-top:10px;background:var(--panel);border:1px solid var(--line);
+  border-radius:11px;padding:4px}
+.mtab{flex:1;border:0;background:transparent;color:var(--dim);border-radius:8px;
+  padding:8px 6px;font-size:13.5px;font-weight:700}
+.mtab.on{background:var(--accent);color:#04202b}
+
 .filters{display:flex;gap:6px;margin-top:9px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
 .filters::-webkit-scrollbar{display:none}
 .chip{border-radius:999px;padding:6px 12px;font-size:13px;white-space:nowrap;
   background:var(--panel);border:1px solid var(--line);color:var(--dim)}
 .chip.on{background:var(--accent);color:#04202b;border-color:transparent;font-weight:650}
+
+/* tap-to-track control on cards (My Sprites mode) */
+.track-btn{position:absolute;top:7px;right:7px;z-index:2;width:30px;height:30px;border-radius:9px;
+  border:1px solid var(--line);background:rgba(13,15,22,.72);color:#6b748a;
+  font-size:15px;line-height:1;display:grid;place-items:center;padding:0}
+.card.owned .track-btn{color:#0c0e14;background:var(--accent);border-color:transparent}
+.card.mastered .track-btn{color:#1a1400;background:var(--mythic)}
+.onboard{background:var(--panel);border:1px solid var(--line);border-radius:14px;
+  padding:18px 16px;margin-bottom:16px;text-align:center}
+.onboard h3{margin:0 0 6px;font-size:16px}
+.onboard p{margin:0 0 12px;color:var(--dim);font-size:13.5px;line-height:1.5}
+.onboard .row2{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
 
 main{padding:12px}
 
@@ -137,7 +155,12 @@ main{padding:12px}
 .fact b{display:block;font-size:14px;font-weight:700}
 .fact span{font-size:11px;color:var(--dim)}
 .info-foot{padding:0 16px 16px}
-.info-foot button{width:100%}
+.info-foot>button{width:100%}
+.track-set{display:flex;gap:6px;margin-bottom:10px}
+.track-set .ts{flex:1;padding:9px 4px;font-size:12px;font-weight:700;border-radius:9px;
+  background:var(--panel2);border:1px solid var(--line);color:var(--dim)}
+.track-set .ts.on{background:var(--accent);color:#04202b;border-color:transparent}
+.track-set .ts.on.gold{background:var(--mythic);color:#1a1400}
 
 dialog{border:1px solid var(--line);background:var(--panel);color:var(--text);
   border-radius:14px;padding:0;width:min(92vw,420px)}
@@ -164,6 +187,10 @@ dialog::backdrop{background:rgba(0,0,0,.6)}
     <button id="refreshBtn" aria-label="Check for new sprites" title="Check for new sprites"><span class="ico">↻</span></button>
     <button id="exportBtn" class="btn-accent">Export</button>
     <button id="menuBtn" aria-label="Data menu">⋯</button>
+  </div>
+  <div class="modes" id="modeTabs">
+    <button class="mtab" data-mode="showcase" id="tabShowcase">RdotA's Dex</button>
+    <button class="mtab" data-mode="mine" id="tabMine">My Sprites</button>
   </div>
   <div class="row" style="margin-top:9px">
     <input type="search" id="search" placeholder="Search sprites…" autocomplete="off">
@@ -200,7 +227,10 @@ dialog::backdrop{background:rgba(0,0,0,.6)}
 <dialog id="infoDlg">
   <div class="info-head" id="infoHead"></div>
   <div class="info-body" id="infoBody"></div>
-  <div class="info-foot"><button id="infoClose" class="btn-accent">Close</button></div>
+  <div class="info-foot">
+    <div id="infoTrack"></div>
+    <button id="infoClose" class="btn-accent">Close</button>
+  </div>
 </dialog>
 
 <dialog id="menuDlg"><div class="dlg-body">
@@ -218,14 +248,24 @@ dialog::backdrop{background:rgba(0,0,0,.6)}
 </div></dialog>
 
 <script>
-const KEY='spriteIndex.v1', CATKEY='spriteIndex.catalog.v1';
-let DB=null, state=load(), catalog=loadCat(), filters={status:'all',rarity:'all',q:''};
+const KEY='spriteIndex.v1', CATKEY='spriteIndex.catalog.v1', MINEKEY='spriteIndex.mine.v1', MODEKEY='spriteIndex.mode';
+const OWNER='RdotA';
+// state  = the showcase (owner's live synced collection)
+// mine   = this visitor's own tracking, saved only in their browser
+let DB=null, state=load(), mine=loadMine(), catalog=loadCat(),
+    mode=localStorage.getItem(MODEKEY)||'showcase',
+    filters={status:'all',rarity:'all',q:''};
 
 function load(){ try{return JSON.parse(localStorage.getItem(KEY))||{}}catch{return {}} }
 function save(){ localStorage.setItem(KEY,JSON.stringify(state)) }
+function loadMine(){ try{return JSON.parse(localStorage.getItem(MINEKEY))||{}}catch{return {}} }
+function saveMine(){ localStorage.setItem(MINEKEY,JSON.stringify(mine)) }
 function loadCat(){ try{return JSON.parse(localStorage.getItem(CATKEY))||null}catch{return null} }
 const uid=(s,v)=>s+':'+v;
-const st=k=>state[k]||{owned:false,mastered:false};
+// The active collection depends on which tab you're on.
+const track=()=>mode==='mine'?mine:state;
+const st=k=>track()[k]||{owned:false,mastered:false};
+const editable=()=>mode==='mine';
 
 const norm=s=>(s||'').toLowerCase().replace(/[^a-z0-9]/g,'');
 const findSprite=name=>DB.sprites.find(s=>norm(s.name)===norm(name))
@@ -265,22 +305,27 @@ function buildEntries(){
   }
 }
 
-// Apply a spritetrading-export.json file.
-function importExport(d){
+// Apply a spritetrading-export.json file into a chosen collection.
+// target 'state' = the showcase (owner sync); 'mine' = this visitor's tracking.
+function importExport(d, target){
   if(!d || !Array.isArray(d.entries)) throw new Error('not a SpriteTrading export');
+  target=target||'state';
   catalog={entries:d.entries};
   localStorage.setItem(CATKEY,JSON.stringify(catalog));
   buildEntries();
   const byKey=new Map(ENTRIES.map(e=>[e.key,e]));
+  const dest={};
   let n=0;
   for(const e of d.entries){
     const s=findSprite(e.sprite), v=findVariant(e.variant);
     const k=uid(s?s.id:norm(e.sprite), v?v.id:norm(e.variant));
     if(!byKey.has(k)) continue;
-    state[k]={owned:!!e.collected, mastered:!!e.mastered, level:e.level||null};
+    dest[k]={owned:!!e.collected, mastered:!!e.mastered, level:e.level||null};
     n++;
   }
-  save(); render();
+  if(target==='mine'){ mine=dest; saveMine(); }
+  else { state=dest; save(); }
+  render();
   return {applied:n, total:d.entries.length};
 }
 
@@ -331,10 +376,11 @@ function renderHero(){
     </div>`;
   }).join('');
 
+  const syncLine=(mode==='showcase'&&syncedAt)?`<span class="hs-sync">⚡ Synced ${fmtSync(syncedAt)}</span>`:'';
   return `<section class="hero">
     <div class="hero-count"><b>${owned}</b><span>of ${t} sprites collected</span></div>
     <div class="hero-sub">
-      ${syncedAt?`<span class="hs-sync">⚡ Synced ${fmtSync(syncedAt)}</span>`:''}
+      ${syncLine}
       <span class="hs-mast">★ ${mast} mastered</span>
       <span class="hs-pct">${pct}%</span>
     </div>
@@ -359,8 +405,12 @@ function cardHTML(e){
   const status=s.mastered ? '<span class="tag-mast">★ MASTERED</span>'
     : s.owned ? (s.level?`<span class="tag-lvl">LVL ${s.level}</span>`:'<span class="tag-lvl">COLLECTED</span>')
     : '<span class="tag-miss">MISSING</span>';
+  const trackBtn=editable()
+    ? `<button class="track-btn" data-toggle="${e.key}" aria-label="Track">${s.mastered?'★':s.owned?'✓':'+'}</button>`
+    : '';
   return `<div class="card ${s.owned?'owned':''} ${s.mastered?'mastered':''}"
     style="--r:${col};--vc:${vc}" data-k="${e.key}">
+    ${trackBtn}
     <div class="art-wrap">
       ${e.img
         ? `<img class="art" src="${e.img}" alt="" loading="lazy" decoding="async">`
@@ -371,10 +421,31 @@ function cardHTML(e){
   </div>`;
 }
 
+function renderModes(){
+  tabShowcase.textContent=OWNER+"'s Dex";
+  tabShowcase.classList.toggle('on',mode==='showcase');
+  tabMine.classList.toggle('on',mode==='mine');
+  // The refresh button only means something for the live showcase.
+  refreshBtn.style.display=mode==='showcase'?'':'none';
+}
+
 function render(){
-  renderFilters();
+  renderModes(); renderFilters();
   const list=visible();
-  let html=renderHero();
+  let html='';
+  // First time on "My Sprites" with nothing tracked yet: explain how to start.
+  if(mode==='mine' && !Object.keys(mine).length){
+    html+=`<div class="onboard">
+      <h3>Track your own collection</h3>
+      <p>Tap the <b>+</b> on any sprite to mark it collected, tap again for mastered.
+      Saved on this device only — no login, nothing leaves your phone.<br>
+      Got a Sprite Trading export? Import it to fill everything at once.</p>
+      <div class="row2">
+        <button class="btn-accent" id="onboardImport">Import from SpriteTrading</button>
+      </div>
+    </div>`;
+  }
+  html+=renderHero();
   if(!list.length){
     content.innerHTML=html+'<p class="empty">Nothing matches those filters.</p>'; return;
   }
@@ -389,9 +460,35 @@ function render(){
 }
 
 // --- interaction ---
-// Collection state comes from the synced export, so a tap opens the details
-// rather than changing anything.
+function setMode(m){
+  if(m===mode) return;
+  mode=m; localStorage.setItem(MODEKEY,mode);
+  render();
+}
+function cycle(k){
+  const s={...(mine[k]||{owned:false,mastered:false})};
+  // none -> collected -> mastered -> none
+  if(!s.owned){ s.owned=true; s.mastered=false; }
+  else if(!s.mastered){ s.mastered=true; }
+  else { s.owned=false; s.mastered=false; }
+  if(s.owned) mine[k]=s; else delete mine[k];
+  saveMine(); render();
+}
+
 document.addEventListener('click',ev=>{
+  const tab=ev.target.closest('[data-mode]');
+  if(tab){ setMode(tab.dataset.mode); return; }
+
+  if(ev.target.closest('#onboardImport')){ importFile.click(); return; }
+
+  // In "My Sprites" the + button tracks; a card tap still opens the details.
+  const tg=ev.target.closest('[data-toggle]');
+  if(tg){ ev.stopPropagation(); cycle(tg.dataset.toggle); return; }
+
+  // Status buttons inside the info popup.
+  const set=ev.target.closest('[data-set]');
+  if(set){ setStatus(set.dataset.k,set.dataset.set); return; }
+
   const c=ev.target.closest('.chip');
   if(c){
     if(c.dataset.s) filters.status=c.dataset.s;
@@ -455,7 +552,24 @@ function openInfo(key){
     `<div class="facts">${facts.map(([b,l])=>
       `<div class="fact"><b>${esc(b)}</b><span>${esc(l)}</span></div>`).join('')}</div>`;
 
-  infoDlg.showModal();
+  // In "My Sprites" mode, let people set their status right from the details.
+  infoTrack.innerHTML = editable()
+    ? `<div class="track-set">
+        <button class="ts ${s.owned&&!s.mastered?'on':''}" data-set="owned" data-k="${e.key}">✓ Collected</button>
+        <button class="ts ${s.mastered?'on gold':''}" data-set="mastered" data-k="${e.key}">★ Mastered</button>
+        <button class="ts ${!s.owned?'on':''}" data-set="none" data-k="${e.key}">Not owned</button>
+      </div>`
+    : '';
+
+  if(!infoDlg.open) infoDlg.showModal();
+}
+function setStatus(k,which){
+  if(which==='none') delete mine[k];
+  else if(which==='owned') mine[k]={owned:true,mastered:false};
+  else if(which==='mastered') mine[k]={owned:true,mastered:true};
+  saveMine();
+  openInfo(k);   // refresh the panel's highlighted state
+  render();      // and the grid behind it
 }
 infoClose.onclick=()=>infoDlg.close();
 // Tapping the backdrop closes it, which is what the gesture implies on a phone.
@@ -607,8 +721,9 @@ async function drawPNG(view,groupBy){
 // --- data menu ---
 menuBtn.onclick=()=>menuDlg.showModal();
 menuClose.onclick=()=>menuDlg.close();
+// The Data menu manages YOUR personal tracking (the "My Sprites" tab).
 backupBtn.onclick=()=>{
-  const b=new Blob([JSON.stringify({v:1,saved:new Date().toISOString(),state},null,2)],
+  const b=new Blob([JSON.stringify({v:1,saved:new Date().toISOString(),state:mine},null,2)],
     {type:'application/json'});
   const u=URL.createObjectURL(b),a=document.createElement('a');
   a.href=u;a.download='sprite-index-backup.json';a.click();
@@ -618,9 +733,9 @@ importBtn.onclick=()=>importFile.click();
 importFile.onchange=async e=>{
   const f=e.target.files[0]; if(!f) return;
   try{
-    const r=importExport(JSON.parse(await f.text()));
-    menuDlg.close();
-    alert(`Imported ${r.applied} of ${r.total} sprites from SpriteTrading.`);
+    const r=importExport(JSON.parse(await f.text()),'mine');
+    setMode('mine'); menuDlg.close();
+    alert(`Imported ${r.applied} of ${r.total} sprites into your collection.`);
   }catch(err){ alert('Could not read that file: '+err.message) }
   e.target.value='';
 };
@@ -630,13 +745,13 @@ restoreFile.onchange=async e=>{
   try{
     const d=JSON.parse(await f.text());
     if(!d.state) throw 0;
-    state=d.state; save(); render(); menuDlg.close();
+    mine=d.state; saveMine(); setMode('mine'); render(); menuDlg.close();
     alert('Progress restored.');
   }catch{ alert('That file is not a valid backup.') }
 };
 resetBtn.onclick=()=>{
-  if(confirm('Erase all collected/mastered progress on this device?')){
-    state={}; save(); render(); menuDlg.close();
+  if(confirm('Erase your tracked collection on this device?')){
+    mine={}; saveMine(); render(); menuDlg.close();
   }
 };
 
