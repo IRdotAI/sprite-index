@@ -291,9 +291,10 @@ TIMER = """[Unit]
 Description=Sprite Index auto-sync every 10 minutes
 
 [Timer]
-OnBootSec=2min
-OnUnitActiveSec=10min
+# Fires on clock boundaries: :00, :10, :20, :30, :40, :50
+OnCalendar=*:00/10
 Persistent=true
+AccuracySec=10s
 
 [Install]
 WantedBy=timers.target
