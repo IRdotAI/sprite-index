@@ -1,11 +1,11 @@
 {
   "source": "spritetrading.com",
-  "exportedAt": "2026-08-19T15:05:01.125Z",
+  "exportedAt": "2026-08-19T17:13:50.567Z",
   "totals": {
     "entries": 117,
     "collected": 117,
-    "mastered": 100,
-    "notMastered": 17
+    "mastered": 101,
+    "notMastered": 16
   },
   "entries": [
     {
@@ -853,8 +853,8 @@
       "variant": "Quack",
       "label": "Quack Zero Point",
       "collected": true,
-      "mastered": false,
-      "level": 1,
+      "mastered": true,
+      "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/quack-zeropoint.webp?w=192",
       "slug": "quack-zeropoint",
