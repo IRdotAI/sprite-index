@@ -1,11 +1,11 @@
 {
  "source": "spritetrading.com",
- "exportedAt": "2026-08-19T00:21:36.283Z",
+ "exportedAt": "2026-08-19T00:43:40.209Z",
  "totals": {
   "entries": 117,
   "collected": 117,
-  "mastered": 90,
-  "notMastered": 27
+  "mastered": 91,
+  "notMastered": 26
  },
  "entries": [
   {
@@ -333,8 +333,8 @@
    "variant": "Gold",
    "label": "Gold Dream",
    "collected": true,
-   "mastered": false,
-   "level": 1,
+   "mastered": true,
+   "level": 5,
    "rarity": "Special",
    "img": "https://api.spritetrading.com/sprites/gold-dream.webp?w=192"
   },
