@@ -28,12 +28,16 @@ button:active{transform:scale(.97)}
 .btn-accent{background:var(--accent);color:#04202b;border-color:transparent;font-weight:650}
 input[type=search]{flex:1;min-width:120px}
 
-.stats{display:flex;gap:6px;margin-top:9px;overflow-x:auto;scrollbar-width:none}
-.stats::-webkit-scrollbar{display:none}
-.stat{background:var(--panel);border:1px solid var(--line);border-radius:9px;
-  padding:6px 10px;white-space:nowrap;font-size:12px}
-.stat b{font-size:15px;display:block;line-height:1.25}
-.stat span{color:var(--dim)}
+/* creator-code bar */
+.creator{display:flex;align-items:center;justify-content:center;gap:9px;cursor:pointer;
+  background:linear-gradient(90deg,var(--accent),#7ee6ff);color:#04202b;
+  border:0;width:100%;padding:8px 12px;border-radius:10px;margin-bottom:10px;
+  font-size:12.5px;font-weight:700}
+.creator .cc-tag{font-size:9.5px;font-weight:800;letter-spacing:.7px;text-transform:uppercase;
+  background:rgba(4,32,43,.85);color:#bff2ff;padding:2px 7px;border-radius:6px}
+.creator b{font-size:15px;font-weight:900;letter-spacing:1px}
+.creator .cc-note{color:#04374a;font-weight:600;font-size:11.5px}
+@media (max-width:420px){.creator .cc-note{display:none}}
 
 .filters{display:flex;gap:6px;margin-top:9px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
 .filters::-webkit-scrollbar{display:none}
@@ -42,32 +46,56 @@ input[type=search]{flex:1;min-width:120px}
 .chip.on{background:var(--accent);color:#04202b;border-color:transparent;font-weight:650}
 
 main{padding:12px}
-.group-title{display:flex;align-items:center;gap:8px;margin:18px 0 9px;font-size:13px;
-  text-transform:uppercase;letter-spacing:.9px;color:var(--dim);font-weight:700}
-.group-title::after{content:"";flex:1;height:1px;background:var(--line)}
-.grid{display:grid;gap:9px;grid-template-columns:repeat(auto-fill,minmax(96px,1fr))}
 
-.card{position:relative;background:var(--panel);border:1px solid var(--line);
-  border-radius:12px;padding:8px 7px 7px;text-align:center;cursor:pointer;
-  transition:border-color .12s,background .12s;overflow:hidden}
-.card::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;background:var(--r)}
-.card.owned{background:var(--panel2);border-color:var(--r)}
-.card:not(.owned) .art,.card:not(.owned) .nm,.card:not(.owned) .vr{opacity:.32;filter:grayscale(1)}
-.art{width:46px;height:46px;margin:5px auto 6px;border-radius:10px;
-  display:grid;place-items:center;font-size:20px;font-weight:800;color:#0c0e14;
-  background:var(--r)}
-img.art{object-fit:contain;background:transparent}
-.nm{font-size:12px;font-weight:650;line-height:1.2;
-  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.vr{font-size:10.5px;color:var(--dim);margin-top:1px}
-.star{position:absolute;top:4px;right:4px;width:24px;height:24px;border-radius:7px;
-  border:0;background:rgba(0,0,0,.35);color:#4a5268;font-size:13px;line-height:1;
-  display:grid;place-items:center;padding:0}
-.card.mastered .star{background:var(--mythic);color:#1a1400}
+/* hero: big collected count + variant breakdown */
+.hero{background:var(--panel);border:1px solid var(--line);border-radius:16px;
+  padding:16px 16px 18px;margin-bottom:16px}
+.hero-count{display:flex;align-items:baseline;gap:9px}
+.hero-count b{font-size:38px;font-weight:800;line-height:1;letter-spacing:-.5px}
+.hero-count span{color:var(--dim);font-size:15px}
+.hero-sub{display:flex;align-items:center;gap:14px;margin:12px 0 10px;font-size:14px;flex-wrap:wrap}
+.hero-sub .hs-sync{color:var(--accent);font-weight:600}
+.hero-sub .hs-mast{color:var(--mythic);font-weight:700}
+.hero-sub .hs-pct{margin-left:auto;font-size:22px;font-weight:800;color:var(--mythic)}
+.bar{height:8px;border-radius:99px;background:var(--panel2);overflow:hidden}
+.bar>i{display:block;height:100%;border-radius:99px;
+  background:linear-gradient(90deg,var(--mythic),#ffe082)}
+.breakdown{display:grid;grid-template-columns:1fr 1fr;gap:12px 22px;margin-top:16px}
+.bd-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:5px}
+.bd-top span{font-size:12px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--dim)}
+.bd-top b{font-size:14px;font-weight:700}
+.bd-bar{height:5px;border-radius:99px;background:var(--panel2);overflow:hidden}
+.bd-bar>i{display:block;height:100%;border-radius:99px;background:var(--c)}
+
+.group-title{display:flex;align-items:center;gap:8px;margin:18px 0 11px;font-size:13px;
+  text-transform:uppercase;letter-spacing:.9px;font-weight:700}
+.group-title::after{content:"";flex:1;height:1px;background:var(--line)}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+
+/* big collectible cards */
+.card{position:relative;border:1px solid var(--line);border-radius:16px;overflow:hidden;
+  background:var(--panel2);cursor:pointer;transition:transform .1s,border-color .12s}
+.card:active{transform:scale(.98)}
 .card.mastered{border-color:var(--mythic)}
+.card:not(.owned){filter:grayscale(.95);opacity:.5}
+.art-wrap{position:relative;aspect-ratio:1/1;display:grid;place-items:center;padding:16px}
+.art-wrap::before{content:"";position:absolute;inset:0;background:var(--vc);opacity:.28}
+.art-wrap::after{content:"";position:absolute;inset:0;
+  background:radial-gradient(120% 80% at 50% 12%,transparent,rgba(13,15,22,.55))}
+.art{position:relative;z-index:1;width:82%;height:82%;object-fit:contain;
+  filter:drop-shadow(0 8px 16px rgba(0,0,0,.55))}
+.art-fallback{position:relative;z-index:1;width:64%;height:64%;border-radius:16px;
+  display:grid;place-items:center;font:800 34px/1 system-ui,sans-serif;
+  color:#0c0e14;background:var(--vc)}
+.card-foot{display:flex;justify-content:space-between;align-items:center;gap:6px;padding:8px 11px 0}
+.tag-mast{color:var(--mythic);font-weight:800;font-size:10.5px;letter-spacing:.5px}
+.tag-miss{color:var(--dim);font-weight:800;font-size:10.5px;letter-spacing:.5px}
+.tag-lvl{color:var(--accent);font-weight:800;font-size:10.5px;letter-spacing:.5px}
+.tag-rarity{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;
+  padding:3px 8px;border-radius:7px;background:var(--r);color:#0c0e14;white-space:nowrap}
+.nm{padding:4px 11px 12px;font-weight:700;font-size:14px;line-height:1.2;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .empty{color:var(--dim);text-align:center;padding:40px 12px}
-.synced{color:var(--dim);font-size:12px;text-align:center;margin:2px 0 10px}
-.card{cursor:pointer}
 
 #refreshBtn{padding:8px 10px;line-height:1}
 #refreshBtn .ico{display:inline-block}
@@ -85,16 +113,19 @@ img.art{object-fit:contain;background:transparent}
 
 /* --- sprite info panel --- */
 #infoDlg{width:min(94vw,430px)}
-.info-head{display:flex;gap:13px;align-items:center;padding:16px 16px 13px;
-  border-bottom:1px solid var(--line)}
-.info-art{width:64px;height:64px;border-radius:13px;flex:none;object-fit:contain;
-  background:var(--panel2);display:grid;place-items:center;
-  font:800 26px/1 system-ui,sans-serif;color:#0c0e14}
-.info-head h2{margin:0;font-size:17px;line-height:1.2}
-.info-sub{color:var(--dim);font-size:12.5px;margin-top:3px}
-.pill{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.5px;
-  text-transform:uppercase;padding:3px 9px;border-radius:999px;margin-top:6px;
-  background:var(--r);color:#0c0e14}
+.info-head{position:relative;overflow:hidden;text-align:center;
+  padding:24px 16px 18px;border-bottom:1px solid var(--line)}
+.info-head::before{content:"";position:absolute;inset:0;background:var(--vc);opacity:.22}
+.info-head::after{content:"";position:absolute;inset:0;
+  background:radial-gradient(130% 90% at 50% 0,transparent,var(--panel))}
+.info-art{position:relative;z-index:1;width:118px;height:118px;margin:0 auto 12px;
+  object-fit:contain;filter:drop-shadow(0 10px 20px rgba(0,0,0,.55));
+  display:grid;place-items:center;font:800 46px/1 system-ui,sans-serif;color:#0c0e14}
+.info-head h2{position:relative;z-index:1;margin:0;font-size:22px;line-height:1.2}
+.info-sub{position:relative;z-index:1;color:var(--dim);font-size:13px;margin-top:4px}
+.pill{position:relative;z-index:1;display:inline-block;font-size:11px;font-weight:800;
+  letter-spacing:.5px;text-transform:uppercase;padding:4px 11px;border-radius:999px;
+  margin-top:10px;background:var(--r);color:#0c0e14}
 .pill.miss{background:var(--panel2);color:var(--dim);border:1px solid var(--line)}
 .info-body{padding:4px 16px 16px;max-height:min(52vh,440px);overflow-y:auto}
 .info-sec{margin-top:14px}
@@ -123,13 +154,17 @@ dialog::backdrop{background:rgba(0,0,0,.6)}
 <body>
 
 <header>
+  <button class="creator" id="creatorBar" title="Copy creator code">
+    <span class="cc-tag">Creator Code</span>
+    <b>RDOTA</b>
+    <span class="cc-note">Use in the Item Shop · #EpicPartner</span>
+  </button>
   <div class="row">
     <h1>Sprite Index</h1>
     <button id="refreshBtn" aria-label="Check for new sprites" title="Check for new sprites"><span class="ico">↻</span></button>
     <button id="exportBtn" class="btn-accent">Export</button>
     <button id="menuBtn" aria-label="Data menu">⋯</button>
   </div>
-  <div class="stats" id="stats"></div>
   <div class="row" style="margin-top:9px">
     <input type="search" id="search" placeholder="Search sprites…" autocomplete="off">
   </div>
@@ -263,17 +298,49 @@ function visible(){
   });
 }
 
-function renderStats(){
+// Per-variant colours (kept inside our palette), used for the breakdown bars
+// and to tint each card the way spritetrading tints its cards.
+const VCOL={normal:'#8b94ad',base:'#8b94ad',gold:'#F5C542',gummy:'#4dd4ff',
+  galaxy:'#A64BF4',gem:'#3ddc97',holofoil:'#ff6ec7',cube:'#F0862E',quack:'#7bd88f'};
+const vcol=id=>VCOL[(id||'').toLowerCase()]||'#8b94ad';
+const VORDER=[['normal','Base'],['gold','Gold'],['gummy','Gummy'],['galaxy','Galaxy'],
+  ['gem','Gem'],['holofoil','Holofoil'],['cube','Cube'],['quack','Quack']];
+let syncedAt=null;
+
+function fmtSync(when){
+  if(!when) return '';
+  const d=new Date(when);
+  return d.toLocaleString(undefined,{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'});
+}
+
+function renderHero(){
   const owned=ENTRIES.filter(e=>st(e.key).owned).length;
   const mast=ENTRIES.filter(e=>st(e.key).mastered).length;
-  const t=ENTRIES.length;
-  stats.innerHTML=[
-    ['Collected',`${owned}<span>/${t}</span>`],
-    ['Missing',t-owned],
-    ['Mastered',`${mast}<span>/${owned||0}</span>`],
-    ['Not mastered',owned-mast],
-    ['Complete',Math.round(owned/t*100)+'%']
-  ].map(([l,v])=>`<div class="stat"><b>${v}</b><span>${l}</span></div>`).join('');
+  const t=ENTRIES.length||1;
+  const pct=Math.round(owned/t*100);
+
+  const m={};
+  for(const e of ENTRIES){
+    const id=(e.variantId||'').toLowerCase();
+    (m[id]=m[id]||{o:0,t:0}); m[id].t++; if(st(e.key).owned) m[id].o++;
+  }
+  const bd=VORDER.filter(([id])=>m[id]&&m[id].t).map(([id,label])=>{
+    const c=m[id]; return `<div class="bd">
+      <div class="bd-top"><span>${label}</span><b>${c.o}/${c.t}</b></div>
+      <div class="bd-bar"><i style="--c:${vcol(id)};width:${Math.round(c.o/c.t*100)}%"></i></div>
+    </div>`;
+  }).join('');
+
+  return `<section class="hero">
+    <div class="hero-count"><b>${owned}</b><span>of ${t} sprites collected</span></div>
+    <div class="hero-sub">
+      ${syncedAt?`<span class="hs-sync">⚡ Synced ${fmtSync(syncedAt)}</span>`:''}
+      <span class="hs-mast">★ ${mast} mastered</span>
+      <span class="hs-pct">${pct}%</span>
+    </div>
+    <div class="bar"><i style="width:${pct}%"></i></div>
+    <div class="breakdown">${bd}</div>
+  </section>`;
 }
 
 function renderFilters(){
@@ -287,23 +354,30 @@ function renderFilters(){
 
 function cardHTML(e){
   const s=st(e.key), col=DB.rarities.find(r=>r.id===e.sprite.rarity).color;
+  const vc=vcol(e.variantId);
+  const name=e.variant.name==='Normal'?e.sprite.name:`${e.variant.name} ${e.sprite.name}`;
+  const status=s.mastered ? '<span class="tag-mast">★ MASTERED</span>'
+    : s.owned ? (s.level?`<span class="tag-lvl">LVL ${s.level}</span>`:'<span class="tag-lvl">COLLECTED</span>')
+    : '<span class="tag-miss">MISSING</span>';
   return `<div class="card ${s.owned?'owned':''} ${s.mastered?'mastered':''}"
-    style="--r:${col}" data-k="${e.key}">
-    <span class="star" aria-hidden="true">★</span>
-    ${e.img
-      ? `<img class="art" src="${e.img}" alt="" loading="lazy" decoding="async">`
-      : `<div class="art">${e.sprite.name[0]}</div>`}
-    <div class="nm">${e.sprite.name}</div>
-    <div class="vr">${e.variant.name}${
-      s.owned && !s.mastered && s.level ? ` · Lv${s.level}` : ''}</div>
+    style="--r:${col};--vc:${vc}" data-k="${e.key}">
+    <div class="art-wrap">
+      ${e.img
+        ? `<img class="art" src="${e.img}" alt="" loading="lazy" decoding="async">`
+        : `<div class="art-fallback">${e.sprite.name[0]}</div>`}
+    </div>
+    <div class="card-foot">${status}<span class="tag-rarity">${e.sprite.rarity}</span></div>
+    <div class="nm">${name}</div>
   </div>`;
 }
 
 function render(){
-  renderStats(); renderFilters();
+  renderFilters();
   const list=visible();
-  if(!list.length){ content.innerHTML='<p class="empty">Nothing matches those filters.</p>'; return }
-  let html='';
+  let html=renderHero();
+  if(!list.length){
+    content.innerHTML=html+'<p class="empty">Nothing matches those filters.</p>'; return;
+  }
   for(const r of DB.rarities){
     const g=list.filter(e=>e.sprite.rarity===r.id);
     if(!g.length) continue;
@@ -338,21 +412,22 @@ function openInfo(key){
   const e=ENTRIES.find(x=>x.key===key);
   if(!e) return;
   const s=st(e.key), r=DB.rarities.find(x=>x.id===e.sprite.rarity), col=r.color;
+  const vc=vcol(e.variantId);
   const raw=e.raw||{};
+  const name=e.variant.name==='Normal'?e.sprite.name:`${e.variant.name} ${e.sprite.name}`;
 
   const status=s.mastered ? '★ Mastered'
     : s.owned ? (s.level ? 'Collected · Level '+s.level : 'Collected')
     : 'Not collected';
 
+  infoHead.style.setProperty('--vc',vc);
   infoHead.innerHTML=`
     ${e.img
       ? `<img class="info-art" src="${esc(e.img)}" alt="">`
-      : `<div class="info-art" style="background:${col}">${esc(e.sprite.name[0])}</div>`}
-    <div style="min-width:0">
-      <h2>${esc(e.sprite.name)}</h2>
-      <div class="info-sub">${esc(e.variant.name)} variant</div>
-      <span class="pill ${s.owned?'':'miss'}" style="--r:${col}">${esc(s.owned?r.name:'Missing')}</span>
-    </div>`;
+      : `<div class="info-art" style="background:${vc}">${esc(e.sprite.name[0])}</div>`}
+    <h2>${esc(name)}</h2>
+    <div class="info-sub">${esc(e.variant.name)} variant</div>
+    <span class="pill ${s.owned?'':'miss'}" style="--r:${col}">${esc(s.owned?r.name:'Missing')}</span>`;
 
   // Only show sections we actually have text for - an empty heading is noise.
   const secs=[
@@ -621,19 +696,18 @@ async function pullCollection(manual){
 }
 refreshBtn.onclick=()=>pullCollection(true);
 
-// One line, updated in place - re-syncing must not stack copies of it.
+// The sync time lives in the hero now; just record it and repaint.
 function showSynced(when){
   if(!when) return;
-  let el=document.querySelector('.synced');
-  if(!el){
-    el=document.createElement('div');
-    el.className='synced';
-    document.querySelector('main').prepend(el);
-  }
-  const d=new Date(when);
-  el.textContent='Synced from Epic via SpriteTrading · '+
-    d.toLocaleString(undefined,{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'});
+  syncedAt=when;
+  render();
 }
+
+// --- creator code ---
+creatorBar.onclick=async()=>{
+  try{ await navigator.clipboard.writeText('RDOTA'); toast('Creator code RDOTA copied — use it in the Item Shop'); }
+  catch{ toast('Creator code: RDOTA'); }
+};
 
 // --- boot ---
 async function boot(){
