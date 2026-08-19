@@ -1,11 +1,11 @@
 {
   "source": "spritetrading.com",
-  "exportedAt": "2026-08-19T13:44:17.265Z",
+  "exportedAt": "2026-08-19T14:30:17.631Z",
   "totals": {
     "entries": 117,
     "collected": 117,
-    "mastered": 97,
-    "notMastered": 20
+    "mastered": 99,
+    "notMastered": 18
   },
   "entries": [
     {
@@ -1343,8 +1343,8 @@
       "variant": "Gummy",
       "label": "Gummy Seven",
       "collected": true,
-      "mastered": false,
-      "level": 1,
+      "mastered": true,
+      "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/gummy-seven.webp?w=192",
       "slug": "gummy-seven",
@@ -1609,8 +1609,8 @@
       "variant": "Galaxy",
       "label": "Galaxy Batman",
       "collected": true,
-      "mastered": false,
-      "level": 1,
+      "mastered": true,
+      "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/galaxy-fossilmeal.webp?w=192",
       "slug": "galaxy-fossilmeal",
