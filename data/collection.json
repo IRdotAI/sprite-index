@@ -1,11 +1,11 @@
 {
  "source": "spritetrading.com",
- "exportedAt": "2026-08-19T01:36:46.891Z",
+ "exportedAt": "2026-08-19T01:40:16.732Z",
  "totals": {
   "entries": 117,
   "collected": 117,
-  "mastered": 91,
-  "notMastered": 26
+  "mastered": 93,
+  "notMastered": 24
  },
  "entries": [
   {
@@ -293,8 +293,8 @@
    "variant": "Gummy",
    "label": "Gummy Ghost",
    "collected": true,
-   "mastered": false,
-   "level": 1,
+   "mastered": true,
+   "level": 5,
    "rarity": "Special",
    "img": "https://api.spritetrading.com/sprites/gummy-ghost.webp?w=192"
   },
@@ -564,7 +564,7 @@
    "label": "Gummy Zero Point",
    "collected": true,
    "mastered": false,
-   "level": 1,
+   "level": 4,
    "rarity": "Special",
    "img": "https://api.spritetrading.com/sprites/gummy-zeropoint.webp?w=192"
   },
@@ -724,7 +724,7 @@
    "label": "Aura",
    "collected": true,
    "mastered": false,
-   "level": 1,
+   "level": 3,
    "rarity": "Epic",
    "img": "https://api.spritetrading.com/sprites/aura.webp?w=192"
   },
@@ -843,8 +843,8 @@
    "variant": "Gummy",
    "label": "Gummy Grim",
    "collected": true,
-   "mastered": false,
-   "level": 1,
+   "mastered": true,
+   "level": 5,
    "rarity": "Special",
    "img": "https://api.spritetrading.com/sprites/gummy-grim.webp?w=192"
   },
@@ -1144,7 +1144,7 @@
    "label": "Gummy Batman",
    "collected": true,
    "mastered": false,
-   "level": null,
+   "level": 1,
    "rarity": "Special",
    "img": "https://api.spritetrading.com/sprites/gummy-fossilmeal.webp?w=192"
   },
