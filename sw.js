@@ -1,5 +1,5 @@
 // Bump CACHE on every deploy so phones pick up new sprite data.
-const CACHE = 'sprite-index-v202608191736';
+const CACHE = 'sprite-index-v202608191744';
 const ASSETS = ['./', './index.html', './data/sprites.json', './manifest.json'];
 
 self.addEventListener('install', e => {
