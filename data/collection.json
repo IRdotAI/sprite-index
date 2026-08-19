@@ -1,11 +1,11 @@
 {
  "source": "spritetrading.com",
- "exportedAt": "2026-08-19T02:00:16.670Z",
+ "exportedAt": "2026-08-19T02:10:16.683Z",
  "totals": {
   "entries": 117,
   "collected": 117,
-  "mastered": 94,
-  "notMastered": 23
+  "mastered": 96,
+  "notMastered": 21
  },
  "entries": [
   {
@@ -563,8 +563,8 @@
    "variant": "Gummy",
    "label": "Gummy Zero Point",
    "collected": true,
-   "mastered": false,
-   "level": 4,
+   "mastered": true,
+   "level": 5,
    "rarity": "Special",
    "img": "https://api.spritetrading.com/sprites/gummy-zeropoint.webp?w=192"
   },
@@ -693,8 +693,8 @@
    "variant": "Gummy",
    "label": "Gummy Striker",
    "collected": true,
-   "mastered": false,
-   "level": 1,
+   "mastered": true,
+   "level": 5,
    "rarity": "Special",
    "img": "https://api.spritetrading.com/sprites/gummy-striker.webp?w=192"
   },
@@ -1024,7 +1024,7 @@
    "label": "Gold Llama",
    "collected": true,
    "mastered": false,
-   "level": null,
+   "level": 1,
    "rarity": "Special",
    "img": "https://api.spritetrading.com/sprites/gold-llama.webp?w=192"
   },
