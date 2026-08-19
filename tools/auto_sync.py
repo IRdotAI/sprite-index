@@ -246,6 +246,7 @@ def sync_once():
         print(f"Rendered {n} sprite cards")
 
         grab = open(os.path.join(HERE, "grab2.js")).read()
+        cdp.eval("window.__SPRITE_NO_DOWNLOAD = true")
         cdp.eval(grab, timeout_ms=90000)
         payload = cdp.eval("window.__export")
         if not payload:

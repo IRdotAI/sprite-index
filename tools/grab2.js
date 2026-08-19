@@ -153,6 +153,10 @@
   console.table(list.filter(e => e.collected && !e.mastered)
     .map(e => ({ sprite: e.sprite, variant: e.variant, level: e.level })));
 
+  // auto_sync.py reads window.__export directly over DevTools, so a download
+  // there would only litter ~/Downloads with a file per run.
+  if (window.__SPRITE_NO_DOWNLOAD) return;
+
   try {
     const b = new Blob([text], { type: 'application/json' });
     const a = document.createElement('a');

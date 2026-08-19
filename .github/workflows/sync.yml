@@ -1,0 +1,47 @@
+name: Sync collection
+
+# Pulls the collection from spritetrading.com and publishes it. Runs on
+# GitHub's machines, so the Steam Deck can be off - it needs nothing but the
+# ST_SESSION secret (your spritetrading login cookie).
+on:
+  schedule:
+    - cron: "*/10 * * * *"   # GitHub queues these; expect a few minutes' drift
+  workflow_dispatch:          # "Run workflow" button, for syncing on demand
+
+concurrency:
+  group: sync-collection
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch collection
+        env:
+          ST_SESSION: ${{ secrets.ST_SESSION }}
+        run: |
+          if [ -z "$ST_SESSION" ]; then
+            echo "::error::ST_SESSION secret is not set. Run tools/session_from_chrome.py and add it under Settings -> Secrets and variables -> Actions."
+            exit 1
+          fi
+          python3 tools/fetch_collection.py
+
+      - name: Publish if the collection moved
+        run: |
+          if ! python3 tools/collection_changed.py; then
+            git checkout -- data/collection.json
+            exit 0
+          fi
+          STAMP="$(date -u +%Y%m%d%H%M)"
+          sed -i "s/^const CACHE = 'sprite-index-[^']*'/const CACHE = 'sprite-index-v${STAMP}'/" sw.js
+          git config user.name "sprite-index bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/collection.json sw.js
+          git commit -qm "Sync collection ${STAMP}"
+          git push
+          echo "Published -> https://IRdotAI.github.io/sprite-index/"
