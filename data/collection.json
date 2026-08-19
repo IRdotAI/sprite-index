@@ -1,11 +1,11 @@
 {
   "source": "spritetrading.com",
-  "exportedAt": "2026-08-19T20:10:18.474Z",
+  "exportedAt": "2026-08-19T20:48:13.895Z",
   "totals": {
     "entries": 117,
     "collected": 117,
-    "mastered": 110,
-    "notMastered": 7
+    "mastered": 111,
+    "notMastered": 6
   },
   "entries": [
     {
@@ -1147,8 +1147,8 @@
       "variant": "Normal",
       "label": "Grim",
       "collected": true,
-      "mastered": false,
-      "level": 1,
+      "mastered": true,
+      "level": 5,
       "rarity": "Mythic",
       "img": "https://api.spritetrading.com/sprites/grim.webp?w=192",
       "slug": "grim",
