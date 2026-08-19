@@ -1,11 +1,11 @@
 {
   "source": "spritetrading.com",
-  "exportedAt": "2026-08-19T13:05:06.193Z",
+  "exportedAt": "2026-08-19T13:44:17.265Z",
   "totals": {
     "entries": 117,
     "collected": 117,
-    "mastered": 96,
-    "notMastered": 21
+    "mastered": 97,
+    "notMastered": 20
   },
   "entries": [
     {
@@ -17,7 +17,10 @@
       "level": 5,
       "rarity": "Rare",
       "img": "https://api.spritetrading.com/sprites/water.webp?w=192",
-      "slug": "water"
+      "slug": "water",
+      "cost": 1800,
+      "dex": 1,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Water",
@@ -28,7 +31,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/gold-water.webp?w=192",
-      "slug": "gold-water"
+      "slug": "gold-water",
+      "cost": 2700,
+      "dex": 1,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Water",
@@ -39,7 +45,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/gummy-water.webp?w=192",
-      "slug": "gummy-water"
+      "slug": "gummy-water",
+      "cost": 2700,
+      "dex": 1,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Water",
@@ -50,7 +59,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/galaxy-water.webp?w=192",
-      "slug": "galaxy-water"
+      "slug": "galaxy-water",
+      "cost": 2700,
+      "dex": 1,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Water",
@@ -61,7 +73,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/gem-water.webp?w=192",
-      "slug": "gem-water"
+      "slug": "gem-water",
+      "cost": 2700,
+      "dex": 1,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Water",
@@ -72,7 +87,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/holofoil-water.webp?w=192",
-      "slug": "holofoil-water"
+      "slug": "holofoil-water",
+      "cost": 2700,
+      "dex": 1,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Water",
@@ -83,7 +101,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/quack-water.webp?w=192",
-      "slug": "quack-water"
+      "slug": "quack-water",
+      "cost": 2700,
+      "dex": 1,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Earth",
@@ -94,7 +115,10 @@
       "level": 5,
       "rarity": "Rare",
       "img": "https://api.spritetrading.com/sprites/earth.webp?w=192",
-      "slug": "earth"
+      "slug": "earth",
+      "cost": 1800,
+      "dex": 2,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Earth",
@@ -105,7 +129,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/gold-earth.webp?w=192",
-      "slug": "gold-earth"
+      "slug": "gold-earth",
+      "cost": 2700,
+      "dex": 2,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Earth",
@@ -116,7 +143,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/gummy-earth.webp?w=192",
-      "slug": "gummy-earth"
+      "slug": "gummy-earth",
+      "cost": 2700,
+      "dex": 2,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Earth",
@@ -127,7 +157,10 @@
       "level": 1,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/galaxy-earth.webp?w=192",
-      "slug": "galaxy-earth"
+      "slug": "galaxy-earth",
+      "cost": 2700,
+      "dex": 2,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Earth",
@@ -138,7 +171,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/gem-earth.webp?w=192",
-      "slug": "gem-earth"
+      "slug": "gem-earth",
+      "cost": 2700,
+      "dex": 2,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Earth",
@@ -149,7 +185,10 @@
       "level": 1,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/cube-earth.webp?w=192",
-      "slug": "cube-earth"
+      "slug": "cube-earth",
+      "cost": 2700,
+      "dex": 2,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Earth",
@@ -160,7 +199,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/quack-earth.webp?w=192",
-      "slug": "quack-earth"
+      "slug": "quack-earth",
+      "cost": 2700,
+      "dex": 2,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Fire",
@@ -171,7 +213,10 @@
       "level": 5,
       "rarity": "Rare",
       "img": "https://api.spritetrading.com/sprites/fire.webp?w=192",
-      "slug": "fire"
+      "slug": "fire",
+      "cost": 1800,
+      "dex": 3,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Fire",
@@ -182,7 +227,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/gold-fire.webp?w=192",
-      "slug": "gold-fire"
+      "slug": "gold-fire",
+      "cost": 2700,
+      "dex": 3,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Fire",
@@ -193,7 +241,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/gummy-fire.webp?w=192",
-      "slug": "gummy-fire"
+      "slug": "gummy-fire",
+      "cost": 2700,
+      "dex": 3,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Fire",
@@ -204,7 +255,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/galaxy-fire.webp?w=192",
-      "slug": "galaxy-fire"
+      "slug": "galaxy-fire",
+      "cost": 2700,
+      "dex": 3,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Fire",
@@ -215,7 +269,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/holofoil-fire.webp?w=192",
-      "slug": "holofoil-fire"
+      "slug": "holofoil-fire",
+      "cost": 2700,
+      "dex": 3,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Fire",
@@ -226,7 +283,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/cube-fire.webp?w=192",
-      "slug": "cube-fire"
+      "slug": "cube-fire",
+      "cost": 2700,
+      "dex": 3,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Fire",
@@ -237,7 +297,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/quack-fire.webp?w=192",
-      "slug": "quack-fire"
+      "slug": "quack-fire",
+      "cost": 2700,
+      "dex": 3,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Duck",
@@ -248,7 +311,10 @@
       "level": 5,
       "rarity": "Epic",
       "img": "https://api.spritetrading.com/sprites/duck.webp?w=192",
-      "slug": "duck"
+      "slug": "duck",
+      "cost": 2700,
+      "dex": 4,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Duck",
@@ -259,7 +325,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/gold-duck.webp?w=192",
-      "slug": "gold-duck"
+      "slug": "gold-duck",
+      "cost": 4000,
+      "dex": 4,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Duck",
@@ -270,7 +339,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/gummy-duck.webp?w=192",
-      "slug": "gummy-duck"
+      "slug": "gummy-duck",
+      "cost": 4000,
+      "dex": 4,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Duck",
@@ -281,7 +353,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/galaxy-duck.webp?w=192",
-      "slug": "galaxy-duck"
+      "slug": "galaxy-duck",
+      "cost": 4000,
+      "dex": 4,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Duck",
@@ -292,7 +367,10 @@
       "level": 1,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/gem-duck.webp?w=192",
-      "slug": "gem-duck"
+      "slug": "gem-duck",
+      "cost": 4000,
+      "dex": 4,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Ghost",
@@ -303,7 +381,10 @@
       "level": 5,
       "rarity": "Epic",
       "img": "https://api.spritetrading.com/sprites/ghost.webp?w=192",
-      "slug": "ghost"
+      "slug": "ghost",
+      "cost": 2700,
+      "dex": 5,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Ghost",
@@ -314,7 +395,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/gold-ghost.webp?w=192",
-      "slug": "gold-ghost"
+      "slug": "gold-ghost",
+      "cost": 4000,
+      "dex": 5,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Ghost",
@@ -325,7 +409,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/gummy-ghost.webp?w=192",
-      "slug": "gummy-ghost"
+      "slug": "gummy-ghost",
+      "cost": 4000,
+      "dex": 5,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Ghost",
@@ -336,7 +423,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/galaxy-ghost.webp?w=192",
-      "slug": "galaxy-ghost"
+      "slug": "galaxy-ghost",
+      "cost": 4000,
+      "dex": 5,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Ghost",
@@ -347,7 +437,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/holofoil-ghost.webp?w=192",
-      "slug": "holofoil-ghost"
+      "slug": "holofoil-ghost",
+      "cost": 4000,
+      "dex": 5,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Dream",
@@ -358,7 +451,10 @@
       "level": 5,
       "rarity": "Legendary",
       "img": "https://api.spritetrading.com/sprites/dream.webp?w=192",
-      "slug": "dream"
+      "slug": "dream",
+      "cost": 4500,
+      "dex": 6,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Dream",
@@ -369,7 +465,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/gold-dream.webp?w=192",
-      "slug": "gold-dream"
+      "slug": "gold-dream",
+      "cost": 6750,
+      "dex": 6,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Dream",
@@ -380,7 +479,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/gummy-dream.webp?w=192",
-      "slug": "gummy-dream"
+      "slug": "gummy-dream",
+      "cost": 6750,
+      "dex": 6,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Dream",
@@ -391,18 +493,24 @@
       "level": 1,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/galaxy-dream.webp?w=192",
-      "slug": "galaxy-dream"
+      "slug": "galaxy-dream",
+      "cost": 6750,
+      "dex": 6,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Dream",
       "variant": "Cube",
       "label": "Cube Dream",
       "collected": true,
-      "mastered": false,
-      "level": 2,
+      "mastered": true,
+      "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/cube-dream.webp?w=192",
-      "slug": "cube-dream"
+      "slug": "cube-dream",
+      "cost": 6750,
+      "dex": 6,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Demon",
@@ -413,7 +521,10 @@
       "level": 5,
       "rarity": "Epic",
       "img": "https://api.spritetrading.com/sprites/demon.webp?w=192",
-      "slug": "demon"
+      "slug": "demon",
+      "cost": 2700,
+      "dex": 7,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Demon",
@@ -424,7 +535,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/gold-demon.webp?w=192",
-      "slug": "gold-demon"
+      "slug": "gold-demon",
+      "cost": 4000,
+      "dex": 7,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Demon",
@@ -435,7 +549,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/gummy-demon.webp?w=192",
-      "slug": "gummy-demon"
+      "slug": "gummy-demon",
+      "cost": 4000,
+      "dex": 7,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Demon",
@@ -446,7 +563,10 @@
       "level": 1,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/galaxy-demon.webp?w=192",
-      "slug": "galaxy-demon"
+      "slug": "galaxy-demon",
+      "cost": 4000,
+      "dex": 7,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Demon",
@@ -457,7 +577,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/gem-demon.webp?w=192",
-      "slug": "gem-demon"
+      "slug": "gem-demon",
+      "cost": 4000,
+      "dex": 7,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Punk",
@@ -468,7 +591,10 @@
       "level": 5,
       "rarity": "Legendary",
       "img": "https://api.spritetrading.com/sprites/punk.webp?w=192",
-      "slug": "punk"
+      "slug": "punk",
+      "cost": 4500,
+      "dex": 8,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Punk",
@@ -479,7 +605,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/gold-punk.webp?w=192",
-      "slug": "gold-punk"
+      "slug": "gold-punk",
+      "cost": 6750,
+      "dex": 8,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Punk",
@@ -490,7 +619,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/gummy-punk.webp?w=192",
-      "slug": "gummy-punk"
+      "slug": "gummy-punk",
+      "cost": 6750,
+      "dex": 8,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Punk",
@@ -501,7 +633,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/galaxy-punk.webp?w=192",
-      "slug": "galaxy-punk"
+      "slug": "galaxy-punk",
+      "cost": 6750,
+      "dex": 8,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Punk",
@@ -512,7 +647,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/cube-punk.webp?w=192",
-      "slug": "cube-punk"
+      "slug": "cube-punk",
+      "cost": 6750,
+      "dex": 8,
+      "acquired": 1787062095702
     },
     {
       "sprite": "King",
@@ -523,7 +661,10 @@
       "level": 5,
       "rarity": "Epic",
       "img": "https://api.spritetrading.com/sprites/king.webp?w=192",
-      "slug": "king"
+      "slug": "king",
+      "cost": 2700,
+      "dex": 9,
+      "acquired": 1787062095702
     },
     {
       "sprite": "King",
@@ -534,7 +675,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/gold-king.webp?w=192",
-      "slug": "gold-king"
+      "slug": "gold-king",
+      "cost": 4000,
+      "dex": 9,
+      "acquired": 1787062095702
     },
     {
       "sprite": "King",
@@ -545,7 +689,10 @@
       "level": 1,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/gummy-king.webp?w=192",
-      "slug": "gummy-king"
+      "slug": "gummy-king",
+      "cost": 4000,
+      "dex": 9,
+      "acquired": 1787062095702
     },
     {
       "sprite": "King",
@@ -556,7 +703,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/galaxy-king.webp?w=192",
-      "slug": "galaxy-king"
+      "slug": "galaxy-king",
+      "cost": 4000,
+      "dex": 9,
+      "acquired": 1787062095702
     },
     {
       "sprite": "King",
@@ -567,7 +717,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/holofoil-king.webp?w=192",
-      "slug": "holofoil-king"
+      "slug": "holofoil-king",
+      "cost": 4000,
+      "dex": 9,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Burnt Peanut",
@@ -578,7 +731,10 @@
       "level": 1,
       "rarity": "Mythic",
       "img": "https://api.spritetrading.com/sprites/burntpeanut.webp?w=192",
-      "slug": "burntpeanut"
+      "slug": "burntpeanut",
+      "cost": 6750,
+      "dex": 10,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Vini Jr.",
@@ -589,7 +745,10 @@
       "level": 5,
       "rarity": "Mythic",
       "img": "https://api.spritetrading.com/sprites/cokeparmesan.webp?w=192",
-      "slug": "cokeparmesan"
+      "slug": "cokeparmesan",
+      "cost": 6750,
+      "dex": 10,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Zero Point",
@@ -600,7 +759,10 @@
       "level": 5,
       "rarity": "Mythic",
       "img": "https://api.spritetrading.com/sprites/zeropoint.webp?w=192",
-      "slug": "zeropoint"
+      "slug": "zeropoint",
+      "cost": 6750,
+      "dex": 11,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Zero Point",
@@ -611,7 +773,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/gold-zeropoint.webp?w=192",
-      "slug": "gold-zeropoint"
+      "slug": "gold-zeropoint",
+      "cost": 10000,
+      "dex": 11,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Zero Point",
@@ -622,7 +787,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/gummy-zeropoint.webp?w=192",
-      "slug": "gummy-zeropoint"
+      "slug": "gummy-zeropoint",
+      "cost": 10000,
+      "dex": 11,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Zero Point",
@@ -633,7 +801,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/galaxy-zeropoint.webp?w=192",
-      "slug": "galaxy-zeropoint"
+      "slug": "galaxy-zeropoint",
+      "cost": 10000,
+      "dex": 11,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Zero Point",
@@ -644,7 +815,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/gem-zeropoint.webp?w=192",
-      "slug": "gem-zeropoint"
+      "slug": "gem-zeropoint",
+      "cost": 10000,
+      "dex": 11,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Zero Point",
@@ -655,7 +829,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/holofoil-zeropoint.webp?w=192",
-      "slug": "holofoil-zeropoint"
+      "slug": "holofoil-zeropoint",
+      "cost": 10000,
+      "dex": 11,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Zero Point",
@@ -666,7 +843,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/cube-zeropoint.webp?w=192",
-      "slug": "cube-zeropoint"
+      "slug": "cube-zeropoint",
+      "cost": 10000,
+      "dex": 11,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Zero Point",
@@ -677,7 +857,10 @@
       "level": 1,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/quack-zeropoint.webp?w=192",
-      "slug": "quack-zeropoint"
+      "slug": "quack-zeropoint",
+      "cost": 10000,
+      "dex": 11,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Fishy",
@@ -688,7 +871,10 @@
       "level": 5,
       "rarity": "Rare",
       "img": "https://api.spritetrading.com/sprites/fishy.webp?w=192",
-      "slug": "fishy"
+      "slug": "fishy",
+      "cost": 1800,
+      "dex": 12,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Fishy",
@@ -699,7 +885,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/gold-fishy.webp?w=192",
-      "slug": "gold-fishy"
+      "slug": "gold-fishy",
+      "cost": 2700,
+      "dex": 12,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Fishy",
@@ -710,7 +899,10 @@
       "level": 1,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/gummy-fishy.webp?w=192",
-      "slug": "gummy-fishy"
+      "slug": "gummy-fishy",
+      "cost": 2700,
+      "dex": 12,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Fishy",
@@ -721,7 +913,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/galaxy-fishy.webp?w=192",
-      "slug": "galaxy-fishy"
+      "slug": "galaxy-fishy",
+      "cost": 2700,
+      "dex": 12,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Fishy",
@@ -732,7 +927,10 @@
       "level": 1,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/cube-fishy.webp?w=192",
-      "slug": "cube-fishy"
+      "slug": "cube-fishy",
+      "cost": 2700,
+      "dex": 12,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Striker",
@@ -743,7 +941,10 @@
       "level": 1,
       "rarity": "Epic",
       "img": "https://api.spritetrading.com/sprites/striker.webp?w=192",
-      "slug": "striker"
+      "slug": "striker",
+      "cost": 2700,
+      "dex": 13,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Striker",
@@ -754,7 +955,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/gold-striker.webp?w=192",
-      "slug": "gold-striker"
+      "slug": "gold-striker",
+      "cost": 4000,
+      "dex": 13,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Striker",
@@ -765,7 +969,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/gummy-striker.webp?w=192",
-      "slug": "gummy-striker"
+      "slug": "gummy-striker",
+      "cost": 4000,
+      "dex": 13,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Striker",
@@ -776,7 +983,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/galaxy-striker.webp?w=192",
-      "slug": "galaxy-striker"
+      "slug": "galaxy-striker",
+      "cost": 4000,
+      "dex": 13,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Striker",
@@ -787,7 +997,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/holofoil-striker.webp?w=192",
-      "slug": "holofoil-striker"
+      "slug": "holofoil-striker",
+      "cost": 4000,
+      "dex": 13,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Aura",
@@ -795,10 +1008,13 @@
       "label": "Aura",
       "collected": true,
       "mastered": false,
-      "level": 3,
+      "level": 1,
       "rarity": "Epic",
       "img": "https://api.spritetrading.com/sprites/aura.webp?w=192",
-      "slug": "aura"
+      "slug": "aura",
+      "cost": 2700,
+      "dex": 14,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Aura",
@@ -809,7 +1025,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/gold-aura.webp?w=192",
-      "slug": "gold-aura"
+      "slug": "gold-aura",
+      "cost": 4000,
+      "dex": 14,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Aura",
@@ -820,7 +1039,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/gummy-aura.webp?w=192",
-      "slug": "gummy-aura"
+      "slug": "gummy-aura",
+      "cost": 4000,
+      "dex": 14,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Aura",
@@ -831,7 +1053,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/galaxy-aura.webp?w=192",
-      "slug": "galaxy-aura"
+      "slug": "galaxy-aura",
+      "cost": 4000,
+      "dex": 14,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Aura",
@@ -842,7 +1067,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/gem-aura.webp?w=192",
-      "slug": "gem-aura"
+      "slug": "gem-aura",
+      "cost": 4000,
+      "dex": 14,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Boss",
@@ -853,7 +1081,10 @@
       "level": 5,
       "rarity": "Legendary",
       "img": "https://api.spritetrading.com/sprites/boss.webp?w=192",
-      "slug": "boss"
+      "slug": "boss",
+      "cost": 4500,
+      "dex": 15,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Boss",
@@ -864,7 +1095,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/gold-boss.webp?w=192",
-      "slug": "gold-boss"
+      "slug": "gold-boss",
+      "cost": 6750,
+      "dex": 15,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Boss",
@@ -875,7 +1109,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/gummy-boss.webp?w=192",
-      "slug": "gummy-boss"
+      "slug": "gummy-boss",
+      "cost": 6750,
+      "dex": 15,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Boss",
@@ -886,7 +1123,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/galaxy-boss.webp?w=192",
-      "slug": "galaxy-boss"
+      "slug": "galaxy-boss",
+      "cost": 6750,
+      "dex": 15,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Boss",
@@ -897,7 +1137,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/cube-boss.webp?w=192",
-      "slug": "cube-boss"
+      "slug": "cube-boss",
+      "cost": 6750,
+      "dex": 15,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Grim Reaper",
@@ -908,7 +1151,10 @@
       "level": 1,
       "rarity": "Mythic",
       "img": "https://api.spritetrading.com/sprites/grim.webp?w=192",
-      "slug": "grim"
+      "slug": "grim",
+      "cost": 6750,
+      "dex": 16,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Grim Reaper",
@@ -919,7 +1165,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/gold-grim.webp?w=192",
-      "slug": "gold-grim"
+      "slug": "gold-grim",
+      "cost": 10000,
+      "dex": 16,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Grim Reaper",
@@ -930,7 +1179,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/gummy-grim.webp?w=192",
-      "slug": "gummy-grim"
+      "slug": "gummy-grim",
+      "cost": 10000,
+      "dex": 16,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Grim Reaper",
@@ -941,7 +1193,10 @@
       "level": 1,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/galaxy-grim.webp?w=192",
-      "slug": "galaxy-grim"
+      "slug": "galaxy-grim",
+      "cost": 10000,
+      "dex": 16,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Grim Reaper",
@@ -952,7 +1207,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/gem-grim.webp?w=192",
-      "slug": "gem-grim"
+      "slug": "gem-grim",
+      "cost": 10000,
+      "dex": 16,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Grim Reaper",
@@ -963,7 +1221,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/holofoil-grim.webp?w=192",
-      "slug": "holofoil-grim"
+      "slug": "holofoil-grim",
+      "cost": 10000,
+      "dex": 16,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Grim Reaper",
@@ -974,7 +1235,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/cube-grim.webp?w=192",
-      "slug": "cube-grim"
+      "slug": "cube-grim",
+      "cost": 10000,
+      "dex": 16,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Air",
@@ -985,7 +1249,10 @@
       "level": 5,
       "rarity": "Rare",
       "img": "https://api.spritetrading.com/sprites/air.webp?w=192",
-      "slug": "air"
+      "slug": "air",
+      "cost": 1800,
+      "dex": 17,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Air",
@@ -996,7 +1263,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/gold-air.webp?w=192",
-      "slug": "gold-air"
+      "slug": "gold-air",
+      "cost": 2700,
+      "dex": 17,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Air",
@@ -1007,7 +1277,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/gummy-air.webp?w=192",
-      "slug": "gummy-air"
+      "slug": "gummy-air",
+      "cost": 2700,
+      "dex": 17,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Air",
@@ -1018,7 +1291,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/galaxy-air.webp?w=192",
-      "slug": "galaxy-air"
+      "slug": "galaxy-air",
+      "cost": 2700,
+      "dex": 17,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Air",
@@ -1029,7 +1305,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/holofoil-air.webp?w=192",
-      "slug": "holofoil-air"
+      "slug": "holofoil-air",
+      "cost": 2700,
+      "dex": 17,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Seven",
@@ -1040,7 +1319,10 @@
       "level": 1,
       "rarity": "Legendary",
       "img": "https://api.spritetrading.com/sprites/seven.webp?w=192",
-      "slug": "seven"
+      "slug": "seven",
+      "cost": 4500,
+      "dex": 18,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Seven",
@@ -1051,7 +1333,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/gold-seven.webp?w=192",
-      "slug": "gold-seven"
+      "slug": "gold-seven",
+      "cost": 6750,
+      "dex": 18,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Seven",
@@ -1062,7 +1347,10 @@
       "level": 1,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/gummy-seven.webp?w=192",
-      "slug": "gummy-seven"
+      "slug": "gummy-seven",
+      "cost": 6750,
+      "dex": 18,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Seven",
@@ -1073,7 +1361,10 @@
       "level": 1,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/galaxy-seven.webp?w=192",
-      "slug": "galaxy-seven"
+      "slug": "galaxy-seven",
+      "cost": 6750,
+      "dex": 18,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Seven",
@@ -1084,7 +1375,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/holofoil-seven.webp?w=192",
-      "slug": "holofoil-seven"
+      "slug": "holofoil-seven",
+      "cost": 6750,
+      "dex": 18,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Ironmouse",
@@ -1095,7 +1389,10 @@
       "level": 5,
       "rarity": "Mythic",
       "img": "https://api.spritetrading.com/sprites/pedicureantacid.webp?w=192",
-      "slug": "pedicureantacid"
+      "slug": "pedicureantacid",
+      "cost": 6750,
+      "dex": 20,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Pollo",
@@ -1106,7 +1403,10 @@
       "level": 5,
       "rarity": "Mythic",
       "img": "https://api.spritetrading.com/sprites/companystargazer.webp?w=192",
-      "slug": "companystargazer"
+      "slug": "companystargazer",
+      "cost": 6750,
+      "dex": 21,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Llama",
@@ -1117,7 +1417,10 @@
       "level": 5,
       "rarity": "Legendary",
       "img": "https://api.spritetrading.com/sprites/llama.webp?w=192",
-      "slug": "llama"
+      "slug": "llama",
+      "cost": 4500,
+      "dex": 25,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Llama",
@@ -1128,7 +1431,10 @@
       "level": 1,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/gold-llama.webp?w=192",
-      "slug": "gold-llama"
+      "slug": "gold-llama",
+      "cost": 6750,
+      "dex": 25,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Llama",
@@ -1139,7 +1445,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/gummy-llama.webp?w=192",
-      "slug": "gummy-llama"
+      "slug": "gummy-llama",
+      "cost": 6750,
+      "dex": 25,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Llama",
@@ -1150,7 +1459,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/galaxy-llama.webp?w=192",
-      "slug": "galaxy-llama"
+      "slug": "galaxy-llama",
+      "cost": 6750,
+      "dex": 25,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Llama",
@@ -1161,7 +1473,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/gem-llama.webp?w=192",
-      "slug": "gem-llama"
+      "slug": "gem-llama",
+      "cost": 6750,
+      "dex": 25,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Peely",
@@ -1172,7 +1487,10 @@
       "level": 5,
       "rarity": "Legendary",
       "img": "https://api.spritetrading.com/sprites/peely.webp?w=192",
-      "slug": "peely"
+      "slug": "peely",
+      "cost": 4500,
+      "dex": 26,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Peely",
@@ -1183,7 +1501,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/gold-peely.webp?w=192",
-      "slug": "gold-peely"
+      "slug": "gold-peely",
+      "cost": 6750,
+      "dex": 26,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Peely",
@@ -1194,7 +1515,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/gummy-peely.webp?w=192",
-      "slug": "gummy-peely"
+      "slug": "gummy-peely",
+      "cost": 6750,
+      "dex": 26,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Peely",
@@ -1205,7 +1529,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/galaxy-peely.webp?w=192",
-      "slug": "galaxy-peely"
+      "slug": "galaxy-peely",
+      "cost": 6750,
+      "dex": 26,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Peely",
@@ -1216,7 +1543,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/holofoil-peely.webp?w=192",
-      "slug": "holofoil-peely"
+      "slug": "holofoil-peely",
+      "cost": 6750,
+      "dex": 26,
+      "acquired": 1787062095702
     },
     {
       "sprite": "John Wick",
@@ -1227,7 +1557,10 @@
       "level": 5,
       "rarity": "Mythic",
       "img": "https://api.spritetrading.com/sprites/fillergrunt.webp?w=192",
-      "slug": "fillergrunt"
+      "slug": "fillergrunt",
+      "cost": 6750,
+      "dex": 999,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Batman",
@@ -1238,7 +1571,10 @@
       "level": 5,
       "rarity": "Mythic",
       "img": "https://api.spritetrading.com/sprites/fossilmeal.webp?w=192",
-      "slug": "fossilmeal"
+      "slug": "fossilmeal",
+      "cost": 6750,
+      "dex": 999,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Batman",
@@ -1249,7 +1585,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/gold-fossilmeal.webp?w=192",
-      "slug": "gold-fossilmeal"
+      "slug": "gold-fossilmeal",
+      "cost": 10000,
+      "dex": 999,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Batman",
@@ -1260,7 +1599,10 @@
       "level": 1,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/gummy-fossilmeal.webp?w=192",
-      "slug": "gummy-fossilmeal"
+      "slug": "gummy-fossilmeal",
+      "cost": 10000,
+      "dex": 999,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Batman",
@@ -1271,7 +1613,10 @@
       "level": 1,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/galaxy-fossilmeal.webp?w=192",
-      "slug": "galaxy-fossilmeal"
+      "slug": "galaxy-fossilmeal",
+      "cost": 10000,
+      "dex": 999,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Batman",
@@ -1282,7 +1627,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/holofoil-fossilmeal.webp?w=192",
-      "slug": "holofoil-fossilmeal"
+      "slug": "holofoil-fossilmeal",
+      "cost": 10000,
+      "dex": 999,
+      "acquired": 1787062095702
     },
     {
       "sprite": "Batman",
@@ -1293,7 +1641,10 @@
       "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/cube-fossilmeal.webp?w=192",
-      "slug": "cube-fossilmeal"
+      "slug": "cube-fossilmeal",
+      "cost": 10000,
+      "dex": 999,
+      "acquired": 1787062095702
     }
   ],
   "check": {
