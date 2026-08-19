@@ -108,11 +108,22 @@ def parse(page):
         if mastered:
             level = 5
 
+        def num(attr):
+            try:
+                return int(a.get(attr) or 0) or None
+            except ValueError:
+                return None
+
         entries.append({
             "sprite": sprite, "variant": variant, "label": label,
             "collected": collected, "mastered": mastered, "level": level,
             "rarity": rarity, "img": img,
             "slug": a.get("data-slug"),
+            # Extras spritetrading already publishes on the card - the app's
+            # info panel shows these.
+            "cost": num("data-cost"),          # sprite dust to summon
+            "dex": num("data-dex"),            # index number
+            "acquired": num("data-acquired"),  # epoch ms, when you got it
         })
 
     # De-duplicate defensively, the way the browser scraper did.
