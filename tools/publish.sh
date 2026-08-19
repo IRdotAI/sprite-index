@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Commit and push whatever is currently in data/collection.json.
-# Called by auto_sync.py; safe to run by hand too.
+# The cloud sync commits for itself; this is for publishing a hand-made
+# collection.json (e.g. after tools/sync.sh imports a manual grab2.js export).
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
