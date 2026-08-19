@@ -1,11 +1,11 @@
 {
  "source": "spritetrading.com",
- "exportedAt": "2026-08-19T01:40:16.732Z",
+ "exportedAt": "2026-08-19T02:00:16.670Z",
  "totals": {
   "entries": 117,
   "collected": 117,
-  "mastered": 93,
-  "notMastered": 24
+  "mastered": 94,
+  "notMastered": 23
  },
  "entries": [
   {
@@ -923,8 +923,8 @@
    "variant": "Galaxy",
    "label": "Galaxy Air",
    "collected": true,
-   "mastered": false,
-   "level": 1,
+   "mastered": true,
+   "level": 5,
    "rarity": "Special",
    "img": "https://api.spritetrading.com/sprites/galaxy-air.webp?w=192"
   },
@@ -1024,7 +1024,7 @@
    "label": "Gold Llama",
    "collected": true,
    "mastered": false,
-   "level": 1,
+   "level": null,
    "rarity": "Special",
    "img": "https://api.spritetrading.com/sprites/gold-llama.webp?w=192"
   },
