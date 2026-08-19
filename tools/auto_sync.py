@@ -163,6 +163,12 @@ def start_chrome():
         f"--filesystem={WORKDIR}",
         "com.google.Chrome",
         "--headless=new", "--disable-gpu", "--no-first-run",
+        # Your cookies are stored with the 'basic' key store (v10 records).
+        # Left to auto-detect, Chrome picks kwallet whenever kwalletd6 happens
+        # to be running - as it is after a reboot - and then decrypts nothing,
+        # so every cookie is silently dropped and the site looks logged out.
+        # Pinning the store keeps the session readable regardless.
+        "--password-store=basic",
         f"--user-data-dir={profile}",
         f"--remote-debugging-port={PORT}",
         "--remote-allow-origins=*",
@@ -231,8 +237,10 @@ def sync_once():
         title = cdp.eval("document.title") or ""
         body = cdp.eval("(document.body.innerText||'').slice(0,400)") or ""
         if "sign in" in body.lower() or "log in" in body.lower():
-            sys.exit("Chrome isn't logged into spritetrading.com.\n"
-                     "Open Chrome normally, log in, close it, then re-run.")
+            sys.exit("spritetrading.com came back signed out.\n"
+                     "Either the session expired - open Chrome normally and log "
+                     "in again - or the copied cookies couldn't be decrypted "
+                     "(see --password-store above).")
 
         n = cdp.eval(SCROLL, timeout_ms=90000)
         print(f"Rendered {n} sprite cards")
