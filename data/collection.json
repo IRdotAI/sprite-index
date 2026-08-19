@@ -1,6 +1,6 @@
 {
  "source": "spritetrading.com",
- "exportedAt": "2026-08-19T00:43:40.209Z",
+ "exportedAt": "2026-08-19T01:36:46.891Z",
  "totals": {
   "entries": 117,
   "collected": 117,
@@ -1144,7 +1144,7 @@
    "label": "Gummy Batman",
    "collected": true,
    "mastered": false,
-   "level": 1,
+   "level": null,
    "rarity": "Special",
    "img": "https://api.spritetrading.com/sprites/gummy-fossilmeal.webp?w=192"
   },
