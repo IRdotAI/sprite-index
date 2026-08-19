@@ -1,11 +1,11 @@
 {
   "source": "spritetrading.com",
-  "exportedAt": "2026-08-19T21:44:06.545Z",
+  "exportedAt": "2026-08-19T22:03:10.542Z",
   "totals": {
     "entries": 117,
     "collected": 117,
-    "mastered": 113,
-    "notMastered": 4
+    "mastered": 115,
+    "notMastered": 2
   },
   "entries": [
     {
@@ -923,8 +923,8 @@
       "variant": "Cube",
       "label": "Cube Fishy",
       "collected": true,
-      "mastered": false,
-      "level": 1,
+      "mastered": true,
+      "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/cube-fishy.webp?w=192",
       "slug": "cube-fishy",
@@ -1357,8 +1357,8 @@
       "variant": "Galaxy",
       "label": "Galaxy Seven",
       "collected": true,
-      "mastered": false,
-      "level": 1,
+      "mastered": true,
+      "level": 5,
       "rarity": "Special",
       "img": "https://api.spritetrading.com/sprites/galaxy-seven.webp?w=192",
       "slug": "galaxy-seven",
