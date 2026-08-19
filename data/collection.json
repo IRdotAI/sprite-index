@@ -1,11 +1,11 @@
 {
   "source": "spritetrading.com",
-  "exportedAt": "2026-08-19T17:13:50.567Z",
+  "exportedAt": "2026-08-19T17:44:04.426Z",
   "totals": {
     "entries": 117,
     "collected": 117,
-    "mastered": 101,
-    "notMastered": 16
+    "mastered": 102,
+    "notMastered": 15
   },
   "entries": [
     {
@@ -727,8 +727,8 @@
       "variant": "Normal",
       "label": "Burnt Peanut",
       "collected": true,
-      "mastered": false,
-      "level": 1,
+      "mastered": true,
+      "level": 5,
       "rarity": "Mythic",
       "img": "https://api.spritetrading.com/sprites/burntpeanut.webp?w=192",
       "slug": "burntpeanut",
