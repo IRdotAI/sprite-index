@@ -1,8 +1,8 @@
 {
   "_meta": {
     "schemaVersion": 1,
-    "generated": "2026-08-18",
-    "totals": { "sprites": 25, "entries": 117 },
+    "generated": "2026-08-20",
+    "totals": { "sprites": 26, "entries": 141 },
     "sources": [
       "https://fortnitespritetracker.org/sprites/",
       "https://fortnitespritetracker.org/"
@@ -34,20 +34,20 @@
 
   "sprites": [
     {
-      "id": "water", "name": "Water", "rarity": "rare", "variantCount": 7,
-      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem", "cube"],
+      "id": "water", "name": "Water", "rarity": "rare", "variantCount": 8,
+      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem", "cube", "quack"],
       "ability": "Replenishes shields for you and nearby squadmates while in water.",
       "howToGet": "Sprite Chests and loot containers", "dropRate": null
     },
     {
-      "id": "earth", "name": "Earth", "rarity": "rare", "variantCount": 7,
-      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem", "cube"],
+      "id": "earth", "name": "Earth", "rarity": "rare", "variantCount": 8,
+      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem", "cube", "quack"],
       "ability": "May reveal extra rare items when you open chests.",
       "howToGet": "Sprite Chests and loot containers", "dropRate": null
     },
     {
-      "id": "fire", "name": "Fire", "rarity": "rare", "variantCount": 7,
-      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem", "cube"],
+      "id": "fire", "name": "Fire", "rarity": "rare", "variantCount": 8,
+      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem", "cube", "quack"],
       "ability": "Releases a fiery burst after you deal enough damage.",
       "howToGet": "Sprite Chests and loot containers", "dropRate": null
     },
@@ -59,15 +59,15 @@
       "addedOn": "2026-06-25"
     },
     {
-      "id": "air", "name": "Air", "rarity": "rare", "variantCount": 5,
-      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil"],
+      "id": "air", "name": "Air", "rarity": "rare", "variantCount": 6,
+      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem"],
       "ability": "Increases sprint speed and jump height while equipped.",
       "howToGet": "Sprite Chests and loot containers", "dropRate": null
     },
 
     {
-      "id": "duck", "name": "Duck", "rarity": "epic", "variantCount": 5,
-      "variants": ["normal", "gold", "gummy", "galaxy", "quack"],
+      "id": "duck", "name": "Duck", "rarity": "epic", "variantCount": 6,
+      "variants": ["normal", "gold", "gummy", "galaxy", "quack", "cube"],
       "ability": "Emoting and jamming replenish your shields.",
       "howToGet": "Sprite Chests and loot containers", "dropRate": null
     },
@@ -78,14 +78,14 @@
       "howToGet": "Sprite Chests and loot containers", "dropRate": null
     },
     {
-      "id": "demon", "name": "Demon", "rarity": "epic", "variantCount": 5,
-      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil"],
+      "id": "demon", "name": "Demon", "rarity": "epic", "variantCount": 6,
+      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "cube"],
       "ability": "Siphons health and shields after eliminations.",
       "howToGet": "Sprite Chests and loot containers", "dropRate": null
     },
     {
-      "id": "king", "name": "King", "rarity": "epic", "variantCount": 5,
-      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil"],
+      "id": "king", "name": "King", "rarity": "epic", "variantCount": 6,
+      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem"],
       "ability": "Makes your pickaxe deal more damage.",
       "howToGet": "Sprite Chests and loot containers", "dropRate": null
     },
@@ -97,22 +97,22 @@
       "addedOn": "2026-06-25"
     },
     {
-      "id": "striker", "name": "Striker", "rarity": "epic", "variantCount": 5,
-      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil"],
+      "id": "striker", "name": "Striker", "rarity": "epic", "variantCount": 8,
+      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem", "cube", "quack"],
       "ability": "Triggers Overdrive when you mantle or hurdle.",
       "howToGet": "Sprite Chests and loot containers", "dropRate": null,
       "addedOn": "2026-06-25"
     },
 
     {
-      "id": "dream", "name": "Dream", "rarity": "legendary", "variantCount": 5,
-      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil"],
+      "id": "dream", "name": "Dream", "rarity": "legendary", "variantCount": 6,
+      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "cube"],
       "ability": "Grants a random item each level and legendary loot at max level.",
       "howToGet": "Rare Chests and Sprite loot", "dropRate": null
     },
     {
-      "id": "punk", "name": "Punk", "rarity": "legendary", "variantCount": 5,
-      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil"],
+      "id": "punk", "name": "Punk", "rarity": "legendary", "variantCount": 6,
+      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem"],
       "ability": "Offers a chance for an infinite-ammo effect.",
       "howToGet": "Rare Chests and Sprite loot", "dropRate": null
     },
@@ -124,20 +124,20 @@
       "addedOn": "2026-06-25"
     },
     {
-      "id": "seven", "name": "Seven", "rarity": "legendary", "variantCount": 5,
-      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil"],
+      "id": "seven", "name": "Seven", "rarity": "legendary", "variantCount": 6,
+      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "cube"],
       "ability": "Reveals enemy foot trails for you and nearby squadmates.",
       "howToGet": "Sprite Chests and loot containers", "dropRate": null
     },
     {
-      "id": "llama", "name": "Llama", "rarity": "legendary", "variantCount": 5,
-      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil"],
+      "id": "llama", "name": "Llama", "rarity": "legendary", "variantCount": 6,
+      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem"],
       "ability": "Opening Ammo Boxes has a chance to upgrade your weapon.",
       "howToGet": "Relic Chests and Sprite loot", "dropRate": null
     },
     {
-      "id": "peely", "name": "Peely", "rarity": "legendary", "variantCount": 5,
-      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil"],
+      "id": "peely", "name": "Peely", "rarity": "legendary", "variantCount": 6,
+      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem"],
       "ability": "Marks nearby rare Sprite variants or enemies carrying them.",
       "howToGet": "High/mountainous areas and Sprite loot", "dropRate": null
     },
@@ -188,10 +188,17 @@
       "howToGet": "Springfield Reload carriers and chests", "dropRate": null
     },
     {
-      "id": "ironmouse", "name": "Ironmouse", "rarity": "mythic", "variantCount": 1,
-      "variants": ["normal"],
+      "id": "ironmouse", "name": "Ironmouse", "rarity": "mythic", "variantCount": 5,
+      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil"],
       "ability": "Regenerates health; grants Cloak and low gravity while regenerating.",
       "howToGet": "Relic Chests", "dropRate": null
+    },
+    {
+      "id": "unknown-26", "name": "New Sprite (q26)", "rarity": "rare", "variantCount": 5,
+      "variants": ["normal", "gold", "gummy", "galaxy", "gem"],
+      "ability": "Unknown - new sprite from August 2026 update.",
+      "howToGet": "Unknown", "dropRate": null,
+      "addedOn": "2026-08-20"
     }
   ]
 }
