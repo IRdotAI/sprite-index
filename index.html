@@ -860,10 +860,14 @@ async function syncFromEpic(token){
     '21': 'batman', '22': 'pollo', '23': 'vini-jr', '24': 'john-wick', '25': 'ironmouse', '26': 'unknown'
   };
 
-  // Variant mapping: letter -> variant id
-  const VARIANT_MAP = {
-    '': 'normal', 'a': 'gold', 'b': 'gummy', 'c': 'galaxy',
-    'd': 'holofoil', 'e': 'gem', 'f': 'cube', 'g': 'quack'
+  // Variant index: letter -> index in sprite's variant array
+  // '' = first variant (normal), 'a' = second, 'b' = third, etc.
+  const VARIANT_INDEX = { '': 0, 'a': 1, 'b': 2, 'c': 3, 'd': 4, 'e': 5, 'f': 6, 'g': 7 };
+
+  // Get sprite's actual variants from DB
+  const getSpriteVariants = (spriteId) => {
+    const sprite = DB.sprites.find(s => s.id === spriteId);
+    return sprite ? sprite.variants : [];
   };
 
   for(const item of locker.cosmetics){
@@ -877,25 +881,34 @@ async function syncFromEpic(token){
       if(match){
         const spriteNum = match[1].padStart(2, '0');
         const variantLetter = match[2] || '';
+        const variantIdx = VARIANT_INDEX[variantLetter];
 
         const spriteId = SPRITE_MAP[spriteNum];
-        const variantId = VARIANT_MAP[variantLetter];
 
-        if(spriteId && variantId){
-          const key = spriteId + ':' + variantId;
-          // Find the entry and mark as owned
-          const entry = ENTRIES.find(e => e.key === key);
-          if(entry){
-            state[key] = {
-              owned: true,
-              mastered: item.attributes?.completion_complete || false,
-              level: item.attributes?.level || null
-            };
+        if(spriteId && spriteId !== 'unknown' && variantIdx !== undefined){
+          // Get this sprite's actual variants and look up by index
+          const variants = getSpriteVariants(spriteId);
+          const variantId = variants[variantIdx];
+
+          if(variantId){
+            const key = spriteId + ':' + variantId;
+            const entry = ENTRIES.find(e => e.key === key);
+            if(entry){
+              state[key] = {
+                owned: true,
+                mastered: item.attributes?.completion_complete || false,
+                level: item.attributes?.level || null
+              };
+            } else {
+              console.log('Entry not found:', key);
+            }
           } else {
-            console.log('No match for:', tokenId, '-> sprite:', spriteId, 'variant:', variantId, 'key:', key);
+            console.log('Variant index out of range:', tokenId, '-> sprite:', spriteId, 'idx:', variantIdx, 'variants:', variants);
           }
+        } else if(spriteId === 'unknown') {
+          console.log('Unknown sprite q26:', tokenId);
         } else {
-          console.log('Unknown mapping:', tokenId, '-> spriteNum:', spriteNum, 'variantLetter:', variantLetter);
+          console.log('Unknown mapping:', tokenId);
         }
       }
     }
