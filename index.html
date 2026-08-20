@@ -724,40 +724,22 @@ const tally=()=>({
   mast:ENTRIES.filter(e=>st(e.key).mastered).length
 });
 
-// The published collection is what makes the app self-updating. It runs on
-// open, and the ↻ button runs it on demand for when you've just finished a
-// match and don't want to wait for the next visit.
-async function pullCollection(manual){
-  if(manual){ refreshBtn.dataset.busy='1'; refreshBtn.disabled=true }
-  const before=tally();
+// The published collection is what makes the app self-updating. It runs on open.
+async function pullCollection(){
   try{
     const r=await fetch('data/collection.json?t='+Date.now(),{cache:'no-store'});
     if(!r.ok) throw new Error('HTTP '+r.status);
     const d=await r.json();
     const stamp=d.exportedAt||'';
-    // On open, skip the work when nothing has changed. On a manual refresh
-    // always re-apply: pressing ↻ is a request to match the published data,
-    // which is also how local state gets repaired if it ever drifts.
-    if(manual || (stamp && stamp!==localStorage.getItem(SYNCKEY))){
+    if(stamp && stamp!==localStorage.getItem(SYNCKEY)){
       importExport(d);
       if(stamp) localStorage.setItem(SYNCKEY,stamp);
     }
     showSynced(stamp);
-    if(manual){
-      const after=tally();
-      const bits=[];
-      if(after.owned!==before.owned) bits.push((after.owned-before.owned>0?'+':'')+(after.owned-before.owned)+' collected');
-      if(after.mast!==before.mast) bits.push((after.mast-before.mast>0?'+':'')+(after.mast-before.mast)+' mastered');
-      toast(bits.length ? 'Updated · '+bits.join(' · ') : 'Already up to date');
-    }
   }catch(err){
     // Offline or the file didn't load: keep whatever we already had.
-    if(manual) toast('Could not reach the server — showing your last synced data',true);
-  }finally{
-    if(manual){ delete refreshBtn.dataset.busy; refreshBtn.disabled=false }
   }
 }
-refreshBtn.onclick=()=>pullCollection(true);
 
 // The sync time lives in the hero now; just record it and repaint.
 function showSynced(when){
