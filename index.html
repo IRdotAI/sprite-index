@@ -851,12 +851,13 @@ async function syncFromEpic(token){
   // where XX = sprite number (01-26), y = variant letter (a-g)
 
   // Sprite mapping: q number -> sprite id (based on sprites.json order)
+  // TODO: verify this order matches Epic's internal numbering
   const SPRITE_MAP = {
     '01': 'water', '02': 'earth', '03': 'fire', '04': 'fishy', '05': 'air',
     '06': 'duck', '07': 'ghost', '08': 'demon', '09': 'king', '10': 'aura',
-    '11': 'striker', '12': 'shadow', '13': 'frost', '14': 'thunder', '15': 'nature',
-    '16': 'crystal', '17': 'void', '18': 'phoenix', '19': 'dragon', '20': 'unicorn',
-    '21': 'robot', '22': 'ninja', '23': 'pirate', '24': 'wizard', '25': 'knight', '26': 'alien'
+    '11': 'striker', '12': 'dream', '13': 'punk', '14': 'boss', '15': 'seven',
+    '16': 'llama', '17': 'peely', '18': 'grim-reaper', '19': 'zero-point', '20': 'burnt-peanut',
+    '21': 'batman', '22': 'pollo', '23': 'vini-jr', '24': 'john-wick', '25': 'ironmouse', '26': 'unknown'
   };
 
   // Variant mapping: letter -> variant id
