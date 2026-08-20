@@ -755,9 +755,8 @@ const epicAuth = {
 
   async getLocker(token){
     if(!this.accountId) throw new Error('Not logged in');
-    const url = token
-      ? `${API_BASE}/locker?account_id=${this.accountId}&token=${token}`
-      : `${API_BASE}/locker?account_id=${this.accountId}`;
+    let url = `${API_BASE}/locker?account_id=${this.accountId}`;
+    if(token) url += `&token=${encodeURIComponent(token)}`;
     const r = await fetch(url);
     const d = await r.json();
     if(d.error) throw new Error(d.error);
