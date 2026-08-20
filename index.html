@@ -253,7 +253,9 @@ const findVariant=name=>DB.variants.find(v=>norm(v.name)===norm(name))
 let ENTRIES=[];
 function buildEntries(){
   ENTRIES=[];
+  console.log('Building ENTRIES, catalog:', catalog ? catalog.entries?.length + ' entries' : 'none');
   if(catalog && catalog.entries && catalog.entries.length){
+    console.log('Using CATALOG for entries');
     for(const e of catalog.entries){
       const s=findSprite(e.sprite);
       const v=findVariant(e.variant);
@@ -272,11 +274,13 @@ function buildEntries(){
     for(const e of ENTRIES)
       if(!DB.rarities.some(r=>r.id===e.sprite.rarity)) e.sprite.rarity='rare';
   } else {
+    console.log('Using DB for entries');
     for(const s of DB.sprites)
       for(const v of s.variants)
         ENTRIES.push({key:uid(s.id,v),sprite:s,variantId:v,
           variant:DB.variants.find(x=>x.id===v),img:null});
   }
+  console.log('ENTRIES built:', ENTRIES.length, ENTRIES.map(e => e.key));
 }
 
 // Apply a spritetrading-export.json file.
