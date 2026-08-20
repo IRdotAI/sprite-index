@@ -728,48 +728,37 @@ creatorBar.onclick=async()=>{
   catch{ toast('Creator code: RDOTA'); }
 };
 
-// --- epic oauth ---
-const API_BASE = 'https://spritedex-api.abrasive-tax.workers.dev'; // UPDATE THIS AFTER DEPLOY
+// --- epic oauth (exchange code flow) ---
+const API_BASE = 'https://spritedex-api.abrasive-tax.workers.dev';
+const EPIC_AUTH_URL = 'https://www.epicgames.com/id/api/redirect?clientId=3446cd72694c4a4485d81b77adbb2141&responseType=code';
 
 const epicAuth = {
   accountId: localStorage.getItem('epic_account_id'),
   displayName: localStorage.getItem('epic_display_name'),
   isLoggedIn(){ return !!this.accountId },
 
-  async startLogin(){
-    const r = await fetch(`${API_BASE}/auth/start`, {method:'POST'});
+  async exchangeCode(code){
+    const r = await fetch(`${API_BASE}/auth/exchange`, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ code })
+    });
     const d = await r.json();
     if(d.error) throw new Error(d.error);
+
+    this.accountId = d.account_id;
+    this.displayName = d.display_name;
+    localStorage.setItem('epic_account_id', d.account_id);
+    localStorage.setItem('epic_display_name', d.display_name);
     return d;
   },
 
-  async pollForCompletion(deviceCode, interval=5){
-    return new Promise((resolve, reject) => {
-      const poll = async () => {
-        try {
-          const r = await fetch(`${API_BASE}/auth/poll`, {
-            method:'POST',
-            headers:{'Content-Type':'application/json'},
-            body: JSON.stringify({device_code: deviceCode})
-          });
-          const d = await r.json();
-          if(d.status === 'pending') setTimeout(poll, interval * 1000);
-          else if(d.status === 'complete'){
-            this.accountId = d.account_id;
-            this.displayName = d.display_name;
-            localStorage.setItem('epic_account_id', d.account_id);
-            localStorage.setItem('epic_display_name', d.display_name);
-            resolve(d);
-          } else reject(new Error(d.error || 'Authorization failed'));
-        } catch(err){ reject(err) }
-      };
-      poll();
-    });
-  },
-
-  async getLocker(){
+  async getLocker(token){
     if(!this.accountId) throw new Error('Not logged in');
-    const r = await fetch(`${API_BASE}/locker?account_id=${this.accountId}`);
+    const url = token
+      ? `${API_BASE}/locker?account_id=${this.accountId}&token=${token}`
+      : `${API_BASE}/locker?account_id=${this.accountId}`;
+    const r = await fetch(url);
     const d = await r.json();
     if(d.error) throw new Error(d.error);
     return d;
@@ -833,44 +822,51 @@ epicLoginBtn.onclick = async () => {
     return;
   }
 
-  // Start login flow
+  // Show exchange code flow
   epicTitle.textContent = 'Link Your Epic Account';
-  epicDesc.textContent = 'Automatically sync your Fortnite locker.';
-  epicContent.innerHTML = '<p class="epic-waiting">Starting</p>';
+  epicDesc.textContent = 'Sync your Fortnite locker automatically.';
   epicClose.textContent = 'Cancel';
+  epicContent.innerHTML = `
+    <p style="margin-bottom:12px"><b>Step 1:</b> Click the button below and log into Epic Games:</p>
+    <a href="${EPIC_AUTH_URL}" target="_blank" class="btn-accent" style="display:block;text-align:center;text-decoration:none;padding:12px;border-radius:10px;margin-bottom:16px">Open Epic Games Login →</a>
+    <p style="margin-bottom:8px"><b>Step 2:</b> Copy the <code>authorizationCode</code> from the page and paste it here:</p>
+    <input type="text" id="epicCodeInput" placeholder="Paste authorization code here..." style="width:100%;padding:12px;border-radius:10px;background:var(--panel2);border:1px solid var(--line);color:var(--text);font-family:monospace;margin-bottom:12px">
+    <button id="epicSubmitCode" class="btn-accent" style="width:100%">Link Account</button>
+    <p style="margin-top:12px;font-size:12px;color:var(--dim)">The code looks like a long string of letters and numbers. It expires in 5 minutes.</p>
+  `;
   epicDlg.showModal();
 
-  try {
-    const auth = await epicAuth.startLogin();
-    epicContent.innerHTML = `
-      <p>Go to:</p>
-      <p><a href="${auth.verification_uri}" target="_blank" style="color:var(--accent)">${auth.verification_uri}</a></p>
-      <p style="margin-top:12px">Enter this code:</p>
-      <div class="epic-code">${auth.user_code}</div>
-      <p class="epic-waiting">Waiting for authorization</p>
-    `;
+  document.getElementById('epicSubmitCode').onclick = async () => {
+    const code = document.getElementById('epicCodeInput').value.trim();
+    if(!code){
+      toast('Please paste the authorization code', true);
+      return;
+    }
 
-    const result = await epicAuth.pollForCompletion(auth.device_code, auth.interval);
-    updateEpicButton();
+    try {
+      epicContent.innerHTML = '<p class="epic-waiting">Linking account</p>';
+      const result = await epicAuth.exchangeCode(code);
+      updateEpicButton();
 
-    epicTitle.textContent = 'Account Linked!';
-    epicDesc.textContent = `Welcome, ${result.display_name}`;
-    epicContent.innerHTML = '<p class="epic-waiting">Syncing your locker</p>';
+      epicTitle.textContent = 'Account Linked!';
+      epicDesc.textContent = `Welcome, ${result.display_name}`;
+      epicContent.innerHTML = '<p class="epic-waiting">Syncing your locker</p>';
 
-    await syncFromEpic();
-    epicDlg.close();
-    toast(`Linked as ${result.display_name} - locker synced!`);
+      await syncFromEpic(result.access_token);
+      epicDlg.close();
+      toast(`Linked as ${result.display_name} - locker synced!`);
 
-  } catch(err){
-    epicContent.innerHTML = `<p style="color:var(--legendary)">Error: ${err.message}</p>`;
-  }
+    } catch(err){
+      epicContent.innerHTML = `<p style="color:var(--legendary)">Error: ${err.message}</p><p style="margin-top:12px"><button onclick="epicLoginBtn.click()" class="btn-accent">Try Again</button></p>`;
+    }
+  };
 };
 
 epicClose.onclick = () => epicDlg.close();
 epicDlg.addEventListener('click', ev => { if(ev.target === epicDlg) epicDlg.close() });
 
-async function syncFromEpic(){
-  const locker = await epicAuth.getLocker();
+async function syncFromEpic(token){
+  const locker = await epicAuth.getLocker(token);
 
   // Map Epic cosmetic IDs to sprite entries
   // This maps templateIds like "AthenaCharacter:CID_XXX" to your sprite IDs
