@@ -891,12 +891,14 @@ async function syncFromEpic(token){
     return tid.includes('sprite') || tid.includes('mimosa') || tid.includes('collectable');
   });
   console.log('All sprite-related tokens:', spriteTokens.length, spriteTokens);
+  console.log('All sprite token types:', [...new Set(spriteTokens.map(t => t.templateId.split(':')[0]))]);
 
   // Specifically find spritemastery tokens
   const masteryTokens = locker.cosmetics.filter(c =>
     (c.templateId || '').includes('spritemastery_token')
   );
   console.log('Spritemastery tokens found:', masteryTokens.length, masteryTokens.map(t => t.templateId));
+  console.log('Sample token attributes (first 5):', masteryTokens.slice(0,5).map(t => ({tid: t.templateId, attr: t.attributes})));
 
   // Map Epic sprite tokens to sprite entries
   // Token format: "Token:athena_s41_spritemastery_token_qXX" or "Token:athena_s41_spritemastery_token_qXXy"
