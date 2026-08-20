@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="theme-color" content="#0a0c12">
 <title>Spritedex</title>
 <link rel="manifest" href="manifest.json">
@@ -145,8 +145,10 @@ main{padding:16px;max-width:1400px;margin:0 auto}
 
 /* dialogs */
 dialog{border:1px solid var(--line);background:var(--panel);color:var(--text);
-  border-radius:16px;padding:0;width:min(92vw,420px);box-shadow:0 20px 60px rgba(0,0,0,.6)}
+  border-radius:16px;padding:0;width:min(92vw,420px);box-shadow:0 20px 60px rgba(0,0,0,.6);
+  position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);margin:0}
 dialog::backdrop{background:rgba(0,0,0,.7);backdrop-filter:blur(4px)}
+dialog[open]{display:block}
 .dlg-body{padding:20px}
 .dlg-body h2{font:700 18px/1.3 'Fortnite','Inter',sans-serif;margin-bottom:6px}
 .dlg-body p{color:var(--dim);font-size:13px;margin-bottom:16px}
@@ -991,6 +993,15 @@ async function boot(){
     content.innerHTML='<p class="empty">Could not load sprite data.</p>'; return;
   }
   buildEntries();
+
+  // Try to load spritetrading export for images and initial data
+  try{
+    const stExport = await (await fetch('data/spritetrading-export.json?t='+Date.now(),{cache:'no-store'})).json();
+    if(stExport?.collection?.sprites){
+      importFromSpritetrading(stExport);
+    }
+  }catch(e){}
+
   render();
 
   // If not logged in, clear state to show all as not collected
