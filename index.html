@@ -872,17 +872,20 @@ async function syncFromEpic(token){
     '06': 'duck', '07': 'ghost', '08': 'demon', '09': 'king', '10': 'aura',
     '11': 'striker', '12': 'dream', '13': 'punk', '14': 'boss', '15': 'seven',
     '16': 'llama', '17': 'peely', '18': 'grim-reaper', '19': 'zero-point', '20': 'burnt-peanut',
-    '21': 'batman', '22': 'pollo', '23': 'vini-jr', '24': 'john-wick', '25': 'ironmouse'
+    '21': 'batman', '22': 'pollo', '23': 'vini-jr', '24': 'john-wick', '25': 'ironmouse',
+    '26': 'unknown-26'  // New sprite from Aug 20 update - needs identification
   };
 
-  // Variant index: letter -> index in sprite's variant array
-  // '' = first variant (normal), 'a' = second, 'b' = third, etc.
-  const VARIANT_INDEX = { '': 0, 'a': 1, 'b': 2, 'c': 3, 'd': 4, 'e': 5, 'f': 6, 'g': 7 };
-
-  // Get sprite's actual variants from DB
-  const getSpriteVariants = (spriteId) => {
-    const sprite = DB.sprites.find(s => s.id === spriteId);
-    return sprite ? sprite.variants : [];
+  // Variant letter -> variant name (GLOBAL mapping, same for all sprites)
+  const VARIANT_MAP = {
+    '': 'normal',
+    'a': 'gold',
+    'b': 'gummy',
+    'c': 'galaxy',
+    'd': 'holofoil',
+    'e': 'gem',
+    'f': 'cube',
+    'g': 'quack'
   };
 
   const matched = [];
@@ -899,35 +902,29 @@ async function syncFromEpic(token){
       if(match){
         const spriteNum = match[1].padStart(2, '0');
         const variantLetter = match[2] || '';
-        const variantIdx = VARIANT_INDEX[variantLetter];
+        const variantId = VARIANT_MAP[variantLetter];
 
         const spriteId = SPRITE_MAP[spriteNum];
 
-        if(spriteId && variantIdx !== undefined){
-          // Get this sprite's actual variants and look up by index
-          const variants = getSpriteVariants(spriteId);
-          const variantId = variants[variantIdx];
+        if(spriteId && variantId){
+          const key = spriteId + ':' + variantId;
 
-          // Fallback variant names if index is out of range
-          const FALLBACK_VARIANTS = ['normal', 'gold', 'gummy', 'galaxy', 'holofoil', 'gem', 'cube', 'quack'];
-          const finalVariantId = variantId || FALLBACK_VARIANTS[variantIdx] || 'normal';
+          // Always set state for valid tokens (even if no ENTRY yet - DB might be outdated)
+          state[key] = {
+            owned: true,
+            mastered: item.attributes?.completion_complete || false,
+            level: item.attributes?.level || null
+          };
 
-          const key = spriteId + ':' + finalVariantId;
-
-          // Try to find existing entry, or create state anyway
+          // Track whether it matched an ENTRY or not
           const entry = ENTRIES.find(e => e.key === key);
           if(entry){
-            state[key] = {
-              owned: true,
-              mastered: item.attributes?.completion_complete || false,
-              level: item.attributes?.level || null
-            };
-            matched.push({ templateId, key, spriteId, variantId: finalVariantId });
+            matched.push({ templateId, key, spriteId, variantId });
           } else {
-            unmatched.push({ templateId, key, spriteId, variantId: finalVariantId, reason: 'no entry found' });
+            unmatched.push({ templateId, key, spriteId, variantId, reason: 'no DB entry (DB needs update)' });
           }
         } else {
-          unmatched.push({ templateId, tokenId, spriteNum, variantLetter, reason: spriteId ? 'bad variant index' : 'unknown sprite number' });
+          unmatched.push({ templateId, tokenId, spriteNum, variantLetter, reason: spriteId ? 'unknown variant letter' : 'unknown sprite number' });
         }
       } else {
         unmatched.push({ templateId, tokenId, reason: 'regex no match' });
