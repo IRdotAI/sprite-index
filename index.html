@@ -835,6 +835,9 @@ epicDlg.addEventListener('click', ev => { if(ev.target === epicDlg) epicDlg.clos
 
 async function syncFromEpic(token){
   const locker = await epicAuth.getLocker(token);
+  console.log('Epic returned:', locker);
+  console.log('Template types:', locker.debug_template_types);
+  console.log('Total items:', locker.total);
 
   // Map Epic cosmetic IDs to sprite entries
   // This maps templateIds like "AthenaCharacter:CID_XXX" to your sprite IDs
