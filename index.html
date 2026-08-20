@@ -898,7 +898,14 @@ async function syncFromEpic(token){
     (c.templateId || '').includes('spritemastery_token')
   );
   console.log('Spritemastery tokens found:', masteryTokens.length, masteryTokens.map(t => t.templateId));
-  console.log('Sample token attributes (first 5):', masteryTokens.slice(0,5).map(t => ({tid: t.templateId, attr: t.attributes})));
+  console.log('Sample token attributes (first 5):', JSON.stringify(masteryTokens.slice(0,5).map(t => ({tid: t.templateId, attr: t.attributes})), null, 2));
+
+  // Check CollectableCharacter items for mastery data
+  const collectables = locker.cosmetics.filter(c => c.templateId?.includes('CollectableCharacter'));
+  console.log('CollectableCharacter items:', JSON.stringify(collectables.map(c => ({tid: c.templateId, attr: c.attributes})), null, 2));
+
+  // Store locker globally for debugging
+  window._locker = locker;
 
   // Map Epic sprite tokens to sprite entries
   // Token format: "Token:athena_s41_spritemastery_token_qXX" or "Token:athena_s41_spritemastery_token_qXXy"
