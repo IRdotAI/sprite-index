@@ -885,30 +885,26 @@ async function syncFromEpic(token){
 
         const spriteId = SPRITE_MAP[spriteNum];
 
-        if(spriteId && spriteId !== 'unknown' && variantIdx !== undefined){
+        if(spriteId && variantIdx !== undefined){
           // Get this sprite's actual variants and look up by index
           const variants = getSpriteVariants(spriteId);
           const variantId = variants[variantIdx];
 
-          if(variantId){
-            const key = spriteId + ':' + variantId;
-            const entry = ENTRIES.find(e => e.key === key);
-            if(entry){
-              state[key] = {
-                owned: true,
-                mastered: item.attributes?.completion_complete || false,
-                level: item.attributes?.level || null
-              };
-            } else {
-              console.log('Entry not found:', key);
-            }
-          } else {
-            console.log('Variant index out of range:', tokenId, '-> sprite:', spriteId, 'idx:', variantIdx, 'variants:', variants);
+          // Fallback variant names if index is out of range
+          const FALLBACK_VARIANTS = ['normal', 'gold', 'gummy', 'galaxy', 'holofoil', 'gem', 'cube', 'quack'];
+          const finalVariantId = variantId || FALLBACK_VARIANTS[variantIdx] || 'normal';
+
+          const key = spriteId + ':' + finalVariantId;
+
+          // Try to find existing entry, or create state anyway
+          const entry = ENTRIES.find(e => e.key === key);
+          if(entry || spriteId !== 'unknown'){
+            state[key] = {
+              owned: true,
+              mastered: item.attributes?.completion_complete || false,
+              level: item.attributes?.level || null
+            };
           }
-        } else if(spriteId === 'unknown') {
-          console.log('Unknown sprite q26:', tokenId);
-        } else {
-          console.log('Unknown mapping:', tokenId);
         }
       }
     }
