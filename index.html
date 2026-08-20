@@ -253,9 +253,7 @@ const findVariant=name=>DB.variants.find(v=>norm(v.name)===norm(name))
 let ENTRIES=[];
 function buildEntries(){
   ENTRIES=[];
-  console.log('Building ENTRIES, catalog:', catalog ? catalog.entries?.length + ' entries' : 'none');
   if(catalog && catalog.entries && catalog.entries.length){
-    console.log('Using CATALOG for entries');
     for(const e of catalog.entries){
       const s=findSprite(e.sprite);
       const v=findVariant(e.variant);
@@ -274,13 +272,11 @@ function buildEntries(){
     for(const e of ENTRIES)
       if(!DB.rarities.some(r=>r.id===e.sprite.rarity)) e.sprite.rarity='rare';
   } else {
-    console.log('Using DB for entries');
     for(const s of DB.sprites)
       for(const v of s.variants)
         ENTRIES.push({key:uid(s.id,v),sprite:s,variantId:v,
           variant:DB.variants.find(x=>x.id===v),img:null});
   }
-  console.log('ENTRIES built:', ENTRIES.length, ENTRIES.map(e => e.key));
 }
 
 // Import spritetrading account export format (collection.sprites object)
@@ -737,14 +733,12 @@ const epicAuth = {
   isLoggedIn(){ return !!this.accountId },
 
   async exchangeCode(code){
-    console.log('Exchanging code...');
     const r = await fetch(`${API_BASE}/auth/exchange`, {
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body: JSON.stringify({ code })
     });
     const d = await r.json();
-    console.log('Exchange response:', d);
     if(d.error) throw new Error(d.error);
 
     this.accountId = d.account_id;
@@ -758,11 +752,8 @@ const epicAuth = {
     if(!this.accountId) throw new Error('Not logged in');
     let url = `${API_BASE}/locker?account_id=${this.accountId}`;
     if(token) url += `&token=${encodeURIComponent(token)}`;
-    console.log('Fetching locker from:', url);
     const r = await fetch(url);
-    console.log('Response status:', r.status);
     const d = await r.json();
-    console.log('Response data:', d);
     if(d.error) throw new Error(d.error);
     return d;
   },
@@ -880,32 +871,11 @@ epicDlg.addEventListener('click', ev => { if(ev.target === epicDlg) epicDlg.clos
 
 async function syncFromEpic(token){
   const locker = await epicAuth.getLocker(token);
-  window.lastLocker = locker; // save for debugging
-  console.log('Epic returned:', locker);
-  console.log('Template types:', locker.debug_template_types);
-  console.log('Total items:', locker.total);
 
-  // Find ALL sprite-related tokens for debugging
-  const spriteTokens = locker.cosmetics.filter(c => {
-    const tid = (c.templateId || '').toLowerCase();
-    return tid.includes('sprite') || tid.includes('mimosa') || tid.includes('collectable');
-  });
-  console.log('All sprite-related tokens:', spriteTokens.length, spriteTokens);
-  console.log('All sprite token types:', [...new Set(spriteTokens.map(t => t.templateId.split(':')[0]))]);
-
-  // Specifically find spritemastery tokens
+  // Find spritemastery tokens
   const masteryTokens = locker.cosmetics.filter(c =>
     (c.templateId || '').includes('spritemastery_token')
   );
-  console.log('Spritemastery tokens found:', masteryTokens.length, masteryTokens.map(t => t.templateId));
-  console.log('Sample token attributes (first 5):', JSON.stringify(masteryTokens.slice(0,5).map(t => ({tid: t.templateId, attr: t.attributes})), null, 2));
-
-  // Check CollectableCharacter items for mastery data
-  const collectables = locker.cosmetics.filter(c => c.templateId?.includes('CollectableCharacter'));
-  console.log('CollectableCharacter items:', JSON.stringify(collectables.map(c => ({tid: c.templateId, attr: c.attributes})), null, 2));
-
-  // Store locker globally for debugging
-  window._locker = locker;
 
   // Map Epic sprite tokens to sprite entries
   // Token format: "Token:athena_s41_spritemastery_token_qXX" or "Token:athena_s41_spritemastery_token_qXXy"
@@ -978,22 +948,6 @@ async function syncFromEpic(token){
     }
   }
 
-  console.log('Matched tokens:', matched.length, matched);
-  console.log('Unmatched tokens:', unmatched.length, unmatched);
-
-  const ownedKeys = Object.keys(state).filter(k => state[k]?.owned);
-  console.log('Sprites synced! Owned:', ownedKeys.length);
-  console.log('Owned keys:', ownedKeys);
-
-  // Debug: find ENTRIES that don't have state set
-  const missingFromState = ENTRIES.filter(e => !state[e.key]?.owned);
-  console.log('ENTRIES not owned (' + missingFromState.length + '):', missingFromState.map(e => e.key));
-
-  // Debug: find state keys that don't match any ENTRY
-  const entryKeys = new Set(ENTRIES.map(e => e.key));
-  const orphanedState = ownedKeys.filter(k => !entryKeys.has(k));
-  console.log('State keys without matching ENTRY (' + orphanedState.length + '):', orphanedState);
-
   save();
   render();
 }
@@ -1006,16 +960,6 @@ async function boot(){
     content.innerHTML='<p class="empty">Could not load sprite data.</p>'; return;
   }
   buildEntries();
-
-  // Load spritetrading export to set initial state (covers sprites Epic tokens miss)
-  try{
-    const stExport = await (await fetch('data/spritetrading-export.json?t='+Date.now(),{cache:'no-store'})).json();
-    if(stExport?.collection?.sprites){
-      importFromSpritetrading(stExport);
-      console.log('Loaded spritetrading export, sprites:', Object.keys(stExport.collection.sprites).length);
-    }
-  }catch(e){ console.log('No spritetrading export found:', e); }
-
   render();
 
   // If not logged in, clear state to show all as not collected
@@ -1029,7 +973,7 @@ async function boot(){
   // If linked to Epic, sync from there
   if(epicAuth.isLoggedIn()){
     try{ await syncFromEpic(); }
-    catch(e){ console.log('Sync failed:', e); render(); }
+    catch(e){ render(); }
   }
 }
 boot();
