@@ -891,7 +891,11 @@ async function syncFromEpic(token){
               mastered: item.attributes?.completion_complete || false,
               level: item.attributes?.level || null
             };
+          } else {
+            console.log('No match for:', tokenId, '-> sprite:', spriteId, 'variant:', variantId, 'key:', key);
           }
+        } else {
+          console.log('Unknown mapping:', tokenId, '-> spriteNum:', spriteNum, 'variantLetter:', variantLetter);
         }
       }
     }
