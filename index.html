@@ -866,14 +866,13 @@ async function syncFromEpic(token){
   // Token format: "Token:athena_s41_spritemastery_token_qXX" or "Token:athena_s41_spritemastery_token_qXXy"
   // where XX = sprite number (01-25), y = variant letter (a-g)
 
-  // Sprite mapping: q number -> sprite id (based on sprites.json order)
+  // Sprite mapping: q number -> sprite id (spritetrading internal names)
   const SPRITE_MAP = {
     '01': 'water', '02': 'earth', '03': 'fire', '04': 'fishy', '05': 'air',
     '06': 'duck', '07': 'ghost', '08': 'demon', '09': 'king', '10': 'aura',
     '11': 'striker', '12': 'dream', '13': 'punk', '14': 'boss', '15': 'seven',
-    '16': 'llama', '17': 'peely', '18': 'grim-reaper', '19': 'zero-point', '20': 'burnt-peanut',
-    '21': 'batman', '22': 'pollo', '23': 'vini-jr', '24': 'john-wick', '25': 'ironmouse',
-    '26': 'unknown-26'  // New sprite from Aug 20 update - needs identification
+    '16': 'llama', '17': 'peely', '18': 'grim', '19': 'zeropoint', '20': 'burntpeanut',
+    '21': 'fossilmeal', '22': 'cokeparmesan', '23': 'companystargazer', '24': 'fillergrunt', '25': 'pedicureantacid'
   };
 
   // Variant letter -> variant name (GLOBAL mapping, same for all sprites)
