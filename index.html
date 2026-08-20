@@ -46,7 +46,6 @@ button:active{transform:scale(.97)}
 .btn-primary{background:linear-gradient(135deg,var(--accent),#00ccff);
   color:#0a0c12;border:none;font-weight:700}
 .btn-primary:hover{box-shadow:0 0 24px rgba(0,212,255,.5)}
-.btn-icon{width:40px;height:40px;padding:0;display:grid;place-items:center;font-size:18px}
 input[type=search]{flex:1;min-width:200px;background:var(--bg2);
   border-radius:10px;padding:10px 16px}
 input[type=search]:focus{outline:none;border-color:var(--accent);box-shadow:var(--glow)}
@@ -77,20 +76,27 @@ main{padding:16px;max-width:1400px;margin:0 auto}
 
 /* hero stats */
 .hero{background:linear-gradient(135deg,var(--panel) 0%,var(--panel2) 100%);
-  border:1px solid var(--line);border-radius:16px;padding:20px 24px;margin-bottom:20px;
-  display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center}
-@media(max-width:600px){.hero{grid-template-columns:1fr;text-align:center}}
+  border:1px solid var(--line);border-radius:16px;padding:20px 24px;margin-bottom:20px}
+.hero-top{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+@media(max-width:500px){.hero-top{flex-direction:column;text-align:center}}
 .hero-main h2{font:800 42px/1 'Fortnite','Inter',sans-serif;letter-spacing:1px;
   background:linear-gradient(135deg,var(--text),var(--dim));
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .hero-main span{color:var(--dim);font-size:14px;font-weight:500}
-.hero-stats{display:flex;gap:20px}
+.hero-stats{display:flex;gap:24px}
 .stat{text-align:center}
 .stat-val{font:700 28px/1 'Fortnite','Inter',sans-serif;color:var(--accent)}
 .stat-val.gold{color:var(--mythic)}
 .stat-label{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.5px;margin-top:4px}
-.progress-bar{grid-column:1/-1;height:6px;background:var(--bg);border-radius:10px;overflow:hidden;margin-top:4px}
+.progress-bar{height:6px;background:var(--bg);border-radius:10px;overflow:hidden;margin-top:16px}
 .progress-bar i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),#00ffcc);border-radius:10px}
+.breakdown{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin-top:16px}
+.bd{background:var(--bg);border-radius:10px;padding:10px 12px}
+.bd-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.bd-top span{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--dim)}
+.bd-top b{font-size:13px;font-weight:700;color:var(--text)}
+.bd-bar{height:4px;background:var(--panel);border-radius:10px;overflow:hidden}
+.bd-bar i{display:block;height:100%;border-radius:10px;background:var(--c)}
 
 /* grid */
 .group-title{display:flex;align-items:center;gap:12px;margin:24px 0 14px;
@@ -127,9 +133,6 @@ main{padding:16px;max-width:1400px;margin:0 auto}
   overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .empty{color:var(--dim);text-align:center;padding:60px 20px;font-size:15px}
 
-/* refresh button */
-#refreshBtn .ico{display:inline-block;transition:transform .3s}
-#refreshBtn[data-busy] .ico{animation:spin .6s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 
 /* toast */
@@ -211,7 +214,6 @@ dialog::backdrop{background:rgba(0,0,0,.7);backdrop-filter:blur(4px)}
   <div class="header-top">
     <span class="logo">Spritedex</span>
     <div class="header-actions">
-      <button id="refreshBtn" class="btn-icon" aria-label="Sync" title="Sync with Epic"><span class="ico">↻</span></button>
       <button id="exportBtn" class="btn-primary">Export</button>
       <div id="profileArea"></div>
     </div>
@@ -415,21 +417,24 @@ function renderHero(){
   }).join('');
 
   return `<section class="hero">
-    <div class="hero-main">
-      <h2>${owned}/${t}</h2>
-      <span>Sprites Collected</span>
-    </div>
-    <div class="hero-stats">
-      <div class="stat">
-        <div class="stat-val gold">${mast}</div>
-        <div class="stat-label">Mastered</div>
+    <div class="hero-top">
+      <div class="hero-main">
+        <h2>${owned}/${t}</h2>
+        <span>Sprites Collected</span>
       </div>
-      <div class="stat">
-        <div class="stat-val">${pct}%</div>
-        <div class="stat-label">Complete</div>
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-val gold">${mast}</div>
+          <div class="stat-label">Mastered</div>
+        </div>
+        <div class="stat">
+          <div class="stat-val">${pct}%</div>
+          <div class="stat-label">Complete</div>
+        </div>
       </div>
     </div>
     <div class="progress-bar"><i style="width:${pct}%"></i></div>
+    <div class="breakdown">${bd}</div>
   </section>`;
 }
 
