@@ -158,6 +158,15 @@ dialog::backdrop{background:rgba(0,0,0,.6)}
 .epic-waiting{color:var(--dim);font-size:13px}
 .epic-waiting::after{content:'';animation:dots 1.2s steps(4) infinite}
 @keyframes dots{0%{content:''}25%{content:'.'}50%{content:'..'}75%{content:'...'}}
+
+/* profile area */
+#profileArea{display:flex;align-items:center;gap:8px}
+.profile-btn{display:flex;align-items:center;gap:8px;background:var(--panel2);border:1px solid var(--line);
+  border-radius:10px;padding:6px 12px 6px 6px;cursor:pointer}
+.profile-btn:hover{border-color:var(--accent)}
+.profile-avatar{width:32px;height:32px;border-radius:8px;object-fit:cover;background:var(--panel)}
+.profile-name{font-size:13px;font-weight:600;color:var(--text);max-width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.login-prompt{font-size:12px;color:var(--dim)}
 </style>
 </head>
 <body>
@@ -170,10 +179,9 @@ dialog::backdrop{background:rgba(0,0,0,.6)}
   </button>
   <div class="row">
     <h1>Sprite Index</h1>
-    <button id="epicLoginBtn" class="btn-epic" title="Link Epic Account">⚡ Link Epic</button>
     <button id="refreshBtn" aria-label="Check for new sprites" title="Check for new sprites"><span class="ico">↻</span></button>
     <button id="exportBtn" class="btn-accent">Export</button>
-    <button id="menuBtn" aria-label="Data menu">⋯</button>
+    <div id="profileArea"></div>
   </div>
   <div class="row" style="margin-top:9px">
     <input type="search" id="search" placeholder="Search sprites…" autocomplete="off">
@@ -222,19 +230,6 @@ dialog::backdrop{background:rgba(0,0,0,.6)}
   </div>
 </div></dialog>
 
-<dialog id="menuDlg"><div class="dlg-body">
-  <h2>Data</h2>
-  <p>Your progress is stored on this device only.</p>
-  <div class="dlg-actions" style="flex-direction:column">
-    <button id="importBtn" class="btn-accent">Import from SpriteTrading</button>
-    <button id="backupBtn">Back up progress (JSON)</button>
-    <button id="restoreBtn">Restore from backup</button>
-    <button id="resetBtn">Reset all progress</button>
-    <button id="menuClose">Done</button>
-  </div>
-  <input type="file" id="restoreFile" accept="application/json" hidden>
-  <input type="file" id="importFile" accept="application/json" hidden>
-</div></dialog>
 
 <script>
 const KEY='spriteIndex.v1', CATKEY='spriteIndex.catalog.v1';
@@ -623,42 +618,6 @@ async function drawPNG(view,groupBy){
   }
 }
 
-// --- data menu ---
-menuBtn.onclick=()=>menuDlg.showModal();
-menuClose.onclick=()=>menuDlg.close();
-backupBtn.onclick=()=>{
-  const b=new Blob([JSON.stringify({v:1,saved:new Date().toISOString(),state},null,2)],
-    {type:'application/json'});
-  const u=URL.createObjectURL(b),a=document.createElement('a');
-  a.href=u;a.download='sprite-index-backup.json';a.click();
-  setTimeout(()=>URL.revokeObjectURL(u),1000);
-};
-importBtn.onclick=()=>importFile.click();
-importFile.onchange=async e=>{
-  const f=e.target.files[0]; if(!f) return;
-  try{
-    const r=importExport(JSON.parse(await f.text()));
-    menuDlg.close();
-    alert(`Imported ${r.applied} of ${r.total} sprites from SpriteTrading.`);
-  }catch(err){ alert('Could not read that file: '+err.message) }
-  e.target.value='';
-};
-restoreBtn.onclick=()=>restoreFile.click();
-restoreFile.onchange=async e=>{
-  const f=e.target.files[0]; if(!f) return;
-  try{
-    const d=JSON.parse(await f.text());
-    if(!d.state) throw 0;
-    state=d.state; save(); render(); menuDlg.close();
-    alert('Progress restored.');
-  }catch{ alert('That file is not a valid backup.') }
-};
-resetBtn.onclick=()=>{
-  if(confirm('Erase all collected/mastered progress on this device?')){
-    state={}; save(); render(); menuDlg.close();
-  }
-};
-
 // --- toast ---
 let toastEl=null, toastT=0;
 function toast(msg,bad){
@@ -771,57 +730,65 @@ const epicAuth = {
   }
 };
 
-function updateEpicButton(){
+function updateProfileArea(){
+  const area = document.getElementById('profileArea');
   if(epicAuth.isLoggedIn()){
-    epicLoginBtn.textContent = '⚡ ' + epicAuth.displayName;
-    epicLoginBtn.classList.add('linked');
-    epicLoginBtn.title = 'Click to sync or unlink';
+    const avatarUrl = epicAuth.avatarUrl || '';
+    area.innerHTML = `
+      <button class="profile-btn" id="profileBtn" title="Account options">
+        ${avatarUrl ? `<img class="profile-avatar" src="${avatarUrl}" alt="">` : `<div class="profile-avatar" style="display:grid;place-items:center;font-size:14px;font-weight:700;color:var(--accent)">${(epicAuth.displayName||'?')[0].toUpperCase()}</div>`}
+        <span class="profile-name">${epicAuth.displayName || 'User'}</span>
+      </button>
+    `;
+    document.getElementById('profileBtn').onclick = showProfileMenu;
   } else {
-    epicLoginBtn.textContent = '⚡ Link Epic';
-    epicLoginBtn.classList.remove('linked');
-    epicLoginBtn.title = 'Link Epic Account';
+    area.innerHTML = `<button id="epicLoginBtn" class="btn-epic" title="Link Epic Account">⚡ Link Epic</button>`;
+    document.getElementById('epicLoginBtn').onclick = showLoginFlow;
   }
+  // Clear state if not logged in
+  if(!epicAuth.isLoggedIn()){
+    state = {};
+    save();
+  }
+  render();
 }
 
-epicLoginBtn.onclick = async () => {
-  if(epicAuth.isLoggedIn()){
-    // Already logged in - show options
-    epicTitle.textContent = 'Epic Account Linked';
-    epicDesc.textContent = `Logged in as ${epicAuth.displayName}`;
-    epicContent.innerHTML = '';
-    epicClose.textContent = 'Close';
-    epicDlg.showModal();
+function showProfileMenu(){
+  epicTitle.textContent = 'Your Account';
+  epicDesc.textContent = `Logged in as ${epicAuth.displayName}`;
+  epicContent.innerHTML = '';
+  epicClose.textContent = 'Close';
+  epicDlg.showModal();
 
-    const btns = document.createElement('div');
-    btns.className = 'dlg-actions';
-    btns.style.flexDirection = 'column';
-    btns.innerHTML = `
-      <button id="epicSyncBtn" class="btn-accent">Sync Locker Now</button>
-      <button id="epicUnlinkBtn">Unlink Account</button>
-    `;
-    epicContent.appendChild(btns);
+  const btns = document.createElement('div');
+  btns.className = 'dlg-actions';
+  btns.style.flexDirection = 'column';
+  btns.innerHTML = `
+    <button id="epicSyncBtn" class="btn-accent">Sync Locker Now</button>
+    <button id="epicUnlinkBtn">Logout</button>
+  `;
+  epicContent.appendChild(btns);
 
-    document.getElementById('epicSyncBtn').onclick = async () => {
-      try {
-        epicContent.innerHTML = '<p class="epic-waiting">Fetching your locker</p>';
-        await syncFromEpic();
-        epicDlg.close();
-        toast('Locker synced!');
-      } catch(err){
-        epicContent.innerHTML = `<p style="color:var(--legendary)">Error: ${err.message}</p>`;
-      }
-    };
-
-    document.getElementById('epicUnlinkBtn').onclick = () => {
-      epicAuth.logout();
-      updateEpicButton();
+  document.getElementById('epicSyncBtn').onclick = async () => {
+    try {
+      epicContent.innerHTML = '<p class="epic-waiting">Fetching your locker</p>';
+      await syncFromEpic();
       epicDlg.close();
-      toast('Epic account unlinked');
-    };
-    return;
-  }
+      toast('Locker synced!');
+    } catch(err){
+      epicContent.innerHTML = `<p style="color:var(--legendary)">Error: ${err.message}</p>`;
+    }
+  };
 
-  // Show exchange code flow
+  document.getElementById('epicUnlinkBtn').onclick = () => {
+    epicAuth.logout();
+    updateProfileArea();
+    epicDlg.close();
+    toast('Logged out');
+  };
+}
+
+function showLoginFlow(){
   epicTitle.textContent = 'Link Your Epic Account';
   epicDesc.textContent = 'Sync your Fortnite locker automatically.';
   epicClose.textContent = 'Cancel';
@@ -847,21 +814,21 @@ epicLoginBtn.onclick = async () => {
     try {
       epicContent.innerHTML = '<p class="epic-waiting">Linking account</p>';
       const result = await epicAuth.exchangeCode(code);
-      updateEpicButton();
 
       epicTitle.textContent = 'Account Linked!';
       epicDesc.textContent = `Welcome, ${result.display_name}`;
       epicContent.innerHTML = '<p class="epic-waiting">Syncing your locker</p>';
 
       await syncFromEpic(result.access_token);
+      updateProfileArea();
       epicDlg.close();
       toast(`Linked as ${result.display_name} - locker synced!`);
 
     } catch(err){
-      epicContent.innerHTML = `<p style="color:var(--legendary)">Error: ${err.message}</p><p style="margin-top:12px"><button onclick="epicLoginBtn.click()" class="btn-accent">Try Again</button></p>`;
+      epicContent.innerHTML = `<p style="color:var(--legendary)">Error: ${err.message}</p><p style="margin-top:12px"><button onclick="showLoginFlow()" class="btn-accent">Try Again</button></p>`;
     }
   };
-};
+}
 
 epicClose.onclick = () => epicDlg.close();
 epicDlg.addEventListener('click', ev => { if(ev.target === epicDlg) epicDlg.close() });
@@ -900,15 +867,20 @@ async function boot(){
   }catch{
     content.innerHTML='<p class="empty">Could not load sprite data.</p>'; return;
   }
-  buildEntries(); render();
-  updateEpicButton();
+  buildEntries();
 
-  // If linked to Epic, sync from there; otherwise use local collection
+  // If not logged in, clear state to show all as not collected
+  if(!epicAuth.isLoggedIn()){
+    state = {};
+    save();
+  }
+
+  updateProfileArea();
+
+  // If linked to Epic, sync from there
   if(epicAuth.isLoggedIn()){
     try{ await syncFromEpic(); }
-    catch{ await pullCollection(false); } // fallback to local data
-  } else {
-    await pullCollection(false);
+    catch(e){ console.log('Sync failed:', e); render(); }
   }
 }
 boot();
