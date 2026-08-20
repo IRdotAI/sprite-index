@@ -91,7 +91,9 @@ main{padding:16px;max-width:1400px;margin:0 auto}
 .progress-bar{height:6px;background:var(--bg);border-radius:10px;overflow:hidden;margin-top:16px}
 .progress-bar i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),#00ffcc);border-radius:10px}
 .breakdown{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin-top:16px}
-.bd{background:var(--bg);border-radius:10px;padding:10px 12px}
+.bd{background:var(--bg);border-radius:10px;padding:10px 12px;transition:all .15s}
+.bd:hover{background:var(--panel);transform:translateY(-1px)}
+.bd.active{background:var(--panel2);border:1px solid var(--accent);box-shadow:var(--glow)}
 .bd-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
 .bd-top span{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--dim)}
 .bd-top b{font-size:13px;font-weight:700;color:var(--text)}
@@ -270,7 +272,7 @@ dialog[open]{display:block}
 
 <script>
 const KEY='spriteIndex.v1';
-let DB=null, state=load(), filters={status:'all',rarity:'all',q:''};
+let DB=null, state=load(), filters={status:'all',rarity:'all',variant:'all',q:''};
 
 function load(){ try{return JSON.parse(localStorage.getItem(KEY))||{}}catch{return {}} }
 function save(){ localStorage.setItem(KEY,JSON.stringify(state)) }
@@ -291,12 +293,23 @@ function buildEntries(){
   ENTRIES=[];
   for(const s of DB.sprites){
     for(const v of s.variants){
+      // Build variant-specific image URL
+      let img = null;
+      if(s.img){
+        // Base URL format: https://api.spritetrading.com/sprites/water.webp?w=128
+        // Variant URL: https://api.spritetrading.com/sprites/gold-water.webp?w=128
+        if(v === 'normal'){
+          img = s.img;
+        } else {
+          img = s.img.replace('/sprites/', `/sprites/${v}-`);
+        }
+      }
       ENTRIES.push({
         key: uid(s.id, v),
         sprite: s,
         variantId: v,
         variant: DB.variants.find(x => x.id === v),
-        img: s.img || null
+        img: img
       });
     }
   }
@@ -308,6 +321,7 @@ function visible(){
   return ENTRIES.filter(e=>{
     const s=st(e.key);
     if(filters.rarity!=='all' && e.sprite.rarity!==filters.rarity) return false;
+    if(filters.variant!=='all' && e.variantId!==filters.variant) return false;
     if(filters.status==='owned' && !s.owned) return false;
     if(filters.status==='missing' && s.owned) return false;
     if(filters.status==='mastered' && !s.mastered) return false;
@@ -344,7 +358,9 @@ function renderHero(){
     (m[id]=m[id]||{o:0,t:0}); m[id].t++; if(st(e.key).owned) m[id].o++;
   }
   const bd=VORDER.filter(([id])=>m[id]&&m[id].t).map(([id,label])=>{
-    const c=m[id]; return `<div class="bd">
+    const c=m[id];
+    const active = filters.variant === id ? 'active' : '';
+    return `<div class="bd ${active}" data-v="${id}" style="cursor:pointer">
       <div class="bd-top"><span>${label}</span><b>${c.o}/${c.t}</b></div>
       <div class="bd-bar"><i style="--c:${vcol(id)};width:${Math.round(c.o/c.t*100)}%"></i></div>
     </div>`;
@@ -429,6 +445,14 @@ document.addEventListener('click',ev=>{
   if(c){
     if(c.dataset.s) filters.status=c.dataset.s;
     if(c.dataset.r) filters.rarity=c.dataset.r;
+    render();
+    return;
+  }
+  // Variant breakdown bar click
+  const bd=ev.target.closest('.bd[data-v]');
+  if(bd){
+    const v=bd.dataset.v;
+    filters.variant = filters.variant===v ? 'all' : v;
     render();
     return;
   }
@@ -532,10 +556,17 @@ async function drawPNG(view,groupBy){
   const COLS = variants.length; // 8 variants
   const ROWS = sprites.length;  // 26 sprites
 
-  // Load all sprite images
+  // Load all variant images
   const art = new Map();
-  await Promise.all([...new Set(sprites.map(s=>s.img).filter(Boolean))]
-    .map(async u=>art.set(u,await loadArt(u))));
+  const imgUrls = [];
+  for(const s of sprites){
+    if(!s.img) continue;
+    for(const v of variants){
+      const url = v.id === 'normal' ? s.img : s.img.replace('/sprites/', `/sprites/${v.id}-`);
+      imgUrls.push(url);
+    }
+  }
+  await Promise.all([...new Set(imgUrls)].map(async u=>art.set(u,await loadArt(u))));
 
   const S = 2;
   const PAD = 24;
@@ -642,7 +673,12 @@ async function drawPNG(view,groupBy){
       x.lineWidth = 1;
       rr(cellX, rowY, CELL_W, CELL_H, 8); x.stroke();
 
-      const im = sprite.img ? art.get(sprite.img) : null;
+      // Get variant-specific image
+      let imgUrl = null;
+      if(sprite.img){
+        imgUrl = variant.id === 'normal' ? sprite.img : sprite.img.replace('/sprites/', `/sprites/${variant.id}-`);
+      }
+      const im = imgUrl ? art.get(imgUrl) : null;
       if (hasIt && im) {
         // Draw sprite image
         x.drawImage(im, cellX + 10, rowY + 8, 48, 48);
