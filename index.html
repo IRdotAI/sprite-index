@@ -844,20 +844,31 @@ async function syncFromEpic(token){
   console.log('Epic returned:', locker);
   console.log('Template types:', locker.debug_template_types);
   console.log('Total items:', locker.total);
-  console.log('Mimosa/Collectable items:', locker.cosmetics.filter(c => c.templateId && (c.templateId.includes('Mimosa') || c.templateId.includes('Collectable') || c.templateId.toLowerCase().includes('sprite'))));
+
+  // Find ALL sprite-related tokens for debugging
+  const spriteTokens = locker.cosmetics.filter(c => {
+    const tid = (c.templateId || '').toLowerCase();
+    return tid.includes('sprite') || tid.includes('mimosa') || tid.includes('collectable');
+  });
+  console.log('All sprite-related tokens:', spriteTokens.length, spriteTokens);
+
+  // Specifically find spritemastery tokens
+  const masteryTokens = locker.cosmetics.filter(c =>
+    (c.templateId || '').includes('spritemastery_token')
+  );
+  console.log('Spritemastery tokens found:', masteryTokens.length, masteryTokens.map(t => t.templateId));
 
   // Map Epic sprite tokens to sprite entries
   // Token format: "Token:athena_s41_spritemastery_token_qXX" or "Token:athena_s41_spritemastery_token_qXXy"
-  // where XX = sprite number (01-26), y = variant letter (a-g)
+  // where XX = sprite number (01-25), y = variant letter (a-g)
 
   // Sprite mapping: q number -> sprite id (based on sprites.json order)
-  // TODO: verify this order matches Epic's internal numbering
   const SPRITE_MAP = {
     '01': 'water', '02': 'earth', '03': 'fire', '04': 'fishy', '05': 'air',
     '06': 'duck', '07': 'ghost', '08': 'demon', '09': 'king', '10': 'aura',
     '11': 'striker', '12': 'dream', '13': 'punk', '14': 'boss', '15': 'seven',
     '16': 'llama', '17': 'peely', '18': 'grim-reaper', '19': 'zero-point', '20': 'burnt-peanut',
-    '21': 'batman', '22': 'pollo', '23': 'vini-jr', '24': 'john-wick', '25': 'ironmouse', '26': 'unknown'
+    '21': 'batman', '22': 'pollo', '23': 'vini-jr', '24': 'john-wick', '25': 'ironmouse'
   };
 
   // Variant index: letter -> index in sprite's variant array
@@ -869,6 +880,9 @@ async function syncFromEpic(token){
     const sprite = DB.sprites.find(s => s.id === spriteId);
     return sprite ? sprite.variants : [];
   };
+
+  const matched = [];
+  const unmatched = [];
 
   for(const item of locker.cosmetics){
     const templateId = item.templateId || '';
@@ -898,19 +912,40 @@ async function syncFromEpic(token){
 
           // Try to find existing entry, or create state anyway
           const entry = ENTRIES.find(e => e.key === key);
-          if(entry || spriteId !== 'unknown'){
+          if(entry){
             state[key] = {
               owned: true,
               mastered: item.attributes?.completion_complete || false,
               level: item.attributes?.level || null
             };
+            matched.push({ templateId, key, spriteId, variantId: finalVariantId });
+          } else {
+            unmatched.push({ templateId, key, spriteId, variantId: finalVariantId, reason: 'no entry found' });
           }
+        } else {
+          unmatched.push({ templateId, tokenId, spriteNum, variantLetter, reason: spriteId ? 'bad variant index' : 'unknown sprite number' });
         }
+      } else {
+        unmatched.push({ templateId, tokenId, reason: 'regex no match' });
       }
     }
   }
 
-  console.log('Sprites synced! Owned:', Object.keys(state).filter(k => state[k]?.owned).length);
+  console.log('Matched tokens:', matched.length, matched);
+  console.log('Unmatched tokens:', unmatched.length, unmatched);
+
+  const ownedKeys = Object.keys(state).filter(k => state[k]?.owned);
+  console.log('Sprites synced! Owned:', ownedKeys.length);
+  console.log('Owned keys:', ownedKeys);
+
+  // Debug: find ENTRIES that don't have state set
+  const missingFromState = ENTRIES.filter(e => !state[e.key]?.owned);
+  console.log('ENTRIES not owned (' + missingFromState.length + '):', missingFromState.map(e => e.key));
+
+  // Debug: find state keys that don't match any ENTRY
+  const entryKeys = new Set(ENTRIES.map(e => e.key));
+  const orphanedState = ownedKeys.filter(k => !entryKeys.has(k));
+  console.log('State keys without matching ENTRY (' + orphanedState.length + '):', orphanedState);
 
   save();
   render();
