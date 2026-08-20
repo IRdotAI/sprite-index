@@ -840,9 +840,11 @@ epicDlg.addEventListener('click', ev => { if(ev.target === epicDlg) epicDlg.clos
 
 async function syncFromEpic(token){
   const locker = await epicAuth.getLocker(token);
+  window.lastLocker = locker; // save for debugging
   console.log('Epic returned:', locker);
   console.log('Template types:', locker.debug_template_types);
   console.log('Total items:', locker.total);
+  console.log('Mimosa/Collectable items:', locker.cosmetics.filter(c => c.templateId && (c.templateId.includes('Mimosa') || c.templateId.includes('Collectable') || c.templateId.toLowerCase().includes('sprite'))));
 
   // Map Epic cosmetic IDs to sprite entries
   // This maps templateIds like "AthenaCharacter:CID_XXX" to your sprite IDs
