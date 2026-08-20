@@ -269,12 +269,11 @@ dialog[open]{display:block}
 
 
 <script>
-const KEY='spriteIndex.v1', CATKEY='spriteIndex.catalog.v1';
-let DB=null, state=load(), catalog=loadCat(), filters={status:'all',rarity:'all',q:''};
+const KEY='spriteIndex.v1';
+let DB=null, state=load(), filters={status:'all',rarity:'all',q:''};
 
 function load(){ try{return JSON.parse(localStorage.getItem(KEY))||{}}catch{return {}} }
 function save(){ localStorage.setItem(KEY,JSON.stringify(state)) }
-function loadCat(){ try{return JSON.parse(localStorage.getItem(CATKEY))||null}catch{return null} }
 const uid=(s,v)=>s+':'+v;
 const st=k=>state[k]||{owned:false,mastered:false};
 
@@ -290,86 +289,19 @@ const findVariant=name=>DB.variants.find(v=>norm(v.name)===norm(name))
 let ENTRIES=[];
 function buildEntries(){
   ENTRIES=[];
-  if(catalog && catalog.entries && catalog.entries.length){
-    for(const e of catalog.entries){
-      const s=findSprite(e.sprite);
-      const v=findVariant(e.variant);
-      const vid=v?v.id:norm(e.variant);
+  for(const s of DB.sprites){
+    for(const v of s.variants){
       ENTRIES.push({
-        key:uid(s?s.id:norm(e.sprite),vid),
-        sprite:s||{id:norm(e.sprite),name:e.sprite,
-          rarity:(e.rarity||'rare').toLowerCase(),ability:'',howToGet:''},
-        variantId:vid,
-        variant:v||{id:vid,name:e.variant,effect:''},
-        img:e.img||null,
-        raw:e            // dust cost, dex number, acquired date - for the info panel
+        key: uid(s.id, v),
+        sprite: s,
+        variantId: v,
+        variant: DB.variants.find(x => x.id === v),
+        img: s.img || null
       });
     }
-    // Keep the shipped rarity where we have it; "Special" isn't a real tier.
-    for(const e of ENTRIES)
-      if(!DB.rarities.some(r=>r.id===e.sprite.rarity)) e.sprite.rarity='rare';
-  } else {
-    for(const s of DB.sprites)
-      for(const v of s.variants)
-        ENTRIES.push({key:uid(s.id,v),sprite:s,variantId:v,
-          variant:DB.variants.find(x=>x.id===v),img:null});
   }
 }
 
-// Import spritetrading account export format (collection.sprites object)
-function importFromSpritetrading(d){
-  const sprites = d?.collection?.sprites;
-  if(!sprites) return;
-
-  // Map spritetrading internal names to our DB ids (they match now)
-  for(const [key, data] of Object.entries(sprites)){
-    // Parse key: "gold-water" -> variant=gold, sprite=water
-    // Or just "water" -> variant=normal, sprite=water
-    const VARIANTS = ['gold','gummy','galaxy','gem','holofoil','cube','quack'];
-    let variant = 'normal';
-    let spriteId = key;
-
-    for(const v of VARIANTS){
-      if(key.startsWith(v + '-')){
-        variant = v;
-        spriteId = key.slice(v.length + 1);
-        break;
-      }
-    }
-
-    const dbKey = spriteId + ':' + variant;
-
-    // Check if this entry exists in our DB
-    const entry = ENTRIES.find(e => e.key === dbKey);
-    if(entry){
-      state[dbKey] = {
-        owned: true,
-        mastered: data.mastered || false,
-        level: data.level || null
-      };
-    }
-  }
-  save();
-}
-
-// Apply a spritetrading-export.json file.
-function importExport(d){
-  if(!d || !Array.isArray(d.entries)) throw new Error('not a SpriteTrading export');
-  catalog={entries:d.entries};
-  localStorage.setItem(CATKEY,JSON.stringify(catalog));
-  buildEntries();
-  const byKey=new Map(ENTRIES.map(e=>[e.key,e]));
-  let n=0;
-  for(const e of d.entries){
-    const s=findSprite(e.sprite), v=findVariant(e.variant);
-    const k=uid(s?s.id:norm(e.sprite), v?v.id:norm(e.variant));
-    if(!byKey.has(k)) continue;
-    state[k]={owned:!!e.collected, mastered:!!e.mastered, level:e.level||null};
-    n++;
-  }
-  save(); render();
-  return {applied:n, total:d.entries.length};
-}
 
 function visible(){
   const q=filters.q.trim().toLowerCase();
@@ -994,13 +926,6 @@ async function boot(){
   }
   buildEntries();
 
-  // Try to load spritetrading export for images and initial data
-  try{
-    const stExport = await (await fetch('data/spritetrading-export.json?t='+Date.now(),{cache:'no-store'})).json();
-    if(stExport?.collection?.sprites){
-      importFromSpritetrading(stExport);
-    }
-  }catch(e){}
 
   render();
 

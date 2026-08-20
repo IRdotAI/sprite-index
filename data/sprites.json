@@ -1,183 +1,185 @@
 {
   "_meta": {
-    "schemaVersion": 2,
+    "schemaVersion": 3,
     "generated": "2026-08-20",
-    "totals": { "sprites": 25, "entries": 117 },
-    "sources": ["spritetrading.com export"],
-    "notes": ["Variant distribution verified from spritetrading.com account export"]
+    "totals": { "sprites": 26, "variants": 8 },
+    "notes": ["All variants included for Epic token matching"]
   },
 
   "variants": [
-    { "id": "normal",   "name": "Normal",   "effect": "Standard companion with its normal ability and no extra variant bonus." },
-    { "id": "gold",     "name": "Gold",     "effect": "Adds bonus Sprite XP from eliminations." },
-    { "id": "gummy",    "name": "Gummy",    "effect": "Awards 20% additional Sprite Dust when you successfully extract the Sprite." },
-    { "id": "galaxy",   "name": "Galaxy",   "effect": "Increases ammunition gained from pickups by 30%." },
-    { "id": "holofoil", "name": "Holofoil", "effect": "Gives the squad a 5% chance to find rare Sprites from containers." },
-    { "id": "gem",      "name": "Gem",      "effect": "Reduces fall damage by 30%." },
-    { "id": "cube",     "name": "Cube",     "effect": "Grants Overdrive while the carrier is inside the Storm." },
-    { "id": "quack",    "name": "Quack",    "effect": "When this Sprite gains progress, every other carried Sprite gains an extra 50% of that progress." }
+    { "id": "normal",   "name": "Normal",   "letter": "",  "effect": "Standard companion." },
+    { "id": "gold",     "name": "Gold",     "letter": "a", "effect": "Bonus Sprite XP from eliminations." },
+    { "id": "gummy",    "name": "Gummy",    "letter": "b", "effect": "20% additional Sprite Dust on extract." },
+    { "id": "galaxy",   "name": "Galaxy",   "letter": "c", "effect": "30% more ammo from pickups." },
+    { "id": "holofoil", "name": "Holofoil", "letter": "d", "effect": "5% chance to find rare Sprites." },
+    { "id": "gem",      "name": "Gem",      "letter": "e", "effect": "30% reduced fall damage." },
+    { "id": "cube",     "name": "Cube",     "letter": "f", "effect": "Overdrive while in Storm." },
+    { "id": "quack",    "name": "Quack",    "letter": "g", "effect": "50% bonus progress to other Sprites." }
   ],
 
   "rarities": [
     { "id": "rare",      "name": "Rare",      "order": 1, "color": "#3AA7F0" },
-    { "id": "epic",      "name": "Epic",      "order": 2, "color": "#A64BF4" },
-    { "id": "legendary", "name": "Legendary", "order": 3, "color": "#F0862E" },
-    { "id": "mythic",    "name": "Mythic",    "order": 4, "color": "#F5C542" }
+    { "id": "epic",      "name": "Epic",      "order": 2, "color": "#A855F7" },
+    { "id": "legendary", "name": "Legendary", "order": 3, "color": "#F97316" },
+    { "id": "mythic",    "name": "Mythic",    "order": 4, "color": "#FACC15" }
   ],
 
   "sprites": [
     {
-      "id": "water", "name": "Water", "rarity": "rare", "variantCount": 7,
-      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem", "quack"],
-      "ability": "Replenishes shields for you and nearby squadmates while in water.",
-      "howToGet": "Sprite Chests and loot containers"
-    },
-    {
-      "id": "earth", "name": "Earth", "rarity": "rare", "variantCount": 7,
-      "variants": ["normal", "gold", "gummy", "galaxy", "gem", "cube", "quack"],
-      "ability": "May reveal extra rare items when you open chests.",
-      "howToGet": "Sprite Chests and loot containers"
-    },
-    {
-      "id": "fire", "name": "Fire", "rarity": "rare", "variantCount": 7,
-      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "cube", "quack"],
-      "ability": "Releases a fiery burst after you deal enough damage.",
-      "howToGet": "Sprite Chests and loot containers"
-    },
-    {
-      "id": "fishy", "name": "Fishy", "rarity": "rare", "variantCount": 5,
-      "variants": ["normal", "gold", "gummy", "galaxy", "cube"],
-      "ability": "Increases swim speed and boosts movement while under fire.",
-      "howToGet": "Sprite Chests and loot containers"
-    },
-    {
-      "id": "air", "name": "Air", "rarity": "rare", "variantCount": 5,
-      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil"],
-      "ability": "Increases sprint speed and jump height while equipped.",
-      "howToGet": "Sprite Chests and loot containers"
-    },
-
-    {
-      "id": "duck", "name": "Duck", "rarity": "epic", "variantCount": 5,
-      "variants": ["normal", "gold", "gummy", "galaxy", "gem"],
-      "ability": "Emoting and jamming replenish your shields.",
-      "howToGet": "Sprite Chests and loot containers"
-    },
-    {
-      "id": "ghost", "name": "Ghost", "rarity": "epic", "variantCount": 5,
-      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil"],
-      "ability": "Briefly cloaks you when you reload.",
-      "howToGet": "Sprite Chests and loot containers"
-    },
-    {
-      "id": "demon", "name": "Demon", "rarity": "epic", "variantCount": 5,
-      "variants": ["normal", "gold", "gummy", "galaxy", "gem"],
-      "ability": "Siphons health and shields after eliminations.",
-      "howToGet": "Sprite Chests and loot containers"
-    },
-    {
-      "id": "king", "name": "King", "rarity": "epic", "variantCount": 5,
-      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil"],
-      "ability": "Makes your pickaxe deal more damage.",
-      "howToGet": "Sprite Chests and loot containers"
-    },
-    {
-      "id": "aura", "name": "Aura", "rarity": "epic", "variantCount": 5,
-      "variants": ["normal", "gold", "gummy", "galaxy", "gem"],
-      "ability": "Grants a Shock Rock charge after enough damage.",
-      "howToGet": "Sprite Chests and loot containers"
-    },
-    {
-      "id": "striker", "name": "Striker", "rarity": "epic", "variantCount": 5,
-      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil"],
-      "ability": "Triggers Overdrive when you mantle or hurdle.",
-      "howToGet": "Sprite Chests and loot containers"
-    },
-
-    {
-      "id": "dream", "name": "Dream", "rarity": "legendary", "variantCount": 5,
-      "variants": ["normal", "gold", "gummy", "galaxy", "cube"],
-      "ability": "Grants a random item each level and legendary loot at max level.",
-      "howToGet": "Rare Chests and Sprite loot"
-    },
-    {
-      "id": "punk", "name": "Punk", "rarity": "legendary", "variantCount": 5,
-      "variants": ["normal", "gold", "gummy", "galaxy", "cube"],
-      "ability": "Offers a chance for an infinite-ammo effect.",
-      "howToGet": "Rare Chests and Sprite loot"
-    },
-    {
-      "id": "boss", "name": "Boss", "rarity": "legendary", "variantCount": 5,
-      "variants": ["normal", "gold", "gummy", "galaxy", "cube"],
-      "ability": "Boosts your maximum Health and Shield.",
-      "howToGet": "Boss rewards and Sprite loot"
-    },
-    {
-      "id": "seven", "name": "Seven", "rarity": "legendary", "variantCount": 5,
-      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil"],
-      "ability": "Reveals enemy foot trails for you and nearby squadmates.",
-      "howToGet": "Sprite Chests and loot containers"
-    },
-    {
-      "id": "llama", "name": "Llama", "rarity": "legendary", "variantCount": 5,
-      "variants": ["normal", "gold", "gummy", "galaxy", "gem"],
-      "ability": "Opening Ammo Boxes has a chance to upgrade your weapon.",
-      "howToGet": "Relic Chests and Sprite loot"
-    },
-    {
-      "id": "peely", "name": "Peely", "rarity": "legendary", "variantCount": 5,
-      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil"],
-      "ability": "Marks nearby rare Sprite variants or enemies carrying them.",
-      "howToGet": "High/mountainous areas and Sprite loot"
-    },
-
-    {
-      "id": "grim", "name": "Grim Reaper", "rarity": "mythic", "variantCount": 7,
-      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem", "cube"],
-      "ability": "Marks players who damage you and reveals their location.",
-      "howToGet": "Sprite Chests and loot containers"
-    },
-    {
-      "id": "zeropoint", "name": "Zero Point", "rarity": "mythic", "variantCount": 8,
+      "id": "water", "num": "01", "name": "Water", "rarity": "rare",
       "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem", "cube", "quack"],
-      "ability": "Creates a Shield Bubble Jr. when you heal.",
-      "howToGet": "Vault, keycard, and Sprite Chests"
+      "ability": "Replenishes shields in water.",
+      "img": "https://fortnite-api.com/images/cosmetics/br/spritecollectible_water/icon.png"
     },
     {
-      "id": "burntpeanut", "name": "Burnt Peanut", "rarity": "mythic", "variantCount": 1,
-      "variants": ["normal"],
-      "ability": "May award extra or Mythic loot after eliminations.",
-      "howToGet": "Relic Chests and extremely rare sources"
+      "id": "earth", "num": "02", "name": "Earth", "rarity": "rare",
+      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem", "cube", "quack"],
+      "ability": "Reveals extra rare items from chests.",
+      "img": "https://fortnite-api.com/images/cosmetics/br/spritecollectible_earth/icon.png"
     },
     {
-      "id": "fossilmeal", "name": "Batman", "rarity": "mythic", "variantCount": 6,
-      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "cube"],
-      "ability": "Lets you deploy the Bat Cape midair; improves rare-Sprite chest finds.",
-      "howToGet": "DC Summer Quests and chest drops"
+      "id": "fire", "num": "03", "name": "Fire", "rarity": "rare",
+      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem", "cube", "quack"],
+      "ability": "Fiery burst after dealing damage.",
+      "img": "https://fortnite-api.com/images/cosmetics/br/spritecollectible_fire/icon.png"
     },
     {
-      "id": "cokeparmesan", "name": "Pollo", "rarity": "mythic", "variantCount": 1,
-      "variants": ["normal"],
-      "ability": "Slowly replenishes shields for you and nearby squadmates after elimination.",
-      "howToGet": "Sprite Chests and Rare Chests"
+      "id": "fishy", "num": "04", "name": "Fishy", "rarity": "rare",
+      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem", "cube", "quack"],
+      "ability": "Faster swimming and movement under fire.",
+      "img": "https://fortnite-api.com/images/cosmetics/br/spritecollectible_fishy/icon.png"
     },
     {
-      "id": "companystargazer", "name": "Vini Jr.", "rarity": "mythic", "variantCount": 1,
-      "variants": ["normal"],
-      "ability": "Makes slides destructive; slide-kicks improve fire rate and reload speed.",
-      "howToGet": "Sprite Chests and Rare Chests"
+      "id": "air", "num": "05", "name": "Air", "rarity": "rare",
+      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem", "cube", "quack"],
+      "ability": "Increased sprint speed and jump height.",
+      "img": "https://fortnite-api.com/images/cosmetics/br/spritecollectible_air/icon.png"
     },
     {
-      "id": "fillergrunt", "name": "John Wick", "rarity": "mythic", "variantCount": 1,
-      "variants": ["normal"],
-      "ability": "Knocking or eliminating a player briefly reveals other nearby enemies.",
-      "howToGet": "Springfield Reload carriers and chests"
+      "id": "duck", "num": "06", "name": "Duck", "rarity": "epic",
+      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem", "cube", "quack"],
+      "ability": "Emoting replenishes shields.",
+      "img": "https://fortnite-api.com/images/cosmetics/br/spritecollectible_duck/icon.png"
     },
     {
-      "id": "pedicureantacid", "name": "Ironmouse", "rarity": "mythic", "variantCount": 1,
-      "variants": ["normal"],
-      "ability": "Regenerates health; grants Cloak and low gravity while regenerating.",
-      "howToGet": "Relic Chests"
+      "id": "ghost", "num": "07", "name": "Ghost", "rarity": "epic",
+      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem", "cube", "quack"],
+      "ability": "Brief cloak when reloading.",
+      "img": "https://fortnite-api.com/images/cosmetics/br/spritecollectible_ghost/icon.png"
+    },
+    {
+      "id": "demon", "num": "08", "name": "Demon", "rarity": "epic",
+      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem", "cube", "quack"],
+      "ability": "Siphons health after eliminations.",
+      "img": "https://fortnite-api.com/images/cosmetics/br/spritecollectible_demon/icon.png"
+    },
+    {
+      "id": "king", "num": "09", "name": "King", "rarity": "epic",
+      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem", "cube", "quack"],
+      "ability": "Pickaxe deals more damage.",
+      "img": "https://fortnite-api.com/images/cosmetics/br/spritecollectible_king/icon.png"
+    },
+    {
+      "id": "aura", "num": "10", "name": "Aura", "rarity": "epic",
+      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem", "cube", "quack"],
+      "ability": "Grants Shock Rock charge after damage.",
+      "img": "https://fortnite-api.com/images/cosmetics/br/spritecollectible_aura/icon.png"
+    },
+    {
+      "id": "striker", "num": "11", "name": "Striker", "rarity": "epic",
+      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem", "cube", "quack"],
+      "ability": "Overdrive on mantle or hurdle.",
+      "img": "https://fortnite-api.com/images/cosmetics/br/spritecollectible_striker/icon.png"
+    },
+    {
+      "id": "dream", "num": "12", "name": "Dream", "rarity": "legendary",
+      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem", "cube", "quack"],
+      "ability": "Random item each level, legendary at max.",
+      "img": "https://fortnite-api.com/images/cosmetics/br/spritecollectible_dream/icon.png"
+    },
+    {
+      "id": "punk", "num": "13", "name": "Punk", "rarity": "legendary",
+      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem", "cube", "quack"],
+      "ability": "Chance for infinite ammo effect.",
+      "img": "https://fortnite-api.com/images/cosmetics/br/spritecollectible_punk/icon.png"
+    },
+    {
+      "id": "boss", "num": "14", "name": "Boss", "rarity": "legendary",
+      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem", "cube", "quack"],
+      "ability": "Boosts max Health and Shield.",
+      "img": "https://fortnite-api.com/images/cosmetics/br/spritecollectible_boss/icon.png"
+    },
+    {
+      "id": "seven", "num": "15", "name": "Seven", "rarity": "legendary",
+      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem", "cube", "quack"],
+      "ability": "Reveals enemy foot trails.",
+      "img": "https://fortnite-api.com/images/cosmetics/br/spritecollectible_seven/icon.png"
+    },
+    {
+      "id": "llama", "num": "16", "name": "Llama", "rarity": "legendary",
+      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem", "cube", "quack"],
+      "ability": "Ammo Boxes may upgrade weapons.",
+      "img": "https://fortnite-api.com/images/cosmetics/br/spritecollectible_llama/icon.png"
+    },
+    {
+      "id": "peely", "num": "17", "name": "Peely", "rarity": "legendary",
+      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem", "cube", "quack"],
+      "ability": "Marks rare Sprite variants nearby.",
+      "img": "https://fortnite-api.com/images/cosmetics/br/spritecollectible_peely/icon.png"
+    },
+    {
+      "id": "grim", "num": "18", "name": "Grim Reaper", "rarity": "mythic",
+      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem", "cube", "quack"],
+      "ability": "Marks players who damage you.",
+      "img": "https://fortnite-api.com/images/cosmetics/br/spritecollectible_grimreaper/icon.png"
+    },
+    {
+      "id": "zeropoint", "num": "19", "name": "Zero Point", "rarity": "mythic",
+      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem", "cube", "quack"],
+      "ability": "Shield Bubble Jr. when healing.",
+      "img": "https://fortnite-api.com/images/cosmetics/br/spritecollectible_zeropoint/icon.png"
+    },
+    {
+      "id": "burntpeanut", "num": "20", "name": "Burnt Peanut", "rarity": "mythic",
+      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem", "cube", "quack"],
+      "ability": "Extra or Mythic loot from eliminations.",
+      "img": "https://fortnite-api.com/images/cosmetics/br/spritecollectible_burntpeanut/icon.png"
+    },
+    {
+      "id": "fossilmeal", "num": "21", "name": "Batman", "rarity": "mythic",
+      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem", "cube", "quack"],
+      "ability": "Bat Cape midair; better rare-Sprite finds.",
+      "img": "https://fortnite-api.com/images/cosmetics/br/spritecollectible_batman/icon.png"
+    },
+    {
+      "id": "cokeparmesan", "num": "22", "name": "Pollo", "rarity": "mythic",
+      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem", "cube", "quack"],
+      "ability": "Slowly replenishes shields after elim.",
+      "img": "https://fortnite-api.com/images/cosmetics/br/spritecollectible_pollo/icon.png"
+    },
+    {
+      "id": "companystargazer", "num": "23", "name": "Vini Jr.", "rarity": "mythic",
+      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem", "cube", "quack"],
+      "ability": "Destructive slides; better fire rate.",
+      "img": "https://fortnite-api.com/images/cosmetics/br/spritecollectible_vinijr/icon.png"
+    },
+    {
+      "id": "fillergrunt", "num": "24", "name": "John Wick", "rarity": "mythic",
+      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem", "cube", "quack"],
+      "ability": "Reveals enemies near knocked players.",
+      "img": "https://fortnite-api.com/images/cosmetics/br/spritecollectible_johnwick/icon.png"
+    },
+    {
+      "id": "pedicureantacid", "num": "25", "name": "Ironmouse", "rarity": "mythic",
+      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem", "cube", "quack"],
+      "ability": "Regenerates health with Cloak.",
+      "img": "https://fortnite-api.com/images/cosmetics/br/spritecollectible_ironmouse/icon.png"
+    },
+    {
+      "id": "unknown26", "num": "26", "name": "Unknown 26", "rarity": "mythic",
+      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem", "cube", "quack"],
+      "ability": "Unreleased sprite.",
+      "img": null
     }
   ]
 }
