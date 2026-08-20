@@ -955,7 +955,7 @@ async function syncFromEpic(token){
 // --- boot ---
 async function boot(){
   try{
-    DB=await (await fetch('data/sprites.json',{cache:'no-cache'})).json();
+    DB=await (await fetch('data/sprites.json?t='+Date.now(),{cache:'no-store'})).json();
   }catch{
     content.innerHTML='<p class="empty">Could not load sprite data.</p>'; return;
   }
