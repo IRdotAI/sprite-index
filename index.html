@@ -283,6 +283,42 @@ function buildEntries(){
   console.log('ENTRIES built:', ENTRIES.length, ENTRIES.map(e => e.key));
 }
 
+// Import spritetrading account export format (collection.sprites object)
+function importFromSpritetrading(d){
+  const sprites = d?.collection?.sprites;
+  if(!sprites) return;
+
+  // Map spritetrading internal names to our DB ids (they match now)
+  for(const [key, data] of Object.entries(sprites)){
+    // Parse key: "gold-water" -> variant=gold, sprite=water
+    // Or just "water" -> variant=normal, sprite=water
+    const VARIANTS = ['gold','gummy','galaxy','gem','holofoil','cube','quack'];
+    let variant = 'normal';
+    let spriteId = key;
+
+    for(const v of VARIANTS){
+      if(key.startsWith(v + '-')){
+        variant = v;
+        spriteId = key.slice(v.length + 1);
+        break;
+      }
+    }
+
+    const dbKey = spriteId + ':' + variant;
+
+    // Check if this entry exists in our DB
+    const entry = ENTRIES.find(e => e.key === dbKey);
+    if(entry){
+      state[dbKey] = {
+        owned: true,
+        mastered: data.mastered || false,
+        level: data.level || null
+      };
+    }
+  }
+  save();
+}
+
 // Apply a spritetrading-export.json file.
 function importExport(d){
   if(!d || !Array.isArray(d.entries)) throw new Error('not a SpriteTrading export');
@@ -959,6 +995,17 @@ async function boot(){
     content.innerHTML='<p class="empty">Could not load sprite data.</p>'; return;
   }
   buildEntries();
+
+  // Load spritetrading export to set initial state (covers sprites Epic tokens miss)
+  try{
+    const stExport = await (await fetch('data/spritetrading-export.json?t='+Date.now(),{cache:'no-store'})).json();
+    if(stExport?.collection?.sprites){
+      importFromSpritetrading(stExport);
+      console.log('Loaded spritetrading export, sprites:', Object.keys(stExport.collection.sprites).length);
+    }
+  }catch(e){ console.log('No spritetrading export found:', e); }
+
+  render();
 
   // If not logged in, clear state to show all as not collected
   if(!epicAuth.isLoggedIn()){
