@@ -149,6 +149,15 @@ dialog::backdrop{background:rgba(0,0,0,.6)}
 .dlg-body select{width:100%}
 .dlg-actions{display:flex;gap:8px;margin-top:16px}
 .dlg-actions button{flex:1}
+
+/* epic login button */
+.btn-epic{background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;border:none;font-weight:650}
+.btn-epic.linked{background:var(--panel2);border:1px solid var(--accent);color:var(--accent)}
+.epic-code{font-size:28px;font-weight:800;letter-spacing:6px;color:var(--accent);
+  background:var(--panel2);padding:12px 20px;border-radius:10px;margin:12px 0}
+.epic-waiting{color:var(--dim);font-size:13px}
+.epic-waiting::after{content:'';animation:dots 1.2s steps(4) infinite}
+@keyframes dots{0%{content:''}25%{content:'.'}50%{content:'..'}75%{content:'...'}}
 </style>
 </head>
 <body>
@@ -161,6 +170,7 @@ dialog::backdrop{background:rgba(0,0,0,.6)}
   </button>
   <div class="row">
     <h1>Sprite Index</h1>
+    <button id="epicLoginBtn" class="btn-epic" title="Link Epic Account">⚡ Link Epic</button>
     <button id="refreshBtn" aria-label="Check for new sprites" title="Check for new sprites"><span class="ico">↻</span></button>
     <button id="exportBtn" class="btn-accent">Export</button>
     <button id="menuBtn" aria-label="Data menu">⋯</button>
@@ -202,6 +212,15 @@ dialog::backdrop{background:rgba(0,0,0,.6)}
   <div class="info-body" id="infoBody"></div>
   <div class="info-foot"><button id="infoClose" class="btn-accent">Close</button></div>
 </dialog>
+
+<dialog id="epicDlg"><div class="dlg-body">
+  <h2 id="epicTitle">Link Your Epic Account</h2>
+  <p id="epicDesc">Automatically sync your Fortnite locker to see which sprites you own.</p>
+  <div id="epicContent"></div>
+  <div class="dlg-actions">
+    <button id="epicClose">Cancel</button>
+  </div>
+</div></dialog>
 
 <dialog id="menuDlg"><div class="dlg-body">
   <h2>Data</h2>
@@ -709,6 +728,174 @@ creatorBar.onclick=async()=>{
   catch{ toast('Creator code: RDOTA'); }
 };
 
+// --- epic oauth ---
+const API_BASE = 'https://spritedex-api.abrasive-tax.workers.dev'; // UPDATE THIS AFTER DEPLOY
+
+const epicAuth = {
+  accountId: localStorage.getItem('epic_account_id'),
+  displayName: localStorage.getItem('epic_display_name'),
+  isLoggedIn(){ return !!this.accountId },
+
+  async startLogin(){
+    const r = await fetch(`${API_BASE}/auth/start`, {method:'POST'});
+    const d = await r.json();
+    if(d.error) throw new Error(d.error);
+    return d;
+  },
+
+  async pollForCompletion(deviceCode, interval=5){
+    return new Promise((resolve, reject) => {
+      const poll = async () => {
+        try {
+          const r = await fetch(`${API_BASE}/auth/poll`, {
+            method:'POST',
+            headers:{'Content-Type':'application/json'},
+            body: JSON.stringify({device_code: deviceCode})
+          });
+          const d = await r.json();
+          if(d.status === 'pending') setTimeout(poll, interval * 1000);
+          else if(d.status === 'complete'){
+            this.accountId = d.account_id;
+            this.displayName = d.display_name;
+            localStorage.setItem('epic_account_id', d.account_id);
+            localStorage.setItem('epic_display_name', d.display_name);
+            resolve(d);
+          } else reject(new Error(d.error || 'Authorization failed'));
+        } catch(err){ reject(err) }
+      };
+      poll();
+    });
+  },
+
+  async getLocker(){
+    if(!this.accountId) throw new Error('Not logged in');
+    const r = await fetch(`${API_BASE}/locker?account_id=${this.accountId}`);
+    const d = await r.json();
+    if(d.error) throw new Error(d.error);
+    return d;
+  },
+
+  logout(){
+    this.accountId = null;
+    this.displayName = null;
+    localStorage.removeItem('epic_account_id');
+    localStorage.removeItem('epic_display_name');
+  }
+};
+
+function updateEpicButton(){
+  if(epicAuth.isLoggedIn()){
+    epicLoginBtn.textContent = '⚡ ' + epicAuth.displayName;
+    epicLoginBtn.classList.add('linked');
+    epicLoginBtn.title = 'Click to sync or unlink';
+  } else {
+    epicLoginBtn.textContent = '⚡ Link Epic';
+    epicLoginBtn.classList.remove('linked');
+    epicLoginBtn.title = 'Link Epic Account';
+  }
+}
+
+epicLoginBtn.onclick = async () => {
+  if(epicAuth.isLoggedIn()){
+    // Already logged in - show options
+    epicTitle.textContent = 'Epic Account Linked';
+    epicDesc.textContent = `Logged in as ${epicAuth.displayName}`;
+    epicContent.innerHTML = '';
+    epicClose.textContent = 'Close';
+    epicDlg.showModal();
+
+    const btns = document.createElement('div');
+    btns.className = 'dlg-actions';
+    btns.style.flexDirection = 'column';
+    btns.innerHTML = `
+      <button id="epicSyncBtn" class="btn-accent">Sync Locker Now</button>
+      <button id="epicUnlinkBtn">Unlink Account</button>
+    `;
+    epicContent.appendChild(btns);
+
+    document.getElementById('epicSyncBtn').onclick = async () => {
+      try {
+        epicContent.innerHTML = '<p class="epic-waiting">Fetching your locker</p>';
+        await syncFromEpic();
+        epicDlg.close();
+        toast('Locker synced!');
+      } catch(err){
+        epicContent.innerHTML = `<p style="color:var(--legendary)">Error: ${err.message}</p>`;
+      }
+    };
+
+    document.getElementById('epicUnlinkBtn').onclick = () => {
+      epicAuth.logout();
+      updateEpicButton();
+      epicDlg.close();
+      toast('Epic account unlinked');
+    };
+    return;
+  }
+
+  // Start login flow
+  epicTitle.textContent = 'Link Your Epic Account';
+  epicDesc.textContent = 'Automatically sync your Fortnite locker.';
+  epicContent.innerHTML = '<p class="epic-waiting">Starting</p>';
+  epicClose.textContent = 'Cancel';
+  epicDlg.showModal();
+
+  try {
+    const auth = await epicAuth.startLogin();
+    epicContent.innerHTML = `
+      <p>Go to:</p>
+      <p><a href="${auth.verification_uri}" target="_blank" style="color:var(--accent)">${auth.verification_uri}</a></p>
+      <p style="margin-top:12px">Enter this code:</p>
+      <div class="epic-code">${auth.user_code}</div>
+      <p class="epic-waiting">Waiting for authorization</p>
+    `;
+
+    const result = await epicAuth.pollForCompletion(auth.device_code, auth.interval);
+    updateEpicButton();
+
+    epicTitle.textContent = 'Account Linked!';
+    epicDesc.textContent = `Welcome, ${result.display_name}`;
+    epicContent.innerHTML = '<p class="epic-waiting">Syncing your locker</p>';
+
+    await syncFromEpic();
+    epicDlg.close();
+    toast(`Linked as ${result.display_name} - locker synced!`);
+
+  } catch(err){
+    epicContent.innerHTML = `<p style="color:var(--legendary)">Error: ${err.message}</p>`;
+  }
+};
+
+epicClose.onclick = () => epicDlg.close();
+epicDlg.addEventListener('click', ev => { if(ev.target === epicDlg) epicDlg.close() });
+
+async function syncFromEpic(){
+  const locker = await epicAuth.getLocker();
+
+  // Map Epic cosmetic IDs to sprite entries
+  // This maps templateIds like "AthenaCharacter:CID_XXX" to your sprite IDs
+  for(const item of locker.cosmetics){
+    const templateId = item.templateId || '';
+    const cosmeticId = templateId.split(':')[1] || '';
+
+    // Find matching sprite entry
+    for(const e of ENTRIES){
+      // Match by sprite ID or name patterns
+      if(cosmeticId.toLowerCase().includes(e.sprite.id.toLowerCase()) ||
+         e.sprite.name.toLowerCase().includes(cosmeticId.toLowerCase())){
+        state[e.key] = {
+          owned: true,
+          mastered: item.attributes?.item_seen || false,
+          level: item.attributes?.level || null
+        };
+      }
+    }
+  }
+
+  save();
+  render();
+}
+
 // --- boot ---
 async function boot(){
   try{
@@ -717,7 +904,15 @@ async function boot(){
     content.innerHTML='<p class="empty">Could not load sprite data.</p>'; return;
   }
   buildEntries(); render();
-  await pullCollection(false);
+  updateEpicButton();
+
+  // If linked to Epic, sync from there; otherwise use local collection
+  if(epicAuth.isLoggedIn()){
+    try{ await syncFromEpic(); }
+    catch{ await pullCollection(false); } // fallback to local data
+  } else {
+    await pullCollection(false);
+  }
 }
 boot();
 if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});
