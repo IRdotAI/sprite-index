@@ -954,11 +954,11 @@ async function syncFromEpic(token){
           const key = spriteId + ':' + variantId;
 
           // Always set state for valid tokens (even if no ENTRY yet - DB might be outdated)
-          // Preserve existing mastered status (from spritetrading import) - don't overwrite with Epic's missing data
+          // Having a spritemastery_token = sprite is MASTERED (you only get the token by extracting at level 5)
           const existing = state[key] || {};
           state[key] = {
             owned: true,
-            mastered: existing.mastered || item.attributes?.completion_complete || false,
+            mastered: true,  // Token existence = mastered!
             level: item.attributes?.level || existing.level || null
           };
 
