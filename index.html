@@ -826,12 +826,14 @@ epicLoginBtn.onclick = async () => {
   epicDesc.textContent = 'Sync your Fortnite locker automatically.';
   epicClose.textContent = 'Cancel';
   epicContent.innerHTML = `
-    <p style="margin-bottom:12px"><b>Step 1:</b> Click the button below and log into Epic Games:</p>
-    <a href="${EPIC_AUTH_URL}" target="_blank" class="btn-accent" style="display:block;text-align:center;text-decoration:none;padding:12px;border-radius:10px;margin-bottom:16px">Open Epic Games Login →</a>
-    <p style="margin-bottom:8px"><b>Step 2:</b> Copy the <code>authorizationCode</code> from the page and paste it here:</p>
+    <p style="margin-bottom:12px"><b>Step 1:</b> Make sure you're logged into Epic Games first:</p>
+    <a href="https://www.epicgames.com/id/login" target="_blank" style="display:block;text-align:center;text-decoration:none;padding:10px;border-radius:10px;margin-bottom:10px;background:var(--panel2);border:1px solid var(--line);color:var(--text)">Login to Epic Games ↗</a>
+    <p style="margin-bottom:12px"><b>Step 2:</b> Then click this button to get your code:</p>
+    <a href="${EPIC_AUTH_URL}" target="_blank" class="btn-accent" style="display:block;text-align:center;text-decoration:none;padding:12px;border-radius:10px;margin-bottom:16px">Get Authorization Code →</a>
+    <p style="margin-bottom:8px"><b>Step 3:</b> Copy the <code>"authorizationCode"</code> value (the long string in quotes) and paste it here:</p>
     <input type="text" id="epicCodeInput" placeholder="Paste authorization code here..." style="width:100%;padding:12px;border-radius:10px;background:var(--panel2);border:1px solid var(--line);color:var(--text);font-family:monospace;margin-bottom:12px">
     <button id="epicSubmitCode" class="btn-accent" style="width:100%">Link Account</button>
-    <p style="margin-top:12px;font-size:12px;color:var(--dim)">The code looks like a long string of letters and numbers. It expires in 5 minutes.</p>
+    <p style="margin-top:12px;font-size:12px;color:var(--dim)">⚠️ If <code>authorizationCode</code> is <code>null</code>, you need to login first! The code expires in 5 minutes.</p>
   `;
   epicDlg.showModal();
 
