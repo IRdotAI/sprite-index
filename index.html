@@ -555,7 +555,7 @@ async function drawPNG(view,groupBy){
   const cv=document.createElement('canvas');
   cv.width=w*S; cv.height=h*S;
   const x=cv.getContext('2d'); x.scale(S,S);
-  x.fillStyle='#0d0f16'; x.fillRect(0,0,w,h);
+  x.fillStyle='#0a0c12'; x.fillRect(0,0,w,h);
 
   const owned=ENTRIES.filter(e=>st(e.key).owned).length;
   const mast=ENTRIES.filter(e=>st(e.key).mastered).length;
@@ -563,12 +563,16 @@ async function drawPNG(view,groupBy){
   const label={all:'All Sprites',owned:'Collected',missing:'Missing',
     mastered:'Mastered',unmastered:'Collected · Not Mastered'}[view];
 
-  x.fillStyle='#e8ecf6'; x.font='700 30px system-ui,sans-serif';
-  x.fillText('Sprite Index — '+label,PAD,PAD+30);
-  x.fillStyle='#8b94ad'; x.font='400 16px system-ui,sans-serif';
-  x.fillText(`${owned}/${T} collected · ${mast} mastered · ${T-owned} missing · ${list.length} shown`,PAD,PAD+58);
-  x.fillText(new Date().toLocaleDateString(),PAD,PAD+82);
-  x.fillStyle='#2a3145'; x.fillRect(PAD,PAD+100,w-PAD*2,1);
+  // Title with cyan gradient effect
+  x.fillStyle='#00d4ff'; x.font='800 32px Inter,system-ui,sans-serif';
+  x.fillText('SPRITEDEX',PAD,PAD+32);
+  const titleW=x.measureText('SPRITEDEX').width;
+  x.fillStyle='#f0f2f8'; x.font='600 20px Inter,system-ui,sans-serif';
+  x.fillText(' — '+label,PAD+titleW,PAD+32);
+  x.fillStyle='#6b7280'; x.font='400 14px Inter,system-ui,sans-serif';
+  x.fillText(`${owned}/${T} collected · ${mast} mastered · ${T-owned} missing · ${list.length} shown`,PAD,PAD+56);
+  x.fillText(new Date().toLocaleDateString(),PAD,PAD+78);
+  x.fillStyle='#252a38'; x.fillRect(PAD,PAD+96,w-PAD*2,1);
 
   const rr=(a,b,c,d,r)=>{x.beginPath();x.moveTo(a+r,b);x.arcTo(a+c,b,a+c,b+d,r);
     x.arcTo(a+c,b+d,a,b+d,r);x.arcTo(a,b+d,a,b,r);x.arcTo(a,b,a+c,b,r);x.closePath()};
@@ -576,9 +580,9 @@ async function drawPNG(view,groupBy){
   let y=HEAD;
   for(const g of groups){
     if(g.t){
-      x.fillStyle=g.c||'#8b94ad'; x.font='700 15px system-ui,sans-serif';
+      x.fillStyle=g.c||'#6b7280'; x.font='700 13px Inter,system-ui,sans-serif';
       const on=g.items.filter(e=>st(e.key).owned).length;
-      x.fillText(g.t.toUpperCase()+'  ·  '+on+'/'+g.items.length,PAD,y+26);
+      x.fillText(g.t.toUpperCase()+'  ·  '+on+'/'+g.items.length,PAD,y+24);
       y+=HDR;
     }
     g.items.forEach((e,i)=>{
@@ -586,44 +590,48 @@ async function drawPNG(view,groupBy){
       const s=st(e.key), col=DB.rarities.find(r=>r.id===e.sprite.rarity).color;
       const dim=!s.owned;
 
-      x.globalAlpha=dim?.3:1;
-      x.fillStyle=dim?'#161a26':'#1e2333'; rr(cx,cy,CW,CH,14); x.fill();
-      x.strokeStyle=s.mastered?'#F5C542':(dim?'#2a3145':col);
-      x.lineWidth=s.mastered?2.5:1.5; rr(cx,cy,CW,CH,14); x.stroke();
+      x.globalAlpha=dim?.35:1;
+      x.fillStyle=dim?'#0f1118':'#151820'; rr(cx,cy,CW,CH,12); x.fill();
+      x.strokeStyle=s.mastered?'#00d4ff':(dim?'#252a38':col);
+      x.lineWidth=s.mastered?2:1.5; rr(cx,cy,CW,CH,12); x.stroke();
+      if(s.mastered){
+        x.shadowColor='rgba(0,212,255,.4)';x.shadowBlur=12;
+        rr(cx,cy,CW,CH,12);x.stroke();x.shadowBlur=0;
+      }
 
       const im=e.img?art.get(e.img):null;
       x.textAlign='center';
       if(im){
         x.drawImage(im,cx+CW/2-27,cy+18,54,54);
       } else {
-        x.fillStyle=col; rr(cx+CW/2-27,cy+18,54,54,13); x.fill();
-        x.fillStyle='#0c0e14'; x.font='800 24px system-ui,sans-serif';
+        x.fillStyle=col; rr(cx+CW/2-27,cy+18,54,54,10); x.fill();
+        x.fillStyle='#0a0c12'; x.font='800 24px Inter,system-ui,sans-serif';
         x.fillText(e.sprite.name[0],cx+CW/2,cy+53);
       }
 
-      x.fillStyle='#e8ecf6'; x.font='650 14px system-ui,sans-serif';
+      x.fillStyle='#f0f2f8'; x.font='600 13px Inter,system-ui,sans-serif';
       let nm=e.sprite.name;
       while(x.measureText(nm).width>CW-16 && nm.length>3) nm=nm.slice(0,-1);
       if(nm!==e.sprite.name) nm=nm.slice(0,-1)+'…';
       x.fillText(nm,cx+CW/2,cy+94);
-      x.fillStyle='#8b94ad'; x.font='400 12px system-ui,sans-serif';
-      x.fillText(e.variant.name,cx+CW/2,cy+112);
+      x.fillStyle='#6b7280'; x.font='400 11px Inter,system-ui,sans-serif';
+      x.fillText(e.variant.name,cx+CW/2,cy+110);
 
       if(s.mastered){
-        x.fillStyle='#F5C542'; x.font='700 11px system-ui,sans-serif';
-        x.fillText('★ MASTERED',cx+CW/2,cy+130);
+        x.fillStyle='#00d4ff'; x.font='700 10px Inter,system-ui,sans-serif';
+        x.fillText('★ MASTERED',cx+CW/2,cy+126);
       } else if(!s.owned){
-        x.fillStyle='#6b748a';
-        x.font='700 11px system-ui,sans-serif';
-        x.fillText('MISSING',cx+CW/2,cy+130);
+        x.fillStyle='#4b5563';
+        x.font='600 10px Inter,system-ui,sans-serif';
+        x.fillText('MISSING',cx+CW/2,cy+126);
       }
       x.textAlign='left'; x.globalAlpha=1;
     });
     y+=g.rows*(CH+GAP);
   }
 
-  x.fillStyle='#4a5268'; x.font='400 12px system-ui,sans-serif';
-  x.fillText('Sprite Index',PAD,h-PAD+12);
+  x.fillStyle='#4b5563'; x.font='500 11px Inter,system-ui,sans-serif';
+  x.fillText('spritedex.xyz',PAD,h-PAD+10);
 
   try{
     cv.toBlob(b=>{
