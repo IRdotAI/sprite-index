@@ -526,112 +526,148 @@ function loadArt(url){
 }
 
 async function drawPNG(view,groupBy){
-  const list=exportSet(view);
-  if(!list.length){ alert('Nothing to export for that selection.'); return }
+  // Grid layout: sprites as rows, variants as columns
+  const sprites = DB.sprites;
+  const variants = DB.variants;
+  const COLS = variants.length; // 8 variants
+  const ROWS = sprites.length;  // 26 sprites
 
-  const art=new Map();
-  await Promise.all([...new Set(list.map(e=>e.img).filter(Boolean))]
+  // Load all sprite images
+  const art = new Map();
+  await Promise.all([...new Set(sprites.map(s=>s.img).filter(Boolean))]
     .map(async u=>art.set(u,await loadArt(u))));
 
-  const S=2, CW=124, CH=140, GAP=12, PAD=32, COLS=Math.min(8,Math.max(4,Math.ceil(Math.sqrt(list.length))));
-  // group
-  let groups=[];
-  if(groupBy==='rarity')
-    groups=DB.rarities.map(r=>({t:r.name,c:r.color,items:list.filter(e=>e.sprite.rarity===r.id)})).filter(g=>g.items.length);
-  else if(groupBy==='sprite')
-    groups=DB.sprites.map(s=>({t:s.name,c:DB.rarities.find(r=>r.id===s.rarity).color,
-      items:list.filter(e=>e.sprite.id===s.id)})).filter(g=>g.items.length);
-  else groups=[{t:null,items:list}];
+  const S = 2;
+  const PAD = 24;
+  const LABEL_W = 120;      // sprite name column
+  const CELL_W = 68;
+  const CELL_H = 72;
+  const GAP = 6;
+  const HDR_H = 50;         // variant header row
+  const ROW_H = CELL_H + GAP;
 
-  const HEAD=150, HDR=46;
-  let h=HEAD;
-  for(const g of groups){
-    g.rows=Math.ceil(g.items.length/COLS);
-    h+=(g.t?HDR:0)+g.rows*(CH+GAP);
-  }
-  h+=PAD+34;
-  const w=PAD*2+COLS*CW+(COLS-1)*GAP;
+  const w = PAD + LABEL_W + COLS * (CELL_W + GAP) + PAD;
+  const h = PAD + 120 + HDR_H + ROWS * ROW_H + 40;
 
-  const cv=document.createElement('canvas');
-  cv.width=w*S; cv.height=h*S;
-  const x=cv.getContext('2d'); x.scale(S,S);
-  x.fillStyle='#0a0c12'; x.fillRect(0,0,w,h);
+  const cv = document.createElement('canvas');
+  cv.width = w * S; cv.height = h * S;
+  const x = cv.getContext('2d'); x.scale(S,S);
 
-  const owned=ENTRIES.filter(e=>st(e.key).owned).length;
-  const mast=ENTRIES.filter(e=>st(e.key).mastered).length;
-  const T=ENTRIES.length;
-  const label={all:'All Sprites',owned:'Collected',missing:'Missing',
-    mastered:'Mastered',unmastered:'Collected · Not Mastered'}[view];
+  // Blue gradient background
+  const grad = x.createLinearGradient(0, 0, 0, h);
+  grad.addColorStop(0, '#1e4a8a');
+  grad.addColorStop(1, '#0f2847');
+  x.fillStyle = grad;
+  x.fillRect(0, 0, w, h);
 
-  // Title with cyan gradient effect
-  x.fillStyle='#00d4ff'; x.font='800 32px Inter,system-ui,sans-serif';
-  x.fillText('SPRITEDEX',PAD,PAD+32);
-  const titleW=x.measureText('SPRITEDEX').width;
-  x.fillStyle='#f0f2f8'; x.font='600 20px Inter,system-ui,sans-serif';
-  x.fillText(' — '+label,PAD+titleW,PAD+32);
-  x.fillStyle='#6b7280'; x.font='400 14px Inter,system-ui,sans-serif';
-  x.fillText(`${owned}/${T} collected · ${mast} mastered · ${T-owned} missing · ${list.length} shown`,PAD,PAD+56);
-  x.fillText(new Date().toLocaleDateString(),PAD,PAD+78);
-  x.fillStyle='#252a38'; x.fillRect(PAD,PAD+96,w-PAD*2,1);
+  const rr = (a,b,c,d,r) => {
+    x.beginPath(); x.moveTo(a+r,b);
+    x.arcTo(a+c,b,a+c,b+d,r); x.arcTo(a+c,b+d,a,b+d,r);
+    x.arcTo(a,b+d,a,b,r); x.arcTo(a,b,a+c,b,r); x.closePath();
+  };
 
-  const rr=(a,b,c,d,r)=>{x.beginPath();x.moveTo(a+r,b);x.arcTo(a+c,b,a+c,b+d,r);
-    x.arcTo(a+c,b+d,a,b+d,r);x.arcTo(a,b+d,a,b,r);x.arcTo(a,b,a+c,b,r);x.closePath()};
+  // Count stats
+  const owned = ENTRIES.filter(e=>st(e.key).owned).length;
+  const T = ENTRIES.length;
+  const pct = Math.round(owned/T*100);
 
-  let y=HEAD;
-  for(const g of groups){
-    if(g.t){
-      x.fillStyle=g.c||'#6b7280'; x.font='700 13px Inter,system-ui,sans-serif';
-      const on=g.items.filter(e=>st(e.key).owned).length;
-      x.fillText(g.t.toUpperCase()+'  ·  '+on+'/'+g.items.length,PAD,y+24);
-      y+=HDR;
-    }
-    g.items.forEach((e,i)=>{
-      const cx=PAD+(i%COLS)*(CW+GAP), cy=y+Math.floor(i/COLS)*(CH+GAP);
-      const s=st(e.key), col=DB.rarities.find(r=>r.id===e.sprite.rarity).color;
-      const dim=!s.owned;
+  // Header
+  x.fillStyle = 'rgba(255,255,255,0.6)'; x.font = '600 11px Inter,system-ui,sans-serif';
+  x.fillText('FORTNITE COLLECTION TRACKER', PAD, PAD + 14);
+  x.fillStyle = '#fff'; x.font = '800 36px Inter,system-ui,sans-serif';
+  x.fillText('SPRITEDEX', PAD, PAD + 52);
+  x.fillStyle = 'rgba(255,255,255,0.7)'; x.font = '400 13px Inter,system-ui,sans-serif';
+  x.fillText('Have vs. need — open to trade', PAD, PAD + 72);
 
-      x.globalAlpha=dim?.35:1;
-      x.fillStyle=dim?'#0f1118':'#151820'; rr(cx,cy,CW,CH,12); x.fill();
-      x.strokeStyle=s.mastered?'#00d4ff':(dim?'#252a38':col);
-      x.lineWidth=s.mastered?2:1.5; rr(cx,cy,CW,CH,12); x.stroke();
-      if(s.mastered){
-        x.shadowColor='rgba(0,212,255,.4)';x.shadowBlur=12;
-        rr(cx,cy,CW,CH,12);x.stroke();x.shadowBlur=0;
+  // Progress count (right side)
+  x.textAlign = 'right';
+  x.fillStyle = '#fff'; x.font = '700 20px Inter,system-ui,sans-serif';
+  x.fillText(`${owned} / ${T} - ${pct}%`, w - PAD, PAD + 40);
+  x.textAlign = 'left';
+
+  // Progress bar
+  const barY = PAD + 86, barW = w - PAD*2, barH = 8;
+  x.fillStyle = 'rgba(255,255,255,0.2)';
+  rr(PAD, barY, barW, barH, 4); x.fill();
+  x.fillStyle = '#00d4ff';
+  rr(PAD, barY, barW * (owned/T), barH, 4); x.fill();
+
+  // Variant header row (colored pills)
+  const variantColors = {
+    'normal': ['#e8e8e8','#333'],
+    'gold': ['#ffd700','#333'],
+    'gummy': ['#ff69b4','#fff'],
+    'galaxy': ['#9966ff','#fff'],
+    'gem': ['#00cc99','#fff'],
+    'holofoil': ['#66ccff','#333'],
+    'cube': ['#ff6633','#fff'],
+    'quack': ['#99cc33','#333']
+  };
+
+  const hdrY = PAD + 110;
+  x.textAlign = 'center';
+  variants.forEach((v, i) => {
+    const cx = PAD + LABEL_W + i * (CELL_W + GAP) + CELL_W/2;
+    const cols = variantColors[v.id] || ['#666','#fff'];
+    x.fillStyle = cols[0];
+    rr(cx - 30, hdrY, 60, 24, 12); x.fill();
+    x.fillStyle = cols[1]; x.font = '700 10px Inter,system-ui,sans-serif';
+    x.fillText(v.name.toUpperCase(), cx, hdrY + 16);
+  });
+  x.textAlign = 'left';
+
+  // Draw grid rows
+  const gridY = hdrY + HDR_H;
+  sprites.forEach((sprite, row) => {
+    const rowY = gridY + row * ROW_H;
+    const rarityCol = DB.rarities.find(r=>r.id===sprite.rarity)?.color || '#3AA7F0';
+
+    // Sprite name label (left side)
+    x.fillStyle = rarityCol;
+    x.beginPath(); x.arc(PAD + 8, rowY + CELL_H/2, 5, 0, Math.PI*2); x.fill();
+    x.fillStyle = '#fff'; x.font = '700 13px Inter,system-ui,sans-serif';
+    x.fillText(sprite.name.toUpperCase(), PAD + 20, rowY + CELL_H/2 + 4);
+
+    // Draw cells for each variant
+    variants.forEach((variant, col) => {
+      const cellX = PAD + LABEL_W + col * (CELL_W + GAP);
+      const key = uid(sprite.id, variant.id);
+      const s = st(key);
+      const hasIt = s.owned;
+
+      // Cell background
+      x.fillStyle = hasIt ? 'rgba(255,255,255,0.15)' : 'rgba(0,40,80,0.5)';
+      rr(cellX, rowY, CELL_W, CELL_H, 8); x.fill();
+      x.strokeStyle = hasIt ? 'rgba(255,255,255,0.3)' : 'rgba(255,255,255,0.1)';
+      x.lineWidth = 1;
+      rr(cellX, rowY, CELL_W, CELL_H, 8); x.stroke();
+
+      const im = sprite.img ? art.get(sprite.img) : null;
+      if (hasIt && im) {
+        // Draw sprite image
+        x.drawImage(im, cellX + 10, rowY + 8, 48, 48);
+        // Checkmark badge
+        x.fillStyle = '#22c55e';
+        x.beginPath(); x.arc(cellX + CELL_W - 12, rowY + CELL_H - 12, 10, 0, Math.PI*2); x.fill();
+        x.strokeStyle = '#fff'; x.lineWidth = 2;
+        x.beginPath(); x.moveTo(cellX+CELL_W-17, rowY+CELL_H-12);
+        x.lineTo(cellX+CELL_W-13, rowY+CELL_H-8); x.lineTo(cellX+CELL_W-7, rowY+CELL_H-16); x.stroke();
+      } else if (!hasIt) {
+        // Lock icon for missing
+        x.fillStyle = 'rgba(255,255,255,0.3)';
+        x.font = '400 28px system-ui';
+        x.textAlign = 'center';
+        x.fillText('🔒', cellX + CELL_W/2, rowY + CELL_H/2 + 10);
+        x.textAlign = 'left';
       }
-
-      const im=e.img?art.get(e.img):null;
-      x.textAlign='center';
-      if(im){
-        x.drawImage(im,cx+CW/2-27,cy+18,54,54);
-      } else {
-        x.fillStyle=col; rr(cx+CW/2-27,cy+18,54,54,10); x.fill();
-        x.fillStyle='#0a0c12'; x.font='800 24px Inter,system-ui,sans-serif';
-        x.fillText(e.sprite.name[0],cx+CW/2,cy+53);
-      }
-
-      x.fillStyle='#f0f2f8'; x.font='600 13px Inter,system-ui,sans-serif';
-      let nm=e.sprite.name;
-      while(x.measureText(nm).width>CW-16 && nm.length>3) nm=nm.slice(0,-1);
-      if(nm!==e.sprite.name) nm=nm.slice(0,-1)+'…';
-      x.fillText(nm,cx+CW/2,cy+94);
-      x.fillStyle='#6b7280'; x.font='400 11px Inter,system-ui,sans-serif';
-      x.fillText(e.variant.name,cx+CW/2,cy+110);
-
-      if(s.mastered){
-        x.fillStyle='#00d4ff'; x.font='700 10px Inter,system-ui,sans-serif';
-        x.fillText('★ MASTERED',cx+CW/2,cy+126);
-      } else if(!s.owned){
-        x.fillStyle='#4b5563';
-        x.font='600 10px Inter,system-ui,sans-serif';
-        x.fillText('MISSING',cx+CW/2,cy+126);
-      }
-      x.textAlign='left'; x.globalAlpha=1;
     });
-    y+=g.rows*(CH+GAP);
-  }
+  });
 
-  x.fillStyle='#4b5563'; x.font='500 11px Inter,system-ui,sans-serif';
-  x.fillText('spritedex.xyz',PAD,h-PAD+10);
+  // Footer
+  x.fillStyle = 'rgba(255,255,255,0.5)'; x.font = '500 12px Inter,system-ui,sans-serif';
+  x.textAlign = 'center';
+  x.fillText('spritedex.xyz', w/2, h - 16);
+  x.textAlign = 'left';
 
   try{
     cv.toBlob(b=>{
