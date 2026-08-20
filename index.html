@@ -846,25 +846,57 @@ async function syncFromEpic(token){
   console.log('Total items:', locker.total);
   console.log('Mimosa/Collectable items:', locker.cosmetics.filter(c => c.templateId && (c.templateId.includes('Mimosa') || c.templateId.includes('Collectable') || c.templateId.toLowerCase().includes('sprite'))));
 
-  // Map Epic cosmetic IDs to sprite entries
-  // This maps templateIds like "AthenaCharacter:CID_XXX" to your sprite IDs
+  // Map Epic sprite tokens to sprite entries
+  // Token format: "Token:athena_s41_spritemastery_token_qXX" or "Token:athena_s41_spritemastery_token_qXXy"
+  // where XX = sprite number (01-26), y = variant letter (a-g)
+
+  // Sprite mapping: q number -> sprite id (based on sprites.json order)
+  const SPRITE_MAP = {
+    '01': 'water', '02': 'earth', '03': 'fire', '04': 'fishy', '05': 'air',
+    '06': 'duck', '07': 'ghost', '08': 'demon', '09': 'king', '10': 'aura',
+    '11': 'striker', '12': 'shadow', '13': 'frost', '14': 'thunder', '15': 'nature',
+    '16': 'crystal', '17': 'void', '18': 'phoenix', '19': 'dragon', '20': 'unicorn',
+    '21': 'robot', '22': 'ninja', '23': 'pirate', '24': 'wizard', '25': 'knight', '26': 'alien'
+  };
+
+  // Variant mapping: letter -> variant id
+  const VARIANT_MAP = {
+    '': 'normal', 'a': 'gold', 'b': 'gummy', 'c': 'galaxy',
+    'd': 'holofoil', 'e': 'gem', 'f': 'cube', 'g': 'quack'
+  };
+
   for(const item of locker.cosmetics){
     const templateId = item.templateId || '';
-    const cosmeticId = templateId.split(':')[1] || '';
 
-    // Find matching sprite entry
-    for(const e of ENTRIES){
-      // Match by sprite ID or name patterns
-      if(cosmeticId.toLowerCase().includes(e.sprite.id.toLowerCase()) ||
-         e.sprite.name.toLowerCase().includes(cosmeticId.toLowerCase())){
-        state[e.key] = {
-          owned: true,
-          mastered: item.attributes?.item_seen || false,
-          level: item.attributes?.level || null
-        };
+    // Check if it's a sprite token
+    if(templateId.startsWith('Token:athena_s41_spritemastery_token_q')){
+      const tokenId = templateId.replace('Token:athena_s41_spritemastery_token_q', '');
+      // Parse: "07a" -> sprite 07, variant a
+      const match = tokenId.match(/^(\d+)([a-g]?)$/);
+      if(match){
+        const spriteNum = match[1].padStart(2, '0');
+        const variantLetter = match[2] || '';
+
+        const spriteId = SPRITE_MAP[spriteNum];
+        const variantId = VARIANT_MAP[variantLetter];
+
+        if(spriteId && variantId){
+          const key = spriteId + ':' + variantId;
+          // Find the entry and mark as owned
+          const entry = ENTRIES.find(e => e.key === key);
+          if(entry){
+            state[key] = {
+              owned: true,
+              mastered: item.attributes?.completion_complete || false,
+              level: item.attributes?.level || null
+            };
+          }
+        }
       }
     }
   }
+
+  console.log('Sprites synced! Owned:', Object.keys(state).filter(k => state[k]?.owned).length);
 
   save();
   render();
