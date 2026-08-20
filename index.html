@@ -3,169 +3,200 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0d0f16">
-<title>Sprite Index</title>
+<meta name="theme-color" content="#0a0c12">
+<title>Spritedex</title>
 <link rel="manifest" href="manifest.json">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Burbank+Big+Condensed:wght@700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{
-  --bg:#0d0f16; --panel:#161a26; --panel2:#1e2333; --line:#2a3145;
-  --text:#e8ecf6; --dim:#8b94ad; --accent:#4dd4ff;
-  --rare:#3AA7F0; --epic:#A64BF4; --legendary:#F0862E; --mythic:#F5C542;
+@font-face {
+  font-family: 'Fortnite';
+  src: local('Burbank Big Condensed Bold'), local('BurbankBigCondensed-Bold');
+  font-weight: 700;
 }
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{margin:0;background:var(--bg);color:var(--text);
-  font:15px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  padding-bottom:env(safe-area-inset-bottom)}
-header{position:sticky;top:0;z-index:20;background:rgba(13,15,22,.94);
-  backdrop-filter:blur(12px);border-bottom:1px solid var(--line);
-  padding:10px 12px calc(10px + env(safe-area-inset-top)) ;padding-top:calc(10px + env(safe-area-inset-top))}
-.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-h1{font-size:17px;margin:0;font-weight:700;letter-spacing:.2px;flex:1}
+:root{
+  --bg:#0a0c12; --bg2:#0f1118; --panel:#151820; --panel2:#1a1e28;
+  --line:#252a38; --text:#f0f2f8; --dim:#6b7280; --accent:#00d4ff;
+  --rare:#3AA7F0; --epic:#A855F7; --legendary:#F97316; --mythic:#FACC15;
+  --glow:0 0 20px rgba(0,212,255,.3);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);
+  font:14px/1.5 'Inter',system-ui,-apple-system,sans-serif;
+  min-height:100vh;padding-bottom:env(safe-area-inset-bottom)}
+
+/* header */
+header{position:sticky;top:0;z-index:50;
+  background:linear-gradient(180deg,rgba(10,12,18,.98) 0%,rgba(10,12,18,.95) 100%);
+  backdrop-filter:blur(20px);border-bottom:1px solid var(--line);
+  padding:12px 16px calc(12px + env(safe-area-inset-top));padding-top:calc(12px + env(safe-area-inset-top))}
+.header-top{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.logo{font:800 24px/1 'Fortnite','Burbank Big Condensed','Inter',sans-serif;
+  letter-spacing:1px;text-transform:uppercase;
+  background:linear-gradient(135deg,var(--accent),#00ffcc);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.header-actions{display:flex;gap:8px;margin-left:auto;align-items:center}
 button,select,input{font:inherit;color:var(--text);background:var(--panel2);
-  border:1px solid var(--line);border-radius:9px;padding:8px 11px}
-button{cursor:pointer}
+  border:1px solid var(--line);border-radius:8px;padding:8px 14px;transition:all .15s}
+button{cursor:pointer;font-weight:600}
+button:hover{border-color:var(--accent);box-shadow:var(--glow)}
 button:active{transform:scale(.97)}
-.btn-accent{background:var(--accent);color:#04202b;border-color:transparent;font-weight:650}
-input[type=search]{flex:1;min-width:120px}
+.btn-primary{background:linear-gradient(135deg,var(--accent),#00ccff);
+  color:#0a0c12;border:none;font-weight:700}
+.btn-primary:hover{box-shadow:0 0 24px rgba(0,212,255,.5)}
+.btn-icon{width:40px;height:40px;padding:0;display:grid;place-items:center;font-size:18px}
+input[type=search]{flex:1;min-width:200px;background:var(--bg2);
+  border-radius:10px;padding:10px 16px}
+input[type=search]:focus{outline:none;border-color:var(--accent);box-shadow:var(--glow)}
+input::placeholder{color:var(--dim)}
 
-/* creator-code bar */
-.creator{display:flex;align-items:center;justify-content:center;gap:9px;cursor:pointer;
-  background:linear-gradient(90deg,var(--accent),#7ee6ff);color:#04202b;
-  border:0;width:100%;padding:8px 12px;border-radius:10px;margin-bottom:10px;
-  font-size:12.5px;font-weight:700}
-.creator .cc-tag{font-size:9.5px;font-weight:800;letter-spacing:.7px;text-transform:uppercase;
-  background:rgba(4,32,43,.85);color:#bff2ff;padding:2px 7px;border-radius:6px}
-.creator b{font-size:15px;font-weight:900;letter-spacing:1px}
-.creator .cc-note{color:#04374a;font-weight:600;font-size:11.5px}
-@media (max-width:420px){.creator .cc-note{display:none}}
+/* creator code */
+.creator{display:flex;align-items:center;justify-content:center;gap:10px;
+  background:linear-gradient(90deg,var(--accent) 0%,#00ffcc 100%);color:#0a0c12;
+  border:none;width:100%;padding:10px 16px;border-radius:10px;margin-bottom:12px;
+  font-weight:700;cursor:pointer;transition:all .2s}
+.creator:hover{box-shadow:0 0 30px rgba(0,212,255,.4);transform:translateY(-1px)}
+.creator .tag{font-size:10px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;
+  background:rgba(10,12,18,.2);padding:3px 8px;border-radius:6px}
+.creator .code{font:800 18px/1 'Fortnite','Inter',sans-serif;letter-spacing:2px}
+.creator .note{opacity:.7;font-size:12px}
+@media(max-width:500px){.creator .note{display:none}}
 
-.filters{display:flex;gap:6px;margin-top:9px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+/* filters */
+.search-row{display:flex;gap:10px;margin-bottom:10px}
+.filters{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:2px 0}
 .filters::-webkit-scrollbar{display:none}
-.chip{border-radius:999px;padding:6px 12px;font-size:13px;white-space:nowrap;
-  background:var(--panel);border:1px solid var(--line);color:var(--dim)}
-.chip.on{background:var(--accent);color:#04202b;border-color:transparent;font-weight:650}
+.chip{border-radius:20px;padding:7px 14px;font-size:12px;font-weight:600;white-space:nowrap;
+  background:var(--panel);border:1px solid var(--line);color:var(--dim);transition:all .15s}
+.chip:hover{border-color:var(--accent);color:var(--text)}
+.chip.on{background:var(--accent);color:#0a0c12;border-color:transparent;font-weight:700}
 
-main{padding:12px}
+main{padding:16px;max-width:1400px;margin:0 auto}
 
-/* hero: big collected count + variant breakdown */
-.hero{background:var(--panel);border:1px solid var(--line);border-radius:16px;
-  padding:16px 16px 18px;margin-bottom:16px}
-.hero-count{display:flex;align-items:baseline;gap:9px}
-.hero-count b{font-size:38px;font-weight:800;line-height:1;letter-spacing:-.5px}
-.hero-count span{color:var(--dim);font-size:15px}
-.hero-sub{display:flex;align-items:center;gap:14px;margin:12px 0 10px;font-size:14px;flex-wrap:wrap}
-.hero-sub .hs-sync{color:var(--accent);font-weight:600}
-.hero-sub .hs-mast{color:var(--mythic);font-weight:700}
-.hero-sub .hs-pct{margin-left:auto;font-size:22px;font-weight:800;color:var(--mythic)}
-.bar{height:8px;border-radius:99px;background:var(--panel2);overflow:hidden}
-.bar>i{display:block;height:100%;border-radius:99px;
-  background:linear-gradient(90deg,var(--mythic),#ffe082)}
-.breakdown{display:grid;grid-template-columns:1fr 1fr;gap:12px 22px;margin-top:16px}
-.bd-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:5px}
-.bd-top span{font-size:12px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--dim)}
-.bd-top b{font-size:14px;font-weight:700}
-.bd-bar{height:5px;border-radius:99px;background:var(--panel2);overflow:hidden}
-.bd-bar>i{display:block;height:100%;border-radius:99px;background:var(--c)}
+/* hero stats */
+.hero{background:linear-gradient(135deg,var(--panel) 0%,var(--panel2) 100%);
+  border:1px solid var(--line);border-radius:16px;padding:20px 24px;margin-bottom:20px;
+  display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center}
+@media(max-width:600px){.hero{grid-template-columns:1fr;text-align:center}}
+.hero-main h2{font:800 42px/1 'Fortnite','Inter',sans-serif;letter-spacing:1px;
+  background:linear-gradient(135deg,var(--text),var(--dim));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-main span{color:var(--dim);font-size:14px;font-weight:500}
+.hero-stats{display:flex;gap:20px}
+.stat{text-align:center}
+.stat-val{font:700 28px/1 'Fortnite','Inter',sans-serif;color:var(--accent)}
+.stat-val.gold{color:var(--mythic)}
+.stat-label{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.5px;margin-top:4px}
+.progress-bar{grid-column:1/-1;height:6px;background:var(--bg);border-radius:10px;overflow:hidden;margin-top:4px}
+.progress-bar i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),#00ffcc);border-radius:10px}
 
-.group-title{display:flex;align-items:center;gap:8px;margin:18px 0 11px;font-size:13px;
-  text-transform:uppercase;letter-spacing:.9px;font-weight:700}
-.group-title::after{content:"";flex:1;height:1px;background:var(--line)}
-.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+/* grid */
+.group-title{display:flex;align-items:center;gap:12px;margin:24px 0 14px;
+  font:700 14px/1 'Fortnite','Inter',sans-serif;text-transform:uppercase;
+  letter-spacing:1.5px;color:var(--dim)}
+.group-title::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent)}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}
+@media(min-width:768px){.grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}}
 
-/* big collectible cards */
-.card{position:relative;border:1px solid var(--line);border-radius:16px;overflow:hidden;
-  background:var(--panel2);cursor:pointer;transition:transform .1s,border-color .12s}
-.card:active{transform:scale(.98)}
-.card.mastered{border-color:var(--mythic)}
-.card:not(.owned){filter:grayscale(.95);opacity:.5}
-.art-wrap{position:relative;aspect-ratio:1/1;display:grid;place-items:center;padding:16px}
-.art-wrap::before{content:"";position:absolute;inset:0;background:var(--vc);opacity:.28}
-.art-wrap::after{content:"";position:absolute;inset:0;
-  background:radial-gradient(120% 80% at 50% 12%,transparent,rgba(13,15,22,.55))}
-.art{position:relative;z-index:1;width:82%;height:82%;object-fit:contain;
-  filter:drop-shadow(0 8px 16px rgba(0,0,0,.55))}
-.art-fallback{position:relative;z-index:1;width:64%;height:64%;border-radius:16px;
-  display:grid;place-items:center;font:800 34px/1 system-ui,sans-serif;
-  color:#0c0e14;background:var(--vc)}
-.card-foot{display:flex;justify-content:space-between;align-items:center;gap:6px;padding:8px 11px 0}
-.tag-mast{color:var(--mythic);font-weight:800;font-size:10.5px;letter-spacing:.5px}
-.tag-miss{color:var(--dim);font-weight:800;font-size:10.5px;letter-spacing:.5px}
-.tag-lvl{color:var(--accent);font-weight:800;font-size:10.5px;letter-spacing:.5px}
-.tag-rarity{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;
-  padding:3px 8px;border-radius:7px;background:var(--r);color:#0c0e14;white-space:nowrap}
-.nm{padding:4px 11px 12px;font-weight:700;font-size:14px;line-height:1.2;
+/* cards */
+.card{position:relative;border:1px solid var(--line);border-radius:14px;overflow:hidden;
+  background:var(--panel);cursor:pointer;transition:all .2s}
+.card:hover{transform:translateY(-4px);border-color:var(--accent);box-shadow:var(--glow)}
+.card.mastered{border-color:var(--mythic);box-shadow:0 0 20px rgba(250,204,21,.2)}
+.card:not(.owned){filter:grayscale(1);opacity:.4}
+.card:not(.owned):hover{filter:grayscale(.8);opacity:.6}
+.art-wrap{position:relative;aspect-ratio:1;display:grid;place-items:center;padding:20px;
+  background:linear-gradient(180deg,transparent 0%,rgba(0,0,0,.3) 100%)}
+.art-wrap::before{content:"";position:absolute;inset:0;background:var(--vc);opacity:.15}
+.art{position:relative;z-index:1;width:80%;height:80%;object-fit:contain;
+  filter:drop-shadow(0 8px 20px rgba(0,0,0,.6))}
+.art-fallback{position:relative;z-index:1;width:60%;aspect-ratio:1;border-radius:12px;
+  display:grid;place-items:center;font:800 32px/1 'Fortnite','Inter',sans-serif;
+  color:rgba(10,12,18,.8);background:var(--vc)}
+.card-info{padding:10px 12px 12px}
+.card-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+.tag{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;
+  padding:3px 7px;border-radius:5px;background:var(--r);color:#0a0c12}
+.status{font-size:10px;font-weight:700;letter-spacing:.3px}
+.status.mastered{color:var(--mythic)}
+.status.missing{color:var(--dim)}
+.status.owned{color:var(--accent)}
+.card-name{font:600 13px/1.2 'Inter',sans-serif;color:var(--text);
   overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.empty{color:var(--dim);text-align:center;padding:40px 12px}
+.empty{color:var(--dim);text-align:center;padding:60px 20px;font-size:15px}
 
-#refreshBtn{padding:8px 10px;line-height:1}
-#refreshBtn .ico{display:inline-block}
-#refreshBtn[data-busy] .ico{animation:spin .8s linear infinite}
-#refreshBtn[disabled]{opacity:.6}
+/* refresh button */
+#refreshBtn .ico{display:inline-block;transition:transform .3s}
+#refreshBtn[data-busy] .ico{animation:spin .6s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
-@media (prefers-reduced-motion:reduce){#refreshBtn[data-busy] .ico{animation:none}}
 
-.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(18px + env(safe-area-inset-bottom));
-  background:var(--panel2);border:1px solid var(--line);color:var(--text);
-  padding:10px 16px;border-radius:999px;font-size:13px;z-index:60;
-  box-shadow:0 6px 24px rgba(0,0,0,.45);opacity:0;transition:opacity .18s}
-.toast.on{opacity:1}
+/* toast */
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(20px + env(safe-area-inset-bottom));
+  background:var(--panel);border:1px solid var(--line);color:var(--text);
+  padding:12px 20px;border-radius:12px;font-size:13px;font-weight:500;z-index:100;
+  box-shadow:0 10px 40px rgba(0,0,0,.5);opacity:0;transition:all .2s}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 .toast.bad{border-color:var(--legendary);color:var(--legendary)}
 
-/* --- sprite info panel --- */
-#infoDlg{width:min(94vw,430px)}
-.info-head{position:relative;overflow:hidden;text-align:center;
-  padding:24px 16px 18px;border-bottom:1px solid var(--line)}
-.info-head::before{content:"";position:absolute;inset:0;background:var(--vc);opacity:.22}
-.info-head::after{content:"";position:absolute;inset:0;
-  background:radial-gradient(130% 90% at 50% 0,transparent,var(--panel))}
-.info-art{position:relative;z-index:1;width:118px;height:118px;margin:0 auto 12px;
-  object-fit:contain;filter:drop-shadow(0 10px 20px rgba(0,0,0,.55));
-  display:grid;place-items:center;font:800 46px/1 system-ui,sans-serif;color:#0c0e14}
-.info-head h2{position:relative;z-index:1;margin:0;font-size:22px;line-height:1.2}
-.info-sub{position:relative;z-index:1;color:var(--dim);font-size:13px;margin-top:4px}
-.pill{position:relative;z-index:1;display:inline-block;font-size:11px;font-weight:800;
-  letter-spacing:.5px;text-transform:uppercase;padding:4px 11px;border-radius:999px;
-  margin-top:10px;background:var(--r);color:#0c0e14}
-.pill.miss{background:var(--panel2);color:var(--dim);border:1px solid var(--line)}
-.info-body{padding:4px 16px 16px;max-height:min(52vh,440px);overflow-y:auto}
-.info-sec{margin-top:14px}
-.info-sec h3{margin:0 0 4px;font-size:11px;letter-spacing:.9px;text-transform:uppercase;
-  color:var(--dim);font-weight:700}
-.info-sec p{margin:0;font-size:13.5px;color:var(--text);line-height:1.45}
-.facts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
-.fact{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:8px 10px}
-.fact b{display:block;font-size:14px;font-weight:700}
-.fact span{font-size:11px;color:var(--dim)}
-.info-foot{padding:0 16px 16px}
-.info-foot button{width:100%}
-
+/* dialogs */
 dialog{border:1px solid var(--line);background:var(--panel);color:var(--text);
-  border-radius:14px;padding:0;width:min(92vw,420px)}
-dialog::backdrop{background:rgba(0,0,0,.6)}
-.dlg-body{padding:16px}
-.dlg-body h2{margin:0 0 4px;font-size:16px}
-.dlg-body p{margin:0 0 14px;color:var(--dim);font-size:13px}
-.dlg-body label{display:block;font-size:12px;color:var(--dim);margin:10px 0 5px}
+  border-radius:16px;padding:0;width:min(92vw,420px);box-shadow:0 20px 60px rgba(0,0,0,.6)}
+dialog::backdrop{background:rgba(0,0,0,.7);backdrop-filter:blur(4px)}
+.dlg-body{padding:20px}
+.dlg-body h2{font:700 18px/1.3 'Fortnite','Inter',sans-serif;margin-bottom:6px}
+.dlg-body p{color:var(--dim);font-size:13px;margin-bottom:16px}
+.dlg-body label{display:block;font-size:11px;color:var(--dim);text-transform:uppercase;
+  letter-spacing:.5px;margin:12px 0 6px}
 .dlg-body select{width:100%}
-.dlg-actions{display:flex;gap:8px;margin-top:16px}
+.dlg-actions{display:flex;gap:10px;margin-top:20px}
 .dlg-actions button{flex:1}
 
-/* epic login button */
-.btn-epic{background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;border:none;font-weight:650}
+/* info panel */
+#infoDlg{width:min(94vw,440px)}
+.info-head{position:relative;overflow:hidden;text-align:center;
+  padding:28px 20px 20px;border-bottom:1px solid var(--line)}
+.info-head::before{content:"";position:absolute;inset:0;background:var(--vc);opacity:.12}
+.info-head::after{content:"";position:absolute;inset:0;
+  background:radial-gradient(ellipse at top,transparent 0%,var(--panel) 70%)}
+.info-art{position:relative;z-index:1;width:120px;height:120px;margin:0 auto 14px;
+  object-fit:contain;filter:drop-shadow(0 12px 30px rgba(0,0,0,.6));
+  display:grid;place-items:center;font:800 48px/1 'Fortnite','Inter',sans-serif;color:rgba(10,12,18,.8)}
+.info-head h2{position:relative;z-index:1;font:700 22px/1.2 'Fortnite','Inter',sans-serif}
+.info-sub{position:relative;z-index:1;color:var(--dim);font-size:13px;margin-top:5px}
+.pill{position:relative;z-index:1;display:inline-block;font-size:10px;font-weight:700;
+  letter-spacing:.6px;text-transform:uppercase;padding:5px 14px;border-radius:20px;
+  margin-top:12px;background:var(--r);color:#0a0c12}
+.pill.miss{background:var(--panel2);color:var(--dim);border:1px solid var(--line)}
+.info-body{padding:6px 20px 20px;max-height:min(50vh,400px);overflow-y:auto}
+.info-sec{margin-top:16px}
+.info-sec h3{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--dim);font-weight:700;margin-bottom:6px}
+.info-sec p{font-size:14px;color:var(--text);line-height:1.5}
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+.fact{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.fact b{display:block;font:600 15px/1 'Inter',sans-serif}
+.fact span{font-size:11px;color:var(--dim);margin-top:2px;display:block}
+.info-foot{padding:0 20px 20px}
+.info-foot button{width:100%}
+
+/* epic login */
+.btn-epic{background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;border:none;font-weight:700}
+.btn-epic:hover{box-shadow:0 0 24px rgba(168,85,247,.5)}
 .btn-epic.linked{background:var(--panel2);border:1px solid var(--accent);color:var(--accent)}
-.epic-code{font-size:28px;font-weight:800;letter-spacing:6px;color:var(--accent);
-  background:var(--panel2);padding:12px 20px;border-radius:10px;margin:12px 0}
-.epic-waiting{color:var(--dim);font-size:13px}
+.epic-code{font:800 32px/1 'Fortnite','Inter',sans-serif;letter-spacing:8px;color:var(--accent);
+  background:var(--bg);padding:16px 24px;border-radius:12px;margin:16px 0;text-align:center}
+.epic-waiting{color:var(--dim);font-size:13px;text-align:center}
 .epic-waiting::after{content:'';animation:dots 1.2s steps(4) infinite}
 @keyframes dots{0%{content:''}25%{content:'.'}50%{content:'..'}75%{content:'...'}}
 
-/* profile area */
+/* profile */
 #profileArea{display:flex;align-items:center;gap:8px}
-.profile-btn{display:flex;align-items:center;gap:8px;background:var(--panel2);border:1px solid var(--line);
-  border-radius:10px;padding:6px 12px 6px 6px;cursor:pointer}
-.profile-btn:hover{border-color:var(--accent)}
-.profile-avatar{width:32px;height:32px;border-radius:8px;object-fit:cover;background:var(--panel)}
-.profile-name{font-size:13px;font-weight:600;color:var(--text);max-width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.profile-btn{display:flex;align-items:center;gap:10px;background:var(--panel2);border:1px solid var(--line);
+  border-radius:10px;padding:6px 14px 6px 6px;cursor:pointer;transition:all .15s}
+.profile-btn:hover{border-color:var(--accent);box-shadow:var(--glow)}
+.profile-avatar{width:32px;height:32px;border-radius:8px;background:var(--bg)}
+.profile-name{font-size:13px;font-weight:600;max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .login-prompt{font-size:12px;color:var(--dim)}
 </style>
 </head>
@@ -173,18 +204,20 @@ dialog::backdrop{background:rgba(0,0,0,.6)}
 
 <header>
   <button class="creator" id="creatorBar" title="Copy creator code">
-    <span class="cc-tag">Creator Code</span>
-    <b>RDOTA</b>
-    <span class="cc-note">Use in the Item Shop · #EpicPartner</span>
+    <span class="tag">Creator Code</span>
+    <span class="code">RDOTA</span>
+    <span class="note">#EpicPartner</span>
   </button>
-  <div class="row">
-    <h1>Sprite Index</h1>
-    <button id="refreshBtn" aria-label="Check for new sprites" title="Check for new sprites"><span class="ico">↻</span></button>
-    <button id="exportBtn" class="btn-accent">Export</button>
-    <div id="profileArea"></div>
+  <div class="header-top">
+    <span class="logo">Spritedex</span>
+    <div class="header-actions">
+      <button id="refreshBtn" class="btn-icon" aria-label="Sync" title="Sync with Epic"><span class="ico">↻</span></button>
+      <button id="exportBtn" class="btn-primary">Export</button>
+      <div id="profileArea"></div>
+    </div>
   </div>
-  <div class="row" style="margin-top:9px">
-    <input type="search" id="search" placeholder="Search sprites…" autocomplete="off">
+  <div class="search-row">
+    <input type="search" id="search" placeholder="Search sprites..." autocomplete="off">
   </div>
   <div class="filters" id="fStatus"></div>
   <div class="filters" id="fRarity"></div>
@@ -211,14 +244,14 @@ dialog::backdrop{background:rgba(0,0,0,.6)}
   </select>
   <div class="dlg-actions">
     <button id="exCancel">Cancel</button>
-    <button id="exGo" class="btn-accent">Save PNG</button>
+    <button id="exGo" class="btn-primary">Save PNG</button>
   </div>
 </div></dialog>
 
 <dialog id="infoDlg">
   <div class="info-head" id="infoHead"></div>
   <div class="info-body" id="infoBody"></div>
-  <div class="info-foot"><button id="infoClose" class="btn-accent">Close</button></div>
+  <div class="info-foot"><button id="infoClose" class="btn-primary">Close</button></div>
 </dialog>
 
 <dialog id="epicDlg"><div class="dlg-body">
@@ -382,14 +415,21 @@ function renderHero(){
   }).join('');
 
   return `<section class="hero">
-    <div class="hero-count"><b>${owned}</b><span>of ${t} sprites collected</span></div>
-    <div class="hero-sub">
-      ${syncedAt?`<span class="hs-sync">⚡ Synced ${fmtSync(syncedAt)}</span>`:''}
-      <span class="hs-mast">★ ${mast} mastered</span>
-      <span class="hs-pct">${pct}%</span>
+    <div class="hero-main">
+      <h2>${owned}/${t}</h2>
+      <span>Sprites Collected</span>
     </div>
-    <div class="bar"><i style="width:${pct}%"></i></div>
-    <div class="breakdown">${bd}</div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-val gold">${mast}</div>
+        <div class="stat-label">Mastered</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val">${pct}%</div>
+        <div class="stat-label">Complete</div>
+      </div>
+    </div>
+    <div class="progress-bar"><i style="width:${pct}%"></i></div>
   </section>`;
 }
 
@@ -406,9 +446,8 @@ function cardHTML(e){
   const s=st(e.key), col=DB.rarities.find(r=>r.id===e.sprite.rarity).color;
   const vc=vcol(e.variantId);
   const name=e.variant.name==='Normal'?e.sprite.name:`${e.variant.name} ${e.sprite.name}`;
-  const status=s.mastered ? '<span class="tag-mast">★ MASTERED</span>'
-    : s.owned ? (s.level?`<span class="tag-lvl">LVL ${s.level}</span>`:'<span class="tag-lvl">COLLECTED</span>')
-    : '<span class="tag-miss">MISSING</span>';
+  const statusClass=s.mastered?'mastered':s.owned?'owned':'missing';
+  const statusText=s.mastered?'★ MASTERED':s.owned?'OWNED':'MISSING';
   return `<div class="card ${s.owned?'owned':''} ${s.mastered?'mastered':''}"
     style="--r:${col};--vc:${vc}" data-k="${e.key}">
     <div class="art-wrap">
@@ -416,8 +455,13 @@ function cardHTML(e){
         ? `<img class="art" src="${e.img}" alt="" loading="lazy" decoding="async">`
         : `<div class="art-fallback">${e.sprite.name[0]}</div>`}
     </div>
-    <div class="card-foot">${status}<span class="tag-rarity">${e.sprite.rarity}</span></div>
-    <div class="nm">${name}</div>
+    <div class="card-info">
+      <div class="card-top">
+        <span class="status ${statusClass}">${statusText}</span>
+        <span class="tag" style="background:${col}">${e.sprite.rarity}</span>
+      </div>
+      <div class="card-name">${name}</div>
+    </div>
   </div>`;
 }
 
@@ -800,7 +844,7 @@ function showProfileMenu(){
   btns.className = 'dlg-actions';
   btns.style.flexDirection = 'column';
   btns.innerHTML = `
-    <button id="epicSyncBtn" class="btn-accent">Sync Locker Now</button>
+    <button id="epicSyncBtn" class="btn-primary">Sync Locker Now</button>
     <button id="epicUnlinkBtn">Logout</button>
   `;
   epicContent.appendChild(btns);
@@ -832,10 +876,10 @@ function showLoginFlow(){
     <p style="margin-bottom:12px"><b>Step 1:</b> Make sure you're logged into Epic Games first:</p>
     <a href="https://www.epicgames.com/id/login" target="_blank" style="display:block;text-align:center;text-decoration:none;padding:10px;border-radius:10px;margin-bottom:10px;background:var(--panel2);border:1px solid var(--line);color:var(--text)">Login to Epic Games ↗</a>
     <p style="margin-bottom:12px"><b>Step 2:</b> Then click this button to get your code:</p>
-    <a href="${EPIC_AUTH_URL}" target="_blank" class="btn-accent" style="display:block;text-align:center;text-decoration:none;padding:12px;border-radius:10px;margin-bottom:16px">Get Authorization Code →</a>
+    <a href="${EPIC_AUTH_URL}" target="_blank" class="btn-primary" style="display:block;text-align:center;text-decoration:none;padding:12px;border-radius:10px;margin-bottom:16px">Get Authorization Code →</a>
     <p style="margin-bottom:8px"><b>Step 3:</b> Copy the <code>"authorizationCode"</code> value (the long string in quotes) and paste it here:</p>
     <input type="text" id="epicCodeInput" placeholder="Paste authorization code here..." style="width:100%;padding:12px;border-radius:10px;background:var(--panel2);border:1px solid var(--line);color:var(--text);font-family:monospace;margin-bottom:12px">
-    <button id="epicSubmitCode" class="btn-accent" style="width:100%">Link Account</button>
+    <button id="epicSubmitCode" class="btn-primary" style="width:100%">Link Account</button>
     <p style="margin-top:12px;font-size:12px;color:var(--dim)">⚠️ If <code>authorizationCode</code> is <code>null</code>, you need to login first! The code expires in 5 minutes.</p>
   `;
   epicDlg.showModal();
@@ -861,7 +905,7 @@ function showLoginFlow(){
       toast(`Linked as ${result.display_name} - locker synced!`);
 
     } catch(err){
-      epicContent.innerHTML = `<p style="color:var(--legendary)">Error: ${err.message}</p><p style="margin-top:12px"><button onclick="showLoginFlow()" class="btn-accent">Try Again</button></p>`;
+      epicContent.innerHTML = `<p style="color:var(--legendary)">Error: ${err.message}</p><p style="margin-top:12px"><button onclick="showLoginFlow()" class="btn-primary">Try Again</button></p>`;
     }
   };
 }
