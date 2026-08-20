@@ -65,6 +65,9 @@ input::placeholder{color:var(--dim)}
 
 /* filters */
 .search-row{display:flex;gap:10px;margin-bottom:10px}
+.toggle{display:inline-flex;align-items:center;gap:8px;margin-top:10px;font-size:12px;
+  font-weight:600;color:var(--dim);cursor:pointer;user-select:none}
+.toggle input{width:16px;height:16px;accent-color:var(--accent);margin:0;cursor:pointer}
 .filters{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:2px 0}
 .filters::-webkit-scrollbar{display:none}
 .chip{border-radius:20px;padding:7px 14px;font-size:12px;font-weight:600;white-space:nowrap;
@@ -227,6 +230,7 @@ dialog[open]{display:block}
   </div>
   <div class="filters" id="fStatus"></div>
   <div class="filters" id="fRarity"></div>
+  <label class="toggle"><input type="checkbox" id="hideUnrel" checked> Hide unreleased</label>
 </header>
 
 <main><div id="content"></div></main>
@@ -272,7 +276,10 @@ dialog[open]{display:block}
 
 <script>
 const KEY='spriteIndex.v1';
-let DB=null, state=load(), filters={status:'all',rarity:'all',variant:'all',q:''};
+let DB=null, state=load(), filters={status:'all',rarity:'all',variant:'all',q:'',hideUnreleased:true};
+// A sprite is "unreleased" only when its data explicitly says released:false;
+// anything without the flag is treated as released so nothing vanishes by surprise.
+const released=e=>e.sprite.released!==false;
 
 function load(){ try{return JSON.parse(localStorage.getItem(KEY))||{}}catch{return {}} }
 function save(){ localStorage.setItem(KEY,JSON.stringify(state)) }
@@ -320,6 +327,7 @@ function visible(){
   const q=filters.q.trim().toLowerCase();
   return ENTRIES.filter(e=>{
     const s=st(e.key);
+    if(filters.hideUnreleased && !released(e)) return false;
     if(filters.rarity!=='all' && e.sprite.rarity!==filters.rarity) return false;
     if(filters.variant!=='all' && e.variantId!==filters.variant) return false;
     if(filters.status==='owned' && !s.owned) return false;
@@ -347,13 +355,15 @@ function fmtSync(when){
 }
 
 function renderHero(){
-  const owned=ENTRIES.filter(e=>st(e.key).owned).length;
-  const mast=ENTRIES.filter(e=>st(e.key).mastered).length;
-  const t=ENTRIES.length||1;
+  // Totals track whatever's shown; hiding unreleased drops them from the count too.
+  const base=ENTRIES.filter(e=>!filters.hideUnreleased||released(e));
+  const owned=base.filter(e=>st(e.key).owned).length;
+  const mast=base.filter(e=>st(e.key).mastered).length;
+  const t=base.length||1;
   const pct=Math.round(owned/t*100);
 
   const m={};
-  for(const e of ENTRIES){
+  for(const e of base){
     const id=(e.variantId||'').toLowerCase();
     (m[id]=m[id]||{o:0,t:0}); m[id].t++; if(st(e.key).owned) m[id].o++;
   }
@@ -460,6 +470,7 @@ document.addEventListener('click',ev=>{
   if(card) openInfo(card.dataset.k);
 });
 search.addEventListener('input',e=>{filters.q=e.target.value;render()});
+hideUnrel.addEventListener('change',e=>{filters.hideUnreleased=e.target.checked;render()});
 
 // --- sprite info ---
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
