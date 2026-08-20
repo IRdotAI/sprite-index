@@ -697,12 +697,14 @@ const epicAuth = {
   isLoggedIn(){ return !!this.accountId },
 
   async exchangeCode(code){
+    console.log('Exchanging code...');
     const r = await fetch(`${API_BASE}/auth/exchange`, {
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body: JSON.stringify({ code })
     });
     const d = await r.json();
+    console.log('Exchange response:', d);
     if(d.error) throw new Error(d.error);
 
     this.accountId = d.account_id;
@@ -716,8 +718,11 @@ const epicAuth = {
     if(!this.accountId) throw new Error('Not logged in');
     let url = `${API_BASE}/locker?account_id=${this.accountId}`;
     if(token) url += `&token=${encodeURIComponent(token)}`;
+    console.log('Fetching locker from:', url);
     const r = await fetch(url);
+    console.log('Response status:', r.status);
     const d = await r.json();
+    console.log('Response data:', d);
     if(d.error) throw new Error(d.error);
     return d;
   },
