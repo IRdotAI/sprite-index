@@ -1007,7 +1007,7 @@ epicDlg.addEventListener('click', ev => { if(ev.target === epicDlg) epicDlg.clos
 async function syncFromEpic(token){
   const locker = await epicAuth.getLocker(token);
 
-  // DEBUG: Log all sprite-related items to find owned sprite pattern
+  // DEBUG: Log all sprite-related items
   const spriteItems = locker.cosmetics.filter(c => {
     const id = (c.templateId || '').toLowerCase();
     return id.includes('sprite') || id.includes('creature') || id.includes('s41') || id.includes('s42');
@@ -1017,89 +1017,100 @@ async function syncFromEpic(token){
     templateId: c.templateId,
     quantity: c.quantity,
     level: c.attributes?.level,
-    favorite: c.attributes?.favorite
+    state: c.attributes?.quest_state
   })));
-  console.log('Total sprite items:', spriteItems.length);
-  window.lastLockerDebug = spriteItems; // Save for inspection
+  window.lastLockerDebug = spriteItems;
 
-  // Find spritemastery tokens (MASTERED sprites)
-  const masteryTokens = locker.cosmetics.filter(c =>
-    (c.templateId || '').includes('spritemastery_token')
-  );
-  console.log('Mastery tokens found:', masteryTokens.length);
-
-  // Map Epic sprite tokens to sprite entries
-  // Token format: "Token:athena_s41_spritemastery_token_qXX" or "Token:athena_s41_spritemastery_token_qXXy"
-  // where XX = sprite number (01-25), y = variant letter (a-g)
-
-  // Sprite mapping: q number -> sprite id (spritetrading internal names)
-  const SPRITE_MAP = {
-    '01': 'water', '02': 'earth', '03': 'fire', '04': 'fishy', '05': 'air',
-    '06': 'duck', '07': 'ghost', '08': 'demon', '09': 'king', '10': 'aura',
-    '11': 'striker', '12': 'dream', '13': 'punk', '14': 'boss', '15': 'seven',
-    '16': 'llama', '17': 'peely', '18': 'grim', '19': 'zeropoint', '20': 'burntpeanut',
-    '21': 'fossilmeal', '22': 'cokeparmesan', '23': 'companystargazer', '24': 'fillergrunt', '25': 'pedicureantacid',
-    '26': 'unknown26'
+  // ===== S3 TOKEN-BASED DETECTION =====
+  // Token format: "Token:athena_s41_spritemastery_token_qXX[letter]"
+  const S3_SPRITE_MAP = {
+    '01': 'air', '02': 'earth', '03': 'fire', '04': 'fishy', '05': 'water',
+    '06': 'aura', '07': 'demon', '08': 'duck', '09': 'ghost', '10': 'king',
+    '11': 'striker', '12': 'boss', '13': 'dream', '14': 'llama', '15': 'peekypeely',
+    '16': 'punk', '17': 'seven', '18': 'batman', '19': 'burntpeanut', '20': 'grim',
+    '21': 'ironmouse', '22': 'johnwick', '23': 'pollo', '24': 'vinijr', '25': 'zeropoint', '26': 'zeropoint'
+  };
+  const S3_VARIANT_MAP = {
+    '': 'normal', 'a': 'gold', 'b': 'gummy', 'c': 'galaxy',
+    'd': 'holofoil', 'e': 'gem', 'f': 'cube', 'g': 'quack'
   };
 
-  // Variant letter -> variant name (GLOBAL mapping, same for all sprites)
-  const VARIANT_MAP = {
-    '': 'normal',
-    'a': 'gold',
-    'b': 'gummy',
-    'c': 'galaxy',
-    'd': 'holofoil',
-    'e': 'gem',
-    'f': 'cube',
-    'g': 'quack'
+  // ===== S4 QUEST-BASED DETECTION =====
+  // Quest format: "Quest:quest_s42_spritemastery_[spritename]" = base owned
+  // Quest format: "Quest:quest_s42_spritemastery_[spritename]_01" + Claimed = Gold
+  // Quest format: "Quest:quest_s42_spritemastery_[spritename]_02" + Claimed = Cheatmaster
+  const S4_SPRITE_MAP = {
+    '8bit': '8bit',
+    'dwarf': 'adventure',
+    'bushranger': 'bush',
+    'jonesy': 'jonesy',
+    'stormscout': 'stormscout',
+    'killswitch': 'killswitch',
+    'reloadovertime': 'shadow',
+    'narrowflea': 'sonic',
+    'narrowfleamonkey': 'tails',
+    'doublejump': 'jackrabbit',
+    'crown': 'crown',
+    'klombo': 'klombo'
   };
 
-  const matched = [];
-  const unmatched = [];
+  let s3Count = 0, s4Count = 0;
 
   for(const item of locker.cosmetics){
     const templateId = item.templateId || '';
 
-    // Check if it's a sprite token
+    // S3: Token-based mastery
     if(templateId.startsWith('Token:athena_s41_spritemastery_token_q')){
       const tokenId = templateId.replace('Token:athena_s41_spritemastery_token_q', '');
-      // Parse: "07a" -> sprite 07, variant a
       const match = tokenId.match(/^(\d+)([a-g]?)$/);
       if(match){
         const spriteNum = match[1].padStart(2, '0');
         const variantLetter = match[2] || '';
-        const variantId = VARIANT_MAP[variantLetter];
-
-        const spriteId = SPRITE_MAP[spriteNum];
-
+        const spriteId = S3_SPRITE_MAP[spriteNum];
+        const variantId = S3_VARIANT_MAP[variantLetter];
         if(spriteId && variantId){
           const key = spriteId + ':' + variantId;
-
-          // Always set state for valid tokens (even if no ENTRY yet - DB might be outdated)
-          // Having a spritemastery_token = sprite is MASTERED (you only get the token by extracting at level 5)
-          const existing = state[key] || {};
-          state[key] = {
-            owned: true,
-            mastered: true,  // Token existence = mastered!
-            level: item.attributes?.level || existing.level || null
-          };
-
-          // Track whether it matched an ENTRY or not
-          const entry = ENTRIES.find(e => e.key === key);
-          if(entry){
-            matched.push({ templateId, key, spriteId, variantId });
-          } else {
-            unmatched.push({ templateId, key, spriteId, variantId, reason: 'no DB entry (DB needs update)' });
-          }
-        } else {
-          unmatched.push({ templateId, tokenId, spriteNum, variantLetter, reason: spriteId ? 'unknown variant letter' : 'unknown sprite number' });
+          state[key] = { owned: true, mastered: true };
+          s3Count++;
         }
-      } else {
-        unmatched.push({ templateId, tokenId, reason: 'regex no match' });
+      }
+    }
+
+    // S4: Quest-based detection
+    if(templateId.startsWith('Quest:quest_s42_spritemastery_')){
+      const questId = templateId.replace('Quest:quest_s42_spritemastery_', '');
+      const questState = item.attributes?.quest_state;
+
+      // Parse quest: "8bit", "8bit_01", "8bit_02"
+      const match = questId.match(/^([a-z]+)(?:_(\d+))?$/);
+      if(match){
+        const spriteName = match[1];
+        const levelNum = match[2] || '00'; // 00=base, 01=gold, 02=cheatmaster
+        const spriteId = S4_SPRITE_MAP[spriteName];
+
+        if(spriteId){
+          if(levelNum === '00'){
+            // Base quest exists = owns normal variant
+            const key = spriteId + ':normal';
+            state[key] = { owned: true, mastered: false };
+            s4Count++;
+          } else if(levelNum === '01' && questState === 'Claimed'){
+            // _01 Claimed = Gold variant mastered
+            const key = spriteId + ':gold';
+            state[key] = { owned: true, mastered: true };
+            s4Count++;
+          } else if(levelNum === '02' && questState === 'Claimed'){
+            // _02 Claimed = Cheatmaster variant mastered
+            const key = spriteId + ':cheatmaster';
+            state[key] = { owned: true, mastered: true };
+            s4Count++;
+          }
+        }
       }
     }
   }
 
+  console.log(`Synced: ${s3Count} S3 sprites, ${s4Count} S4 sprites`);
   save();
   render();
 }
