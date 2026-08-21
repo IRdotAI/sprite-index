@@ -243,7 +243,6 @@ dialog[open]{display:block}
   </div>
   <div class="filters" id="fStatus"></div>
   <div class="filters" id="fRarity"></div>
-  <label class="toggle"><input type="checkbox" id="hideUnrel" checked> Hide unreleased</label>
 </header>
 
 <main><div id="content"></div></main>
@@ -289,11 +288,8 @@ dialog[open]{display:block}
 
 <script>
 const KEY='spriteIndex.v1';
-let DB=null, state=load(), filters={status:'all',rarity:'all',variant:'all',q:'',hideUnreleased:true};
+let DB=null, state=load(), filters={status:'all',rarity:'all',variant:'all',q:''};
 let currentSeason = 's4'; // Default to current season
-// A sprite is "unreleased" only when its data explicitly says released:false;
-// anything without the flag is treated as released so nothing vanishes by surprise.
-const released=e=>e.sprite.released!==false;
 
 function load(){ try{return JSON.parse(localStorage.getItem(KEY))||{}}catch{return {}} }
 function save(){ localStorage.setItem(KEY,JSON.stringify(state)) }
@@ -341,7 +337,6 @@ function visible(){
   const q=filters.q.trim().toLowerCase();
   return ENTRIES.filter(e=>{
     const s=st(e.key);
-    if(filters.hideUnreleased && !released(e)) return false;
     if(filters.rarity!=='all' && e.sprite.rarity!==filters.rarity) return false;
     if(filters.variant!=='all' && e.variantId!==filters.variant) return false;
     if(filters.status==='owned' && !s.owned) return false;
@@ -373,15 +368,13 @@ function fmtSync(when){
 }
 
 function renderHero(){
-  // Totals track whatever's shown; hiding unreleased drops them from the count too.
-  const base=ENTRIES.filter(e=>!filters.hideUnreleased||released(e));
-  const owned=base.filter(e=>st(e.key).owned).length;
-  const mast=base.filter(e=>st(e.key).mastered).length;
-  const t=base.length||1;
+  const owned=ENTRIES.filter(e=>st(e.key).owned).length;
+  const mast=ENTRIES.filter(e=>st(e.key).mastered).length;
+  const t=ENTRIES.length||1;
   const pct=Math.round(owned/t*100);
 
   const m={};
-  for(const e of base){
+  for(const e of ENTRIES){
     const id=(e.variantId||'').toLowerCase();
     (m[id]=m[id]||{o:0,t:0}); m[id].t++; if(st(e.key).owned) m[id].o++;
   }
@@ -488,7 +481,6 @@ document.addEventListener('click',ev=>{
   if(card) openInfo(card.dataset.k);
 });
 search.addEventListener('input',e=>{filters.q=e.target.value;render()});
-hideUnrel.addEventListener('change',e=>{filters.hideUnreleased=e.target.checked;render()});
 
 // Season tab switching
 document.getElementById('seasonTabs').addEventListener('click', async (ev) => {
