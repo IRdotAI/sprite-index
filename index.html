@@ -329,7 +329,7 @@ let currentSeason = 's4'; // Default to current season
 
 function load(){ try{return JSON.parse(localStorage.getItem(KEY))||{}}catch{return {}} }
 function save(){ localStorage.setItem(KEY,JSON.stringify(state)) }
-const uid=(s,v)=>s+':'+v;
+const uid=(s,v)=>currentSeason+':'+s+':'+v;
 const st=k=>state[k]||{owned:false,mastered:false};
 
 const norm=s=>(s||'').toLowerCase().replace(/[^a-z0-9]/g,'');
@@ -1036,9 +1036,8 @@ async function syncFromEpic(token){
   };
 
   // ===== S4 QUEST-BASED DETECTION =====
-  // Quest format: "Quest:quest_s42_spritemastery_[spritename]" = base owned
-  // Quest format: "Quest:quest_s42_spritemastery_[spritename]_01" + Claimed = Gold
-  // Quest format: "Quest:quest_s42_spritemastery_[spritename]_02" + Claimed = Cheatmaster
+  // Quest format: "Quest:quest_s42_spritemastery_[spritename]" = base owned (normal + gold unlocked)
+  // Quest format: "Quest:quest_s42_spritemastery_[spritename]_01" + Claimed = Cheatmaster mastered
   const S4_SPRITE_MAP = {
     '8bit': '8bit',
     'dwarf': 'adventure',
@@ -1059,7 +1058,7 @@ async function syncFromEpic(token){
   for(const item of locker.cosmetics){
     const templateId = item.templateId || '';
 
-    // S3: Token-based mastery
+    // S3: Token-based mastery (prefix keys with s3:)
     if(templateId.startsWith('Token:athena_s41_spritemastery_token_q')){
       const tokenId = templateId.replace('Token:athena_s41_spritemastery_token_q', '');
       const match = tokenId.match(/^(\d+)([a-g]?)$/);
@@ -1069,14 +1068,14 @@ async function syncFromEpic(token){
         const spriteId = S3_SPRITE_MAP[spriteNum];
         const variantId = S3_VARIANT_MAP[variantLetter];
         if(spriteId && variantId){
-          const key = spriteId + ':' + variantId;
+          const key = 's3:' + spriteId + ':' + variantId;
           state[key] = { owned: true, mastered: true };
           s3Count++;
         }
       }
     }
 
-    // S4: Quest-based detection
+    // S4: Quest-based detection (prefix keys with s4:)
     if(templateId.startsWith('Quest:quest_s42_spritemastery_')){
       const questId = templateId.replace('Quest:quest_s42_spritemastery_', '');
       const questState = item.attributes?.quest_state;
@@ -1085,23 +1084,18 @@ async function syncFromEpic(token){
       const match = questId.match(/^([a-z]+)(?:_(\d+))?$/);
       if(match){
         const spriteName = match[1];
-        const levelNum = match[2] || '00'; // 00=base, 01=gold, 02=cheatmaster
+        const levelNum = match[2] || '00';
         const spriteId = S4_SPRITE_MAP[spriteName];
 
         if(spriteId){
           if(levelNum === '00'){
-            // Base quest exists = owns normal variant
-            const key = spriteId + ':normal';
-            state[key] = { owned: true, mastered: false };
-            s4Count++;
+            // Base quest exists = owns normal AND gold variants
+            state['s4:' + spriteId + ':normal'] = { owned: true, mastered: false };
+            state['s4:' + spriteId + ':gold'] = { owned: true, mastered: false };
+            s4Count += 2;
           } else if(levelNum === '01' && questState === 'Claimed'){
-            // _01 Claimed = Gold variant mastered
-            const key = spriteId + ':gold';
-            state[key] = { owned: true, mastered: true };
-            s4Count++;
-          } else if(levelNum === '02' && questState === 'Claimed'){
-            // _02 Claimed = Cheatmaster variant mastered
-            const key = spriteId + ':cheatmaster';
+            // _01 Claimed = Cheatmaster variant mastered!
+            const key = 's4:' + spriteId + ':cheatmaster';
             state[key] = { owned: true, mastered: true };
             s4Count++;
           }
