@@ -3,184 +3,178 @@
     "schemaVersion": 3,
     "generated": "2026-08-21",
     "season": "Chapter 7 Season 3 (Vaulted)",
-    "totals": { "sprites": 26, "variants": 8 },
+    "totals": { "sprites": 26, "entries": 117 },
     "notes": ["Past season - vaulted sprites", "Images from spritetrading CDN"]
   },
 
   "variants": [
-    { "id": "normal",   "name": "Normal",   "letter": "",  "effect": "Standard companion." },
-    { "id": "gold",     "name": "Gold",     "letter": "a", "effect": "Bonus Sprite XP from eliminations." },
-    { "id": "gummy",    "name": "Gummy",    "letter": "b", "effect": "20% additional Sprite Dust on extract." },
-    { "id": "galaxy",   "name": "Galaxy",   "letter": "c", "effect": "30% more ammo from pickups." },
+    { "id": "normal", "name": "Normal", "letter": "", "effect": "Standard companion." },
+    { "id": "gold", "name": "Gold", "letter": "a", "effect": "Bonus Sprite XP from eliminations." },
+    { "id": "gummy", "name": "Gummy", "letter": "b", "effect": "20% additional Sprite Dust on extract." },
+    { "id": "galaxy", "name": "Galaxy", "letter": "c", "effect": "30% more ammo from pickups." },
     { "id": "holofoil", "name": "Holofoil", "letter": "d", "effect": "5% chance to find rare Sprites." },
-    { "id": "gem",      "name": "Gem",      "letter": "e", "effect": "30% reduced fall damage." },
-    { "id": "cube",     "name": "Cube",     "letter": "f", "effect": "Overdrive while in Storm." },
-    { "id": "quack",    "name": "Quack",    "letter": "g", "effect": "50% bonus progress to other Sprites." }
+    { "id": "gem", "name": "Gem", "letter": "e", "effect": "30% reduced fall damage." },
+    { "id": "cube", "name": "Cube", "letter": "f", "effect": "Overdrive while in Storm." },
+    { "id": "quack", "name": "Quack", "letter": "g", "effect": "50% bonus progress to other Sprites." }
   ],
 
   "rarities": [
-    { "id": "rare",      "name": "Rare",      "order": 1, "color": "#3AA7F0" },
-    { "id": "epic",      "name": "Epic",      "order": 2, "color": "#A855F7" },
+    { "id": "rare", "name": "Rare", "order": 1, "color": "#3AA7F0" },
+    { "id": "epic", "name": "Epic", "order": 2, "color": "#A855F7" },
     { "id": "legendary", "name": "Legendary", "order": 3, "color": "#F97316" },
-    { "id": "mythic",    "name": "Mythic",    "order": 4, "color": "#FACC15" }
+    { "id": "mythic", "name": "Mythic", "order": 4, "color": "#FACC15" }
   ],
 
   "sprites": [
     {
       "id": "water", "num": "01", "name": "Water", "rarity": "rare",
-      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem", "cube", "quack"],
+      "variants": ["normal", "gold", "gummy", "galaxy", "gem", "holofoil", "quack"],
       "ability": "Replenishes shields in water.",
       "img": "https://api.spritetrading.com/sprites/water.webp?w=128"
     },
     {
       "id": "earth", "num": "02", "name": "Earth", "rarity": "rare",
-      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem", "cube", "quack"],
+      "variants": ["normal", "gold", "gummy", "galaxy", "gem", "cube", "quack"],
       "ability": "Reveals extra rare items from chests.",
       "img": "https://api.spritetrading.com/sprites/earth.webp?w=128"
     },
     {
       "id": "fire", "num": "03", "name": "Fire", "rarity": "rare",
-      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem", "cube", "quack"],
+      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "cube", "quack"],
       "ability": "Fiery burst after dealing damage.",
       "img": "https://api.spritetrading.com/sprites/fire.webp?w=128"
     },
     {
       "id": "fishy", "num": "04", "name": "Fishy", "rarity": "rare",
-      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem", "cube", "quack"],
+      "variants": ["normal", "gold", "gummy", "galaxy", "cube"],
       "ability": "Faster swimming and movement under fire.",
       "img": "https://api.spritetrading.com/sprites/fishy.webp?w=128"
     },
     {
       "id": "air", "num": "05", "name": "Air", "rarity": "rare",
-      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem", "cube", "quack"],
+      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil"],
       "ability": "Increased sprint speed and jump height.",
       "img": "https://api.spritetrading.com/sprites/air.webp?w=128"
     },
     {
       "id": "duck", "num": "06", "name": "Duck", "rarity": "epic",
-      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem", "cube", "quack"],
+      "variants": ["normal", "gold", "gummy", "galaxy", "gem"],
       "ability": "Emoting replenishes shields.",
       "img": "https://api.spritetrading.com/sprites/duck.webp?w=128"
     },
     {
       "id": "ghost", "num": "07", "name": "Ghost", "rarity": "epic",
-      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem", "cube", "quack"],
+      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil"],
       "ability": "Brief cloak when reloading.",
       "img": "https://api.spritetrading.com/sprites/ghost.webp?w=128"
     },
     {
       "id": "demon", "num": "08", "name": "Demon", "rarity": "epic",
-      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem", "cube", "quack"],
+      "variants": ["normal", "gold", "gummy", "galaxy", "gem"],
       "ability": "Siphons health after eliminations.",
       "img": "https://api.spritetrading.com/sprites/demon.webp?w=128"
     },
     {
       "id": "king", "num": "09", "name": "King", "rarity": "epic",
-      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem", "cube", "quack"],
+      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil"],
       "ability": "Pickaxe deals more damage.",
       "img": "https://api.spritetrading.com/sprites/king.webp?w=128"
     },
     {
-      "id": "aura", "num": "10", "name": "Aura", "rarity": "epic",
-      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem", "cube", "quack"],
-      "ability": "Grants Shock Rock charge after damage.",
-      "img": "https://api.spritetrading.com/sprites/aura.webp?w=128"
-    },
-    {
-      "id": "striker", "num": "11", "name": "Striker", "rarity": "epic",
-      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem", "cube", "quack"],
+      "id": "striker", "num": "10", "name": "Striker", "rarity": "epic",
+      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil"],
       "ability": "Overdrive on mantle or hurdle.",
       "img": "https://api.spritetrading.com/sprites/striker.webp?w=128"
     },
     {
+      "id": "aura", "num": "11", "name": "Aura", "rarity": "legendary",
+      "variants": ["normal", "gold", "gummy", "galaxy", "gem"],
+      "ability": "Grants Shock Rock charge after damage.",
+      "img": "https://api.spritetrading.com/sprites/aura.webp?w=128"
+    },
+    {
       "id": "dream", "num": "12", "name": "Dream", "rarity": "legendary",
-      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem", "cube", "quack"],
+      "variants": ["normal", "gold", "gummy", "galaxy", "cube"],
       "ability": "Random item each level, legendary at max.",
       "img": "https://api.spritetrading.com/sprites/dream.webp?w=128"
     },
     {
       "id": "punk", "num": "13", "name": "Punk", "rarity": "legendary",
-      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem", "cube", "quack"],
+      "variants": ["normal", "gold", "gummy", "galaxy", "cube"],
       "ability": "Chance for infinite ammo effect.",
       "img": "https://api.spritetrading.com/sprites/punk.webp?w=128"
     },
     {
       "id": "boss", "num": "14", "name": "Boss", "rarity": "legendary",
-      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem", "cube", "quack"],
+      "variants": ["normal", "gold", "gummy", "galaxy", "cube"],
       "ability": "Boosts max Health and Shield.",
       "img": "https://api.spritetrading.com/sprites/boss.webp?w=128"
     },
     {
       "id": "seven", "num": "15", "name": "Seven", "rarity": "legendary",
-      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem", "cube", "quack"],
+      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil"],
       "ability": "Reveals enemy foot trails.",
       "img": "https://api.spritetrading.com/sprites/seven.webp?w=128"
     },
     {
       "id": "llama", "num": "16", "name": "Lootin' Llama", "rarity": "legendary",
-      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem", "cube", "quack"],
+      "variants": ["normal", "gold", "gummy", "galaxy", "gem"],
       "ability": "Ammo Boxes may upgrade weapons.",
       "img": "https://api.spritetrading.com/sprites/llama.webp?w=128"
     },
     {
       "id": "peely", "num": "17", "name": "Peeky Peely", "rarity": "legendary",
-      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem", "cube", "quack"],
+      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil"],
       "ability": "Marks rare Sprite variants nearby.",
       "img": "https://api.spritetrading.com/sprites/peely.webp?w=128"
     },
     {
-      "id": "grim", "num": "18", "name": "Grim Reaper", "rarity": "mythic",
-      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem", "cube", "quack"],
-      "ability": "Marks players who damage you.",
-      "img": "https://api.spritetrading.com/sprites/grim.webp?w=128"
+      "id": "johnwick", "num": "18", "name": "John Wick", "rarity": "mythic",
+      "variants": ["normal"],
+      "ability": "Reveals enemies near knocked players.",
+      "img": "https://api.spritetrading.com/sprites/johnwick.webp?w=128"
     },
     {
-      "id": "zeropoint", "num": "19", "name": "Zero Point", "rarity": "mythic",
-      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem", "cube", "quack"],
-      "ability": "Shield Bubble Jr. when healing.",
-      "img": "https://api.spritetrading.com/sprites/zeropoint.webp?w=128"
+      "id": "batman", "num": "19", "name": "Batman", "rarity": "mythic",
+      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "cube"],
+      "ability": "Bat Cape midair; better rare-Sprite finds.",
+      "img": "https://api.spritetrading.com/sprites/batman.webp?w=128"
     },
     {
-      "id": "burntpeanut", "num": "20", "name": "Burnt Peanut", "rarity": "mythic",
-      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem", "cube", "quack"],
+      "id": "vinijr", "num": "20", "name": "Vini Jr.", "rarity": "mythic",
+      "variants": ["normal"],
+      "ability": "Destructive slides; better fire rate.",
+      "img": "https://api.spritetrading.com/sprites/vinijr.webp?w=128"
+    },
+    {
+      "id": "burntpeanut", "num": "21", "name": "Burnt Peanut", "rarity": "mythic",
+      "variants": ["normal"],
       "ability": "Extra or Mythic loot from eliminations.",
       "img": "https://api.spritetrading.com/sprites/burntpeanut.webp?w=128"
     },
     {
-      "id": "fossilmeal", "num": "21", "name": "Batman", "rarity": "mythic",
-      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem", "cube", "quack"],
-      "ability": "Bat Cape midair; better rare-Sprite finds.",
-      "img": "https://api.spritetrading.com/sprites/fossilmeal.webp?w=128"
+      "id": "zeropoint", "num": "22", "name": "Zero Point", "rarity": "mythic",
+      "variants": ["normal", "gold", "gummy", "galaxy", "gem", "holofoil", "cube", "quack"],
+      "ability": "Shield Bubble Jr. when healing.",
+      "img": "https://api.spritetrading.com/sprites/zeropoint.webp?w=128"
     },
     {
-      "id": "cokeparmesan", "num": "22", "name": "Pollo", "rarity": "mythic",
-      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem", "cube", "quack"],
-      "ability": "Slowly replenishes shields after elim.",
-      "img": "https://api.spritetrading.com/sprites/cokeparmesan.webp?w=128"
+      "id": "grim", "num": "23", "name": "Grim Reaper", "rarity": "mythic",
+      "variants": ["normal", "gold", "gummy", "galaxy", "gem", "holofoil", "cube"],
+      "ability": "Marks players who damage you.",
+      "img": "https://api.spritetrading.com/sprites/grim.webp?w=128"
     },
     {
-      "id": "companystargazer", "num": "23", "name": "Vini Jr.", "rarity": "mythic",
-      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem", "cube", "quack"],
-      "ability": "Destructive slides; better fire rate.",
-      "img": "https://api.spritetrading.com/sprites/companystargazer.webp?w=128"
-    },
-    {
-      "id": "fillergrunt", "num": "24", "name": "John Wick", "rarity": "mythic",
-      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem", "cube", "quack"],
-      "ability": "Reveals enemies near knocked players.",
-      "img": "https://api.spritetrading.com/sprites/fillergrunt.webp?w=128"
-    },
-    {
-      "id": "pedicureantacid", "num": "25", "name": "Ironmouse", "rarity": "mythic",
-      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem", "cube", "quack"],
+      "id": "ironmouse", "num": "24", "name": "Ironmouse", "rarity": "mythic",
+      "variants": ["normal"],
       "ability": "Regenerates health with Cloak.",
-      "img": "https://api.spritetrading.com/sprites/pedicureantacid.webp?w=128"
+      "img": "https://api.spritetrading.com/sprites/ironmouse.webp?w=128"
     },
     {
-      "id": "unknown26", "num": "26", "name": "Unknown 26", "rarity": "mythic",
-      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "gem", "cube", "quack"],
-      "ability": "Unreleased sprite.",
-      "img": null
+      "id": "pollo", "num": "25", "name": "Pollo", "rarity": "mythic",
+      "variants": ["normal"],
+      "ability": "Slowly replenishes shields after elim.",
+      "img": "https://api.spritetrading.com/sprites/pollo.webp?w=128"
     }
   ]
 }
