@@ -250,6 +250,11 @@ dialog[open]{display:block}
 <dialog id="exportDlg"><div class="dlg-body">
   <h2>Export image</h2>
   <p>Saves a PNG of your index.</p>
+  <label for="exSeason">Season</label>
+  <select id="exSeason">
+    <option value="current">Current Season (CH7S4)</option>
+    <option value="past">Past Sprites (CH7S3)</option>
+  </select>
   <label for="exView">Show</label>
   <select id="exView">
     <option value="all">All sprites — uncollected greyed out</option>
@@ -260,8 +265,8 @@ dialog[open]{display:block}
   </select>
   <label for="exGroup">Group by</label>
   <select id="exGroup">
-    <option value="rarity">Rarity</option>
     <option value="sprite">Sprite</option>
+    <option value="rarity">Rarity</option>
     <option value="none">Nothing — one grid</option>
   </select>
   <div class="dlg-actions">
@@ -302,24 +307,18 @@ const findSprite=name=>DB.sprites.find(s=>norm(s.name)===norm(name))
 const findVariant=name=>DB.variants.find(v=>norm(v.name)===norm(name))
   || (norm(name)==='base' ? DB.variants.find(v=>v.id==='normal') : null);
 
-// Entries come from an imported SpriteTrading catalog when we have one —
-// that's authoritative for which variants actually exist per sprite.
-// Otherwise fall back to the shipped (partly inferred) database.
+// Build entries from the sprite database
 let ENTRIES=[];
 function buildEntries(){
   ENTRIES=[];
   for(const s of DB.sprites){
     for(const v of s.variants){
-      // Build variant-specific image URL
+      // Get variant-specific image from variant_imgs if available
       let img = null;
-      if(s.img){
-        // Base URL format: https://api.spritetrading.com/sprites/water.webp?w=128
-        // Variant URL: https://api.spritetrading.com/sprites/gold-water.webp?w=128
-        if(v === 'normal'){
-          img = s.img;
-        } else {
-          img = s.img.replace('/sprites/', `/sprites/${v}-`);
-        }
+      if(s.variant_imgs && s.variant_imgs[v]){
+        img = s.variant_imgs[v];
+      } else if(s.img){
+        img = s.img;
       }
       ENTRIES.push({
         key: uid(s.id, v),
@@ -557,9 +556,17 @@ infoClose.onclick=()=>infoDlg.close();
 infoDlg.addEventListener('click',ev=>{ if(ev.target===infoDlg) infoDlg.close() });
 
 // --- export ---
-exportBtn.onclick=()=>exportDlg.showModal();
+exportBtn.onclick=()=>{
+  // Set season dropdown to match current view
+  exSeason.value = currentSeason === 's4' ? 'current' : 'past';
+  exportDlg.showModal();
+};
 exCancel.onclick=()=>exportDlg.close();
-exGo.onclick=()=>{ exportDlg.close(); drawPNG(exView.value,exGroup.value) };
+exGo.onclick=async ()=>{
+  exportDlg.close();
+  const season = exSeason.value === 'current' ? 's4' : 's3';
+  await drawPNG(exView.value, exGroup.value, season);
+};
 
 function exportSet(view){
   return ENTRIES.filter(e=>{
@@ -587,21 +594,33 @@ function loadArt(url){
   });
 }
 
-async function drawPNG(view,groupBy){
+async function drawPNG(view, groupBy, season){
+  // Load the selected season's data
+  const file = season === 's4' ? 'data/sprites-s4.json' : 'data/sprites-s3.json';
+  let exportDB;
+  try {
+    exportDB = await (await fetch(file + '?t=' + Date.now(), {cache:'no-store'})).json();
+  } catch {
+    alert('Could not load sprite data for export.');
+    return;
+  }
+
   // Grid layout: sprites as rows, variants as columns
-  const sprites = DB.sprites;
-  const variants = DB.variants;
+  const sprites = exportDB.sprites;
+  const variants = exportDB.variants;
   const COLS = variants.length; // 8 variants
   const ROWS = sprites.length;  // 26 sprites
 
-  // Load all variant images
+  // Load all variant images using variant_imgs
   const art = new Map();
   const imgUrls = [];
   for(const s of sprites){
-    if(!s.img) continue;
-    for(const v of variants){
-      const url = v.id === 'normal' ? s.img : s.img.replace('/sprites/', `/sprites/${v.id}-`);
-      imgUrls.push(url);
+    if(s.variant_imgs){
+      for(const v of s.variants){
+        if(s.variant_imgs[v]) imgUrls.push(s.variant_imgs[v]);
+      }
+    } else if(s.img){
+      imgUrls.push(s.img);
     }
   }
   await Promise.all([...new Set(imgUrls)].map(async u=>art.set(u,await loadArt(u))));
@@ -689,7 +708,7 @@ async function drawPNG(view,groupBy){
   const gridY = hdrY + HDR_H;
   sprites.forEach((sprite, row) => {
     const rowY = gridY + row * ROW_H;
-    const rarityCol = DB.rarities.find(r=>r.id===sprite.rarity)?.color || '#3AA7F0';
+    const rarityCol = exportDB.rarities.find(r=>r.id===sprite.rarity)?.color || '#3AA7F0';
 
     // Sprite name label (left side)
     x.fillStyle = rarityCol;
@@ -713,8 +732,10 @@ async function drawPNG(view,groupBy){
 
       // Get variant-specific image
       let imgUrl = null;
-      if(sprite.img){
-        imgUrl = variant.id === 'normal' ? sprite.img : sprite.img.replace('/sprites/', `/sprites/${variant.id}-`);
+      if(sprite.variant_imgs && sprite.variant_imgs[variant.id]){
+        imgUrl = sprite.variant_imgs[variant.id];
+      } else if(sprite.img){
+        imgUrl = sprite.img;
       }
       const im = imgUrl ? art.get(imgUrl) : null;
       if (hasIt && im) {

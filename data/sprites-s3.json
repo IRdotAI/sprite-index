@@ -1,180 +1,655 @@
 {
   "_meta": {
-    "schemaVersion": 3,
-    "generated": "2026-08-21",
+    "schemaVersion": 4,
+    "generated": "2026-08-22",
     "season": "Chapter 7 Season 3 (Vaulted)",
-    "totals": { "sprites": 26, "entries": 117 },
-    "notes": ["Past season - vaulted sprites", "Images from spritetrading CDN"]
+    "totals": {
+      "sprites": 25,
+      "entries": 117
+    },
+    "source": "fortnite.gg"
   },
-
   "variants": [
-    { "id": "normal", "name": "Normal", "letter": "", "effect": "Standard companion." },
-    { "id": "gold", "name": "Gold", "letter": "a", "effect": "Bonus Sprite XP from eliminations." },
-    { "id": "gummy", "name": "Gummy", "letter": "b", "effect": "20% additional Sprite Dust on extract." },
-    { "id": "galaxy", "name": "Galaxy", "letter": "c", "effect": "30% more ammo from pickups." },
-    { "id": "holofoil", "name": "Holofoil", "letter": "d", "effect": "5% chance to find rare Sprites." },
-    { "id": "gem", "name": "Gem", "letter": "e", "effect": "30% reduced fall damage." },
-    { "id": "cube", "name": "Cube", "letter": "f", "effect": "Overdrive while in Storm." },
-    { "id": "quack", "name": "Quack", "letter": "g", "effect": "50% bonus progress to other Sprites." }
+    {
+      "id": "normal",
+      "name": "Normal",
+      "letter": "",
+      "effect": "Standard companion."
+    },
+    {
+      "id": "gold",
+      "name": "Gold",
+      "letter": "a",
+      "effect": "Bonus Sprite XP from eliminations."
+    },
+    {
+      "id": "gummy",
+      "name": "Gummy",
+      "letter": "b",
+      "effect": "20% additional Sprite Dust on extract."
+    },
+    {
+      "id": "galaxy",
+      "name": "Galaxy",
+      "letter": "c",
+      "effect": "30% more ammo from pickups."
+    },
+    {
+      "id": "holofoil",
+      "name": "Holofoil",
+      "letter": "d",
+      "effect": "5% chance to find rare Sprites."
+    },
+    {
+      "id": "gem",
+      "name": "Gem",
+      "letter": "e",
+      "effect": "30% reduced fall damage."
+    },
+    {
+      "id": "cube",
+      "name": "Cube",
+      "letter": "f",
+      "effect": "Overdrive while in Storm."
+    },
+    {
+      "id": "quack",
+      "name": "Quack",
+      "letter": "g",
+      "effect": "50% bonus progress to other Sprites."
+    }
   ],
-
   "rarities": [
-    { "id": "rare", "name": "Rare", "order": 1, "color": "#3AA7F0" },
-    { "id": "epic", "name": "Epic", "order": 2, "color": "#A855F7" },
-    { "id": "legendary", "name": "Legendary", "order": 3, "color": "#F97316" },
-    { "id": "mythic", "name": "Mythic", "order": 4, "color": "#FACC15" }
+    {
+      "id": "rare",
+      "name": "Rare",
+      "order": 1,
+      "color": "#3AA7F0"
+    },
+    {
+      "id": "epic",
+      "name": "Epic",
+      "order": 2,
+      "color": "#A855F7"
+    },
+    {
+      "id": "legendary",
+      "name": "Legendary",
+      "order": 3,
+      "color": "#F97316"
+    },
+    {
+      "id": "mythic",
+      "name": "Mythic",
+      "order": 4,
+      "color": "#FACC15"
+    },
+    {
+      "id": "special",
+      "name": "Special",
+      "order": 5,
+      "color": "#65c51f"
+    }
   ],
-
   "sprites": [
     {
-      "id": "water", "num": "01", "name": "Water", "rarity": "rare",
-      "variants": ["normal", "gold", "gummy", "galaxy", "gem", "holofoil", "quack"],
-      "ability": "Replenishes shields in water.",
-      "img": "https://api.spritetrading.com/sprites/water.webp?w=128"
+      "id": "air",
+      "fgg_id": "74",
+      "num": "01",
+      "name": "Air",
+      "rarity": "rare",
+      "variants": [
+        "normal",
+        "gold",
+        "gummy",
+        "galaxy",
+        "holofoil"
+      ],
+      "variant_imgs": {
+        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Air_Default_L.webp",
+        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Air_Gold_L.webp",
+        "gummy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Air_Candy_L.webp",
+        "galaxy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Air_Galaxy_L.webp",
+        "holofoil": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Air_Holo_L.webp"
+      },
+      "ability": "",
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Air_Default_L.webp"
     },
     {
-      "id": "earth", "num": "02", "name": "Earth", "rarity": "rare",
-      "variants": ["normal", "gold", "gummy", "galaxy", "gem", "cube", "quack"],
-      "ability": "Reveals extra rare items from chests.",
-      "img": "https://api.spritetrading.com/sprites/earth.webp?w=128"
+      "id": "earth",
+      "fgg_id": "5",
+      "num": "02",
+      "name": "Earth",
+      "rarity": "rare",
+      "variants": [
+        "normal",
+        "cube",
+        "gold",
+        "quack",
+        "gummy",
+        "galaxy",
+        "gem"
+      ],
+      "variant_imgs": {
+        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Earth_Ch7S3_UI_L.webp",
+        "cube": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Earth_Cube_ui_L.webp",
+        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Earth_Gold_ui_L.webp",
+        "quack": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Earth_Quack_ui_L.webp",
+        "gummy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Earth_Candy_ui_L.webp",
+        "galaxy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Earth_Galaxy_ui_L.webp",
+        "gem": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Earth_Gem_ui_L.webp"
+      },
+      "ability": "",
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Earth_Ch7S3_UI_L.webp"
     },
     {
-      "id": "fire", "num": "03", "name": "Fire", "rarity": "rare",
-      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "cube", "quack"],
-      "ability": "Fiery burst after dealing damage.",
-      "img": "https://api.spritetrading.com/sprites/fire.webp?w=128"
+      "id": "fire",
+      "fgg_id": "9",
+      "num": "03",
+      "name": "Fire",
+      "rarity": "rare",
+      "variants": [
+        "normal",
+        "cube",
+        "gold",
+        "quack",
+        "gummy",
+        "galaxy",
+        "holofoil"
+      ],
+      "variant_imgs": {
+        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Fire_Unvault_Ch7S3_ui_L.webp",
+        "cube": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Fire_Cube_ui_L.webp",
+        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Fire_Gold_ui_L.webp",
+        "quack": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Fire_Quack_ui_L.webp",
+        "gummy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Fire_Candy_ui_L.webp",
+        "galaxy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Fire_Galaxy_ui_L.webp",
+        "holofoil": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Fire_Holofoil_ui_L.webp"
+      },
+      "ability": "",
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Fire_Unvault_Ch7S3_ui_L.webp"
     },
     {
-      "id": "fishy", "num": "04", "name": "Fishy", "rarity": "rare",
-      "variants": ["normal", "gold", "gummy", "galaxy", "cube"],
-      "ability": "Faster swimming and movement under fire.",
-      "img": "https://api.spritetrading.com/sprites/fishy.webp?w=128"
+      "id": "fishy",
+      "fgg_id": "58",
+      "num": "04",
+      "name": "Fishy",
+      "rarity": "rare",
+      "variants": [
+        "normal",
+        "cube",
+        "gold",
+        "gummy",
+        "galaxy"
+      ],
+      "variant_imgs": {
+        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Fishy_ui_L.webp",
+        "cube": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Fishy_Cube_L.webp",
+        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Fishy_Gold_ui_L.webp",
+        "gummy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Fishy_Candy_ui_L.webp",
+        "galaxy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Fishy_Galaxy_ui_L.webp"
+      },
+      "ability": "",
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Fishy_ui_L.webp"
     },
     {
-      "id": "air", "num": "05", "name": "Air", "rarity": "rare",
-      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil"],
-      "ability": "Increased sprint speed and jump height.",
-      "img": "https://api.spritetrading.com/sprites/air.webp?w=128"
+      "id": "water",
+      "fgg_id": "1",
+      "num": "05",
+      "name": "Water",
+      "rarity": "rare",
+      "variants": [
+        "normal",
+        "gold",
+        "quack",
+        "gummy",
+        "galaxy",
+        "gem",
+        "holofoil"
+      ],
+      "variant_imgs": {
+        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Water_Unvault_Ch7S3_ui_L.webp",
+        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Water_Gold_ui_L.webp",
+        "quack": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Water_Quack_ui_L.webp",
+        "gummy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Water_Candy_ui_L.webp",
+        "galaxy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Water_Galaxy_ui_L.webp",
+        "gem": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Water_Gem_ui_L.webp",
+        "holofoil": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Water_Holofoil_ui_L.webp"
+      },
+      "ability": "",
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Water_Unvault_Ch7S3_ui_L.webp"
     },
     {
-      "id": "duck", "num": "06", "name": "Duck", "rarity": "epic",
-      "variants": ["normal", "gold", "gummy", "galaxy", "gem"],
-      "ability": "Emoting replenishes shields.",
-      "img": "https://api.spritetrading.com/sprites/duck.webp?w=128"
+      "id": "aura",
+      "fgg_id": "67",
+      "num": "06",
+      "name": "Aura",
+      "rarity": "epic",
+      "variants": [
+        "normal",
+        "gold",
+        "gummy",
+        "galaxy",
+        "gem"
+      ],
+      "variant_imgs": {
+        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Drifter_ui_L.webp",
+        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Drifter_Gold_ui_L.webp",
+        "gummy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Drifter_Candy_ui_L.webp",
+        "galaxy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Drifter_Galaxy_ui_L.webp",
+        "gem": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Drifter_Gem_ui_L.webp"
+      },
+      "ability": "",
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Drifter_ui_L.webp"
     },
     {
-      "id": "ghost", "num": "07", "name": "Ghost", "rarity": "epic",
-      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil"],
-      "ability": "Brief cloak when reloading.",
-      "img": "https://api.spritetrading.com/sprites/ghost.webp?w=128"
+      "id": "demon",
+      "fgg_id": "37",
+      "num": "07",
+      "name": "Demon",
+      "rarity": "epic",
+      "variants": [
+        "normal",
+        "gold",
+        "gummy",
+        "galaxy",
+        "gem"
+      ],
+      "variant_imgs": {
+        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_RedDemon_Default_L.webp",
+        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_RedDemon_Gold_L.webp",
+        "gummy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_RedDemon_Candy_L.webp",
+        "galaxy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_RedDemon_Galaxy_L.webp",
+        "gem": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_RedDemon_Gem_L.webp"
+      },
+      "ability": "",
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_RedDemon_Default_L.webp"
     },
     {
-      "id": "demon", "num": "08", "name": "Demon", "rarity": "epic",
-      "variants": ["normal", "gold", "gummy", "galaxy", "gem"],
-      "ability": "Siphons health after eliminations.",
-      "img": "https://api.spritetrading.com/sprites/demon.webp?w=128"
+      "id": "duck",
+      "fgg_id": "13",
+      "num": "08",
+      "name": "Duck",
+      "rarity": "epic",
+      "variants": [
+        "normal",
+        "gold",
+        "gummy",
+        "galaxy",
+        "gem"
+      ],
+      "variant_imgs": {
+        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Duck_Default_L.webp",
+        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Duck_Gold_L.webp",
+        "gummy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Duck_Candy_L.webp",
+        "galaxy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Duck_Galaxy_L.webp",
+        "gem": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Duck_Gem_L.webp"
+      },
+      "ability": "",
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Duck_Default_L.webp"
     },
     {
-      "id": "king", "num": "09", "name": "King", "rarity": "epic",
-      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil"],
-      "ability": "Pickaxe deals more damage.",
-      "img": "https://api.spritetrading.com/sprites/king.webp?w=128"
+      "id": "ghost",
+      "fgg_id": "17",
+      "num": "09",
+      "name": "Ghost",
+      "rarity": "epic",
+      "variants": [
+        "normal",
+        "gold",
+        "gummy",
+        "galaxy",
+        "holofoil"
+      ],
+      "variant_imgs": {
+        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Ghost_Unvault_L.webp",
+        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Ghost_Gold_L.webp",
+        "gummy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Ghost_Candy_L.webp",
+        "galaxy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Ghost_Galaxy_L.webp",
+        "holofoil": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Ghost_Holo_L.webp"
+      },
+      "ability": "",
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Ghost_Unvault_L.webp"
     },
     {
-      "id": "striker", "num": "10", "name": "Striker", "rarity": "epic",
-      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil"],
-      "ability": "Overdrive on mantle or hurdle.",
-      "img": "https://api.spritetrading.com/sprites/striker.webp?w=128"
+      "id": "king",
+      "fgg_id": "29",
+      "num": "10",
+      "name": "King",
+      "rarity": "epic",
+      "variants": [
+        "normal",
+        "gold",
+        "gummy",
+        "galaxy",
+        "holofoil"
+      ],
+      "variant_imgs": {
+        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_King_ui_L.webp",
+        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_King_Gold_ui_L.webp",
+        "gummy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_King_Candy_ui_L.webp",
+        "galaxy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_King_Galaxy_ui_L.webp",
+        "holofoil": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_King_Holofoil_ui_L.webp"
+      },
+      "ability": "",
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_King_ui_L.webp"
     },
     {
-      "id": "aura", "num": "11", "name": "Aura", "rarity": "legendary",
-      "variants": ["normal", "gold", "gummy", "galaxy", "gem"],
-      "ability": "Grants Shock Rock charge after damage.",
-      "img": "https://api.spritetrading.com/sprites/aura.webp?w=128"
+      "id": "striker",
+      "fgg_id": "62",
+      "num": "11",
+      "name": "Striker",
+      "rarity": "epic",
+      "variants": [
+        "normal",
+        "gold",
+        "gummy",
+        "galaxy",
+        "holofoil"
+      ],
+      "variant_imgs": {
+        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Soccer_ui_L.webp",
+        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Soccer_Gold_L.webp",
+        "gummy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Soccer_Candy_L.webp",
+        "galaxy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Soccer_Galaxy_L.webp",
+        "holofoil": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Soccer_Holofoil_L.webp"
+      },
+      "ability": "",
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Soccer_ui_L.webp"
     },
     {
-      "id": "dream", "num": "12", "name": "Dream", "rarity": "legendary",
-      "variants": ["normal", "gold", "gummy", "galaxy", "cube"],
-      "ability": "Random item each level, legendary at max.",
-      "img": "https://api.spritetrading.com/sprites/dream.webp?w=128"
+      "id": "boss",
+      "fgg_id": "49",
+      "num": "12",
+      "name": "Boss",
+      "rarity": "legendary",
+      "variants": [
+        "normal",
+        "cube",
+        "gold",
+        "gummy",
+        "galaxy"
+      ],
+      "variant_imgs": {
+        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Boss_ui_L.webp",
+        "cube": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Boss_Cube_ui_L.webp",
+        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Boss_Gold_ui_L.webp",
+        "gummy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Boss_Candy_ui_L.webp",
+        "galaxy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Boss_Galaxy_ui_L.webp"
+      },
+      "ability": "",
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Boss_ui_L.webp"
     },
     {
-      "id": "punk", "num": "13", "name": "Punk", "rarity": "legendary",
-      "variants": ["normal", "gold", "gummy", "galaxy", "cube"],
-      "ability": "Chance for infinite ammo effect.",
-      "img": "https://api.spritetrading.com/sprites/punk.webp?w=128"
+      "id": "dream",
+      "fgg_id": "21",
+      "num": "13",
+      "name": "Dream",
+      "rarity": "legendary",
+      "variants": [
+        "normal",
+        "cube",
+        "gold",
+        "gummy",
+        "galaxy"
+      ],
+      "variant_imgs": {
+        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Sleepy_ui_L.webp",
+        "cube": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Sleepy_Cube_ui_L.webp",
+        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Sleepy_Gold_ui_L.webp",
+        "gummy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Sleepy_Candy_ui_L.webp",
+        "galaxy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Sleepy_Galaxy_ui_L.webp"
+      },
+      "ability": "",
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Sleepy_ui_L.webp"
     },
     {
-      "id": "boss", "num": "14", "name": "Boss", "rarity": "legendary",
-      "variants": ["normal", "gold", "gummy", "galaxy", "cube"],
-      "ability": "Boosts max Health and Shield.",
-      "img": "https://api.spritetrading.com/sprites/boss.webp?w=128"
+      "id": "llama",
+      "fgg_id": "151",
+      "num": "14",
+      "name": "Llama",
+      "rarity": "legendary",
+      "variants": [
+        "normal",
+        "gold",
+        "gummy",
+        "galaxy",
+        "gem"
+      ],
+      "variant_imgs": {
+        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Llama_ui_L.webp",
+        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Llama_Gold_ui_L.webp",
+        "gummy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Llama_Candy_ui_L.webp",
+        "galaxy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Llama_Galaxy_ui_L.webp",
+        "gem": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Llama_Gem_ui_L.webp"
+      },
+      "ability": "",
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Llama_ui_L.webp"
     },
     {
-      "id": "seven", "num": "15", "name": "Seven", "rarity": "legendary",
-      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil"],
-      "ability": "Reveals enemy foot trails.",
-      "img": "https://api.spritetrading.com/sprites/seven.webp?w=128"
+      "id": "peekypeely",
+      "fgg_id": "156",
+      "num": "15",
+      "name": "Peeky Peely",
+      "rarity": "legendary",
+      "variants": [
+        "normal",
+        "gold",
+        "gummy",
+        "galaxy",
+        "holofoil"
+      ],
+      "variant_imgs": {
+        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Peely_ui_L.webp",
+        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Peely_Gold_ui_L.webp",
+        "gummy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Peely_Candy_ui_L.webp",
+        "galaxy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Peely_Galaxy_ui_L.webp",
+        "holofoil": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Peely_Holofoil_ui_L.webp"
+      },
+      "ability": "",
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Peely_ui_L.webp"
     },
     {
-      "id": "llama", "num": "16", "name": "Lootin' Llama", "rarity": "legendary",
-      "variants": ["normal", "gold", "gummy", "galaxy", "gem"],
-      "ability": "Ammo Boxes may upgrade weapons.",
-      "img": "https://api.spritetrading.com/sprites/llama.webp?w=128"
+      "id": "punk",
+      "fgg_id": "25",
+      "num": "16",
+      "name": "Punk",
+      "rarity": "legendary",
+      "variants": [
+        "normal",
+        "cube",
+        "gold",
+        "gummy",
+        "galaxy"
+      ],
+      "variant_imgs": {
+        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Punk_ui_L.webp",
+        "cube": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Punk_Cube_ui_L.webp",
+        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Punk_Gold_ui_L.webp",
+        "gummy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Punk_Candy_ui_L.webp",
+        "galaxy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Punk_Galaxy_ui_L.webp"
+      },
+      "ability": "",
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Punk_ui_L.webp"
     },
     {
-      "id": "peely", "num": "17", "name": "Peeky Peely", "rarity": "legendary",
-      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil"],
-      "ability": "Marks rare Sprite variants nearby.",
-      "img": "https://api.spritetrading.com/sprites/peely.webp?w=128"
+      "id": "seven",
+      "fgg_id": "53",
+      "num": "17",
+      "name": "Seven",
+      "rarity": "legendary",
+      "variants": [
+        "normal",
+        "gold",
+        "gummy",
+        "galaxy",
+        "holofoil"
+      ],
+      "variant_imgs": {
+        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Seven_ui_L.webp",
+        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Seven_Gold_ui_L.webp",
+        "gummy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Seven_Candy_ui_L.webp",
+        "galaxy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Seven_Galaxy_ui_L.webp",
+        "holofoil": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Seven_Holofoil_ui_L.webp"
+      },
+      "ability": "",
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Seven_ui_L.webp"
     },
     {
-      "id": "johnwick", "num": "18", "name": "John Wick", "rarity": "mythic",
-      "variants": ["normal"],
-      "ability": "Reveals enemies near knocked players.",
-      "img": "https://api.spritetrading.com/sprites/johnwick.webp?w=128"
+      "id": "batman",
+      "fgg_id": "139",
+      "num": "18",
+      "name": "Batman",
+      "rarity": "mythic",
+      "variants": [
+        "normal",
+        "cube",
+        "gold",
+        "gummy",
+        "galaxy",
+        "holofoil"
+      ],
+      "variant_imgs": {
+        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_FossilMeal_Default_L.webp",
+        "cube": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_FossilMeal_Cube_L.webp",
+        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_FossilMeal_Gold_L.webp",
+        "gummy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_FossilMeal_Candy_L.webp",
+        "galaxy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_FossilMeal_Galaxy_L.webp",
+        "holofoil": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_FossilMeal_Holofoil_L.webp"
+      },
+      "ability": "",
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_FossilMeal_Default_L.webp"
     },
     {
-      "id": "batman", "num": "19", "name": "Batman", "rarity": "mythic",
-      "variants": ["normal", "gold", "gummy", "galaxy", "holofoil", "cube"],
-      "ability": "Bat Cape midair; better rare-Sprite finds.",
-      "img": "https://api.spritetrading.com/sprites/batman.webp?w=128"
+      "id": "burntpeanut",
+      "fgg_id": "41",
+      "num": "19",
+      "name": "Burnt Peanut",
+      "rarity": "mythic",
+      "variants": [
+        "normal"
+      ],
+      "variant_imgs": {
+        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_BurntPeanut_ui_L.webp"
+      },
+      "ability": "",
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_BurntPeanut_ui_L.webp"
     },
     {
-      "id": "vinijr", "num": "20", "name": "Vini Jr.", "rarity": "mythic",
-      "variants": ["normal"],
-      "ability": "Destructive slides; better fire rate.",
-      "img": "https://api.spritetrading.com/sprites/vinijr.webp?w=128"
+      "id": "grim",
+      "fgg_id": "78",
+      "num": "20",
+      "name": "Grim",
+      "rarity": "mythic",
+      "variants": [
+        "normal",
+        "cube",
+        "gold",
+        "gummy",
+        "galaxy",
+        "gem",
+        "holofoil"
+      ],
+      "variant_imgs": {
+        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_GrimReaper_Default_L.webp",
+        "cube": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_GrimReaper_Cube_L.webp",
+        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_GrimReaper_Gold_L.webp",
+        "gummy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_GrimReaper_Candy_L.webp",
+        "galaxy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_GrimReaper_Galaxy_L.webp",
+        "gem": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_GrimReaper_Gem_L.webp",
+        "holofoil": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_GrimReaper_Holofoil_L.webp"
+      },
+      "ability": "",
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_GrimReaper_Default_L.webp"
     },
     {
-      "id": "burntpeanut", "num": "21", "name": "Burnt Peanut", "rarity": "mythic",
-      "variants": ["normal"],
-      "ability": "Extra or Mythic loot from eliminations.",
-      "img": "https://api.spritetrading.com/sprites/burntpeanut.webp?w=128"
+      "id": "ironmouse",
+      "fgg_id": "150",
+      "num": "21",
+      "name": "Ironmouse",
+      "rarity": "mythic",
+      "variants": [
+        "normal"
+      ],
+      "variant_imgs": {
+        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_PedicureAntacid_L.webp"
+      },
+      "ability": "",
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_PedicureAntacid_L.webp"
     },
     {
-      "id": "zeropoint", "num": "22", "name": "Zero Point", "rarity": "mythic",
-      "variants": ["normal", "gold", "gummy", "galaxy", "gem", "holofoil", "cube", "quack"],
-      "ability": "Shield Bubble Jr. when healing.",
-      "img": "https://api.spritetrading.com/sprites/zeropoint.webp?w=128"
+      "id": "johnwick",
+      "fgg_id": "138",
+      "num": "22",
+      "name": "John Wick",
+      "rarity": "mythic",
+      "variants": [
+        "normal"
+      ],
+      "variant_imgs": {
+        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_Reload_FillerGrunt_icon_L.webp"
+      },
+      "ability": "",
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_Reload_FillerGrunt_icon_L.webp"
     },
     {
-      "id": "grim", "num": "23", "name": "Grim Reaper", "rarity": "mythic",
-      "variants": ["normal", "gold", "gummy", "galaxy", "gem", "holofoil", "cube"],
-      "ability": "Marks players who damage you.",
-      "img": "https://api.spritetrading.com/sprites/grim.webp?w=128"
+      "id": "pollo",
+      "fgg_id": "148",
+      "num": "23",
+      "name": "Pollo",
+      "rarity": "mythic",
+      "variants": [
+        "normal"
+      ],
+      "variant_imgs": {
+        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_CompanyStargazer_Default_L.webp"
+      },
+      "ability": "",
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_CompanyStargazer_Default_L.webp"
     },
     {
-      "id": "ironmouse", "num": "24", "name": "Ironmouse", "rarity": "mythic",
-      "variants": ["normal"],
-      "ability": "Regenerates health with Cloak.",
-      "img": "https://api.spritetrading.com/sprites/ironmouse.webp?w=128"
+      "id": "vinijr",
+      "fgg_id": "149",
+      "num": "24",
+      "name": "Vini Jr.",
+      "rarity": "mythic",
+      "variants": [
+        "normal"
+      ],
+      "variant_imgs": {
+        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_CokeParmesan_Default_L.webp"
+      },
+      "ability": "",
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_CokeParmesan_Default_L.webp"
     },
     {
-      "id": "pollo", "num": "25", "name": "Pollo", "rarity": "mythic",
-      "variants": ["normal"],
-      "ability": "Slowly replenishes shields after elim.",
-      "img": "https://api.spritetrading.com/sprites/pollo.webp?w=128"
+      "id": "zeropoint",
+      "fgg_id": "33",
+      "num": "25",
+      "name": "Zero Point",
+      "rarity": "mythic",
+      "variants": [
+        "normal",
+        "cube",
+        "gold",
+        "quack",
+        "gummy",
+        "galaxy",
+        "gem",
+        "holofoil"
+      ],
+      "variant_imgs": {
+        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_ZeroPoint_ui_L.webp",
+        "cube": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_ZeroPoint_Cube_ui_L.webp",
+        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_ZeroPoint_Gold_ui_L.webp",
+        "quack": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_ZeroPoint_Quack_ui_L.webp",
+        "gummy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_ZeroPoint_Candy_ui_L.webp",
+        "galaxy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_ZeroPoint_Galaxy_ui_L.webp",
+        "gem": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_ZeroPoint_Gem_ui_L.webp",
+        "holofoil": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_ZeroPoint_Holofoil_ui_L.webp"
+      },
+      "ability": "",
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_ZeroPoint_ui_L.webp"
     }
   ]
 }
