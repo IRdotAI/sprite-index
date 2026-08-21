@@ -1089,14 +1089,16 @@ async function syncFromEpic(token){
 
         if(spriteId){
           if(levelNum === '00'){
-            // Base quest exists = owns normal AND gold variants
+            // Base quest exists = owns normal variant only
             state['s4:' + spriteId + ':normal'] = { owned: true, mastered: false };
-            state['s4:' + spriteId + ':gold'] = { owned: true, mastered: false };
-            s4Count += 2;
-          } else if(levelNum === '01' && questState === 'Claimed'){
-            // _01 Claimed = Cheatmaster variant mastered!
-            const key = 's4:' + spriteId + ':cheatmaster';
-            state[key] = { owned: true, mastered: true };
+            s4Count++;
+          } else if(levelNum === '01'){
+            // _01 exists = owns cheatmaster variant
+            // Claimed = mastered, Active = owned but not mastered
+            state['s4:' + spriteId + ':cheatmaster'] = {
+              owned: true,
+              mastered: questState === 'Claimed'
+            };
             s4Count++;
           }
         }
@@ -1105,6 +1107,13 @@ async function syncFromEpic(token){
   }
 
   console.log(`Synced: ${s3Count} S3 sprites, ${s4Count} S4 sprites`);
+
+  // Debug: show all state keys by season
+  const s3Keys = Object.keys(state).filter(k => k.startsWith('s3:'));
+  const s4Keys = Object.keys(state).filter(k => k.startsWith('s4:'));
+  console.log(`State: ${s3Keys.length} S3 keys, ${s4Keys.length} S4 keys`);
+  console.log('S4 state:', s4Keys);
+
   save();
   render();
 }
