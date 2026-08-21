@@ -976,10 +976,26 @@ epicDlg.addEventListener('click', ev => { if(ev.target === epicDlg) epicDlg.clos
 async function syncFromEpic(token){
   const locker = await epicAuth.getLocker(token);
 
-  // Find spritemastery tokens
+  // DEBUG: Log all sprite-related items to find owned sprite pattern
+  const spriteItems = locker.cosmetics.filter(c => {
+    const id = (c.templateId || '').toLowerCase();
+    return id.includes('sprite') || id.includes('creature') || id.includes('s41') || id.includes('s42');
+  });
+  console.log('=== ALL SPRITE-RELATED LOCKER ITEMS ===');
+  console.table(spriteItems.map(c => ({
+    templateId: c.templateId,
+    quantity: c.quantity,
+    level: c.attributes?.level,
+    favorite: c.attributes?.favorite
+  })));
+  console.log('Total sprite items:', spriteItems.length);
+  window.lastLockerDebug = spriteItems; // Save for inspection
+
+  // Find spritemastery tokens (MASTERED sprites)
   const masteryTokens = locker.cosmetics.filter(c =>
     (c.templateId || '').includes('spritemastery_token')
   );
+  console.log('Mastery tokens found:', masteryTokens.length);
 
   // Map Epic sprite tokens to sprite entries
   // Token format: "Token:athena_s41_spritemastery_token_qXX" or "Token:athena_s41_spritemastery_token_qXXy"
