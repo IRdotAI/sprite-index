@@ -200,6 +200,15 @@ dialog[open]{display:block}
 .epic-waiting::after{content:'';animation:dots 1.2s steps(4) infinite}
 @keyframes dots{0%{content:''}25%{content:'.'}50%{content:'..'}75%{content:'...'}}
 
+/* season tabs */
+.season-tabs{display:flex;gap:6px;margin-bottom:12px}
+.season-tab{flex:1;padding:10px 16px;border-radius:10px;font-weight:600;font-size:13px;
+  background:var(--panel);border:1px solid var(--line);color:var(--dim);transition:all .15s}
+.season-tab:hover{border-color:var(--accent);color:var(--text)}
+.season-tab.active{background:linear-gradient(135deg,var(--accent),#00ccff);
+  color:#0a0c12;border:none;font-weight:700}
+.season-tab .badge{font-size:10px;opacity:.7;margin-left:4px}
+
 /* profile */
 #profileArea{display:flex;align-items:center;gap:8px}
 .profile-btn{display:flex;align-items:center;gap:10px;background:var(--panel2);border:1px solid var(--line);
@@ -224,6 +233,10 @@ dialog[open]{display:block}
       <button id="exportBtn" class="btn-primary">Export</button>
       <div id="profileArea"></div>
     </div>
+  </div>
+  <div class="season-tabs" id="seasonTabs">
+    <button class="season-tab active" data-season="s4">Current Season <span class="badge">CH7S4</span></button>
+    <button class="season-tab" data-season="s3">Past Sprites <span class="badge">Vaulted</span></button>
   </div>
   <div class="search-row">
     <input type="search" id="search" placeholder="Search sprites..." autocomplete="off">
@@ -277,6 +290,7 @@ dialog[open]{display:block}
 <script>
 const KEY='spriteIndex.v1';
 let DB=null, state=load(), filters={status:'all',rarity:'all',variant:'all',q:'',hideUnreleased:true};
+let currentSeason = 's4'; // Default to current season
 // A sprite is "unreleased" only when its data explicitly says released:false;
 // anything without the flag is treated as released so nothing vanishes by surprise.
 const released=e=>e.sprite.released!==false;
@@ -342,10 +356,14 @@ function visible(){
 // Per-variant colours (kept inside our palette), used for the breakdown bars
 // and to tint each card the way spritetrading tints its cards.
 const VCOL={normal:'#8b94ad',base:'#8b94ad',gold:'#F5C542',gummy:'#4dd4ff',
-  galaxy:'#A64BF4',gem:'#3ddc97',holofoil:'#ff6ec7',cube:'#F0862E',quack:'#7bd88f'};
+  galaxy:'#A64BF4',gem:'#3ddc97',holofoil:'#ff6ec7',cube:'#F0862E',quack:'#7bd88f',
+  cheatmaster:'#ff4d4d'};
 const vcol=id=>VCOL[(id||'').toLowerCase()]||'#8b94ad';
-const VORDER=[['normal','Base'],['gold','Gold'],['gummy','Gummy'],['galaxy','Galaxy'],
-  ['gem','Gem'],['holofoil','Holofoil'],['cube','Cube'],['quack','Quack']];
+// VORDER is now dynamic based on DB variants
+function getVOrder(){
+  if(!DB || !DB.variants) return [['normal','Base']];
+  return DB.variants.map(v => [v.id, v.name === 'Normal' ? 'Base' : v.name]);
+}
 let syncedAt=null;
 
 function fmtSync(when){
@@ -367,7 +385,7 @@ function renderHero(){
     const id=(e.variantId||'').toLowerCase();
     (m[id]=m[id]||{o:0,t:0}); m[id].t++; if(st(e.key).owned) m[id].o++;
   }
-  const bd=VORDER.filter(([id])=>m[id]&&m[id].t).map(([id,label])=>{
+  const bd=getVOrder().filter(([id])=>m[id]&&m[id].t).map(([id,label])=>{
     const c=m[id];
     const active = filters.variant === id ? 'active' : '';
     return `<div class="bd ${active}" data-v="${id}" style="cursor:pointer">
@@ -471,6 +489,23 @@ document.addEventListener('click',ev=>{
 });
 search.addEventListener('input',e=>{filters.q=e.target.value;render()});
 hideUnrel.addEventListener('change',e=>{filters.hideUnreleased=e.target.checked;render()});
+
+// Season tab switching
+document.getElementById('seasonTabs').addEventListener('click', async (ev) => {
+  const tab = ev.target.closest('.season-tab');
+  if(!tab || tab.dataset.season === currentSeason) return;
+
+  currentSeason = tab.dataset.season;
+  document.querySelectorAll('.season-tab').forEach(t => t.classList.remove('active'));
+  tab.classList.add('active');
+
+  // Reset filters when switching seasons
+  filters = {status:'all',rarity:'all',variant:'all',q:''};
+  search.value = '';
+
+  // Load the appropriate data file
+  await loadSeasonData(currentSeason);
+});
 
 // --- sprite info ---
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -1009,17 +1044,24 @@ async function syncFromEpic(token){
   render();
 }
 
-// --- boot ---
-async function boot(){
+// --- season data loading ---
+async function loadSeasonData(season){
+  const file = season === 's4' ? 'data/sprites-s4.json' : 'data/sprites-s3.json';
   try{
-    DB=await (await fetch('data/sprites.json?t='+Date.now(),{cache:'no-store'})).json();
+    DB = await (await fetch(file + '?t=' + Date.now(), {cache:'no-store'})).json();
   }catch{
-    content.innerHTML='<p class="empty">Could not load sprite data.</p>'; return;
+    content.innerHTML = '<p class="empty">Could not load sprite data.</p>';
+    return;
   }
   buildEntries();
-
-
   render();
+}
+
+// --- boot ---
+async function boot(){
+  // Load current season (S4) by default
+  await loadSeasonData(currentSeason);
+  if(!DB) return;
 
   // If not logged in, clear state to show all as not collected
   if(!epicAuth.isLoggedIn()){
