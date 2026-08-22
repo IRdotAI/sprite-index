@@ -1171,20 +1171,30 @@ async function syncFromEpic(token){
           if(!window._s4QuestDebug[spriteId]) window._s4QuestDebug[spriteId] = {};
           window._s4QuestDebug[spriteId]['_' + levelNum] = questState;
 
-          if(levelNum === '01' && questState === 'Claimed'){
-            // _01 Claimed = cheatmaster mastered (also means normal owned)
-            state['s4:' + spriteId + ':normal'] = { owned: true, mastered: true };
-            state['s4:' + spriteId + ':cheatmaster'] = { owned: true, mastered: true };
-            s4Count += 2;
-          } else if(levelNum === '00' && questState === 'Claimed'){
-            // Base Claimed = normal mastered
+          // Quest EXISTS = sprite owned. Claimed = mastery complete.
+          // _00 (base quest) existing = normal variant owned
+          // _01 Claimed = gold variant unlocked
+          // _02 Claimed = cheatmaster unlocked
+
+          if(levelNum === '00'){
+            // Base quest exists = normal sprite owned
             if(!state['s4:' + spriteId + ':normal']){
-              state['s4:' + spriteId + ':normal'] = { owned: true, mastered: true };
+              state['s4:' + spriteId + ':normal'] = { owned: true, mastered: questState === 'Claimed' };
+              s4Count++;
+            }
+          } else if(levelNum === '01' && questState === 'Claimed'){
+            // _01 Claimed = gold variant unlocked
+            if(!state['s4:' + spriteId + ':gold']){
+              state['s4:' + spriteId + ':gold'] = { owned: true, mastered: true };
+              s4Count++;
+            }
+          } else if(levelNum === '02' && questState === 'Claimed'){
+            // _02 Claimed = cheatmaster unlocked
+            if(!state['s4:' + spriteId + ':cheatmaster']){
+              state['s4:' + spriteId + ':cheatmaster'] = { owned: true, mastered: true };
               s4Count++;
             }
           }
-          // TODO: Need to figure out how to detect owned but not mastered sprites
-          // (Killswitch, Crown, Jonesy, Shadow, etc where quests are Active)
         }
       }
     }
