@@ -1103,12 +1103,19 @@ async function syncFromEpic(token){
 
         if(spriteId){
           if(levelNum === '00'){
-            // Base quest exists = owns normal variant only
-            state['s4:' + spriteId + ':normal'] = { owned: true, mastered: false };
+            // Base quest = normal variant owned
+            // Claimed = mastered (unlocks gold)
+            const normalMastered = questState === 'Claimed';
+            state['s4:' + spriteId + ':normal'] = { owned: true, mastered: normalMastered };
             s4Count++;
+            // Gold unlocks when normal is mastered
+            if(normalMastered){
+              state['s4:' + spriteId + ':gold'] = { owned: true, mastered: true };
+              s4Count++;
+            }
           } else if(levelNum === '01'){
-            // _01 exists = owns cheatmaster variant
-            // Claimed = mastered, Active = owned but not mastered
+            // _01 = cheatmaster variant
+            // Claimed = mastered
             state['s4:' + spriteId + ':cheatmaster'] = {
               owned: true,
               mastered: questState === 'Claimed'

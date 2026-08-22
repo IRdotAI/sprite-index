@@ -1,26 +1,107 @@
 {
-  "_meta": { "schemaVersion": 7, "generated": "2026-08-22", "note": "Variants from locker tokens, images from fortnite.gg" },
+  "_meta": {
+    "schemaVersion": 7,
+    "generated": "2026-08-22",
+    "note": "Variants from locker tokens, images from fortnite.gg"
+  },
   "variants": [
-    { "id": "normal", "name": "Normal", "letter": "", "effect": "Standard companion." },
-    { "id": "gold", "name": "Gold", "letter": "a", "effect": "Bonus Sprite XP." },
-    { "id": "gummy", "name": "Gummy", "letter": "b", "effect": "20% extra Sprite Dust." },
-    { "id": "galaxy", "name": "Galaxy", "letter": "c", "effect": "30% more ammo." },
-    { "id": "holofoil", "name": "Holofoil", "letter": "d", "effect": "5% rare Sprite chance." },
-    { "id": "gem", "name": "Gem", "letter": "e", "effect": "30% less fall damage." },
-    { "id": "cube", "name": "Cube", "letter": "f", "effect": "Overdrive in Storm." },
-    { "id": "quack", "name": "Quack", "letter": "g", "effect": "50% bonus progress." },
-    { "id": "cheatmaster", "name": "Cheat Master", "letter": "", "effect": "Enhanced ability." }
+    {
+      "id": "normal",
+      "name": "Normal",
+      "letter": "",
+      "effect": "Standard companion."
+    },
+    {
+      "id": "gold",
+      "name": "Gold",
+      "letter": "a",
+      "effect": "Bonus Sprite XP."
+    },
+    {
+      "id": "gummy",
+      "name": "Gummy",
+      "letter": "b",
+      "effect": "20% extra Sprite Dust."
+    },
+    {
+      "id": "galaxy",
+      "name": "Galaxy",
+      "letter": "c",
+      "effect": "30% more ammo."
+    },
+    {
+      "id": "holofoil",
+      "name": "Holofoil",
+      "letter": "d",
+      "effect": "5% rare Sprite chance."
+    },
+    {
+      "id": "gem",
+      "name": "Gem",
+      "letter": "e",
+      "effect": "30% less fall damage."
+    },
+    {
+      "id": "cube",
+      "name": "Cube",
+      "letter": "f",
+      "effect": "Overdrive in Storm."
+    },
+    {
+      "id": "quack",
+      "name": "Quack",
+      "letter": "g",
+      "effect": "50% bonus progress."
+    },
+    {
+      "id": "cheatmaster",
+      "name": "Cheat Master",
+      "letter": "",
+      "effect": "Enhanced ability."
+    }
   ],
   "rarities": [
-    { "id": "rare", "name": "Rare", "order": 1, "color": "#3AA7F0" },
-    { "id": "epic", "name": "Epic", "order": 2, "color": "#A855F7" },
-    { "id": "legendary", "name": "Legendary", "order": 3, "color": "#F97316" },
-    { "id": "mythic", "name": "Mythic", "order": 4, "color": "#FACC15" }
+    {
+      "id": "rare",
+      "name": "Rare",
+      "order": 1,
+      "color": "#3AA7F0"
+    },
+    {
+      "id": "epic",
+      "name": "Epic",
+      "order": 2,
+      "color": "#A855F7"
+    },
+    {
+      "id": "legendary",
+      "name": "Legendary",
+      "order": 3,
+      "color": "#F97316"
+    },
+    {
+      "id": "mythic",
+      "name": "Mythic",
+      "order": 4,
+      "color": "#FACC15"
+    }
   ],
   "sprites": [
     {
-      "id": "water", "name": "Water", "rarity": "rare", "season": "s3",
-      "variants": ["normal","gold","gummy","galaxy","holofoil","gem","quack"],
+      "id": "water",
+      "name": "Water",
+      "rarity": "rare",
+      "season": "s3",
+      "ability": "Creates a healing pool that regenerates health over time.",
+      "variants": [
+        "normal",
+        "gold",
+        "gummy",
+        "galaxy",
+        "holofoil",
+        "gem",
+        "quack"
+      ],
       "variant_imgs": {
         "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Water_Unvault_Ch7S3_ui_L.webp",
         "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Water_Gold_ui_L.webp",
@@ -33,8 +114,20 @@
       "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Water_Unvault_Ch7S3_ui_L.webp"
     },
     {
-      "id": "fire", "name": "Fire", "rarity": "rare", "season": "s3",
-      "variants": ["normal","gold","gummy","galaxy","holofoil","cube","quack"],
+      "id": "fire",
+      "name": "Fire",
+      "rarity": "rare",
+      "season": "s3",
+      "ability": "Throws a fireball that damages enemies and sets structures on fire.",
+      "variants": [
+        "normal",
+        "gold",
+        "gummy",
+        "galaxy",
+        "holofoil",
+        "cube",
+        "quack"
+      ],
       "variant_imgs": {
         "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Fire_Unvault_Ch7S3_ui_L.webp",
         "cube": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Fire_Cube_ui_L.webp",
@@ -47,8 +140,20 @@
       "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Fire_Unvault_Ch7S3_ui_L.webp"
     },
     {
-      "id": "earth", "name": "Earth", "rarity": "rare", "season": "s3",
-      "variants": ["normal","gold","gummy","galaxy","gem","cube","quack"],
+      "id": "earth",
+      "name": "Earth",
+      "rarity": "rare",
+      "season": "s3",
+      "ability": "Creates a rock shield that blocks incoming damage.",
+      "variants": [
+        "normal",
+        "gold",
+        "gummy",
+        "galaxy",
+        "gem",
+        "cube",
+        "quack"
+      ],
       "variant_imgs": {
         "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Earth_Ch7S3_UI_L.webp",
         "cube": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Earth_Cube_ui_L.webp",
@@ -61,8 +166,17 @@
       "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Earth_Ch7S3_UI_L.webp"
     },
     {
-      "id": "fishy", "name": "Fishy", "rarity": "rare", "season": "s3",
-      "variants": ["normal","gold","gummy","galaxy","holofoil"],
+      "id": "fishy",
+      "name": "Fishy",
+      "rarity": "rare",
+      "season": "s3",
+      "variants": [
+        "normal",
+        "gold",
+        "gummy",
+        "galaxy",
+        "holofoil"
+      ],
       "variant_imgs": {
         "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Fishy_ui_L.webp",
         "cube": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Fishy_Cube_L.webp",
@@ -70,11 +184,21 @@
         "gummy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Fishy_Candy_ui_L.webp",
         "galaxy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Fishy_Galaxy_ui_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Fishy_ui_L.webp"
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Fishy_ui_L.webp",
+      "ability": "Reveals nearby loot and fishing spots."
     },
     {
-      "id": "air", "name": "Air", "rarity": "rare", "season": "s3",
-      "variants": ["normal","gold","gummy","galaxy","gem"],
+      "id": "air",
+      "name": "Air",
+      "rarity": "rare",
+      "season": "s3",
+      "variants": [
+        "normal",
+        "gold",
+        "gummy",
+        "galaxy",
+        "gem"
+      ],
       "variant_imgs": {
         "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Air_Default_L.webp",
         "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Air_Gold_L.webp",
@@ -82,11 +206,21 @@
         "galaxy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Air_Galaxy_L.webp",
         "gem": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Air_Gem_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Air_Default_L.webp"
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Air_Default_L.webp",
+      "ability": "Grants a speed boost and reduced fall damage."
     },
     {
-      "id": "duck", "name": "Duck", "rarity": "epic", "season": "s3",
-      "variants": ["normal","gold","gummy","galaxy","cube"],
+      "id": "duck",
+      "name": "Duck",
+      "rarity": "epic",
+      "season": "s3",
+      "variants": [
+        "normal",
+        "gold",
+        "gummy",
+        "galaxy",
+        "cube"
+      ],
       "variant_imgs": {
         "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Duck_Default_L.webp",
         "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Duck_Gold_L.webp",
@@ -94,11 +228,21 @@
         "galaxy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Duck_Galaxy_L.webp",
         "cube": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Duck_Cube_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Duck_Default_L.webp"
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Duck_Default_L.webp",
+      "ability": "Quacks loudly to distract enemies and mark their positions."
     },
     {
-      "id": "ghost", "name": "Ghost", "rarity": "epic", "season": "s3",
-      "variants": ["normal","gold","gummy","galaxy","holofoil"],
+      "id": "ghost",
+      "name": "Ghost",
+      "rarity": "epic",
+      "season": "s3",
+      "variants": [
+        "normal",
+        "gold",
+        "gummy",
+        "galaxy",
+        "holofoil"
+      ],
       "variant_imgs": {
         "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Ghost_Unvault_L.webp",
         "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Ghost_Gold_L.webp",
@@ -106,11 +250,21 @@
         "galaxy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Ghost_Galaxy_L.webp",
         "holofoil": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Ghost_Holo_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Ghost_Unvault_L.webp"
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Ghost_Unvault_L.webp",
+      "ability": "Phases through walls and becomes temporarily invisible."
     },
     {
-      "id": "demon", "name": "Demon", "rarity": "epic", "season": "s3",
-      "variants": ["normal","gold","gummy","galaxy","cube"],
+      "id": "demon",
+      "name": "Demon",
+      "rarity": "epic",
+      "season": "s3",
+      "variants": [
+        "normal",
+        "gold",
+        "gummy",
+        "galaxy",
+        "cube"
+      ],
       "variant_imgs": {
         "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_RedDemon_Default_L.webp",
         "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_RedDemon_Gold_L.webp",
@@ -118,11 +272,21 @@
         "galaxy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_RedDemon_Galaxy_L.webp",
         "cube": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_RedDemon_Cube_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_RedDemon_Default_L.webp"
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_RedDemon_Default_L.webp",
+      "ability": "Charges at enemies dealing damage and causing knockback."
     },
     {
-      "id": "king", "name": "King", "rarity": "epic", "season": "s3",
-      "variants": ["normal","gold","gummy","galaxy","gem"],
+      "id": "king",
+      "name": "King",
+      "rarity": "epic",
+      "season": "s3",
+      "variants": [
+        "normal",
+        "gold",
+        "gummy",
+        "galaxy",
+        "gem"
+      ],
       "variant_imgs": {
         "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_King_ui_L.webp",
         "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_King_Gold_ui_L.webp",
@@ -130,19 +294,35 @@
         "galaxy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_King_Galaxy_ui_L.webp",
         "gem": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_King_Gem_ui_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_King_ui_L.webp"
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_King_ui_L.webp",
+      "ability": "Summons loyal subjects to fight alongside you."
     },
     {
-      "id": "striker", "name": "Striker", "rarity": "epic", "season": "s3",
-      "variants": ["normal"],
+      "id": "striker",
+      "name": "Striker",
+      "rarity": "epic",
+      "season": "s3",
+      "variants": [
+        "normal"
+      ],
       "variant_imgs": {
         "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Soccer_ui_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Soccer_ui_L.webp"
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Soccer_ui_L.webp",
+      "ability": "Kicks a powerful shot that damages enemies."
     },
     {
-      "id": "aura", "name": "Aura", "rarity": "legendary", "season": "s3",
-      "variants": ["normal","gold","gummy","galaxy","cube"],
+      "id": "aura",
+      "name": "Aura",
+      "rarity": "legendary",
+      "season": "s3",
+      "variants": [
+        "normal",
+        "gold",
+        "gummy",
+        "galaxy",
+        "cube"
+      ],
       "variant_imgs": {
         "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Drifter_ui_L.webp",
         "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Drifter_Gold_ui_L.webp",
@@ -150,11 +330,21 @@
         "galaxy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Drifter_Galaxy_ui_L.webp",
         "cube": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Drifter_Cube_ui_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Drifter_ui_L.webp"
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Drifter_ui_L.webp",
+      "ability": "Reveals enemy positions through walls briefly."
     },
     {
-      "id": "dream", "name": "Dream", "rarity": "legendary", "season": "s3",
-      "variants": ["normal","gold","gummy","galaxy","gem"],
+      "id": "dream",
+      "name": "Dream",
+      "rarity": "legendary",
+      "season": "s3",
+      "variants": [
+        "normal",
+        "gold",
+        "gummy",
+        "galaxy",
+        "gem"
+      ],
       "variant_imgs": {
         "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Sleepy_ui_L.webp",
         "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Sleepy_Gold_ui_L.webp",
@@ -162,11 +352,21 @@
         "galaxy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Sleepy_Galaxy_ui_L.webp",
         "gem": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Sleepy_Gem_ui_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Sleepy_ui_L.webp"
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Sleepy_ui_L.webp",
+      "ability": "Puts nearby enemies to sleep, slowing their movement."
     },
     {
-      "id": "punk", "name": "Punk", "rarity": "legendary", "season": "s3",
-      "variants": ["normal","gold","gummy","galaxy","holofoil"],
+      "id": "punk",
+      "name": "Punk",
+      "rarity": "legendary",
+      "season": "s3",
+      "variants": [
+        "normal",
+        "gold",
+        "gummy",
+        "galaxy",
+        "holofoil"
+      ],
       "variant_imgs": {
         "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Punk_ui_L.webp",
         "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Punk_Gold_ui_L.webp",
@@ -174,11 +374,21 @@
         "galaxy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Punk_Galaxy_ui_L.webp",
         "holofoil": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Punk_Holofoil_ui_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Punk_ui_L.webp"
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Punk_ui_L.webp",
+      "ability": "Creates a sonic blast that damages and stuns enemies."
     },
     {
-      "id": "boss", "name": "Boss", "rarity": "legendary", "season": "s3",
-      "variants": ["normal","gold","gummy","galaxy","cube"],
+      "id": "boss",
+      "name": "Boss",
+      "rarity": "legendary",
+      "season": "s3",
+      "variants": [
+        "normal",
+        "gold",
+        "gummy",
+        "galaxy",
+        "cube"
+      ],
       "variant_imgs": {
         "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Boss_ui_L.webp",
         "cube": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Boss_Cube_ui_L.webp",
@@ -186,11 +396,21 @@
         "gummy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Boss_Candy_ui_L.webp",
         "galaxy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Boss_Galaxy_ui_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Boss_ui_L.webp"
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Boss_ui_L.webp",
+      "ability": "Commands nearby sprites to attack your target."
     },
     {
-      "id": "seven", "name": "Seven", "rarity": "legendary", "season": "s3",
-      "variants": ["normal","gold","gummy","galaxy","gem"],
+      "id": "seven",
+      "name": "Seven",
+      "rarity": "legendary",
+      "season": "s3",
+      "variants": [
+        "normal",
+        "gold",
+        "gummy",
+        "galaxy",
+        "gem"
+      ],
       "variant_imgs": {
         "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Seven_ui_L.webp",
         "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Seven_Gold_ui_L.webp",
@@ -198,11 +418,21 @@
         "galaxy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Seven_Galaxy_ui_L.webp",
         "gem": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Seven_Gem_ui_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Seven_ui_L.webp"
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Seven_ui_L.webp",
+      "ability": "Opens a rift that teleports you forward."
     },
     {
-      "id": "llama", "name": "Llama", "rarity": "legendary", "season": "s3",
-      "variants": ["normal","gold","gummy","galaxy","gem"],
+      "id": "llama",
+      "name": "Llama",
+      "rarity": "legendary",
+      "season": "s3",
+      "variants": [
+        "normal",
+        "gold",
+        "gummy",
+        "galaxy",
+        "gem"
+      ],
       "variant_imgs": {
         "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Llama_ui_L.webp",
         "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Llama_Gold_ui_L.webp",
@@ -210,11 +440,21 @@
         "galaxy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Llama_Galaxy_ui_L.webp",
         "gem": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Llama_Gem_ui_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Llama_ui_L.webp"
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Llama_ui_L.webp",
+      "ability": "Spawns healing items and materials."
     },
     {
-      "id": "peely", "name": "Peeky Peely", "rarity": "legendary", "season": "s3",
-      "variants": ["normal","gold","gummy","galaxy","holofoil"],
+      "id": "peely",
+      "name": "Peeky Peely",
+      "rarity": "legendary",
+      "season": "s3",
+      "variants": [
+        "normal",
+        "gold",
+        "gummy",
+        "galaxy",
+        "holofoil"
+      ],
       "variant_imgs": {
         "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Peely_ui_L.webp",
         "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Peely_Gold_ui_L.webp",
@@ -222,11 +462,24 @@
         "galaxy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Peely_Galaxy_ui_L.webp",
         "holofoil": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Peely_Holofoil_ui_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Peely_ui_L.webp"
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Peely_ui_L.webp",
+      "ability": "Throws banana peels that trip enemies."
     },
     {
-      "id": "zeropoint", "name": "Zero Point", "rarity": "mythic", "season": "s3",
-      "variants": ["normal","gold","gummy","galaxy","holofoil","gem","cube","quack"],
+      "id": "zeropoint",
+      "name": "Zero Point",
+      "rarity": "mythic",
+      "season": "s3",
+      "variants": [
+        "normal",
+        "gold",
+        "gummy",
+        "galaxy",
+        "holofoil",
+        "gem",
+        "cube",
+        "quack"
+      ],
       "variant_imgs": {
         "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_ZeroPoint_ui_L.webp",
         "cube": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_ZeroPoint_Cube_ui_L.webp",
@@ -237,11 +490,23 @@
         "gem": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_ZeroPoint_Gem_ui_L.webp",
         "holofoil": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_ZeroPoint_Holofoil_ui_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_ZeroPoint_ui_L.webp"
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_ZeroPoint_ui_L.webp",
+      "ability": "Creates a zero point explosion that damages and pulls enemies."
     },
     {
-      "id": "grim", "name": "Grim", "rarity": "mythic", "season": "s3",
-      "variants": ["normal","gold","gummy","galaxy","holofoil","gem","cube"],
+      "id": "grim",
+      "name": "Grim",
+      "rarity": "mythic",
+      "season": "s3",
+      "variants": [
+        "normal",
+        "gold",
+        "gummy",
+        "galaxy",
+        "holofoil",
+        "gem",
+        "cube"
+      ],
       "variant_imgs": {
         "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_GrimReaper_Default_L.webp",
         "cube": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_GrimReaper_Cube_L.webp",
@@ -251,11 +516,22 @@
         "gem": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_GrimReaper_Gem_L.webp",
         "holofoil": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_GrimReaper_Holofoil_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_GrimReaper_Default_L.webp"
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_GrimReaper_Default_L.webp",
+      "ability": "Marks enemies for death, increasing damage they take."
     },
     {
-      "id": "batman", "name": "Batman", "rarity": "mythic", "season": "s3",
-      "variants": ["normal","gold","gummy","galaxy","gem","cube"],
+      "id": "batman",
+      "name": "Batman",
+      "rarity": "mythic",
+      "season": "s3",
+      "variants": [
+        "normal",
+        "gold",
+        "gummy",
+        "galaxy",
+        "gem",
+        "cube"
+      ],
       "variant_imgs": {
         "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_FossilMeal_Default_L.webp",
         "cube": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_FossilMeal_Cube_L.webp",
@@ -264,27 +540,49 @@
         "galaxy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_FossilMeal_Galaxy_L.webp",
         "gem": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_FossilMeal_Gem_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_FossilMeal_Default_L.webp"
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_FossilMeal_Default_L.webp",
+      "ability": "Throws batarangs that stun enemies and reveals them."
     },
     {
-      "id": "johnwick", "name": "John Wick", "rarity": "mythic", "season": "s3",
-      "variants": ["normal"],
+      "id": "johnwick",
+      "name": "John Wick",
+      "rarity": "mythic",
+      "season": "s3",
+      "variants": [
+        "normal"
+      ],
       "variant_imgs": {
         "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_Reload_FillerGrunt_icon_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_Reload_FillerGrunt_icon_L.webp"
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_Reload_FillerGrunt_icon_L.webp",
+      "ability": "Enters focus mode with increased accuracy and damage."
     },
     {
-      "id": "pollo", "name": "Pollo", "rarity": "mythic", "season": "s3",
-      "variants": ["normal"],
+      "id": "pollo",
+      "name": "Pollo",
+      "rarity": "mythic",
+      "season": "s3",
+      "variants": [
+        "normal"
+      ],
       "variant_imgs": {
         "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_CompanyStargazer_Default_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_CompanyStargazer_Default_L.webp"
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_CompanyStargazer_Default_L.webp",
+      "ability": "Calls in an airstrike on marked location."
     },
     {
-      "id": "burntpeanut", "name": "Burnt Peanut", "rarity": "mythic", "season": "s3",
-      "variants": ["normal","gold","gummy","galaxy","gem"],
+      "id": "burntpeanut",
+      "name": "Burnt Peanut",
+      "rarity": "mythic",
+      "season": "s3",
+      "variants": [
+        "normal",
+        "gold",
+        "gummy",
+        "galaxy",
+        "gem"
+      ],
       "variant_imgs": {
         "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_BurntPeanut_ui_L.webp",
         "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_BurntPeanut_Gold_ui_L.webp",
@@ -292,133 +590,234 @@
         "galaxy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_BurntPeanut_Galaxy_ui_L.webp",
         "gem": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_BurntPeanut_Gem_ui_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_BurntPeanut_ui_L.webp"
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_BurntPeanut_ui_L.webp",
+      "ability": "Burns everything in sight with fire damage."
     },
     {
-      "id": "vinijr", "name": "Vini Jr.", "rarity": "mythic", "season": "s3",
-      "variants": ["normal"],
+      "id": "vinijr",
+      "name": "Vini Jr.",
+      "rarity": "mythic",
+      "season": "s3",
+      "variants": [
+        "normal"
+      ],
       "variant_imgs": {
         "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_CokeParmesan_Default_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_CokeParmesan_Default_L.webp"
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_CokeParmesan_Default_L.webp",
+      "ability": "Performs a skill move that dodges enemy attacks."
     },
     {
-      "id": "ironmouse", "name": "Ironmouse", "rarity": "mythic", "season": "s3",
-      "variants": ["normal"],
+      "id": "ironmouse",
+      "name": "Ironmouse",
+      "rarity": "mythic",
+      "season": "s3",
+      "variants": [
+        "normal"
+      ],
       "variant_imgs": {
         "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_PedicureAntacid_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_PedicureAntacid_L.webp"
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_PedicureAntacid_L.webp",
+      "ability": "Screeches to stun nearby enemies."
     },
     {
-      "id": "8bit", "name": "8-Bit", "rarity": "rare", "season": "s4",
-      "variants": ["normal","gold","cheatmaster"],
+      "id": "8bit",
+      "name": "8-Bit",
+      "rarity": "rare",
+      "season": "s4",
+      "variants": [
+        "normal",
+        "gold",
+        "cheatmaster"
+      ],
       "variant_imgs": {
         "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_EightBitBlaster_L.webp",
         "cheatmaster": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_EightBitBlaster_Cheatmaster_L.webp",
         "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_EightBitBlaster_Gold_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_EightBitBlaster_L.webp"
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_EightBitBlaster_L.webp",
+      "ability": "Fires pixel projectiles that deal bonus damage to shields."
     },
     {
-      "id": "adventure", "name": "Adventure", "rarity": "rare", "season": "s4",
-      "variants": ["normal","gold","cheatmaster"],
+      "id": "adventure",
+      "name": "Adventure",
+      "rarity": "rare",
+      "season": "s4",
+      "variants": [
+        "normal",
+        "gold",
+        "cheatmaster"
+      ],
       "variant_imgs": {
         "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Dwarf_L.webp",
         "cheatmaster": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Dwarf_Cheatmaster_L.webp",
         "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Dwarf_Gold_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Dwarf_L.webp"
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Dwarf_L.webp",
+      "ability": "Grants extra loot from chests and supply drops."
     },
     {
-      "id": "bush", "name": "Bush", "rarity": "rare", "season": "s4",
-      "variants": ["normal","gold","cheatmaster"],
+      "id": "bush",
+      "name": "Bush",
+      "rarity": "rare",
+      "season": "s4",
+      "variants": [
+        "normal",
+        "gold",
+        "cheatmaster"
+      ],
       "variant_imgs": {
         "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_BushRanger_L.webp",
         "cheatmaster": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_BushRanger_Cheatmaster_L.webp",
         "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_BushRanger_Gold_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_BushRanger_L.webp"
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_BushRanger_L.webp",
+      "ability": "Creates a bush disguise that hides you from enemies."
     },
     {
-      "id": "jonesy", "name": "Jonesy", "rarity": "rare", "season": "s4",
-      "variants": ["normal","gold","cheatmaster"],
+      "id": "jonesy",
+      "name": "Jonesy",
+      "rarity": "rare",
+      "season": "s4",
+      "variants": [
+        "normal",
+        "gold",
+        "cheatmaster"
+      ],
       "variant_imgs": {
         "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Jonesy_L.webp",
         "cheatmaster": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Jonesy_Cheatmaster_L.webp",
         "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Jonesy_Gold_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Jonesy_L.webp"
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Jonesy_L.webp",
+      "ability": "Rallies nearby allies, boosting their damage."
     },
     {
-      "id": "killswitch", "name": "Killswitch", "rarity": "epic", "season": "s4",
-      "variants": ["normal","gold","cheatmaster"],
+      "id": "killswitch",
+      "name": "Killswitch",
+      "rarity": "epic",
+      "season": "s4",
+      "variants": [
+        "normal",
+        "gold",
+        "cheatmaster"
+      ],
       "variant_imgs": {
         "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Killswitch_L.webp",
         "cheatmaster": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Killswitch_Cheatmaster_L.webp",
         "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Killswitch_Gold_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Killswitch_L.webp"
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Killswitch_L.webp",
+      "ability": "Disables enemy traps and electronic devices."
     },
     {
-      "id": "shadow", "name": "Shadow", "rarity": "epic", "season": "s4",
-      "variants": ["normal","gold","cheatmaster"],
+      "id": "shadow",
+      "name": "Shadow",
+      "rarity": "epic",
+      "season": "s4",
+      "variants": [
+        "normal",
+        "gold",
+        "cheatmaster"
+      ],
       "variant_imgs": {
         "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_NarrowFlea_Scribe_L.webp",
         "cheatmaster": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_NarrowFlea_Scribe_Cheatmaster_L.webp",
         "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_NarrowFlea_Scribe_Gold_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_NarrowFlea_Scribe_L.webp"
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_NarrowFlea_Scribe_L.webp",
+      "ability": "Creates a shadow clone that confuses enemies."
     },
     {
-      "id": "sonic", "name": "Sonic", "rarity": "epic", "season": "s4",
-      "variants": ["normal","gold","cheatmaster"],
+      "id": "sonic",
+      "name": "Sonic",
+      "rarity": "epic",
+      "season": "s4",
+      "variants": [
+        "normal",
+        "gold",
+        "cheatmaster"
+      ],
       "variant_imgs": {
         "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_NarrowFlea_Obsidian_L.webp",
         "cheatmaster": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_NarrowFlea_Obsidian_Cheatmaster_L.webp",
         "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_NarrowFlea_Obsidian_Gold_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_NarrowFlea_Obsidian_L.webp"
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_NarrowFlea_Obsidian_L.webp",
+      "ability": "Grants extreme speed and momentum damage."
     },
     {
-      "id": "tails", "name": "Tails", "rarity": "epic", "season": "s4",
-      "variants": ["normal","gold","cheatmaster"],
+      "id": "tails",
+      "name": "Tails",
+      "rarity": "epic",
+      "season": "s4",
+      "variants": [
+        "normal",
+        "gold",
+        "cheatmaster"
+      ],
       "variant_imgs": {
         "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_NarrowFlea_Monkey_L.webp",
         "cheatmaster": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_NarrowFlea_Monkey_Cheatmaster_L.webp",
         "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_NarrowFlea_Monkey_Gold_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_NarrowFlea_Monkey_L.webp"
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_NarrowFlea_Monkey_L.webp",
+      "ability": "Grants double jump ability and extended flight."
     },
     {
-      "id": "jackrabbit", "name": "Jackrabbit", "rarity": "legendary", "season": "s4",
-      "variants": ["normal","gold","cheatmaster"],
+      "id": "jackrabbit",
+      "name": "Jackrabbit",
+      "rarity": "legendary",
+      "season": "s4",
+      "variants": [
+        "normal",
+        "gold",
+        "cheatmaster"
+      ],
       "variant_imgs": {
         "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_JazzJackrabbit_L.webp",
         "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_JazzJackrabbit_Gold_L.webp",
         "cheatmaster": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_JazzJackrabbit_Cheatmaster_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_JazzJackrabbit_L.webp"
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_JazzJackrabbit_L.webp",
+      "ability": "Enables high jumps and rapid movement."
     },
     {
-      "id": "crown", "name": "Crown", "rarity": "mythic", "season": "s4",
-      "variants": ["normal","gold","cheatmaster"],
+      "id": "crown",
+      "name": "Crown",
+      "rarity": "mythic",
+      "season": "s4",
+      "variants": [
+        "normal",
+        "gold",
+        "cheatmaster"
+      ],
       "variant_imgs": {
         "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Crown_L.webp",
         "cheatmaster": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Crown_Cheatmaster_L.webp",
         "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Crown_Gold_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Crown_L.webp"
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Crown_L.webp",
+      "ability": "Grants the power of a Victory Crown."
     },
     {
-      "id": "klombo", "name": "Klombo", "rarity": "mythic", "season": "s4",
-      "variants": ["normal","gold","cheatmaster"],
+      "id": "klombo",
+      "name": "Klombo",
+      "rarity": "mythic",
+      "season": "s4",
+      "variants": [
+        "normal",
+        "gold",
+        "cheatmaster"
+      ],
       "variant_imgs": {
         "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Klombo_L.webp",
         "cheatmaster": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Klombo_Cheatmaster_L.webp",
         "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Klombo_Gold_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Klombo_L.webp"
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Klombo_L.webp",
+      "ability": "Summons Klombo to eat enemies in an area."
     }
   ]
 }
