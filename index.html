@@ -1083,16 +1083,35 @@ async function syncFromEpic(token){
   })));
   window.lastLockerDebug = spriteItems;
 
-  // DEBUG: Compare owned vs not-owned sprite quests
-  const ownedSprites = ['killswitch', 'jonesy', 'reloadovertime']; // Active but owned
-  const notOwnedSprites = ['bushranger', 'stormscout', 'klombo']; // Active and NOT owned
-  console.log('=== QUEST COMPARISON: OWNED vs NOT OWNED ===');
-  for(const sprite of [...ownedSprites, ...notOwnedSprites]){
-    const quest = spriteItems.find(c => c.templateId === `Quest:quest_s42_spritemastery_${sprite}`);
-    if(quest){
-      console.log(`${sprite} (${ownedSprites.includes(sprite) ? 'OWNED' : 'NOT OWNED'}):`, JSON.stringify(quest.attributes));
-    }
+  // DEBUG: Look for sprite cosmetics (pets, backblings, creatures)
+  const possibleSpriteCosmetics = locker.cosmetics.filter(c => {
+    const id = (c.templateId || '').toLowerCase();
+    return id.includes('pet') || id.includes('backpack') || id.includes('creature') ||
+           id.includes('sprite') || id.includes('blockstack');
+  });
+  console.log('=== POSSIBLE SPRITE COSMETICS (pets/backblings/creatures) ===');
+  console.table(possibleSpriteCosmetics.map(c => ({
+    templateId: c.templateId,
+    attrs: JSON.stringify(c.attributes).substring(0, 200)
+  })));
+
+  // DEBUG: Check the generic sprite token's full attributes
+  const genericToken = locker.cosmetics.find(c => c.templateId === 'Token:athena_s42_spritemastery_token_generic');
+  if(genericToken){
+    console.log('=== GENERIC SPRITE TOKEN FULL ATTRIBUTES ===');
+    console.log(JSON.stringify(genericToken.attributes, null, 2));
   }
+
+  // DEBUG: Look for any item with variants/styles that might indicate owned sprites
+  const itemsWithVariants = locker.cosmetics.filter(c => {
+    const attrs = c.attributes || {};
+    return attrs.variants || attrs.item_variants || attrs.owned_variants;
+  });
+  console.log('=== ITEMS WITH VARIANTS ===');
+  console.table(itemsWithVariants.slice(0, 20).map(c => ({
+    templateId: c.templateId,
+    variants: JSON.stringify(c.attributes?.variants || c.attributes?.item_variants || c.attributes?.owned_variants).substring(0, 200)
+  })));
 
   // ===== S3 TOKEN-BASED DETECTION =====
   // Token format: "Token:athena_s41_spritemastery_token_qXX[letter]"
