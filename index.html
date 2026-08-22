@@ -973,9 +973,38 @@ function showProfileMenu(){
   };
 }
 
+const EPIC_AUTH_URL = 'https://www.epicgames.com/id/api/redirect?clientId=ec684b8c687f479fadea3cb2ad83f5c6&responseType=code';
+
 function showLoginFlow(){
-  // Simple OAuth redirect - just go to Epic's login
-  window.location.href = `${API_BASE}/auth/login`;
+  epicTitle.textContent = 'Link Your Epic Account';
+  epicDesc.textContent = 'Sync your Fortnite locker automatically.';
+  epicClose.textContent = 'Cancel';
+  epicContent.innerHTML = `
+    <p style="margin-bottom:12px"><b>Step 1:</b> Make sure you're logged into Epic Games:</p>
+    <a href="https://www.epicgames.com/id/login" target="_blank" style="display:block;text-align:center;text-decoration:none;padding:10px;border-radius:10px;margin-bottom:10px;background:var(--panel2);border:1px solid var(--line);color:var(--text)">Login to Epic Games ↗</a>
+    <p style="margin-bottom:12px"><b>Step 2:</b> Click to get your code:</p>
+    <a href="${EPIC_AUTH_URL}" target="_blank" class="btn-primary" style="display:block;text-align:center;text-decoration:none;padding:12px;border-radius:10px;margin-bottom:16px">Get Authorization Code →</a>
+    <p style="margin-bottom:8px"><b>Step 3:</b> Copy the <code>"authorizationCode"</code> value and paste here:</p>
+    <input type="text" id="epicCodeInput" placeholder="Paste authorization code..." style="width:100%;padding:12px;border-radius:10px;background:var(--panel2);border:1px solid var(--line);color:var(--text);font-family:monospace;margin-bottom:12px">
+    <button id="epicSubmitCode" class="btn-primary" style="width:100%">Link Account</button>
+  `;
+  epicDlg.showModal();
+
+  document.getElementById('epicSubmitCode').onclick = async () => {
+    const code = document.getElementById('epicCodeInput').value.trim();
+    if(!code){ toast('Please paste the authorization code', true); return; }
+    try {
+      epicContent.innerHTML = '<p class="epic-waiting">Linking account...</p>';
+      const result = await epicAuth.exchangeCode(code);
+      localStorage.setItem('epic_logged_in', 'true');
+      await syncFromEpic(result.access_token);
+      updateProfileArea();
+      epicDlg.close();
+      toast(`Linked as ${result.display_name}!`);
+    } catch(err){
+      epicContent.innerHTML = `<p style="color:var(--legendary)">Error: ${err.message}</p><button onclick="showLoginFlow()" class="btn-primary" style="margin-top:12px">Try Again</button>`;
+    }
+  };
 }
 
 epicClose.onclick = () => epicDlg.close();
