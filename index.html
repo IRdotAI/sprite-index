@@ -1102,26 +1102,26 @@ async function syncFromEpic(token){
         const spriteId = S4_SPRITE_MAP[spriteName];
 
         if(spriteId){
-          if(levelNum === '00'){
-            // Base quest = normal variant owned
-            // Claimed = mastered (unlocks gold)
-            const normalMastered = questState === 'Claimed';
-            state['s4:' + spriteId + ':normal'] = { owned: true, mastered: normalMastered };
-            s4Count++;
-            // Gold unlocks when normal is mastered
-            if(normalMastered){
-              state['s4:' + spriteId + ':gold'] = { owned: true, mastered: true };
+          // Track quest states for this sprite
+          const stateKey = 's4:' + spriteId;
+          if(!window._s4QuestDebug) window._s4QuestDebug = {};
+          if(!window._s4QuestDebug[spriteId]) window._s4QuestDebug[spriteId] = {};
+          window._s4QuestDebug[spriteId]['_' + levelNum] = questState;
+
+          if(levelNum === '01' && questState === 'Claimed'){
+            // _01 Claimed = cheatmaster mastered (also means normal owned)
+            state['s4:' + spriteId + ':normal'] = { owned: true, mastered: true };
+            state['s4:' + spriteId + ':cheatmaster'] = { owned: true, mastered: true };
+            s4Count += 2;
+          } else if(levelNum === '00' && questState === 'Claimed'){
+            // Base Claimed = normal mastered
+            if(!state['s4:' + spriteId + ':normal']){
+              state['s4:' + spriteId + ':normal'] = { owned: true, mastered: true };
               s4Count++;
             }
-          } else if(levelNum === '01' && questState === 'Claimed'){
-            // _01 Claimed = cheatmaster variant unlocked and mastered
-            // Active means still working toward it, not owned yet
-            state['s4:' + spriteId + ':cheatmaster'] = {
-              owned: true,
-              mastered: true
-            };
-            s4Count++;
           }
+          // TODO: Need to figure out how to detect owned but not mastered sprites
+          // (Killswitch, Crown, Jonesy, Shadow, etc where quests are Active)
         }
       }
     }
