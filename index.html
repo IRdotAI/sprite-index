@@ -524,23 +524,6 @@ document.addEventListener('click',ev=>{
 });
 search.addEventListener('input',e=>{filters.q=e.target.value;render()});
 
-// Season tab switching
-document.getElementById('seasonTabs').addEventListener('click', async (ev) => {
-  const tab = ev.target.closest('.season-tab');
-  if(!tab || tab.dataset.season === currentSeason) return;
-
-  currentSeason = tab.dataset.season;
-  document.querySelectorAll('.season-tab').forEach(t => t.classList.remove('active'));
-  tab.classList.add('active');
-
-  // Reset filters when switching seasons
-  filters = {status:'all',rarity:'all',variant:'all',q:''};
-  search.value = '';
-
-  // Load the appropriate data file
-  await loadSeasonData(currentSeason);
-});
-
 // --- sprite info ---
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const fmtNum=n=>Number(n).toLocaleString();
@@ -600,8 +583,8 @@ infoDlg.addEventListener('click',ev=>{ if(ev.target===infoDlg) infoDlg.close() }
 
 // --- export ---
 exportBtn.onclick=()=>{
-  // Set season dropdown to match current view
-  exSeason.value = currentSeason === 's4' ? 'current' : 'past';
+  // Set season dropdown to match current filter
+  exSeason.value = filters.season === 's4' ? 'current' : (filters.season === 's3' ? 'past' : 'all');
   exportDlg.showModal();
 };
 exCancel.onclick=()=>exportDlg.close();
@@ -1130,23 +1113,17 @@ async function syncFromEpic(token){
   render();
 }
 
-// --- season data loading ---
-async function loadSeasonData(season){
-  const file = season === 's4' ? 'data/sprites-s4.json' : 'data/sprites-s3.json';
+// --- boot ---
+async function boot(){
+  // Load combined sprites database (S3 + S4)
   try{
-    DB = await (await fetch(file + '?t=' + Date.now(), {cache:'no-store'})).json();
+    DB = await (await fetch('data/sprites.json?t=' + Date.now(), {cache:'no-store'})).json();
   }catch{
     content.innerHTML = '<p class="empty">Could not load sprite data.</p>';
     return;
   }
   buildEntries();
   render();
-}
-
-// --- boot ---
-async function boot(){
-  // Load current season (S4) by default
-  await loadSeasonData(currentSeason);
   if(!DB) return;
 
   // If not logged in, clear state to show all as not collected
