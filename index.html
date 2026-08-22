@@ -896,6 +896,26 @@ const epicAuth = {
     return d;
   },
 
+  // Device Auth flow (like spritetrading.com) - uses Fortnite client for better API access
+  async startDeviceAuth(){
+    const r = await fetch(`${API_BASE}/auth/device`, { method: 'POST' });
+    const d = await r.json();
+    if(d.error) throw new Error(d.error);
+    return d;
+  },
+
+  async pollDeviceAuth(deviceCode){
+    const r = await fetch(`${API_BASE}/auth/device/poll?device_code=${encodeURIComponent(deviceCode)}`);
+    const d = await r.json();
+    if(d.status === 'success'){
+      this.accountId = d.account_id;
+      this.displayName = d.display_name;
+      localStorage.setItem('epic_account_id', d.account_id);
+      localStorage.setItem('epic_display_name', d.display_name);
+    }
+    return d;
+  },
+
   async getLocker(token){
     if(!this.accountId) throw new Error('Not logged in');
     let url = `${API_BASE}/locker?account_id=${this.accountId}`;
@@ -973,39 +993,68 @@ function showProfileMenu(){
   };
 }
 
-const EPIC_AUTH_URL = 'https://www.epicgames.com/id/api/redirect?clientId=ec684b8c687f479fadea3cb2ad83f5c6&responseType=code';
+let deviceAuthInterval = null;
 
-function showLoginFlow(){
+async function showLoginFlow(){
   epicTitle.textContent = 'Link Your Epic Account';
   epicDesc.textContent = 'Sync your Fortnite locker automatically.';
   epicClose.textContent = 'Cancel';
-  epicContent.innerHTML = `
-    <p style="margin-bottom:12px"><b>Step 1:</b> Make sure you're logged into Epic Games:</p>
-    <a href="https://www.epicgames.com/id/login" target="_blank" style="display:block;text-align:center;text-decoration:none;padding:10px;border-radius:10px;margin-bottom:10px;background:var(--panel2);border:1px solid var(--line);color:var(--text)">Login to Epic Games ↗</a>
-    <p style="margin-bottom:12px"><b>Step 2:</b> Click to get your code:</p>
-    <a href="${EPIC_AUTH_URL}" target="_blank" class="btn-primary" style="display:block;text-align:center;text-decoration:none;padding:12px;border-radius:10px;margin-bottom:16px">Get Authorization Code →</a>
-    <p style="margin-bottom:8px"><b>Step 3:</b> Copy the <code>"authorizationCode"</code> value and paste here:</p>
-    <input type="text" id="epicCodeInput" placeholder="Paste authorization code..." style="width:100%;padding:12px;border-radius:10px;background:var(--panel2);border:1px solid var(--line);color:var(--text);font-family:monospace;margin-bottom:12px">
-    <button id="epicSubmitCode" class="btn-primary" style="width:100%">Link Account</button>
-  `;
+  epicContent.innerHTML = '<p class="epic-waiting">Starting login...</p>';
   epicDlg.showModal();
 
-  document.getElementById('epicSubmitCode').onclick = async () => {
-    const code = document.getElementById('epicCodeInput').value.trim();
-    if(!code){ toast('Please paste the authorization code', true); return; }
-    try {
-      epicContent.innerHTML = '<p class="epic-waiting">Linking account...</p>';
-      const result = await epicAuth.exchangeCode(code);
-      localStorage.setItem('epic_logged_in', 'true');
-      await syncFromEpic(result.access_token);
-      updateProfileArea();
-      epicDlg.close();
-      toast(`Linked as ${result.display_name}!`);
-    } catch(err){
-      epicContent.innerHTML = `<p style="color:var(--legendary)">Error: ${err.message}</p><button onclick="showLoginFlow()" class="btn-primary" style="margin-top:12px">Try Again</button>`;
-    }
-  };
+  try {
+    // Start device auth flow
+    const deviceAuth = await epicAuth.startDeviceAuth();
+
+    epicContent.innerHTML = `
+      <p style="margin-bottom:16px;text-align:center">Enter this code on Epic Games:</p>
+      <div style="background:var(--accent);color:#0a0c12;font:800 32px/1 'Fortnite','Inter',sans-serif;letter-spacing:8px;padding:16px 24px;border-radius:12px;text-align:center;margin-bottom:16px">${deviceAuth.user_code}</div>
+      <a href="${deviceAuth.verification_uri_complete || deviceAuth.verification_uri}" target="_blank" class="btn-primary" style="display:block;text-align:center;text-decoration:none;padding:14px;border-radius:10px;margin-bottom:16px">Open Epic Games →</a>
+      <p style="text-align:center;color:var(--dim);font-size:12px">Waiting for confirmation...</p>
+      <div style="text-align:center;margin-top:12px"><div class="spinner" style="width:24px;height:24px;margin:0 auto"></div></div>
+    `;
+
+    // Poll for completion
+    const pollInterval = (deviceAuth.interval || 5) * 1000;
+    deviceAuthInterval = setInterval(async () => {
+      try {
+        const result = await epicAuth.pollDeviceAuth(deviceAuth.device_code);
+
+        if(result.status === 'success'){
+          clearInterval(deviceAuthInterval);
+          deviceAuthInterval = null;
+          localStorage.setItem('epic_logged_in', 'true');
+          await syncFromEpic();
+          updateProfileArea();
+          epicDlg.close();
+          toast(`Linked as ${result.display_name}!`);
+        } else if(result.status === 'expired'){
+          clearInterval(deviceAuthInterval);
+          deviceAuthInterval = null;
+          epicContent.innerHTML = `<p style="color:var(--legendary)">Code expired. Please try again.</p><button onclick="showLoginFlow()" class="btn-primary" style="margin-top:12px">Try Again</button>`;
+        } else if(result.status === 'error'){
+          clearInterval(deviceAuthInterval);
+          deviceAuthInterval = null;
+          epicContent.innerHTML = `<p style="color:var(--legendary)">Error: ${result.error}</p><button onclick="showLoginFlow()" class="btn-primary" style="margin-top:12px">Try Again</button>`;
+        }
+        // status === 'pending' - keep polling
+      } catch(err){
+        // Network error, keep trying
+      }
+    }, pollInterval);
+
+  } catch(err){
+    epicContent.innerHTML = `<p style="color:var(--legendary)">Error: ${err.message}</p><button onclick="showLoginFlow()" class="btn-primary" style="margin-top:12px">Try Again</button>`;
+  }
 }
+
+// Clean up polling if dialog is closed
+epicDlg.addEventListener('close', () => {
+  if(deviceAuthInterval){
+    clearInterval(deviceAuthInterval);
+    deviceAuthInterval = null;
+  }
+});
 
 epicClose.onclick = () => epicDlg.close();
 epicDlg.addEventListener('click', ev => { if(ev.target === epicDlg) epicDlg.close() });
@@ -1036,6 +1085,11 @@ async function syncFromEpic(token){
     console.log('=== PROFILES LOADED ===');
     console.table(locker.debug_profiles_loaded);
   }
+  // Log stats data - sprite ownership might be here!
+  console.log('=== SPRITE-RELATED STATS ===');
+  console.log(locker.debug_sprite_stats || 'none found');
+  console.log('=== ALL STATS KEYS ===');
+  console.log(locker.debug_all_stats_keys || 'none returned');
   console.log('=== ALL SPRITE-RELATED LOCKER ITEMS ===');
   console.table(spriteItems.map(c => ({
     templateId: c.templateId,
@@ -1060,7 +1114,8 @@ async function syncFromEpic(token){
     '06': 'duck', '07': 'ghost', '08': 'demon', '09': 'king', '10': 'striker',
     '11': 'zeropoint', '12': 'aura', '13': 'dream', '14': 'punk', '15': 'boss',
     '16': 'seven', '17': 'llama', '18': 'grim', '19': 'batman',
-    '22': 'johnwick', '23': 'pollo', '25': 'peely', '26': 'burntpeanut'
+    '21': 'ironmouse', '22': 'johnwick', '23': 'pollo', '24': 'vinijr',
+    '25': 'peely', '26': 'burntpeanut'
   };
   const S3_VARIANT_MAP = {
     '': 'normal', 'a': 'gold', 'b': 'gummy', 'c': 'galaxy',
@@ -1076,6 +1131,7 @@ async function syncFromEpic(token){
     'dwarf': 'adventure',
     'bushranger': 'bush',
     'jonesy': 'jonesy',
+    'stormscout': 'stormscout',
     'killswitch': 'killswitch',
     'reloadovertime': 'shadow',
     'narrowflea': 'sonic',
