@@ -1030,6 +1030,12 @@ async function syncFromEpic(token){
   });
   console.log('=== S4 SPRITE OWNERSHIP ITEMS (non-quest) ===');
   console.table(s4OwnershipItems.map(c => ({ templateId: c.templateId, attrs: JSON.stringify(c.attributes) })));
+
+  // Log which profiles were loaded (for debugging S4 sprite locations)
+  if(locker.debug_profiles_loaded){
+    console.log('=== PROFILES LOADED ===');
+    console.table(locker.debug_profiles_loaded);
+  }
   console.log('=== ALL SPRITE-RELATED LOCKER ITEMS ===');
   console.table(spriteItems.map(c => ({
     templateId: c.templateId,
