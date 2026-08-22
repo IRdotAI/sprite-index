@@ -1094,8 +1094,8 @@ async function syncFromEpic(token){
       const questId = templateId.replace('Quest:quest_s42_spritemastery_', '');
       const questState = item.attributes?.quest_state;
 
-      // Parse quest: "8bit", "8bit_01", "8bit_02"
-      const match = questId.match(/^([a-z]+)(?:_(\d+))?$/);
+      // Parse quest: "8bit", "8bit_01", "dwarf_02" etc
+      const match = questId.match(/^([a-z0-9]+)(?:_(\d+))?$/);
       if(match){
         const spriteName = match[1];
         const levelNum = match[2] || '00';
@@ -1113,12 +1113,12 @@ async function syncFromEpic(token){
               state['s4:' + spriteId + ':gold'] = { owned: true, mastered: true };
               s4Count++;
             }
-          } else if(levelNum === '01'){
-            // _01 = cheatmaster variant
-            // Claimed = mastered
+          } else if(levelNum === '01' && questState === 'Claimed'){
+            // _01 Claimed = cheatmaster variant unlocked and mastered
+            // Active means still working toward it, not owned yet
             state['s4:' + spriteId + ':cheatmaster'] = {
               owned: true,
-              mastered: questState === 'Claimed'
+              mastered: true
             };
             s4Count++;
           }
