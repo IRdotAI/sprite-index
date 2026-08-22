@@ -1136,6 +1136,26 @@ async function syncFromEpic(token){
     'd': 'holofoil', 'e': 'gem', 'f': 'cube', 'g': 'quack'
   };
 
+  // DEBUG: Log FULL attributes for missing S4 sprites (killswitch, jonesy, shadow)
+  // This will help us find what signal spritetrading.com uses
+  const missingSprites = ['killswitch', 'jonesy', 'reloadovertime'];
+  console.log('=== FULL QUEST ATTRIBUTES FOR MISSING S4 SPRITES ===');
+  for(const sprite of missingSprites){
+    const quests = locker.cosmetics.filter(c =>
+      c.templateId?.includes('quest_s42_spritemastery_' + sprite)
+    );
+    console.log(`\n--- ${sprite.toUpperCase()} quests (${quests.length}) ---`);
+    for(const q of quests){
+      console.log(q.templateId);
+      console.log('  FULL ATTRS:', JSON.stringify(q.attributes, null, 2));
+      // Check for objective completion values
+      const objKeys = Object.keys(q.attributes || {}).filter(k => k.includes('_obj'));
+      if(objKeys.length > 0){
+        console.log('  OBJECTIVE VALUES:', objKeys.map(k => `${k}=${q.attributes[k]}`).join(', '));
+      }
+    }
+  }
+
   // ===== S4 QUEST-BASED DETECTION =====
   // Quest format: "Quest:quest_s42_spritemastery_[spritename]" = base owned (normal + gold unlocked)
   // Quest format: "Quest:quest_s42_spritemastery_[spritename]_01" + Claimed = Cheatmaster mastered
