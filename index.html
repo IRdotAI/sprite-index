@@ -993,68 +993,11 @@ function showProfileMenu(){
   };
 }
 
-let deviceAuthInterval = null;
-
-async function showLoginFlow(){
-  epicTitle.textContent = 'Link Your Epic Account';
-  epicDesc.textContent = 'Sync your Fortnite locker automatically.';
-  epicClose.textContent = 'Cancel';
-  epicContent.innerHTML = '<p class="epic-waiting">Starting login...</p>';
-  epicDlg.showModal();
-
-  try {
-    // Start device auth flow
-    const deviceAuth = await epicAuth.startDeviceAuth();
-
-    epicContent.innerHTML = `
-      <p style="margin-bottom:16px;text-align:center">Enter this code on Epic Games:</p>
-      <div style="background:var(--accent);color:#0a0c12;font:800 32px/1 'Fortnite','Inter',sans-serif;letter-spacing:8px;padding:16px 24px;border-radius:12px;text-align:center;margin-bottom:16px">${deviceAuth.user_code}</div>
-      <a href="${deviceAuth.verification_uri_complete || deviceAuth.verification_uri}" target="_blank" class="btn-primary" style="display:block;text-align:center;text-decoration:none;padding:14px;border-radius:10px;margin-bottom:16px">Open Epic Games →</a>
-      <p style="text-align:center;color:var(--dim);font-size:12px">Waiting for confirmation...</p>
-      <div style="text-align:center;margin-top:12px"><div class="spinner" style="width:24px;height:24px;margin:0 auto"></div></div>
-    `;
-
-    // Poll for completion
-    const pollInterval = (deviceAuth.interval || 5) * 1000;
-    deviceAuthInterval = setInterval(async () => {
-      try {
-        const result = await epicAuth.pollDeviceAuth(deviceAuth.device_code);
-
-        if(result.status === 'success'){
-          clearInterval(deviceAuthInterval);
-          deviceAuthInterval = null;
-          localStorage.setItem('epic_logged_in', 'true');
-          await syncFromEpic();
-          updateProfileArea();
-          epicDlg.close();
-          toast(`Linked as ${result.display_name}!`);
-        } else if(result.status === 'expired'){
-          clearInterval(deviceAuthInterval);
-          deviceAuthInterval = null;
-          epicContent.innerHTML = `<p style="color:var(--legendary)">Code expired. Please try again.</p><button onclick="showLoginFlow()" class="btn-primary" style="margin-top:12px">Try Again</button>`;
-        } else if(result.status === 'error'){
-          clearInterval(deviceAuthInterval);
-          deviceAuthInterval = null;
-          epicContent.innerHTML = `<p style="color:var(--legendary)">Error: ${result.error}</p><button onclick="showLoginFlow()" class="btn-primary" style="margin-top:12px">Try Again</button>`;
-        }
-        // status === 'pending' - keep polling
-      } catch(err){
-        // Network error, keep trying
-      }
-    }, pollInterval);
-
-  } catch(err){
-    epicContent.innerHTML = `<p style="color:var(--legendary)">Error: ${err.message}</p><button onclick="showLoginFlow()" class="btn-primary" style="margin-top:12px">Try Again</button>`;
-  }
+// Use redirect OAuth flow - device auth is blocked by Epic
+function showLoginFlow(){
+  // Redirect to Epic OAuth via backend
+  window.location.href = epicAuth.BASE_URL + '/auth/login';
 }
-
-// Clean up polling if dialog is closed
-epicDlg.addEventListener('close', () => {
-  if(deviceAuthInterval){
-    clearInterval(deviceAuthInterval);
-    deviceAuthInterval = null;
-  }
-});
 
 epicClose.onclick = () => epicDlg.close();
 epicDlg.addEventListener('click', ev => { if(ev.target === epicDlg) epicDlg.close() });
