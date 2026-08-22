@@ -1171,28 +1171,42 @@ async function syncFromEpic(token){
           if(!window._s4QuestDebug[spriteId]) window._s4QuestDebug[spriteId] = {};
           window._s4QuestDebug[spriteId]['_' + levelNum] = questState;
 
-          // Quest EXISTS = sprite owned. Claimed = mastery complete.
-          // _00 (base quest) existing = normal variant owned
-          // _01 Claimed = gold variant unlocked
-          // _02 Claimed = cheatmaster unlocked
+          // Quest CLAIMED = ownership/mastery complete.
+          // _00 (base quest) Claimed = normal variant owned
+          // _01 Claimed = gold variant unlocked (also means normal owned)
+          // _02 Claimed = cheatmaster unlocked (also means normal+gold owned)
 
-          if(levelNum === '00'){
-            // Base quest exists = normal sprite owned
-            if(!state['s4:' + spriteId + ':normal']){
-              state['s4:' + spriteId + ':normal'] = { owned: true, mastered: questState === 'Claimed' };
-              s4Count++;
-            }
-          } else if(levelNum === '01' && questState === 'Claimed'){
-            // _01 Claimed = gold variant unlocked
-            if(!state['s4:' + spriteId + ':gold']){
-              state['s4:' + spriteId + ':gold'] = { owned: true, mastered: true };
-              s4Count++;
-            }
-          } else if(levelNum === '02' && questState === 'Claimed'){
-            // _02 Claimed = cheatmaster unlocked
-            if(!state['s4:' + spriteId + ':cheatmaster']){
-              state['s4:' + spriteId + ':cheatmaster'] = { owned: true, mastered: true };
-              s4Count++;
+          if(questState === 'Claimed'){
+            if(levelNum === '00'){
+              // Base quest Claimed = normal sprite owned
+              if(!state['s4:' + spriteId + ':normal']){
+                state['s4:' + spriteId + ':normal'] = { owned: true, mastered: true };
+                s4Count++;
+              }
+            } else if(levelNum === '01'){
+              // _01 Claimed = gold variant unlocked, also normal owned
+              if(!state['s4:' + spriteId + ':normal']){
+                state['s4:' + spriteId + ':normal'] = { owned: true, mastered: true };
+                s4Count++;
+              }
+              if(!state['s4:' + spriteId + ':gold']){
+                state['s4:' + spriteId + ':gold'] = { owned: true, mastered: true };
+                s4Count++;
+              }
+            } else if(levelNum === '02'){
+              // _02 Claimed = cheatmaster unlocked, also normal+gold owned
+              if(!state['s4:' + spriteId + ':normal']){
+                state['s4:' + spriteId + ':normal'] = { owned: true, mastered: true };
+                s4Count++;
+              }
+              if(!state['s4:' + spriteId + ':gold']){
+                state['s4:' + spriteId + ':gold'] = { owned: true, mastered: true };
+                s4Count++;
+              }
+              if(!state['s4:' + spriteId + ':cheatmaster']){
+                state['s4:' + spriteId + ':cheatmaster'] = { owned: true, mastered: true };
+                s4Count++;
+              }
             }
           }
         }
