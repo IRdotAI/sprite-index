@@ -694,6 +694,24 @@
       "ability": "Rallies nearby allies, boosting their damage."
     },
     {
+      "id": "stormscout",
+      "name": "Storm Scout",
+      "rarity": "rare",
+      "season": "s4",
+      "variants": [
+        "normal",
+        "gold",
+        "cheatmaster"
+      ],
+      "variant_imgs": {
+        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_StormScout_L.webp",
+        "cheatmaster": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_StormScout_Cheatmaster_L.webp",
+        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_StormScout_Gold_L.webp"
+      },
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_StormScout_L.webp",
+      "ability": "Reveals the next storm circle location."
+    },
+    {
       "id": "killswitch",
       "name": "Killswitch",
       "rarity": "epic",
