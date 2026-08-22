@@ -1083,6 +1083,17 @@ async function syncFromEpic(token){
   })));
   window.lastLockerDebug = spriteItems;
 
+  // DEBUG: Compare owned vs not-owned sprite quests
+  const ownedSprites = ['killswitch', 'jonesy', 'reloadovertime']; // Active but owned
+  const notOwnedSprites = ['bushranger', 'stormscout', 'klombo']; // Active and NOT owned
+  console.log('=== QUEST COMPARISON: OWNED vs NOT OWNED ===');
+  for(const sprite of [...ownedSprites, ...notOwnedSprites]){
+    const quest = spriteItems.find(c => c.templateId === `Quest:quest_s42_spritemastery_${sprite}`);
+    if(quest){
+      console.log(`${sprite} (${ownedSprites.includes(sprite) ? 'OWNED' : 'NOT OWNED'}):`, JSON.stringify(quest.attributes));
+    }
+  }
+
   // ===== S3 TOKEN-BASED DETECTION =====
   // Token format: "Token:athena_s41_spritemastery_token_qXX[letter]"
   // Token mapping based on variant letter analysis:
