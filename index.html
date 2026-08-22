@@ -993,10 +993,51 @@ function showProfileMenu(){
   };
 }
 
-// Use redirect OAuth flow - device auth is blocked by Epic
+// Manual authorization code flow - user gets code from Epic and pastes it
 function showLoginFlow(){
-  // Redirect to Epic OAuth via backend
-  window.location.href = epicAuth.BASE_URL + '/auth/login';
+  epicTitle.textContent = 'Link Your Epic Account';
+  epicDesc.textContent = 'Sync your Fortnite locker automatically.';
+  epicClose.textContent = 'Cancel';
+
+  // Epic auth page that shows the code after login
+  const epicAuthUrl = 'https://www.epicgames.com/id/api/redirect?clientId=ec684b8c687f479fadea3cb2ad83f5c6&responseType=code';
+
+  epicContent.innerHTML = `
+    <p style="margin-bottom:16px;text-align:center">1. Click the button below and sign in to Epic Games</p>
+    <a href="${epicAuthUrl}" target="_blank" class="btn-primary" style="display:block;text-align:center;text-decoration:none;padding:14px;border-radius:10px;margin-bottom:16px">Open Epic Games →</a>
+    <p style="margin-bottom:12px;text-align:center">2. Copy the <strong>authorizationCode</strong> from the page and paste it below:</p>
+    <input type="text" id="epic-code-input" placeholder="Paste authorization code here" style="width:100%;padding:12px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--txt);font-size:14px;margin-bottom:12px">
+    <button id="epic-code-submit" class="btn-primary" style="width:100%;padding:14px;border-radius:10px">Link Account</button>
+    <p style="text-align:center;color:var(--dim);font-size:11px;margin-top:12px">The code looks like a long string of letters and numbers</p>
+  `;
+  epicDlg.showModal();
+
+  document.getElementById('epic-code-submit').onclick = async () => {
+    const code = document.getElementById('epic-code-input').value.trim();
+    if(!code){
+      toast('Please paste the authorization code', true);
+      return;
+    }
+
+    epicContent.innerHTML = '<p class="epic-waiting">Linking account...</p><div style="text-align:center;margin-top:12px"><div class="spinner" style="width:24px;height:24px;margin:0 auto"></div></div>';
+
+    try {
+      const result = await epicAuth.exchangeCode(code);
+      if(result.success){
+        localStorage.setItem('epic_account_id', result.account_id);
+        localStorage.setItem('epic_display_name', result.display_name);
+        localStorage.setItem('epic_logged_in', 'true');
+        await syncFromEpic();
+        updateProfileArea();
+        epicDlg.close();
+        toast(`Linked as ${result.display_name}!`);
+      } else {
+        epicContent.innerHTML = `<p style="color:var(--legendary)">Error: ${result.error}</p><button onclick="showLoginFlow()" class="btn-primary" style="margin-top:12px">Try Again</button>`;
+      }
+    } catch(err){
+      epicContent.innerHTML = `<p style="color:var(--legendary)">Error: ${err.message}</p><button onclick="showLoginFlow()" class="btn-primary" style="margin-top:12px">Try Again</button>`;
+    }
+  };
 }
 
 epicClose.onclick = () => epicDlg.close();
