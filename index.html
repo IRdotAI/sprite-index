@@ -1018,6 +1018,18 @@ async function syncFromEpic(token){
     const id = (c.templateId || '').toLowerCase();
     return id.includes('sprite') || id.includes('creature') || id.includes('s41') || id.includes('s42');
   });
+
+  // DEBUG: Look for S4 sprite ownership indicators (not quests)
+  const s4OwnershipItems = locker.cosmetics.filter(c => {
+    const id = (c.templateId || '').toLowerCase();
+    // Look for tokens, cosmetics, or other items that might indicate S4 sprite ownership
+    return (id.includes('s42') || id.includes('sprite')) &&
+           !id.startsWith('quest:') &&
+           !id.startsWith('challengebundle') &&
+           !id.startsWith('challengebundleschedule');
+  });
+  console.log('=== S4 SPRITE OWNERSHIP ITEMS (non-quest) ===');
+  console.table(s4OwnershipItems.map(c => ({ templateId: c.templateId, attrs: JSON.stringify(c.attributes) })));
   console.log('=== ALL SPRITE-RELATED LOCKER ITEMS ===');
   console.table(spriteItems.map(c => ({
     templateId: c.templateId,
