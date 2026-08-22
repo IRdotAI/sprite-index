@@ -1028,12 +1028,13 @@ async function syncFromEpic(token){
 
   // ===== S3 TOKEN-BASED DETECTION =====
   // Token format: "Token:athena_s41_spritemastery_token_qXX[letter]"
+  // Token numbers match CH7SN3_SPRITES file order exactly
   const S3_SPRITE_MAP = {
-    '01': 'air', '02': 'earth', '03': 'fire', '04': 'fishy', '05': 'water',
-    '06': 'aura', '07': 'demon', '08': 'duck', '09': 'ghost', '10': 'king',
-    '11': 'striker', '12': 'boss', '13': 'dream', '14': 'llama', '15': 'peely',
-    '16': 'punk', '17': 'seven', '18': 'batman', '19': 'burntpeanut', '20': 'grim',
-    '21': 'ironmouse', '22': 'johnwick', '23': 'pollo', '24': 'vinijr', '25': 'zeropoint', '26': 'zeropoint'
+    '01': 'water', '02': 'earth', '03': 'fire', '04': 'fishy', '05': 'air',
+    '06': 'duck', '07': 'ghost', '08': 'demon', '09': 'king', '10': 'striker',
+    '11': 'aura', '12': 'dream', '13': 'punk', '14': 'boss', '15': 'seven',
+    '16': 'llama', '17': 'peely', '18': 'johnwick', '19': 'batman', '20': 'vinijr',
+    '21': 'burntpeanut', '22': 'zeropoint', '23': 'grim', '24': 'ironmouse', '25': 'pollo'
   };
   const S3_VARIANT_MAP = {
     '': 'normal', 'a': 'gold', 'b': 'gummy', 'c': 'galaxy',
