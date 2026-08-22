@@ -325,7 +325,7 @@ dialog[open]{display:block}
 
 <script>
 const KEY='spriteIndex.v1';
-let DB=null, state=load(), filters={status:'all',rarity:'all',variant:'all',season:'all',q:''};
+let DB=null, state=load(), filters={status:'all',rarity:'all',variant:'all',season:'s4',q:''};
 
 function load(){ try{return JSON.parse(localStorage.getItem(KEY))||{}}catch{return {}} }
 function save(){ localStorage.setItem(KEY,JSON.stringify(state)) }
@@ -446,11 +446,6 @@ function renderHero(){
 }
 
 function renderFilters(){
-  // Season filter
-  const seasons=[['all','All'],['s3','S3'],['s4','S4']];
-  if(fSeason) fSeason.innerHTML=seasons.map(([v,l])=>
-    `<button class="chip ${filters.season===v?'on':''}" data-season="${v}">${l}</button>`).join('');
-
   const S=[['all','All'],['owned','Collected'],['missing','Missing'],
            ['mastered','Mastered'],['unmastered','Not mastered']];
   fStatus.innerHTML=S.map(([v,l])=>
