@@ -247,10 +247,14 @@ dialog[open]{display:block}
       <div id="profileArea"></div>
     </div>
   </div>
+  <div class="season-tabs" id="seasonTabs">
+    <button class="season-tab active" data-season="s4">Current Season</button>
+    <button class="season-tab" data-season="s3">Past Sprites</button>
+    <button class="season-tab" data-season="all">All</button>
+  </div>
   <div class="search-row">
     <input type="search" id="search" placeholder="Search sprites..." autocomplete="off">
   </div>
-  <div class="filters" id="fSeason"></div>
   <div class="filters" id="fStatus"></div>
   <div class="filters" id="fRarity"></div>
 </header>
@@ -519,6 +523,17 @@ document.addEventListener('click',ev=>{
   if(card) openInfo(card.dataset.k);
 });
 search.addEventListener('input',e=>{filters.q=e.target.value;render()});
+
+// Season tab click handler
+document.getElementById('seasonTabs')?.addEventListener('click', (ev) => {
+  const tab = ev.target.closest('.season-tab');
+  if(!tab) return;
+  const season = tab.dataset.season;
+  filters.season = season;
+  document.querySelectorAll('.season-tab').forEach(t => t.classList.remove('active'));
+  tab.classList.add('active');
+  render();
+});
 
 // --- sprite info ---
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -1029,12 +1044,12 @@ async function syncFromEpic(token){
   // ===== S4 QUEST-BASED DETECTION =====
   // Quest format: "Quest:quest_s42_spritemastery_[spritename]" = base owned (normal + gold unlocked)
   // Quest format: "Quest:quest_s42_spritemastery_[spritename]_01" + Claimed = Cheatmaster mastered
+  // S4 has 11 sprites: Klombo, Sonic, Tails, Shadow, Jackrabbit, 8-Bit, Crown, Adventure, Bush, Jonesy, Killswitch
   const S4_SPRITE_MAP = {
     '8bit': '8bit',
     'dwarf': 'adventure',
     'bushranger': 'bush',
     'jonesy': 'jonesy',
-    'stormscout': 'stormscout',
     'killswitch': 'killswitch',
     'reloadovertime': 'shadow',
     'narrowflea': 'sonic',
