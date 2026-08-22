@@ -1081,6 +1081,11 @@ async function syncFromEpic(token){
 
   let s3Count = 0, s4Count = 0;
 
+  // Clear old S4 state (since we can't reliably detect all S4 sprites yet)
+  for(const key of Object.keys(state)){
+    if(key.startsWith('s4:')) delete state[key];
+  }
+
   for(const item of locker.cosmetics){
     const templateId = item.templateId || '';
 
