@@ -4,7 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="theme-color" content="#0a0c12">
-<title>Spritedex</title>
+<meta name="description" content="Spritedex is a free Fortnite Sprite collection tracker by RDOTA. Sync your Epic Games account to track your collected and mastered Sprites across all seasons.">
+<meta name="author" content="RDOTA">
+<meta property="og:title" content="Spritedex - Fortnite Sprite Tracker">
+<meta property="og:description" content="Free Fortnite Sprite collection tracker. Sync with Epic Games to track your Sprites.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://spritedex.xyz">
+<title>Spritedex - Fortnite Sprite Collection Tracker by RDOTA</title>
 <link rel="manifest" href="manifest.json">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -37,6 +43,8 @@ header{position:sticky;top:0;z-index:50;
   letter-spacing:1px;text-transform:uppercase;
   background:linear-gradient(135deg,var(--accent),#00ffcc);
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.tagline{font-size:11px;color:var(--dim);font-weight:500;margin-left:8px}
+@media(max-width:500px){.tagline{display:none}}
 .header-actions{display:flex;gap:8px;margin-left:auto;align-items:center}
 button,select,input{font:inherit;color:var(--text);background:var(--panel2);
   border:1px solid var(--line);border-radius:8px;padding:8px 14px;transition:all .15s}
@@ -242,6 +250,7 @@ dialog[open]{display:block}
   </button>
   <div class="header-top">
     <span class="logo">Spritedex</span>
+    <span class="tagline">Fortnite Sprite Tracker by RDOTA</span>
     <div class="header-actions">
       <button id="exportBtn" class="btn-primary">Export</button>
       <div id="profileArea"></div>
