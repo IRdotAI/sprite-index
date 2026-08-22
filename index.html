@@ -872,14 +872,13 @@ creatorBar.onclick=async()=>{
   catch{ toast('Creator code: RDOTA'); }
 };
 
-// --- epic oauth (exchange code flow) ---
+// --- epic oauth ---
 const API_BASE = 'https://spritedex-api.abrasive-tax.workers.dev';
-const EPIC_AUTH_URL = 'https://www.epicgames.com/id/api/redirect?clientId=ec684b8c687f479fadea3cb2ad83f5c6&responseType=code';
 
 const epicAuth = {
   accountId: localStorage.getItem('epic_account_id'),
   displayName: localStorage.getItem('epic_display_name'),
-  isLoggedIn(){ return !!this.accountId },
+  isLoggedIn(){ return localStorage.getItem('epic_logged_in') === 'true' && !!this.accountId },
 
   async exchangeCode(code){
     const r = await fetch(`${API_BASE}/auth/exchange`, {
@@ -912,6 +911,7 @@ const epicAuth = {
     this.displayName = null;
     localStorage.removeItem('epic_account_id');
     localStorage.removeItem('epic_display_name');
+    localStorage.removeItem('epic_logged_in');
   }
 };
 
@@ -974,45 +974,8 @@ function showProfileMenu(){
 }
 
 function showLoginFlow(){
-  epicTitle.textContent = 'Link Your Epic Account';
-  epicDesc.textContent = 'Sync your Fortnite locker automatically.';
-  epicClose.textContent = 'Cancel';
-  epicContent.innerHTML = `
-    <p style="margin-bottom:12px"><b>Step 1:</b> Make sure you're logged into Epic Games first:</p>
-    <a href="https://www.epicgames.com/id/login" target="_blank" style="display:block;text-align:center;text-decoration:none;padding:10px;border-radius:10px;margin-bottom:10px;background:var(--panel2);border:1px solid var(--line);color:var(--text)">Login to Epic Games ↗</a>
-    <p style="margin-bottom:12px"><b>Step 2:</b> Then click this button to get your code:</p>
-    <a href="${EPIC_AUTH_URL}" target="_blank" class="btn-primary" style="display:block;text-align:center;text-decoration:none;padding:12px;border-radius:10px;margin-bottom:16px">Get Authorization Code →</a>
-    <p style="margin-bottom:8px"><b>Step 3:</b> Copy the <code>"authorizationCode"</code> value (the long string in quotes) and paste it here:</p>
-    <input type="text" id="epicCodeInput" placeholder="Paste authorization code here..." style="width:100%;padding:12px;border-radius:10px;background:var(--panel2);border:1px solid var(--line);color:var(--text);font-family:monospace;margin-bottom:12px">
-    <button id="epicSubmitCode" class="btn-primary" style="width:100%">Link Account</button>
-    <p style="margin-top:12px;font-size:12px;color:var(--dim)">⚠️ If <code>authorizationCode</code> is <code>null</code>, you need to login first! The code expires in 5 minutes.</p>
-  `;
-  epicDlg.showModal();
-
-  document.getElementById('epicSubmitCode').onclick = async () => {
-    const code = document.getElementById('epicCodeInput').value.trim();
-    if(!code){
-      toast('Please paste the authorization code', true);
-      return;
-    }
-
-    try {
-      epicContent.innerHTML = '<p class="epic-waiting">Linking account</p>';
-      const result = await epicAuth.exchangeCode(code);
-
-      epicTitle.textContent = 'Account Linked!';
-      epicDesc.textContent = `Welcome, ${result.display_name}`;
-      epicContent.innerHTML = '<p class="epic-waiting">Syncing your locker</p>';
-
-      await syncFromEpic(result.access_token);
-      updateProfileArea();
-      epicDlg.close();
-      toast(`Linked as ${result.display_name} - locker synced!`);
-
-    } catch(err){
-      epicContent.innerHTML = `<p style="color:var(--legendary)">Error: ${err.message}</p><p style="margin-top:12px"><button onclick="showLoginFlow()" class="btn-primary">Try Again</button></p>`;
-    }
-  };
+  // Simple OAuth redirect - just go to Epic's login
+  window.location.href = `${API_BASE}/auth/login`;
 }
 
 epicClose.onclick = () => epicDlg.close();
@@ -1150,6 +1113,22 @@ async function syncFromEpic(token){
 
 // --- boot ---
 async function boot(){
+  // Handle OAuth callback params
+  const params = new URLSearchParams(window.location.search);
+  if(params.get('auth_success')){
+    // Coming back from OAuth - store the auth info
+    localStorage.setItem('epic_account_id', params.get('account_id'));
+    localStorage.setItem('epic_display_name', params.get('display_name'));
+    localStorage.setItem('epic_logged_in', 'true');
+    // Clean up URL
+    window.history.replaceState({}, '', '/');
+    toast('Logged in! Syncing your locker...');
+  }
+  if(params.get('error')){
+    toast('Login failed: ' + params.get('error'), true);
+    window.history.replaceState({}, '', '/');
+  }
+
   // Load combined sprites database (S3 + S4)
   try{
     DB = await (await fetch('data/sprites.json?t=' + Date.now(), {cache:'no-store'})).json();
