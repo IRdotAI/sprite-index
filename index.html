@@ -249,8 +249,7 @@ dialog[open]{display:block}
   </div>
   <div class="season-tabs" id="seasonTabs">
     <button class="season-tab active" data-season="s4">Current Season</button>
-    <button class="season-tab" data-season="s3">Past Sprites</button>
-    <button class="season-tab" data-season="all">All</button>
+    <button class="season-tab" data-season="s3">Past Sprites <span class="badge">Vaulted</span></button>
   </div>
   <div class="search-row">
     <input type="search" id="search" placeholder="Search sprites..." autocomplete="off">
@@ -404,13 +403,18 @@ function fmtSync(when){
 }
 
 function renderHero(){
-  const owned=ENTRIES.filter(e=>st(e.key).owned).length;
-  const mast=ENTRIES.filter(e=>st(e.key).mastered).length;
-  const t=ENTRIES.length||1;
+  // Only count sprites for the current season filter
+  const seasonEntries = ENTRIES.filter(e => {
+    const spriteSeason = e.sprite.season || 's3';
+    return filters.season === 'all' || spriteSeason === filters.season;
+  });
+  const owned=seasonEntries.filter(e=>st(e.key).owned).length;
+  const mast=seasonEntries.filter(e=>st(e.key).mastered).length;
+  const t=seasonEntries.length||1;
   const pct=Math.round(owned/t*100);
 
   const m={};
-  for(const e of ENTRIES){
+  for(const e of seasonEntries){
     const id=(e.variantId||'').toLowerCase();
     (m[id]=m[id]||{o:0,t:0}); m[id].t++; if(st(e.key).owned) m[id].o++;
   }
