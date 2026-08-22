@@ -247,10 +247,6 @@ dialog[open]{display:block}
       <div id="profileArea"></div>
     </div>
   </div>
-  <div class="season-tabs" id="seasonTabs">
-    <button class="season-tab active" data-season="s4">Current Season <span class="badge">CH7S4</span></button>
-    <button class="season-tab" data-season="s3">Past Sprites <span class="badge">Vaulted</span></button>
-  </div>
   <div class="search-row">
     <input type="search" id="search" placeholder="Search sprites..." autocomplete="off">
   </div>
@@ -329,8 +325,8 @@ let DB=null, state=load(), filters={status:'all',rarity:'all',variant:'all',seas
 
 function load(){ try{return JSON.parse(localStorage.getItem(KEY))||{}}catch{return {}} }
 function save(){ localStorage.setItem(KEY,JSON.stringify(state)) }
-// Key format: S3 = "water:gold", S4 = "s4:crown:cheatmaster"
-const uid=(sprite,v)=> sprite.season === 's4' ? `s4:${sprite.id}:${v}` : `${sprite.id}:${v}`;
+// Key format: S3 = "s3:water:gold", S4 = "s4:crown:cheatmaster"
+const uid=(sprite,v)=> `${sprite.season || 's3'}:${sprite.id}:${v}`;
 const st=k=>state[k]||{owned:false,mastered:false};
 
 const norm=s=>(s||'').toLowerCase().replace(/[^a-z0-9]/g,'');
