@@ -1028,13 +1028,20 @@ async function syncFromEpic(token){
 
   // ===== S3 TOKEN-BASED DETECTION =====
   // Token format: "Token:athena_s41_spritemastery_token_qXX[letter]"
-  // Token numbers match CH7SN3_SPRITES file order exactly
+  // Token mapping based on variant letter analysis:
+  // q01: d,e,g (holofoil+gem+quack, no cube) = water
+  // q02: d,f,g (holofoil+cube+quack, no gem) = fire
+  // q03: e,f,g (gem+cube+quack, no holofoil) = earth
+  // q11: all 8 variants = zeropoint
+  // q18: d,e,f (holofoil+gem+cube, no quack) = grim
+  // q19: e,f (gem+cube) = batman variant updated?
+  // q10, q22, q23 = normal-only mythics
   const S3_SPRITE_MAP = {
-    '01': 'water', '02': 'earth', '03': 'fire', '04': 'fishy', '05': 'air',
+    '01': 'water', '02': 'fire', '03': 'earth', '04': 'fishy', '05': 'air',
     '06': 'duck', '07': 'ghost', '08': 'demon', '09': 'king', '10': 'striker',
-    '11': 'aura', '12': 'dream', '13': 'punk', '14': 'boss', '15': 'seven',
-    '16': 'llama', '17': 'peely', '18': 'johnwick', '19': 'batman', '20': 'vinijr',
-    '21': 'burntpeanut', '22': 'zeropoint', '23': 'grim', '24': 'ironmouse', '25': 'pollo'
+    '11': 'zeropoint', '12': 'aura', '13': 'dream', '14': 'punk', '15': 'boss',
+    '16': 'seven', '17': 'llama', '18': 'grim', '19': 'batman',
+    '22': 'johnwick', '23': 'pollo', '25': 'peely', '26': 'burntpeanut'
   };
   const S3_VARIANT_MAP = {
     '': 'normal', 'a': 'gold', 'b': 'gummy', 'c': 'galaxy',
@@ -1118,7 +1125,15 @@ async function syncFromEpic(token){
   const s3Keys = Object.keys(state).filter(k => k.startsWith('s3:'));
   const s4Keys = Object.keys(state).filter(k => k.startsWith('s4:'));
   console.log(`State: ${s3Keys.length} S3 keys, ${s4Keys.length} S4 keys`);
+  console.log('S3 state keys:', s3Keys.sort());
   console.log('S4 state:', s4Keys);
+
+  // Debug: find mismatches between state and ENTRIES
+  const s3EntryKeys = ENTRIES.filter(e => e.sprite.season === 's3').map(e => e.key);
+  const stateNotInEntries = s3Keys.filter(k => !s3EntryKeys.includes(k));
+  const entriesNotInState = s3EntryKeys.filter(k => !s3Keys.includes(k));
+  console.log('Keys in STATE but NOT in entries:', stateNotInEntries);
+  console.log('Keys in ENTRIES but NOT in state:', entriesNotInState);
 
   save();
   render();
