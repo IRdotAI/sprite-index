@@ -29,7 +29,11 @@
   --glow:0 0 20px rgba(0,212,255,.3);
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;margin:0;padding:0}
-html{scroll-behavior:smooth}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-track{background:var(--bg2)}
+::-webkit-scrollbar-thumb{background:var(--line);border-radius:4px}
+::-webkit-scrollbar-thumb:hover{background:var(--dim)}
+html{scroll-behavior:smooth;scrollbar-color:var(--line) var(--bg2)}
 body{background:var(--bg);color:var(--text);
   font:14px/1.5 'Inter',system-ui,-apple-system,sans-serif;
   min-height:100vh;padding-bottom:env(safe-area-inset-bottom)}
@@ -150,13 +154,14 @@ main{padding:16px;max-width:1400px;margin:0 auto}
 
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes specialFlow{
-  from{background-position:100% 0}
-  to{background-position:0 100%}
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
 }
 .tag.special{
-  background:linear-gradient(135deg,#5dffe4,#8dff9a,#fff36a,#60dfff,#7b7cff,#ff77d8,#ffc45f,#5dffe4,#8dff9a,#fff36a,#60dfff,#7b7cff,#ff77d8,#ffc45f);
-  background-size:300% 300%;
-  animation:specialFlow 6s linear infinite;
+  background:linear-gradient(135deg,#5dffe4,#8dff9a,#fff36a,#60dfff,#7b7cff,#ff77d8,#ffc45f,#5dffe4);
+  background-size:400% 400%;
+  animation:specialFlow 8s ease infinite;
   color:#000;font-weight:700;
   border-radius:6px;
 }
@@ -1057,28 +1062,30 @@ function showLoginFlow(){
   epicDesc.textContent = 'Sync your Fortnite locker automatically.';
   epicClose.textContent = 'Cancel';
 
-  // Epic auth page that shows the code after login
+  // Epic login page and auth code page
+  const epicLoginUrl = 'https://www.epicgames.com/id/login';
   const epicAuthUrl = 'https://www.epicgames.com/id/api/redirect?clientId=ec684b8c687f479fadea3cb2ad83f5c6&responseType=code';
 
   epicContent.innerHTML = `
-    <div style="display:flex;flex-direction:column;gap:16px">
+    <div style="display:flex;flex-direction:column;gap:12px">
       <div style="background:var(--panel);border-radius:12px;padding:16px">
         <p style="font-weight:700;margin-bottom:8px;color:var(--accent)">Step 1: Login to Epic Games</p>
-        <p style="font-size:13px;color:var(--dim);margin-bottom:12px">Click the button below to sign in with your Epic account</p>
-        <a href="${epicAuthUrl}" target="_blank" class="btn-epic" style="display:block;text-align:center;text-decoration:none;padding:14px;border-radius:10px">⚡ Login to Epic Games</a>
+        <p style="font-size:13px;color:var(--dim);margin-bottom:12px">Sign in to your Epic Games account first</p>
+        <a href="${epicLoginUrl}" target="_blank" class="btn-epic" style="display:block;text-align:center;text-decoration:none;padding:12px;border-radius:10px">⚡ Login to Epic Games</a>
       </div>
       <div style="background:var(--panel);border-radius:12px;padding:16px">
         <p style="font-weight:700;margin-bottom:8px;color:var(--accent)">Step 2: Get Authorization Code</p>
-        <p style="font-size:13px;color:var(--dim)">After logging in, you'll see a page with your <strong>authorizationCode</strong>. Copy it.</p>
+        <p style="font-size:13px;color:var(--dim);margin-bottom:12px">After logging in, click below to get your code</p>
+        <a href="${epicAuthUrl}" target="_blank" class="btn-primary" style="display:block;text-align:center;text-decoration:none;padding:12px;border-radius:10px">Get Auth Code →</a>
       </div>
       <div style="background:var(--panel);border-radius:12px;padding:16px">
-        <p style="font-weight:700;margin-bottom:8px;color:var(--accent)">Step 3: Paste & Authorize</p>
-        <p style="font-size:13px;color:var(--dim);margin-bottom:12px">Paste your code below to link your account</p>
-        <input type="text" id="epic-code-input" placeholder="Paste authorization code here" style="width:100%;padding:12px;border-radius:8px;border:1px solid var(--line);background:var(--bg2);color:var(--text);font-size:14px;margin-bottom:12px">
+        <p style="font-weight:700;margin-bottom:8px;color:var(--accent)">Step 3: Paste Code & Link</p>
+        <p style="font-size:13px;color:var(--dim);margin-bottom:12px">Copy the <strong>authorizationCode</strong> and paste it below</p>
+        <input type="text" id="epic-code-input" placeholder="Paste authorization code here" style="width:100%;padding:12px;border-radius:8px;border:1px solid var(--line);background:var(--bg2);color:var(--text);font-size:14px">
       </div>
       <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:12px;color:var(--dim)">
         <input type="checkbox" id="tos-consent" style="width:18px;height:18px;margin-top:2px;accent-color:var(--accent)">
-        <span>I agree to the <a href="https://www.epicgames.com/site/en-US/tos" target="_blank" style="color:var(--accent)">Epic Games Terms of Service</a> and consent to Spritedex accessing my Fortnite locker data</span>
+        <span>I agree to the <a href="https://www.epicgames.com/site/en-US/tos" target="_blank" style="color:var(--accent)">Epic Games Terms of Service</a> and consent to Spritedex accessing my locker data</span>
       </label>
       <button id="epic-code-submit" class="btn-primary" style="width:100%;padding:14px;border-radius:10px" disabled>✓ Link Account</button>
     </div>
