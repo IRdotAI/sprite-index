@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Page Not Found - Fortnite.GG</title>
+	<meta name="theme-color" content="#2f3136">
+	<style>
+		/*! This CSS resource incorporates links to web font and font software which is the valuable copyrighted property of House Industries and/or its suppliers. You expressly agree to not copy, install, redistribute, convert, modify, or reverse engineer this font software or the fonts rendered thereby. Please contact House Industries with any questions regarding Web Fonts: http://www.houseind.com */
+		@font-face {
+			font-family: fn-normal;
+			font-display: swap;
+			src: url(/fonts/burbankSmall-medium.woff2) format('woff2');
+		}
+
+		@font-face {
+			font-family: fn-normal;
+			font-weight: bold;
+			font-display: swap;
+			src: url(/fonts/burbanksmall-bold.woff2) format('woff2');
+		}
+
+		@font-face {
+			font-family: fn;
+			font-display: swap;
+			src: url(/fonts/burbanksmall-black.woff2) format('woff2');
+		}
+
+		@font-face {
+			font-family: fn-title;
+			font-display: swap;
+			src: url(/fonts/burbankbigregular-black.woff2) format('woff2');
+		}
+
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		#back-link {
+			color: #00ad9f;
+			font-weight: bold;
+			text-decoration: none;
+		}
+
+		#back-link:hover,
+		#back-link:focus {
+			text-decoration: underline;
+			color: #007A70;
+		}
+	</style>
+</head>
+<body style="background: #2f3136; color: #fff; font-family: fn-normal, 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 25px; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;">
+	<div style="display: flex; align-items: center; justify-content: center; width: 100vw; height: 100vh;">
+		<div style="position: relative; width: 75%; max-width: 364px; padding: 24px; background: #fff; color: #0e1e25; border-radius: 8px; box-shadow: 0 2px 4px 0 rgba(14,30,37,.16);">
+			<img src="/img/llama.png" width="208" height="400" style="position: absolute; top: 50%; left: 50%; margin-left: -100px; margin-top: -230px; z-index: -1;">
+			<h1 style="margin: 0; padding-bottom: .3em; font: 22px fn-title, sans-serif; text-transform: uppercase; text-shadow: 0 5px 3px rgba(0,0,0,.2); border-bottom: 1px solid rgba(255,255,255,.15);">Page Not Found</h1>
+			<p style="margin: .5em 0;">Looks like you've followed a broken link or entered a URL that doesn't exist on this site.</p>
+			<p style="margin: 0; padding-top: .3em; font-size: 130%;">
+				<a id="back-link" href="/">
+					<svg width="20" height="20" viewBox="0 0 16 16" style="position: relative; top: 3px;">
+						<path fill="currentcolor" d="M11.9998836,4.09370803 L8.55809517,7.43294953 C8.23531459,7.74611298 8.23531459,8.25388736 8.55809517,8.56693769 L12,11.9062921 L9.84187871,14 L4.24208544,8.56693751 C3.91930485,8.25388719 3.91930485,7.74611281 4.24208544,7.43294936 L9.84199531,2 L11.9998836,4.09370803 Z"/>
+					</svg>
+					Back
+				</a>
+			</p>
+		</div>
+	</div>
+	<script>
+		if (document.referrer && document.location.host && document.referrer.match(new RegExp('^https?://' + document.location.host))) {
+			document.getElementById('back-link').setAttribute('href', document.referrer);
+		}
+	</script>
+</body>
+</html>

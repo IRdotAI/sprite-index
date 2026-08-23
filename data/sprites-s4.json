@@ -74,12 +74,12 @@
         "gold"
       ],
       "variant_imgs": {
-        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_EightBitBlaster_L.webp",
-        "cheatmaster": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_EightBitBlaster_Cheatmaster_L.webp",
-        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_EightBitBlaster_Gold_L.webp"
+        "normal": "img/sprites/T_Icon_BR_Creature_Sprite_EightBitBlaster_L.webp",
+        "cheatmaster": "img/sprites/T_Icon_BR_Creature_Sprite_EightBitBlaster_Cheatmaster_L.webp",
+        "gold": "img/sprites/T_Icon_BR_Creature_Sprite_EightBitBlaster_Gold_L.webp"
       },
       "ability": "",
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_EightBitBlaster_L.webp"
+      "img": "img/sprites/T_Icon_BR_Creature_Sprite_EightBitBlaster_L.webp"
     },
     {
       "id": "adventure",
@@ -93,12 +93,12 @@
         "gold"
       ],
       "variant_imgs": {
-        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Dwarf_L.webp",
-        "cheatmaster": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Dwarf_Cheatmaster_L.webp",
-        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Dwarf_Gold_L.webp"
+        "normal": "img/sprites/T_Icon_BR_Creature_Sprite_Dwarf_L.webp",
+        "cheatmaster": "img/sprites/T_Icon_BR_Creature_Sprite_Dwarf_Cheatmaster_L.webp",
+        "gold": "img/sprites/T_Icon_BR_Creature_Sprite_Dwarf_Gold_L.webp"
       },
       "ability": "",
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Dwarf_L.webp"
+      "img": "img/sprites/T_Icon_BR_Creature_Sprite_Dwarf_L.webp"
     },
     {
       "id": "bush",
@@ -112,12 +112,12 @@
         "gold"
       ],
       "variant_imgs": {
-        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_BushRanger_L.webp",
-        "cheatmaster": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_BushRanger_Cheatmaster_L.webp",
-        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_BushRanger_Gold_L.webp"
+        "normal": "img/sprites/T_Icon_BR_Creature_Sprite_BushRanger_L.webp",
+        "cheatmaster": "img/sprites/T_Icon_BR_Creature_Sprite_BushRanger_Cheatmaster_L.webp",
+        "gold": "img/sprites/T_Icon_BR_Creature_Sprite_BushRanger_Gold_L.webp"
       },
       "ability": "",
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_BushRanger_L.webp"
+      "img": "img/sprites/T_Icon_BR_Creature_Sprite_BushRanger_L.webp"
     },
     {
       "id": "jonesy",
@@ -131,12 +131,12 @@
         "gold"
       ],
       "variant_imgs": {
-        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Jonesy_L.webp",
-        "cheatmaster": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Jonesy_Cheatmaster_L.webp",
-        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Jonesy_Gold_L.webp"
+        "normal": "img/sprites/T_Icon_BR_Creature_Sprite_Jonesy_L.webp",
+        "cheatmaster": "img/sprites/T_Icon_BR_Creature_Sprite_Jonesy_Cheatmaster_L.webp",
+        "gold": "img/sprites/T_Icon_BR_Creature_Sprite_Jonesy_Gold_L.webp"
       },
       "ability": "",
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Jonesy_L.webp"
+      "img": "img/sprites/T_Icon_BR_Creature_Sprite_Jonesy_L.webp"
     },
     {
       "id": "stormscout",
@@ -150,12 +150,12 @@
         "gold"
       ],
       "variant_imgs": {
-        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_StormScout_L.webp",
-        "cheatmaster": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_StormScout_Cheatmaster_L.webp",
-        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_StormScout_Gold_L.webp"
+        "normal": "img/sprites/T_Icon_BR_Creature_Sprite_StormScout_L.webp",
+        "cheatmaster": "img/sprites/T_Icon_BR_Creature_Sprite_StormScout_Cheatmaster_L.webp",
+        "gold": "img/sprites/T_Icon_BR_Creature_Sprite_StormScout_Gold_L.webp"
       },
       "ability": "",
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_StormScout_L.webp"
+      "img": "img/sprites/T_Icon_BR_Creature_Sprite_StormScout_L.webp"
     },
     {
       "id": "killswitch",
@@ -169,12 +169,12 @@
         "gold"
       ],
       "variant_imgs": {
-        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Killswitch_L.webp",
-        "cheatmaster": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Killswitch_Cheatmaster_L.webp",
-        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Killswitch_Gold_L.webp"
+        "normal": "img/sprites/T_Icon_BR_Creature_Sprite_Killswitch_L.webp",
+        "cheatmaster": "img/sprites/T_Icon_BR_Creature_Sprite_Killswitch_Cheatmaster_L.webp",
+        "gold": "img/sprites/T_Icon_BR_Creature_Sprite_Killswitch_Gold_L.webp"
       },
       "ability": "",
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Killswitch_L.webp"
+      "img": "img/sprites/T_Icon_BR_Creature_Sprite_Killswitch_L.webp"
     },
     {
       "id": "shadow",
@@ -188,12 +188,12 @@
         "gold"
       ],
       "variant_imgs": {
-        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_NarrowFlea_Scribe_L.webp",
-        "cheatmaster": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_NarrowFlea_Scribe_Cheatmaster_L.webp",
-        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_NarrowFlea_Scribe_Gold_L.webp"
+        "normal": "img/sprites/T_Icon_BR_Creature_Sprite_NarrowFlea_Scribe_L.webp",
+        "cheatmaster": "img/sprites/T_Icon_BR_Creature_Sprite_NarrowFlea_Scribe_Cheatmaster_L.webp",
+        "gold": "img/sprites/T_Icon_BR_Creature_Sprite_NarrowFlea_Scribe_Gold_L.webp"
       },
       "ability": "",
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_NarrowFlea_Scribe_L.webp"
+      "img": "img/sprites/T_Icon_BR_Creature_Sprite_NarrowFlea_Scribe_L.webp"
     },
     {
       "id": "sonic",
@@ -207,12 +207,12 @@
         "gold"
       ],
       "variant_imgs": {
-        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_NarrowFlea_Obsidian_L.webp",
-        "cheatmaster": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_NarrowFlea_Obsidian_Cheatmaster_L.webp",
-        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_NarrowFlea_Obsidian_Gold_L.webp"
+        "normal": "img/sprites/T_Icon_BR_Creature_Sprite_NarrowFlea_Obsidian_L.webp",
+        "cheatmaster": "img/sprites/T_Icon_BR_Creature_Sprite_NarrowFlea_Obsidian_Cheatmaster_L.webp",
+        "gold": "img/sprites/T_Icon_BR_Creature_Sprite_NarrowFlea_Obsidian_Gold_L.webp"
       },
       "ability": "",
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_NarrowFlea_Obsidian_L.webp"
+      "img": "img/sprites/T_Icon_BR_Creature_Sprite_NarrowFlea_Obsidian_L.webp"
     },
     {
       "id": "tails",
@@ -226,12 +226,12 @@
         "gold"
       ],
       "variant_imgs": {
-        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_NarrowFlea_Monkey_L.webp",
-        "cheatmaster": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_NarrowFlea_Monkey_Cheatmaster_L.webp",
-        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_NarrowFlea_Monkey_Gold_L.webp"
+        "normal": "img/sprites/T_Icon_BR_Creature_Sprite_NarrowFlea_Monkey_L.webp",
+        "cheatmaster": "img/sprites/T_Icon_BR_Creature_Sprite_NarrowFlea_Monkey_Cheatmaster_L.webp",
+        "gold": "img/sprites/T_Icon_BR_Creature_Sprite_NarrowFlea_Monkey_Gold_L.webp"
       },
       "ability": "",
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_NarrowFlea_Monkey_L.webp"
+      "img": "img/sprites/T_Icon_BR_Creature_Sprite_NarrowFlea_Monkey_L.webp"
     },
     {
       "id": "jackrabbit",
@@ -245,12 +245,12 @@
         "cheatmaster"
       ],
       "variant_imgs": {
-        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_JazzJackrabbit_L.webp",
-        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_JazzJackrabbit_Gold_L.webp",
-        "cheatmaster": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_JazzJackrabbit_Cheatmaster_L.webp"
+        "normal": "img/sprites/T_Icon_BR_Creature_Sprite_JazzJackrabbit_L.webp",
+        "gold": "img/sprites/T_Icon_BR_Creature_Sprite_JazzJackrabbit_Gold_L.webp",
+        "cheatmaster": "img/sprites/T_Icon_BR_Creature_Sprite_JazzJackrabbit_Cheatmaster_L.webp"
       },
       "ability": "",
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_JazzJackrabbit_L.webp"
+      "img": "img/sprites/T_Icon_BR_Creature_Sprite_JazzJackrabbit_L.webp"
     },
     {
       "id": "crown",
@@ -264,12 +264,12 @@
         "gold"
       ],
       "variant_imgs": {
-        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Crown_L.webp",
-        "cheatmaster": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Crown_Cheatmaster_L.webp",
-        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Crown_Gold_L.webp"
+        "normal": "img/sprites/T_Icon_BR_Creature_Sprite_Crown_L.webp",
+        "cheatmaster": "img/sprites/T_Icon_BR_Creature_Sprite_Crown_Cheatmaster_L.webp",
+        "gold": "img/sprites/T_Icon_BR_Creature_Sprite_Crown_Gold_L.webp"
       },
       "ability": "",
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Crown_L.webp"
+      "img": "img/sprites/T_Icon_BR_Creature_Sprite_Crown_L.webp"
     },
     {
       "id": "klombo",
@@ -283,12 +283,12 @@
         "gold"
       ],
       "variant_imgs": {
-        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Klombo_L.webp",
-        "cheatmaster": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Klombo_Cheatmaster_L.webp",
-        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Klombo_Gold_L.webp"
+        "normal": "img/sprites/T_Icon_BR_Creature_Sprite_Klombo_L.webp",
+        "cheatmaster": "img/sprites/T_Icon_BR_Creature_Sprite_Klombo_Cheatmaster_L.webp",
+        "gold": "img/sprites/T_Icon_BR_Creature_Sprite_Klombo_Gold_L.webp"
       },
       "ability": "",
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Klombo_L.webp"
+      "img": "img/sprites/T_Icon_BR_Creature_Sprite_Klombo_L.webp"
     }
   ]
 }

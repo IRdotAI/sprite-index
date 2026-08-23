@@ -147,15 +147,15 @@
         "quack"
       ],
       "variant_imgs": {
-        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Water_Unvault_Ch7S3_ui_L.webp",
-        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Water_Gold_ui_L.webp",
-        "quack": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Water_Quack_ui_L.webp",
-        "gummy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Water_Candy_ui_L.webp",
-        "galaxy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Water_Galaxy_ui_L.webp",
-        "gem": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Water_Gem_ui_L.webp",
-        "holofoil": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Water_Holofoil_ui_L.webp"
+        "normal": "img/sprites/T_Icon_BR_Creature_Sprite_Water_Unvault_Ch7S3_ui_L.webp",
+        "gold": "img/sprites/T_Icon_BR_Creature_Sprite_Water_Gold_ui_L.webp",
+        "quack": "img/sprites/T_Icon_BR_Creature_Sprite_Water_Quack_ui_L.webp",
+        "gummy": "img/sprites/T_Icon_BR_Creature_Sprite_Water_Candy_ui_L.webp",
+        "galaxy": "img/sprites/T_Icon_BR_Creature_Sprite_Water_Galaxy_ui_L.webp",
+        "gem": "img/sprites/T_Icon_BR_Creature_Sprite_Water_Gem_ui_L.webp",
+        "holofoil": "img/sprites/T_Icon_BR_Creature_Sprite_Water_Holofoil_ui_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Water_Unvault_Ch7S3_ui_L.webp"
+      "img": "img/sprites/T_Icon_BR_Creature_Sprite_Water_Unvault_Ch7S3_ui_L.webp"
     },
     {
       "id": "fire",
@@ -173,15 +173,15 @@
         "quack"
       ],
       "variant_imgs": {
-        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Fire_Unvault_Ch7S3_ui_L.webp",
-        "cube": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Fire_Cube_ui_L.webp",
-        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Fire_Gold_ui_L.webp",
-        "quack": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Fire_Quack_ui_L.webp",
-        "gummy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Fire_Candy_ui_L.webp",
-        "galaxy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Fire_Galaxy_ui_L.webp",
-        "holofoil": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Fire_Holofoil_ui_L.webp"
+        "normal": "img/sprites/T_Icon_BR_Creature_Sprite_Fire_Unvault_Ch7S3_ui_L.webp",
+        "cube": "img/sprites/T_Icon_BR_Creature_Sprite_Fire_Cube_ui_L.webp",
+        "gold": "img/sprites/T_Icon_BR_Creature_Sprite_Fire_Gold_ui_L.webp",
+        "quack": "img/sprites/T_Icon_BR_Creature_Sprite_Fire_Quack_ui_L.webp",
+        "gummy": "img/sprites/T_Icon_BR_Creature_Sprite_Fire_Candy_ui_L.webp",
+        "galaxy": "img/sprites/T_Icon_BR_Creature_Sprite_Fire_Galaxy_ui_L.webp",
+        "holofoil": "img/sprites/T_Icon_BR_Creature_Sprite_Fire_Holofoil_ui_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Fire_Unvault_Ch7S3_ui_L.webp"
+      "img": "img/sprites/T_Icon_BR_Creature_Sprite_Fire_Unvault_Ch7S3_ui_L.webp"
     },
     {
       "id": "earth",
@@ -199,15 +199,15 @@
         "quack"
       ],
       "variant_imgs": {
-        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Earth_Ch7S3_UI_L.webp",
-        "cube": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Earth_Cube_ui_L.webp",
-        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Earth_Gold_ui_L.webp",
-        "quack": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Earth_Quack_ui_L.webp",
-        "gummy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Earth_Candy_ui_L.webp",
-        "galaxy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Earth_Galaxy_ui_L.webp",
-        "gem": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Earth_Gem_ui_L.webp"
+        "normal": "img/sprites/T_Icon_BR_Creature_Sprite_Earth_Ch7S3_UI_L.webp",
+        "cube": "img/sprites/T_Icon_BR_Creature_Sprite_Earth_Cube_ui_L.webp",
+        "gold": "img/sprites/T_Icon_BR_Creature_Sprite_Earth_Gold_ui_L.webp",
+        "quack": "img/sprites/T_Icon_BR_Creature_Sprite_Earth_Quack_ui_L.webp",
+        "gummy": "img/sprites/T_Icon_BR_Creature_Sprite_Earth_Candy_ui_L.webp",
+        "galaxy": "img/sprites/T_Icon_BR_Creature_Sprite_Earth_Galaxy_ui_L.webp",
+        "gem": "img/sprites/T_Icon_BR_Creature_Sprite_Earth_Gem_ui_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Earth_Ch7S3_UI_L.webp"
+      "img": "img/sprites/T_Icon_BR_Creature_Sprite_Earth_Ch7S3_UI_L.webp"
     },
     {
       "id": "fishy",
@@ -222,13 +222,13 @@
         "holofoil"
       ],
       "variant_imgs": {
-        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Fishy_ui_L.webp",
-        "cube": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Fishy_Cube_L.webp",
-        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Fishy_Gold_ui_L.webp",
-        "gummy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Fishy_Candy_ui_L.webp",
-        "galaxy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Fishy_Galaxy_ui_L.webp"
+        "normal": "img/sprites/T_Icon_BR_Creature_Sprite_Fishy_ui_L.webp",
+        "cube": "img/sprites/T_Icon_BR_Creature_Sprite_Fishy_Cube_L.webp",
+        "gold": "img/sprites/T_Icon_BR_Creature_Sprite_Fishy_Gold_ui_L.webp",
+        "gummy": "img/sprites/T_Icon_BR_Creature_Sprite_Fishy_Candy_ui_L.webp",
+        "galaxy": "img/sprites/T_Icon_BR_Creature_Sprite_Fishy_Galaxy_ui_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Fishy_ui_L.webp",
+      "img": "img/sprites/T_Icon_BR_Creature_Sprite_Fishy_ui_L.webp",
       "ability": "Reveals nearby loot and fishing spots."
     },
     {
@@ -244,13 +244,13 @@
         "gem"
       ],
       "variant_imgs": {
-        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Air_Default_L.webp",
-        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Air_Gold_L.webp",
-        "gummy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Air_Candy_L.webp",
-        "galaxy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Air_Galaxy_L.webp",
-        "gem": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Air_Gem_L.webp"
+        "normal": "img/sprites/T_Icon_BR_Air_Default_L.webp",
+        "gold": "img/sprites/T_Icon_BR_Air_Gold_L.webp",
+        "gummy": "img/sprites/T_Icon_BR_Air_Candy_L.webp",
+        "galaxy": "img/sprites/T_Icon_BR_Air_Galaxy_L.webp",
+        "gem": "img/sprites/T_Icon_BR_Air_Gem_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Air_Default_L.webp",
+      "img": "img/sprites/T_Icon_BR_Air_Default_L.webp",
       "ability": "Grants a speed boost and reduced fall damage."
     },
     {
@@ -266,13 +266,13 @@
         "cube"
       ],
       "variant_imgs": {
-        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Duck_Default_L.webp",
-        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Duck_Gold_L.webp",
-        "gummy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Duck_Candy_L.webp",
-        "galaxy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Duck_Galaxy_L.webp",
-        "cube": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Duck_Cube_L.webp"
+        "normal": "img/sprites/T_Icon_BR_Duck_Default_L.webp",
+        "gold": "img/sprites/T_Icon_BR_Duck_Gold_L.webp",
+        "gummy": "img/sprites/T_Icon_BR_Duck_Candy_L.webp",
+        "galaxy": "img/sprites/T_Icon_BR_Duck_Galaxy_L.webp",
+        "cube": "img/sprites/T_Icon_BR_Duck_Cube_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Duck_Default_L.webp",
+      "img": "img/sprites/T_Icon_BR_Duck_Default_L.webp",
       "ability": "Quacks loudly to distract enemies and mark their positions."
     },
     {
@@ -288,13 +288,13 @@
         "holofoil"
       ],
       "variant_imgs": {
-        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Ghost_Unvault_L.webp",
-        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Ghost_Gold_L.webp",
-        "gummy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Ghost_Candy_L.webp",
-        "galaxy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Ghost_Galaxy_L.webp",
-        "holofoil": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Ghost_Holo_L.webp"
+        "normal": "img/sprites/T_Icon_BR_Creature_Sprite_Ghost_Unvault_L.webp",
+        "gold": "img/sprites/T_Icon_BR_Creature_Sprite_Ghost_Gold_L.webp",
+        "gummy": "img/sprites/T_Icon_BR_Creature_Sprite_Ghost_Candy_L.webp",
+        "galaxy": "img/sprites/T_Icon_BR_Creature_Sprite_Ghost_Galaxy_L.webp",
+        "holofoil": "img/sprites/T_Icon_BR_Creature_Sprite_Ghost_Holo_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Ghost_Unvault_L.webp",
+      "img": "img/sprites/T_Icon_BR_Creature_Sprite_Ghost_Unvault_L.webp",
       "ability": "Phases through walls and becomes temporarily invisible."
     },
     {
@@ -310,13 +310,13 @@
         "cube"
       ],
       "variant_imgs": {
-        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_RedDemon_Default_L.webp",
-        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_RedDemon_Gold_L.webp",
-        "gummy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_RedDemon_Candy_L.webp",
-        "galaxy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_RedDemon_Galaxy_L.webp",
-        "cube": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_RedDemon_Cube_L.webp"
+        "normal": "img/sprites/T_Icon_BR_RedDemon_Default_L.webp",
+        "gold": "img/sprites/T_Icon_BR_RedDemon_Gold_L.webp",
+        "gummy": "img/sprites/T_Icon_BR_RedDemon_Candy_L.webp",
+        "galaxy": "img/sprites/T_Icon_BR_RedDemon_Galaxy_L.webp",
+        "cube": "img/sprites/T_Icon_BR_RedDemon_Cube_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_RedDemon_Default_L.webp",
+      "img": "img/sprites/T_Icon_BR_RedDemon_Default_L.webp",
       "ability": "Charges at enemies dealing damage and causing knockback."
     },
     {
@@ -332,13 +332,13 @@
         "gem"
       ],
       "variant_imgs": {
-        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_King_ui_L.webp",
-        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_King_Gold_ui_L.webp",
-        "gummy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_King_Candy_ui_L.webp",
-        "galaxy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_King_Galaxy_ui_L.webp",
-        "gem": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_King_Gem_ui_L.webp"
+        "normal": "img/sprites/T_Icon_BR_Creature_Sprite_King_ui_L.webp",
+        "gold": "img/sprites/T_Icon_BR_Creature_Sprite_King_Gold_ui_L.webp",
+        "gummy": "img/sprites/T_Icon_BR_Creature_Sprite_King_Candy_ui_L.webp",
+        "galaxy": "img/sprites/T_Icon_BR_Creature_Sprite_King_Galaxy_ui_L.webp",
+        "gem": "img/sprites/T_Icon_BR_Creature_Sprite_King_Gem_ui_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_King_ui_L.webp",
+      "img": "img/sprites/T_Icon_BR_Creature_Sprite_King_ui_L.webp",
       "ability": "Summons loyal subjects to fight alongside you."
     },
     {
@@ -350,9 +350,9 @@
         "normal"
       ],
       "variant_imgs": {
-        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Soccer_ui_L.webp"
+        "normal": "img/sprites/T_Icon_BR_Creature_Sprite_Soccer_ui_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Soccer_ui_L.webp",
+      "img": "img/sprites/T_Icon_BR_Creature_Sprite_Soccer_ui_L.webp",
       "ability": "Kicks a powerful shot that damages enemies."
     },
     {
@@ -368,13 +368,13 @@
         "cube"
       ],
       "variant_imgs": {
-        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Drifter_ui_L.webp",
-        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Drifter_Gold_ui_L.webp",
-        "gummy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Drifter_Candy_ui_L.webp",
-        "galaxy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Drifter_Galaxy_ui_L.webp",
-        "cube": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Drifter_Cube_ui_L.webp"
+        "normal": "img/sprites/T_Icon_BR_Creature_Sprite_Drifter_ui_L.webp",
+        "gold": "img/sprites/T_Icon_BR_Creature_Sprite_Drifter_Gold_ui_L.webp",
+        "gummy": "img/sprites/T_Icon_BR_Creature_Sprite_Drifter_Candy_ui_L.webp",
+        "galaxy": "img/sprites/T_Icon_BR_Creature_Sprite_Drifter_Galaxy_ui_L.webp",
+        "cube": "img/sprites/T_Icon_BR_Creature_Sprite_Drifter_Cube_ui_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Drifter_ui_L.webp",
+      "img": "img/sprites/T_Icon_BR_Creature_Sprite_Drifter_ui_L.webp",
       "ability": "Reveals enemy positions through walls briefly."
     },
     {
@@ -390,13 +390,13 @@
         "gem"
       ],
       "variant_imgs": {
-        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Sleepy_ui_L.webp",
-        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Sleepy_Gold_ui_L.webp",
-        "gummy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Sleepy_Candy_ui_L.webp",
-        "galaxy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Sleepy_Galaxy_ui_L.webp",
-        "gem": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Sleepy_Gem_ui_L.webp"
+        "normal": "img/sprites/T_Icon_BR_Creature_Sprite_Sleepy_ui_L.webp",
+        "gold": "img/sprites/T_Icon_BR_Creature_Sprite_Sleepy_Gold_ui_L.webp",
+        "gummy": "img/sprites/T_Icon_BR_Creature_Sprite_Sleepy_Candy_ui_L.webp",
+        "galaxy": "img/sprites/T_Icon_BR_Creature_Sprite_Sleepy_Galaxy_ui_L.webp",
+        "gem": "img/sprites/T_Icon_BR_Creature_Sprite_Sleepy_Gem_ui_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Sleepy_ui_L.webp",
+      "img": "img/sprites/T_Icon_BR_Creature_Sprite_Sleepy_ui_L.webp",
       "ability": "Puts nearby enemies to sleep, slowing their movement."
     },
     {
@@ -412,13 +412,13 @@
         "holofoil"
       ],
       "variant_imgs": {
-        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Punk_ui_L.webp",
-        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Punk_Gold_ui_L.webp",
-        "gummy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Punk_Candy_ui_L.webp",
-        "galaxy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Punk_Galaxy_ui_L.webp",
-        "holofoil": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Punk_Holofoil_ui_L.webp"
+        "normal": "img/sprites/T_Icon_BR_Creature_Sprite_Punk_ui_L.webp",
+        "gold": "img/sprites/T_Icon_BR_Creature_Sprite_Punk_Gold_ui_L.webp",
+        "gummy": "img/sprites/T_Icon_BR_Creature_Sprite_Punk_Candy_ui_L.webp",
+        "galaxy": "img/sprites/T_Icon_BR_Creature_Sprite_Punk_Galaxy_ui_L.webp",
+        "holofoil": "img/sprites/T_Icon_BR_Creature_Sprite_Punk_Holofoil_ui_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Punk_ui_L.webp",
+      "img": "img/sprites/T_Icon_BR_Creature_Sprite_Punk_ui_L.webp",
       "ability": "Creates a sonic blast that damages and stuns enemies."
     },
     {
@@ -434,13 +434,13 @@
         "cube"
       ],
       "variant_imgs": {
-        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Boss_ui_L.webp",
-        "cube": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Boss_Cube_ui_L.webp",
-        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Boss_Gold_ui_L.webp",
-        "gummy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Boss_Candy_ui_L.webp",
-        "galaxy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Boss_Galaxy_ui_L.webp"
+        "normal": "img/sprites/T_Icon_BR_Creature_Sprite_Boss_ui_L.webp",
+        "cube": "img/sprites/T_Icon_BR_Creature_Sprite_Boss_Cube_ui_L.webp",
+        "gold": "img/sprites/T_Icon_BR_Creature_Sprite_Boss_Gold_ui_L.webp",
+        "gummy": "img/sprites/T_Icon_BR_Creature_Sprite_Boss_Candy_ui_L.webp",
+        "galaxy": "img/sprites/T_Icon_BR_Creature_Sprite_Boss_Galaxy_ui_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Boss_ui_L.webp",
+      "img": "img/sprites/T_Icon_BR_Creature_Sprite_Boss_ui_L.webp",
       "ability": "Commands nearby sprites to attack your target."
     },
     {
@@ -456,13 +456,13 @@
         "gem"
       ],
       "variant_imgs": {
-        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Seven_ui_L.webp",
-        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Seven_Gold_ui_L.webp",
-        "gummy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Seven_Candy_ui_L.webp",
-        "galaxy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Seven_Galaxy_ui_L.webp",
-        "gem": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Seven_Gem_ui_L.webp"
+        "normal": "img/sprites/T_Icon_BR_Creature_Sprite_Seven_ui_L.webp",
+        "gold": "img/sprites/T_Icon_BR_Creature_Sprite_Seven_Gold_ui_L.webp",
+        "gummy": "img/sprites/T_Icon_BR_Creature_Sprite_Seven_Candy_ui_L.webp",
+        "galaxy": "img/sprites/T_Icon_BR_Creature_Sprite_Seven_Galaxy_ui_L.webp",
+        "gem": "img/sprites/T_Icon_BR_Creature_Sprite_Seven_Gem_ui_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Seven_ui_L.webp",
+      "img": "img/sprites/T_Icon_BR_Creature_Sprite_Seven_ui_L.webp",
       "ability": "Opens a rift that teleports you forward."
     },
     {
@@ -478,13 +478,13 @@
         "gem"
       ],
       "variant_imgs": {
-        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Llama_ui_L.webp",
-        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Llama_Gold_ui_L.webp",
-        "gummy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Llama_Candy_ui_L.webp",
-        "galaxy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Llama_Galaxy_ui_L.webp",
-        "gem": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Llama_Gem_ui_L.webp"
+        "normal": "img/sprites/T_Icon_BR_Creature_Sprite_Llama_ui_L.webp",
+        "gold": "img/sprites/T_Icon_BR_Creature_Sprite_Llama_Gold_ui_L.webp",
+        "gummy": "img/sprites/T_Icon_BR_Creature_Sprite_Llama_Candy_ui_L.webp",
+        "galaxy": "img/sprites/T_Icon_BR_Creature_Sprite_Llama_Galaxy_ui_L.webp",
+        "gem": "img/sprites/T_Icon_BR_Creature_Sprite_Llama_Gem_ui_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Llama_ui_L.webp",
+      "img": "img/sprites/T_Icon_BR_Creature_Sprite_Llama_ui_L.webp",
       "ability": "Spawns healing items and materials."
     },
     {
@@ -500,13 +500,13 @@
         "holofoil"
       ],
       "variant_imgs": {
-        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Peely_ui_L.webp",
-        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Peely_Gold_ui_L.webp",
-        "gummy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Peely_Candy_ui_L.webp",
-        "galaxy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Peely_Galaxy_ui_L.webp",
-        "holofoil": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Peely_Holofoil_ui_L.webp"
+        "normal": "img/sprites/T_Icon_BR_Creature_Sprite_Peely_ui_L.webp",
+        "gold": "img/sprites/T_Icon_BR_Creature_Sprite_Peely_Gold_ui_L.webp",
+        "gummy": "img/sprites/T_Icon_BR_Creature_Sprite_Peely_Candy_ui_L.webp",
+        "galaxy": "img/sprites/T_Icon_BR_Creature_Sprite_Peely_Galaxy_ui_L.webp",
+        "holofoil": "img/sprites/T_Icon_BR_Creature_Sprite_Peely_Holofoil_ui_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Peely_ui_L.webp",
+      "img": "img/sprites/T_Icon_BR_Creature_Sprite_Peely_ui_L.webp",
       "ability": "Throws banana peels that trip enemies."
     },
     {
@@ -525,16 +525,16 @@
         "quack"
       ],
       "variant_imgs": {
-        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_ZeroPoint_ui_L.webp",
-        "cube": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_ZeroPoint_Cube_ui_L.webp",
-        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_ZeroPoint_Gold_ui_L.webp",
-        "quack": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_ZeroPoint_Quack_ui_L.webp",
-        "gummy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_ZeroPoint_Candy_ui_L.webp",
-        "galaxy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_ZeroPoint_Galaxy_ui_L.webp",
-        "gem": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_ZeroPoint_Gem_ui_L.webp",
-        "holofoil": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_ZeroPoint_Holofoil_ui_L.webp"
+        "normal": "img/sprites/T_Icon_BR_Creature_Sprite_ZeroPoint_ui_L.webp",
+        "cube": "img/sprites/T_Icon_BR_Creature_Sprite_ZeroPoint_Cube_ui_L.webp",
+        "gold": "img/sprites/T_Icon_BR_Creature_Sprite_ZeroPoint_Gold_ui_L.webp",
+        "quack": "img/sprites/T_Icon_BR_Creature_Sprite_ZeroPoint_Quack_ui_L.webp",
+        "gummy": "img/sprites/T_Icon_BR_Creature_Sprite_ZeroPoint_Candy_ui_L.webp",
+        "galaxy": "img/sprites/T_Icon_BR_Creature_Sprite_ZeroPoint_Galaxy_ui_L.webp",
+        "gem": "img/sprites/T_Icon_BR_Creature_Sprite_ZeroPoint_Gem_ui_L.webp",
+        "holofoil": "img/sprites/T_Icon_BR_Creature_Sprite_ZeroPoint_Holofoil_ui_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_ZeroPoint_ui_L.webp",
+      "img": "img/sprites/T_Icon_BR_Creature_Sprite_ZeroPoint_ui_L.webp",
       "ability": "Creates a zero point explosion that damages and pulls enemies."
     },
     {
@@ -552,15 +552,15 @@
         "cube"
       ],
       "variant_imgs": {
-        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_GrimReaper_Default_L.webp",
-        "cube": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_GrimReaper_Cube_L.webp",
-        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_GrimReaper_Gold_L.webp",
-        "gummy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_GrimReaper_Candy_L.webp",
-        "galaxy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_GrimReaper_Galaxy_L.webp",
-        "gem": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_GrimReaper_Gem_L.webp",
-        "holofoil": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_GrimReaper_Holofoil_L.webp"
+        "normal": "img/sprites/T_Icon_BR_GrimReaper_Default_L.webp",
+        "cube": "img/sprites/T_Icon_BR_GrimReaper_Cube_L.webp",
+        "gold": "img/sprites/T_Icon_BR_GrimReaper_Gold_L.webp",
+        "gummy": "img/sprites/T_Icon_BR_GrimReaper_Candy_L.webp",
+        "galaxy": "img/sprites/T_Icon_BR_GrimReaper_Galaxy_L.webp",
+        "gem": "img/sprites/T_Icon_BR_GrimReaper_Gem_L.webp",
+        "holofoil": "img/sprites/T_Icon_BR_GrimReaper_Holofoil_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_GrimReaper_Default_L.webp",
+      "img": "img/sprites/T_Icon_BR_GrimReaper_Default_L.webp",
       "ability": "Marks enemies for death, increasing damage they take."
     },
     {
@@ -577,14 +577,14 @@
         "cube"
       ],
       "variant_imgs": {
-        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_FossilMeal_Default_L.webp",
-        "cube": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_FossilMeal_Cube_L.webp",
-        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_FossilMeal_Gold_L.webp",
-        "gummy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_FossilMeal_Candy_L.webp",
-        "galaxy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_FossilMeal_Galaxy_L.webp",
-        "gem": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_FossilMeal_Gem_L.webp"
+        "normal": "img/sprites/T_Icon_BR_FossilMeal_Default_L.webp",
+        "cube": "img/sprites/T_Icon_BR_FossilMeal_Cube_L.webp",
+        "gold": "img/sprites/T_Icon_BR_FossilMeal_Gold_L.webp",
+        "gummy": "img/sprites/T_Icon_BR_FossilMeal_Candy_L.webp",
+        "galaxy": "img/sprites/T_Icon_BR_FossilMeal_Galaxy_L.webp",
+        "gem": "img/sprites/T_Icon_BR_FossilMeal_Gem_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_FossilMeal_Default_L.webp",
+      "img": "img/sprites/T_Icon_BR_FossilMeal_Default_L.webp",
       "ability": "Throws batarangs that stun enemies and reveals them."
     },
     {
@@ -596,9 +596,9 @@
         "normal"
       ],
       "variant_imgs": {
-        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_Reload_FillerGrunt_icon_L.webp"
+        "normal": "img/sprites/T_Icon_Reload_FillerGrunt_icon_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_Reload_FillerGrunt_icon_L.webp",
+      "img": "img/sprites/T_Icon_Reload_FillerGrunt_icon_L.webp",
       "ability": "Enters focus mode with increased accuracy and damage."
     },
     {
@@ -610,9 +610,9 @@
         "normal"
       ],
       "variant_imgs": {
-        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_CompanyStargazer_Default_L.webp"
+        "normal": "img/sprites/T_Icon_BR_CompanyStargazer_Default_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_CompanyStargazer_Default_L.webp",
+      "img": "img/sprites/T_Icon_BR_CompanyStargazer_Default_L.webp",
       "ability": "Calls in an airstrike on marked location."
     },
     {
@@ -628,13 +628,13 @@
         "gem"
       ],
       "variant_imgs": {
-        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_BurntPeanut_ui_L.webp",
-        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_BurntPeanut_Gold_ui_L.webp",
-        "gummy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_BurntPeanut_Candy_ui_L.webp",
-        "galaxy": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_BurntPeanut_Galaxy_ui_L.webp",
-        "gem": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_BurntPeanut_Gem_ui_L.webp"
+        "normal": "img/sprites/T_Icon_BR_Creature_Sprite_BurntPeanut_ui_L.webp",
+        "gold": "img/sprites/T_Icon_BR_Creature_Sprite_BurntPeanut_Gold_ui_L.webp",
+        "gummy": "img/sprites/T_Icon_BR_Creature_Sprite_BurntPeanut_Candy_ui_L.webp",
+        "galaxy": "img/sprites/T_Icon_BR_Creature_Sprite_BurntPeanut_Galaxy_ui_L.webp",
+        "gem": "img/sprites/T_Icon_BR_Creature_Sprite_BurntPeanut_Gem_ui_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_BurntPeanut_ui_L.webp",
+      "img": "img/sprites/T_Icon_BR_Creature_Sprite_BurntPeanut_ui_L.webp",
       "ability": "Burns everything in sight with fire damage."
     },
     {
@@ -646,9 +646,9 @@
         "normal"
       ],
       "variant_imgs": {
-        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_CokeParmesan_Default_L.webp"
+        "normal": "img/sprites/T_Icon_BR_CokeParmesan_Default_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_CokeParmesan_Default_L.webp",
+      "img": "img/sprites/T_Icon_BR_CokeParmesan_Default_L.webp",
       "ability": "Performs a skill move that dodges enemy attacks."
     },
     {
@@ -660,9 +660,9 @@
         "normal"
       ],
       "variant_imgs": {
-        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_PedicureAntacid_L.webp"
+        "normal": "img/sprites/T_Icon_BR_PedicureAntacid_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_PedicureAntacid_L.webp",
+      "img": "img/sprites/T_Icon_BR_PedicureAntacid_L.webp",
       "ability": "Screeches to stun nearby enemies."
     },
     {
@@ -678,11 +678,11 @@
         "cheatmaster"
       ],
       "variant_imgs": {
-        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_EightBitBlaster_L.webp",
-        "cheatmaster": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_EightBitBlaster_Cheatmaster_L.webp",
-        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_EightBitBlaster_Gold_L.webp"
+        "normal": "img/sprites/T_Icon_BR_Creature_Sprite_EightBitBlaster_L.webp",
+        "cheatmaster": "img/sprites/T_Icon_BR_Creature_Sprite_EightBitBlaster_Cheatmaster_L.webp",
+        "gold": "img/sprites/T_Icon_BR_Creature_Sprite_EightBitBlaster_Gold_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_EightBitBlaster_L.webp"
+      "img": "img/sprites/T_Icon_BR_Creature_Sprite_EightBitBlaster_L.webp"
     },
     {
       "id": "adventure",
@@ -697,11 +697,11 @@
         "cheatmaster"
       ],
       "variant_imgs": {
-        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Dwarf_L.webp",
-        "cheatmaster": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Dwarf_Cheatmaster_L.webp",
-        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Dwarf_Gold_L.webp"
+        "normal": "img/sprites/T_Icon_BR_Creature_Sprite_Dwarf_L.webp",
+        "cheatmaster": "img/sprites/T_Icon_BR_Creature_Sprite_Dwarf_Cheatmaster_L.webp",
+        "gold": "img/sprites/T_Icon_BR_Creature_Sprite_Dwarf_Gold_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Dwarf_L.webp"
+      "img": "img/sprites/T_Icon_BR_Creature_Sprite_Dwarf_L.webp"
     },
     {
       "id": "bush",
@@ -716,11 +716,11 @@
         "cheatmaster"
       ],
       "variant_imgs": {
-        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_BushRanger_L.webp",
-        "cheatmaster": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_BushRanger_Cheatmaster_L.webp",
-        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_BushRanger_Gold_L.webp"
+        "normal": "img/sprites/T_Icon_BR_Creature_Sprite_BushRanger_L.webp",
+        "cheatmaster": "img/sprites/T_Icon_BR_Creature_Sprite_BushRanger_Cheatmaster_L.webp",
+        "gold": "img/sprites/T_Icon_BR_Creature_Sprite_BushRanger_Gold_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_BushRanger_L.webp"
+      "img": "img/sprites/T_Icon_BR_Creature_Sprite_BushRanger_L.webp"
     },
     {
       "id": "jonesy",
@@ -735,11 +735,11 @@
         "cheatmaster"
       ],
       "variant_imgs": {
-        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Jonesy_L.webp",
-        "cheatmaster": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Jonesy_Cheatmaster_L.webp",
-        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Jonesy_Gold_L.webp"
+        "normal": "img/sprites/T_Icon_BR_Creature_Sprite_Jonesy_L.webp",
+        "cheatmaster": "img/sprites/T_Icon_BR_Creature_Sprite_Jonesy_Cheatmaster_L.webp",
+        "gold": "img/sprites/T_Icon_BR_Creature_Sprite_Jonesy_Gold_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Jonesy_L.webp"
+      "img": "img/sprites/T_Icon_BR_Creature_Sprite_Jonesy_L.webp"
     },
     {
       "id": "stormscout",
@@ -754,11 +754,11 @@
         "cheatmaster"
       ],
       "variant_imgs": {
-        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_StormScout_L.webp",
-        "cheatmaster": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_StormScout_Cheatmaster_L.webp",
-        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_StormScout_Gold_L.webp"
+        "normal": "img/sprites/T_Icon_BR_Creature_Sprite_StormScout_L.webp",
+        "cheatmaster": "img/sprites/T_Icon_BR_Creature_Sprite_StormScout_Cheatmaster_L.webp",
+        "gold": "img/sprites/T_Icon_BR_Creature_Sprite_StormScout_Gold_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_StormScout_L.webp"
+      "img": "img/sprites/T_Icon_BR_Creature_Sprite_StormScout_L.webp"
     },
     {
       "id": "killswitch",
@@ -773,11 +773,11 @@
         "cheatmaster"
       ],
       "variant_imgs": {
-        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Killswitch_L.webp",
-        "cheatmaster": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Killswitch_Cheatmaster_L.webp",
-        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Killswitch_Gold_L.webp"
+        "normal": "img/sprites/T_Icon_BR_Creature_Sprite_Killswitch_L.webp",
+        "cheatmaster": "img/sprites/T_Icon_BR_Creature_Sprite_Killswitch_Cheatmaster_L.webp",
+        "gold": "img/sprites/T_Icon_BR_Creature_Sprite_Killswitch_Gold_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Killswitch_L.webp"
+      "img": "img/sprites/T_Icon_BR_Creature_Sprite_Killswitch_L.webp"
     },
     {
       "id": "shadow",
@@ -792,11 +792,11 @@
         "cheatmaster"
       ],
       "variant_imgs": {
-        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_NarrowFlea_Scribe_L.webp",
-        "cheatmaster": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_NarrowFlea_Scribe_Cheatmaster_L.webp",
-        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_NarrowFlea_Scribe_Gold_L.webp"
+        "normal": "img/sprites/T_Icon_BR_Creature_Sprite_NarrowFlea_Scribe_L.webp",
+        "cheatmaster": "img/sprites/T_Icon_BR_Creature_Sprite_NarrowFlea_Scribe_Cheatmaster_L.webp",
+        "gold": "img/sprites/T_Icon_BR_Creature_Sprite_NarrowFlea_Scribe_Gold_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_NarrowFlea_Scribe_L.webp"
+      "img": "img/sprites/T_Icon_BR_Creature_Sprite_NarrowFlea_Scribe_L.webp"
     },
     {
       "id": "sonic",
@@ -811,11 +811,11 @@
         "cheatmaster"
       ],
       "variant_imgs": {
-        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_NarrowFlea_Obsidian_L.webp",
-        "cheatmaster": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_NarrowFlea_Obsidian_Cheatmaster_L.webp",
-        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_NarrowFlea_Obsidian_Gold_L.webp"
+        "normal": "img/sprites/T_Icon_BR_Creature_Sprite_NarrowFlea_Obsidian_L.webp",
+        "cheatmaster": "img/sprites/T_Icon_BR_Creature_Sprite_NarrowFlea_Obsidian_Cheatmaster_L.webp",
+        "gold": "img/sprites/T_Icon_BR_Creature_Sprite_NarrowFlea_Obsidian_Gold_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_NarrowFlea_Obsidian_L.webp"
+      "img": "img/sprites/T_Icon_BR_Creature_Sprite_NarrowFlea_Obsidian_L.webp"
     },
     {
       "id": "tails",
@@ -830,11 +830,11 @@
         "cheatmaster"
       ],
       "variant_imgs": {
-        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_NarrowFlea_Monkey_L.webp",
-        "cheatmaster": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_NarrowFlea_Monkey_Cheatmaster_L.webp",
-        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_NarrowFlea_Monkey_Gold_L.webp"
+        "normal": "img/sprites/T_Icon_BR_Creature_Sprite_NarrowFlea_Monkey_L.webp",
+        "cheatmaster": "img/sprites/T_Icon_BR_Creature_Sprite_NarrowFlea_Monkey_Cheatmaster_L.webp",
+        "gold": "img/sprites/T_Icon_BR_Creature_Sprite_NarrowFlea_Monkey_Gold_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_NarrowFlea_Monkey_L.webp"
+      "img": "img/sprites/T_Icon_BR_Creature_Sprite_NarrowFlea_Monkey_L.webp"
     },
     {
       "id": "jackrabbit",
@@ -849,11 +849,11 @@
         "cheatmaster"
       ],
       "variant_imgs": {
-        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_JazzJackrabbit_L.webp",
-        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_JazzJackrabbit_Gold_L.webp",
-        "cheatmaster": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_JazzJackrabbit_Cheatmaster_L.webp"
+        "normal": "img/sprites/T_Icon_BR_Creature_Sprite_JazzJackrabbit_L.webp",
+        "gold": "img/sprites/T_Icon_BR_Creature_Sprite_JazzJackrabbit_Gold_L.webp",
+        "cheatmaster": "img/sprites/T_Icon_BR_Creature_Sprite_JazzJackrabbit_Cheatmaster_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_JazzJackrabbit_L.webp"
+      "img": "img/sprites/T_Icon_BR_Creature_Sprite_JazzJackrabbit_L.webp"
     },
     {
       "id": "crown",
@@ -868,11 +868,11 @@
         "cheatmaster"
       ],
       "variant_imgs": {
-        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Crown_L.webp",
-        "cheatmaster": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Crown_Cheatmaster_L.webp",
-        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Crown_Gold_L.webp"
+        "normal": "img/sprites/T_Icon_BR_Creature_Sprite_Crown_L.webp",
+        "cheatmaster": "img/sprites/T_Icon_BR_Creature_Sprite_Crown_Cheatmaster_L.webp",
+        "gold": "img/sprites/T_Icon_BR_Creature_Sprite_Crown_Gold_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Crown_L.webp"
+      "img": "img/sprites/T_Icon_BR_Creature_Sprite_Crown_L.webp"
     },
     {
       "id": "klombo",
@@ -885,11 +885,11 @@
         "cheatmaster"
       ],
       "variant_imgs": {
-        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Klombo_L.webp",
-        "cheatmaster": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Klombo_Cheatmaster_L.webp",
-        "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Klombo_Gold_L.webp"
+        "normal": "img/sprites/T_Icon_BR_Creature_Sprite_Klombo_L.webp",
+        "cheatmaster": "img/sprites/T_Icon_BR_Creature_Sprite_Klombo_Cheatmaster_L.webp",
+        "gold": "img/sprites/T_Icon_BR_Creature_Sprite_Klombo_Gold_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Klombo_L.webp",
+      "img": "img/sprites/T_Icon_BR_Creature_Sprite_Klombo_L.webp",
       "ability": "Summons Klombo to eat enemies in an area."
     }
   ]
