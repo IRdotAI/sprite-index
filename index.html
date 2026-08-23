@@ -1348,11 +1348,10 @@ async function syncFromEpic(token){
       for(const stage of ownedStages){
         const spriteId = BLOCKSTACK_STAGE_MAP[stage];
         if(spriteId && !state['s4:' + spriteId + ':normal']){
-          // Check for extracted CM: if CM mastery quest (_01) is Claimed but base isn't,
-          // they likely extracted the CM from another player without owning base
-          const cmMasteredButNotBase = s4QuestStates[spriteId]?.['01'] === 'Claimed' &&
-                                       s4QuestStates[spriteId]?.base !== 'Claimed';
-          const hasQuestEvidence = !cmMasteredButNotBase;
+          // Note: Can't reliably detect extracted CMs (where user has CM but not base)
+          // because the API data looks identical to legitimately owned sprites.
+          // Trusting Stage ownership when any quest exists for the sprite.
+          const hasQuestEvidence = s4QuestStates[spriteId] !== undefined;
           if(hasQuestEvidence){
             const baseMastered = s4QuestStates[spriteId]?.base === 'Claimed';
             state['s4:' + spriteId + ':normal'] = { owned: true, mastered: baseMastered };
@@ -1555,11 +1554,8 @@ async function syncFromEpic(token){
             const hasStageOwned = stageForSprite && materialVariant?.owned?.includes(stageForSprite);
 
             // Only trust quest for base/gold if Stage is owned in variants
-            // This prevents false positives for sprites like bush that have CM but no base
-            // Also check for extracted CM: if _01 Claimed but base not Claimed, skip
-            const cmMasteredButNotBase = s4QuestStates[spriteId]?.['01'] === 'Claimed' &&
-                                         s4QuestStates[spriteId]?.base !== 'Claimed';
-            if(hasStageOwned && !state['s4:' + spriteId + ':normal'] && !cmMasteredButNotBase){
+            // Note: Can't reliably detect extracted CMs - API data looks identical
+            if(hasStageOwned && !state['s4:' + spriteId + ':normal']){
               state['s4:' + spriteId + ':normal'] = { owned: true, mastered: levelNum === '00' };
               s4Count++;
               console.log(`  Quest ${questId} Claimed -> ${spriteId}:normal (Stage-verified)`);
