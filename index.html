@@ -1414,30 +1414,25 @@ async function syncFromEpic(token){
           // This prevents false gold for sprites like bush/sonic where user has
           // cheatmaster but not gold (their Stage isn't in Material owned list).
 
-          if(questState === 'Claimed'){
-            // Any Claimed quest indicates base sprite ownership
-            if(!state['s4:' + spriteId + ':normal']){
+          if(questState === 'Claimed' && blockstackChar?.attributes?.variants){
+            const materialVariant = blockstackChar.attributes.variants.find(v => v.channel === 'Material');
+            const stageForSprite = Object.entries(BLOCKSTACK_STAGE_MAP).find(([stage, id]) => id === spriteId)?.[0];
+            const hasStageOwned = stageForSprite && materialVariant?.owned?.includes(stageForSprite);
+
+            // Only trust quest for base/gold if Stage is owned in variants
+            // This prevents false positives for sprites like bush that have CM but no base
+            if(hasStageOwned && !state['s4:' + spriteId + ':normal']){
               state['s4:' + spriteId + ':normal'] = { owned: true, mastered: levelNum === '00' };
               s4Count++;
-              console.log(`  Quest ${questId} Claimed -> ${spriteId}:normal (quest fallback)`);
+              console.log(`  Quest ${questId} Claimed -> ${spriteId}:normal (Stage-verified)`);
             }
 
-            // Only trust _01 gold if Stage is owned (base confirmed via variants)
-            // Exception: sprites with Mat-based cheatmaster (bush, sonic) may have
-            // gotten CM without gold, so skip quest gold for those
-            if(levelNum === '01' && blockstackChar?.attributes?.variants){
-              const materialVariant = blockstackChar.attributes.variants.find(v => v.channel === 'Material');
-              const stageForSprite = Object.entries(BLOCKSTACK_STAGE_MAP).find(([stage, id]) => id === spriteId)?.[0];
-              const hasStageOwned = stageForSprite && materialVariant?.owned?.includes(stageForSprite);
-
-              // Check if CM came from Mat-based detection (special path, may skip gold)
-              const paramSets2 = blockstackChar.attributes.variants.find(v => v.channel === 'MaterialParamSets2');
-              const paramSets3 = blockstackChar.attributes.variants.find(v => v.channel === 'MaterialParamSets3');
+            // Trust quest _01 gold if Stage is owned, unless it's a Mat-based CM sprite
+            if(levelNum === '01' && hasStageOwned){
               const matCheatmasterSprites = ['bush', 'sonic']; // Sprites that use Mat-based CM detection
               const hasMatBasedCM = matCheatmasterSprites.includes(spriteId) && state['s4:' + spriteId + ':cheatmaster'];
 
-              // Trust quest gold if Stage is owned, unless it's a Mat-based CM sprite
-              if(hasStageOwned && !state['s4:' + spriteId + ':gold'] && !hasMatBasedCM){
+              if(!state['s4:' + spriteId + ':gold'] && !hasMatBasedCM){
                 state['s4:' + spriteId + ':gold'] = { owned: true, mastered: true };
                 s4Count++;
                 console.log(`  Quest ${questId} Claimed -> ${spriteId}:gold (Stage-verified)`);
