@@ -1466,7 +1466,7 @@ async function syncFromEpic(token){
               const hasMatBasedCM = matCheatmasterSprites.includes(spriteId) && state['s4:' + spriteId + ':cheatmaster'];
 
               if(!state['s4:' + spriteId + ':gold'] && !hasMatBasedCM){
-                state['s4:' + spriteId + ':gold'] = { owned: true, mastered: true };
+                state['s4:' + spriteId + ':gold'] = { owned: true, mastered: false };
                 s4Count++;
                 console.log(`  Quest ${questId} Claimed -> ${spriteId}:gold (Stage-verified)`);
               }
