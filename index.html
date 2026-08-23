@@ -142,6 +142,7 @@ main{padding:16px;max-width:1400px;margin:0 auto}
 .status.mastered{color:var(--mythic)}
 .status.missing{color:var(--dim)}
 .status.owned{color:var(--accent)}
+.status.unfetchable{color:#f59e0b}
 .card-name{font:600 13px/1.2 'Inter',sans-serif;color:var(--text);
   overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .empty{color:var(--dim);text-align:center;padding:60px 20px;font-size:15px}
@@ -471,8 +472,8 @@ function cardHTML(e){
   const s=st(e.key), col=DB.rarities.find(r=>r.id===e.sprite.rarity).color;
   const vc=vcol(e.variantId);
   const name=e.variant.name==='Normal'?e.sprite.name:`${e.variant.name} ${e.sprite.name}`;
-  const statusClass=s.mastered?'mastered':s.owned?'owned':'missing';
-  const statusText=s.mastered?'★ MASTERED':s.owned?'OWNED':'MISSING';
+  const statusClass=s.unfetchable?'unfetchable':s.mastered?'mastered':s.owned?'owned':'missing';
+  const statusText=s.unfetchable?'⚠ UNFETCHABLE':s.mastered?'★ MASTERED':s.owned?'OWNED':'MISSING';
   return `<div class="card ${s.owned?'owned':''} ${s.mastered?'mastered':''}"
     style="--r:${col};--vc:${vc}" data-k="${e.key}">
     <div class="art-wrap">
@@ -555,7 +556,8 @@ function openInfo(key){
   const raw=e.raw||{};
   const name=e.variant.name==='Normal'?e.sprite.name:`${e.variant.name} ${e.sprite.name}`;
 
-  const status=s.mastered ? '★ Mastered'
+  const status=s.unfetchable ? '⚠ Could not fetch details'
+    : s.mastered ? '★ Mastered'
     : s.owned ? (s.level ? 'Collected · Level '+s.level : 'Collected')
     : 'Not collected';
 
@@ -1478,18 +1480,12 @@ async function syncFromEpic(token){
   }
 
   // Collab sprites (ironmouse, vinijr) - Epic API doesn't return their tokens
-  // but spritetrading.com detects them. Mark as owned+mastered if user has other S3 sprites.
-  if(s3Count > 0) {
-    if(!state['s3:ironmouse:normal']) {
-      state['s3:ironmouse:normal'] = { owned: true, mastered: true };
-      s3Count++;
-      console.log('  Added ironmouse:normal (collab sprite - API workaround)');
-    }
-    if(!state['s3:vinijr:normal']) {
-      state['s3:vinijr:normal'] = { owned: true, mastered: true };
-      s3Count++;
-      console.log('  Added vinijr:normal (collab sprite - API workaround)');
-    }
+  // Mark as unfetchable so UI can show appropriate message
+  if(!state['s3:ironmouse:normal']) {
+    state['s3:ironmouse:normal'] = { owned: false, mastered: false, unfetchable: true };
+  }
+  if(!state['s3:vinijr:normal']) {
+    state['s3:vinijr:normal'] = { owned: false, mastered: false, unfetchable: true };
   }
 
   console.log(`Synced: ${s3Count} S3 sprites, ${s4Count} S4 sprites`);
