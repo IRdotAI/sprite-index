@@ -285,7 +285,10 @@
   <div class="admin-panel" id="adminPanel">
     <div class="header">
       <h1>Spritedex Admin</h1>
-      <button onclick="logout()">Logout</button>
+      <div style="display:flex;gap:0.5rem">
+        <button onclick="loadUsers()" title="Refresh">🔄 Refresh</button>
+        <button onclick="logout()">Logout</button>
+      </div>
     </div>
 
     <div class="stats">
