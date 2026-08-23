@@ -319,15 +319,16 @@
     </table>
   </div>
 
-  <div class="modal" id="itemModal" onclick="if(event.target===this)closeItemModal()">
-    <div class="modal-content" style="max-width:400px;text-align:center">
+  <div class="modal" id="itemModal" onclick="if(event.target===this)closeItemModal()" style="z-index:2000">
+    <div class="modal-content" style="max-width:450px;text-align:center">
       <div class="modal-header">
         <h2 id="itemModalTitle">Item</h2>
         <button class="modal-close" onclick="closeItemModal()">&times;</button>
       </div>
       <div class="modal-body">
-        <img id="itemModalImg" src="" style="max-width:100%;border-radius:8px;margin-bottom:1rem">
-        <p id="itemModalRarity" style="color:var(--accent2);margin-bottom:0.5rem"></p>
+        <img id="itemModalImg" src="" style="max-width:100%;max-height:400px;border-radius:8px;margin-bottom:1rem">
+        <p id="itemModalRarity" style="color:var(--accent2);margin-bottom:0.5rem;font-weight:bold"></p>
+        <p id="itemModalPrice" style="margin-bottom:0.5rem"></p>
         <p id="itemModalDesc" style="color:var(--text2);font-size:0.9rem"></p>
       </div>
     </div>
@@ -363,10 +364,14 @@
             if (id) {
               cosmeticData[id] = {
                 name: item.name,
-                icon: item.images?.icon || item.images?.smallIcon || null,
+                icon: item.images?.featured || item.images?.icon || item.images?.smallIcon || null,
                 description: item.description || '',
                 rarity: item.rarity?.displayValue || 'Unknown',
-                type: item.type?.displayValue || 'Unknown'
+                type: item.type?.displayValue || 'Unknown',
+                price: item.shopHistory?.length > 0 ? (item.finalPrice || 'Shop Item') : null,
+                source: item.battlepass ? `Battle Pass Season ${item.battlepass.season}` :
+                        item.shopHistory?.length > 0 ? null :
+                        item.introduction?.text || 'Other'
               };
             }
           }
@@ -645,6 +650,18 @@
       document.getElementById('itemModalTitle').textContent = info.name;
       document.getElementById('itemModalRarity').textContent = info.rarity + ' ' + info.type;
       document.getElementById('itemModalDesc').textContent = info.description || '';
+
+      // Price/source display
+      const priceEl = document.getElementById('itemModalPrice');
+      if (info.price && typeof info.price === 'number') {
+        priceEl.innerHTML = `<span style="color:#00d4ff">💎 ${info.price.toLocaleString()} V-Bucks</span>`;
+      } else if (info.source && info.source.includes('Battle Pass')) {
+        priceEl.innerHTML = `<span style="color:#ffd700">⭐ ${info.source}</span>`;
+      } else if (info.source) {
+        priceEl.innerHTML = `<span style="color:var(--text2)">${info.source}</span>`;
+      } else {
+        priceEl.innerHTML = '';
+      }
 
       const img = document.getElementById('itemModalImg');
       if (info.icon) {
