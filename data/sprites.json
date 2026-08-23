@@ -1,7 +1,7 @@
 {
   "_meta": {
-    "schemaVersion": 7,
-    "generated": "2026-08-22",
+    "schemaVersion": 8,
+    "generated": "2026-08-23",
     "note": "Variants from locker tokens, images from fortnite.gg"
   },
   "variants": [
@@ -9,55 +9,91 @@
       "id": "normal",
       "name": "Normal",
       "letter": "",
-      "effect": "Standard companion."
+      "effect": "Standard companion.",
+      "rarity": "base",
+      "howToObtain": "Find in-game from Sprite Gizmos or wild encounters",
+      "dropRate": "Common",
+      "dustCost": 500
     },
     {
       "id": "gold",
       "name": "Gold",
       "letter": "a",
-      "effect": "Bonus Sprite XP."
+      "effect": "Bonus Sprite XP.",
+      "rarity": "special",
+      "howToObtain": "Rare drop from Sprite Gizmos or evolve from Normal",
+      "dropRate": "~5%",
+      "dustCost": 2000
     },
     {
       "id": "gummy",
       "name": "Gummy",
       "letter": "b",
-      "effect": "20% extra Sprite Dust."
+      "effect": "20% extra Sprite Dust from all sources.",
+      "rarity": "special",
+      "howToObtain": "Rare drop from Sprite Gizmos",
+      "dropRate": "~3%",
+      "dustCost": 2500
     },
     {
       "id": "galaxy",
       "name": "Galaxy",
       "letter": "c",
-      "effect": "30% more ammo."
+      "effect": "30% more ammo from ammo boxes and eliminations.",
+      "rarity": "special",
+      "howToObtain": "Rare drop from Sprite Gizmos",
+      "dropRate": "~3%",
+      "dustCost": 2500
     },
     {
       "id": "holofoil",
       "name": "Holofoil",
       "letter": "d",
-      "effect": "5% rare Sprite chance."
+      "effect": "5% increased chance to find rare Sprites.",
+      "rarity": "special",
+      "howToObtain": "Very rare drop from Sprite Gizmos",
+      "dropRate": "~1%",
+      "dustCost": 5000
     },
     {
       "id": "gem",
       "name": "Gem",
       "letter": "e",
-      "effect": "30% less fall damage."
+      "effect": "30% reduced fall damage.",
+      "rarity": "special",
+      "howToObtain": "Rare drop from Sprite Gizmos",
+      "dropRate": "~2%",
+      "dustCost": 3000
     },
     {
       "id": "cube",
       "name": "Cube",
       "letter": "f",
-      "effect": "Overdrive in Storm."
+      "effect": "Overdrive activates automatically in Storm.",
+      "rarity": "special",
+      "howToObtain": "Rare drop from Sprite Gizmos, more common in Storm zones",
+      "dropRate": "~2%",
+      "dustCost": 3000
     },
     {
       "id": "quack",
       "name": "Quack",
       "letter": "g",
-      "effect": "50% bonus progress."
+      "effect": "50% bonus XP progress toward mastery.",
+      "rarity": "special",
+      "howToObtain": "Very rare drop from Sprite Gizmos",
+      "dropRate": "~1%",
+      "dustCost": 5000
     },
     {
       "id": "cheatmaster",
       "name": "Cheat Master",
       "letter": "",
-      "effect": "Enhanced ability."
+      "effect": "Enhanced ability with reduced cooldown and increased power.",
+      "rarity": "special",
+      "howToObtain": "Master a sprite to unlock Cheat Master variant",
+      "dropRate": "Earned",
+      "dustCost": 10000
     }
   ],
   "rarities": [
@@ -84,6 +120,13 @@
       "name": "Mythic",
       "order": 4,
       "color": "#FACC15"
+    },
+    {
+      "id": "special",
+      "name": "Special",
+      "order": 5,
+      "color": "#00ffcc",
+      "animated": true
     }
   ],
   "sprites": [
