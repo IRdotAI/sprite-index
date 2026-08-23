@@ -147,6 +147,27 @@
     .btn:hover { background: var(--accent2); }
     .btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
+    .account-id {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: monospace;
+      font-size: 0.8rem;
+      color: var(--text2);
+    }
+    .account-id .hidden { letter-spacing: 0.1em; }
+    .account-id .reveal-btn {
+      background: none;
+      border: none;
+      color: var(--text2);
+      cursor: pointer;
+      padding: 0.2rem;
+      font-size: 1rem;
+      opacity: 0.6;
+      transition: opacity 0.2s;
+    }
+    .account-id .reveal-btn:hover { opacity: 1; }
+
     .modal {
       display: none;
       position: fixed;
@@ -364,14 +385,22 @@
             return;
           }
 
-          document.getElementById('usersTable').innerHTML = data.users.map(u => {
+          document.getElementById('usersTable').innerHTML = data.users.map((u, i) => {
             const isActive = u.expires_at > now;
             const statusClass = isActive ? 'active' : 'expired';
             const statusText = isActive ? 'Active' : 'Expired';
+            const maskedId = '••••••••••••••••';
             return `
               <tr>
                 <td><strong>${escapeHtml(u.display_name)}</strong></td>
-                <td style="font-family:monospace;font-size:0.8rem;color:var(--text2)">${u.account_id}</td>
+                <td>
+                  <div class="account-id">
+                    <span class="hidden" id="id-${i}">${maskedId}</span>
+                    <button class="reveal-btn" onclick="toggleId(${i}, '${u.account_id}')" title="Show/Hide">
+                      <span id="eye-${i}">👁</span>
+                    </button>
+                  </div>
+                </td>
                 <td>${u.client_type}</td>
                 <td><span class="status ${statusClass}">${statusText}</span></td>
                 <td><button class="btn" onclick="viewLocker('${u.account_id}', '${escapeHtml(u.display_name)}')">View Locker</button></td>
@@ -554,6 +583,21 @@
       return str.replace(/[&<>"']/g, c => ({
         '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
       })[c]);
+    }
+
+    const revealedIds = new Set();
+    function toggleId(index, realId) {
+      const span = document.getElementById(`id-${index}`);
+      const eye = document.getElementById(`eye-${index}`);
+      if (revealedIds.has(index)) {
+        span.textContent = '••••••••••••••••';
+        eye.textContent = '👁';
+        revealedIds.delete(index);
+      } else {
+        span.textContent = realId;
+        eye.textContent = '🙈';
+        revealedIds.add(index);
+      }
     }
 
     // Check for saved session
