@@ -148,12 +148,15 @@ main{padding:16px;max-width:1400px;margin:0 auto}
 .empty{color:var(--dim);text-align:center;padding:60px 20px;font-size:15px}
 
 @keyframes spin{to{transform:rotate(360deg)}}
-@keyframes shimmer{0%{background-position:200% 200%}100%{background-position:-200% -200%}}
+@keyframes specialFlow{
+  0%{background-position:100% 0%}
+  100%{background-position:0% 100%}
+}
 .tag.special{
-  background:linear-gradient(135deg,#00e5cc,#e066ff,#00e5cc,#e066ff,#00e5cc);
+  background:linear-gradient(315deg,#00e5cc 0%,#e066ff 50%,#00e5cc 100%);
   background-size:200% 200%;
-  animation:shimmer 2.5s linear infinite;
-  color:#000;font-weight:700;text-shadow:0 0 2px rgba(255,255,255,.5);
+  animation:specialFlow 2s ease infinite;
+  color:#000;font-weight:700;
   border-radius:4px;
 }
 .info-details{margin-top:16px;padding:12px;background:var(--card);border-radius:8px}
