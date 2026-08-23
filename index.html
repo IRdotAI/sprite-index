@@ -1136,25 +1136,30 @@ async function syncFromEpic(token){
     'd': 'holofoil', 'e': 'gem', 'f': 'cube', 'g': 'quack'
   };
 
-  // DEBUG: Log FULL attributes for missing S4 sprites (killswitch, jonesy, shadow)
-  // This will help us find what signal spritetrading.com uses
-  const missingSprites = ['killswitch', 'jonesy', 'reloadovertime'];
-  console.log('=== FULL QUEST ATTRIBUTES FOR MISSING S4 SPRITES ===');
-  for(const sprite of missingSprites){
-    const quests = locker.cosmetics.filter(c =>
-      c.templateId?.includes('quest_s42_spritemastery_' + sprite)
-    );
-    console.log(`\n--- ${sprite.toUpperCase()} quests (${quests.length}) ---`);
-    for(const q of quests){
-      console.log(q.templateId);
-      console.log('  FULL ATTRS:', JSON.stringify(q.attributes, null, 2));
-      // Check for objective completion values
-      const objKeys = Object.keys(q.attributes || {}).filter(k => k.includes('_obj'));
-      if(objKeys.length > 0){
-        console.log('  OBJECTIVE VALUES:', objKeys.map(k => `${k}=${q.attributes[k]}`).join(', '));
-      }
-    }
+  // DEBUG: Check Blockstack skin/backbling variants - sprites might be tracked as variants!
+  const blockstackItems = locker.cosmetics.filter(c =>
+    c.templateId?.toLowerCase().includes('blockstack')
+  );
+  console.log('=== BLOCKSTACK ITEMS (character/backbling with variants) ===');
+  for(const item of blockstackItems){
+    console.log(item.templateId);
+    console.log('  FULL ATTRS:', JSON.stringify(item.attributes, null, 2));
   }
+
+  // DEBUG: Check for sprite-specific mastery tokens (reward from quests)
+  const s4SpriteTokens = locker.cosmetics.filter(c =>
+    c.templateId?.includes('athena_s42_spritemastery_token_') &&
+    !c.templateId?.includes('_generic')
+  );
+  console.log('=== S4 SPRITE-SPECIFIC TOKENS (ownership indicators) ===');
+  console.table(s4SpriteTokens.map(c => ({ templateId: c.templateId })));
+
+  // DEBUG: Check for battlepass sprite backbling token
+  const bpSpriteToken = locker.cosmetics.find(c =>
+    c.templateId?.includes('battlepasss42_spritebackbling')
+  );
+  console.log('=== BATTLE PASS SPRITE BACKBLING TOKEN ===');
+  console.log(bpSpriteToken ? JSON.stringify(bpSpriteToken, null, 2) : 'NOT FOUND');
 
   // ===== S4 QUEST-BASED DETECTION =====
   // Quest format: "Quest:quest_s42_spritemastery_[spritename]" = base owned (normal + gold unlocked)
