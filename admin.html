@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spritedex Admin</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <style>
+    :root {
+      --bg1: #0d0d0d;
+      --bg2: #1a1a1a;
+      --bg3: #252525;
+      --text: #e0e0e0;
+      --text2: #888;
+      --accent: #7c3aed;
+      --accent2: #a78bfa;
+      --line: #333;
+      --green: #22c55e;
+      --red: #ef4444;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg1);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 2rem;
+    }
+    h1 { margin-bottom: 1.5rem; color: var(--accent2); }
+    h2 { margin: 2rem 0 1rem; color: var(--text); font-size: 1.2rem; }
+
+    .login-form {
+      background: var(--bg2);
+      padding: 2rem;
+      border-radius: 12px;
+      max-width: 400px;
+      margin: 4rem auto;
+    }
+    .login-form h1 { text-align: center; }
+    .login-form input {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      margin: 1rem 0;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--bg3);
+      color: var(--text);
+      font-size: 1rem;
+    }
+    .login-form button {
+      width: 100%;
+      padding: 0.75rem;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .login-form button:hover { background: var(--accent2); }
+
+    .admin-panel { display: none; }
+    .admin-panel.active { display: block; }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+    .header button {
+      padding: 0.5rem 1rem;
+      background: var(--bg3);
+      color: var(--text);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .header button:hover { background: var(--line); }
+
+    .stats {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .stat-card {
+      background: var(--bg2);
+      padding: 1.5rem;
+      border-radius: 10px;
+      flex: 1;
+      text-align: center;
+    }
+    .stat-card .number {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: var(--accent2);
+    }
+    .stat-card .label {
+      color: var(--text2);
+      margin-top: 0.5rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--bg2);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    th, td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--line);
+    }
+    th {
+      background: var(--bg3);
+      color: var(--text2);
+      font-weight: 500;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+    }
+    tr:hover { background: var(--bg3); }
+    tr:last-child td { border-bottom: none; }
+
+    .status {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+    .status.active { background: rgba(34, 197, 94, 0.2); color: var(--green); }
+    .status.expired { background: rgba(239, 68, 68, 0.2); color: var(--red); }
+
+    .btn {
+      padding: 0.4rem 0.8rem;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: background 0.2s;
+    }
+    .btn:hover { background: var(--accent2); }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.8);
+      z-index: 1000;
+      padding: 2rem;
+      overflow-y: auto;
+    }
+    .modal.active { display: flex; justify-content: center; align-items: flex-start; }
+    .modal-content {
+      background: var(--bg2);
+      border-radius: 12px;
+      max-width: 900px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      margin-top: 2rem;
+    }
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      background: var(--bg2);
+    }
+    .modal-header h2 { margin: 0; }
+    .modal-close {
+      background: none;
+      border: none;
+      color: var(--text2);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    .modal-body { padding: 1.5rem; }
+
+    .locker-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+    .locker-item {
+      background: var(--bg3);
+      padding: 1rem;
+      border-radius: 8px;
+    }
+    .locker-item .type { color: var(--accent2); font-size: 0.75rem; margin-bottom: 0.25rem; }
+    .locker-item .id { font-size: 0.85rem; word-break: break-all; }
+
+    .loading {
+      text-align: center;
+      padding: 3rem;
+      color: var(--text2);
+    }
+
+    .error {
+      background: rgba(239, 68, 68, 0.2);
+      color: var(--red);
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-form" id="loginForm">
+    <h1>Admin Login</h1>
+    <input type="password" id="adminKey" placeholder="Enter admin key">
+    <button onclick="login()">Login</button>
+    <div id="loginError" class="error" style="display:none; margin-top:1rem;"></div>
+  </div>
+
+  <div class="admin-panel" id="adminPanel">
+    <div class="header">
+      <h1>Spritedex Admin</h1>
+      <button onclick="logout()">Logout</button>
+    </div>
+
+    <div class="stats">
+      <div class="stat-card">
+        <div class="number" id="totalUsers">-</div>
+        <div class="label">Total Users</div>
+      </div>
+      <div class="stat-card">
+        <div class="number" id="activeUsers">-</div>
+        <div class="label">Active Sessions</div>
+      </div>
+    </div>
+
+    <h2>Linked Accounts</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Display Name</th>
+          <th>Account ID</th>
+          <th>Client</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="usersTable">
+        <tr><td colspan="5" class="loading">Loading...</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="modal" id="lockerModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="modalTitle">Locker</h2>
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+      </div>
+      <div class="modal-body" id="modalBody">
+        <div class="loading">Loading locker data...</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const API_BASE = 'https://spritedex-api.abrasive-tax.workers.dev';
+    let adminKey = '';
+
+    function login() {
+      adminKey = document.getElementById('adminKey').value.trim();
+      if (!adminKey) return;
+
+      fetch(`${API_BASE}/admin/users?key=${encodeURIComponent(adminKey)}`)
+        .then(r => r.json())
+        .then(data => {
+          if (data.error) {
+            document.getElementById('loginError').textContent = data.error;
+            document.getElementById('loginError').style.display = 'block';
+            return;
+          }
+          sessionStorage.setItem('adminKey', adminKey);
+          document.getElementById('loginForm').style.display = 'none';
+          document.getElementById('adminPanel').classList.add('active');
+          loadUsers();
+        })
+        .catch(err => {
+          document.getElementById('loginError').textContent = 'Connection failed';
+          document.getElementById('loginError').style.display = 'block';
+        });
+    }
+
+    function logout() {
+      sessionStorage.removeItem('adminKey');
+      adminKey = '';
+      document.getElementById('loginForm').style.display = 'block';
+      document.getElementById('adminPanel').classList.remove('active');
+      document.getElementById('adminKey').value = '';
+    }
+
+    function loadUsers() {
+      fetch(`${API_BASE}/admin/users?key=${encodeURIComponent(adminKey)}`)
+        .then(r => r.json())
+        .then(data => {
+          if (data.error) {
+            document.getElementById('usersTable').innerHTML =
+              `<tr><td colspan="5" class="error">${data.error}</td></tr>`;
+            return;
+          }
+
+          document.getElementById('totalUsers').textContent = data.count;
+
+          const now = Date.now();
+          const active = data.users.filter(u => u.expires_at > now).length;
+          document.getElementById('activeUsers').textContent = active;
+
+          if (data.users.length === 0) {
+            document.getElementById('usersTable').innerHTML =
+              '<tr><td colspan="5" style="text-align:center;color:var(--text2)">No users yet</td></tr>';
+            return;
+          }
+
+          document.getElementById('usersTable').innerHTML = data.users.map(u => {
+            const isActive = u.expires_at > now;
+            const statusClass = isActive ? 'active' : 'expired';
+            const statusText = isActive ? 'Active' : 'Expired';
+            return `
+              <tr>
+                <td><strong>${escapeHtml(u.display_name)}</strong></td>
+                <td style="font-family:monospace;font-size:0.8rem;color:var(--text2)">${u.account_id}</td>
+                <td>${u.client_type}</td>
+                <td><span class="status ${statusClass}">${statusText}</span></td>
+                <td><button class="btn" onclick="viewLocker('${u.account_id}', '${escapeHtml(u.display_name)}')">View Locker</button></td>
+              </tr>
+            `;
+          }).join('');
+        });
+    }
+
+    function viewLocker(accountId, displayName) {
+      document.getElementById('lockerModal').classList.add('active');
+      document.getElementById('modalTitle').textContent = `${displayName}'s Locker`;
+      document.getElementById('modalBody').innerHTML = '<div class="loading">Loading locker data...</div>';
+
+      fetch(`${API_BASE}/admin/locker/${accountId}?key=${encodeURIComponent(adminKey)}`)
+        .then(r => r.json())
+        .then(data => {
+          if (data.error) {
+            document.getElementById('modalBody').innerHTML = `<div class="error">${data.error}</div>`;
+            return;
+          }
+
+          const locker = data.locker;
+          const types = locker.debug_template_types || {};
+
+          let html = `
+            <div class="stats" style="margin-bottom:1.5rem">
+              <div class="stat-card">
+                <div class="number">${locker.total}</div>
+                <div class="label">Total Items</div>
+              </div>
+            </div>
+            <h3 style="margin-bottom:1rem">Item Types</h3>
+            <div class="locker-grid">
+          `;
+
+          for (const [type, count] of Object.entries(types).sort((a,b) => b[1] - a[1])) {
+            html += `
+              <div class="locker-item">
+                <div class="type">${count} items</div>
+                <div class="id">${type}</div>
+              </div>
+            `;
+          }
+
+          html += '</div>';
+          document.getElementById('modalBody').innerHTML = html;
+        })
+        .catch(err => {
+          document.getElementById('modalBody').innerHTML = `<div class="error">Failed to load locker</div>`;
+        });
+    }
+
+    function closeModal() {
+      document.getElementById('lockerModal').classList.remove('active');
+    }
+
+    function escapeHtml(str) {
+      return str.replace(/[&<>"']/g, c => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+      })[c]);
+    }
+
+    // Check for saved session
+    const savedKey = sessionStorage.getItem('adminKey');
+    if (savedKey) {
+      adminKey = savedKey;
+      document.getElementById('loginForm').style.display = 'none';
+      document.getElementById('adminPanel').classList.add('active');
+      loadUsers();
+    }
+
+    // Close modal on escape
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    // Close modal on background click
+    document.getElementById('lockerModal').addEventListener('click', e => {
+      if (e.target === e.currentTarget) closeModal();
+    });
+
+    // Login on enter
+    document.getElementById('adminKey').addEventListener('keydown', e => {
+      if (e.key === 'Enter') login();
+    });
+  </script>
+</body>
+</html>
