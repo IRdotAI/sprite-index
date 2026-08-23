@@ -319,6 +319,20 @@
     </table>
   </div>
 
+  <div class="modal" id="itemModal" onclick="if(event.target===this)closeItemModal()">
+    <div class="modal-content" style="max-width:400px;text-align:center">
+      <div class="modal-header">
+        <h2 id="itemModalTitle">Item</h2>
+        <button class="modal-close" onclick="closeItemModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <img id="itemModalImg" src="" style="max-width:100%;border-radius:8px;margin-bottom:1rem">
+        <p id="itemModalRarity" style="color:var(--accent2);margin-bottom:0.5rem"></p>
+        <p id="itemModalDesc" style="color:var(--text2);font-size:0.9rem"></p>
+      </div>
+    </div>
+  </div>
+
   <div class="modal" id="lockerModal">
     <div class="modal-content">
       <div class="modal-header">
@@ -335,42 +349,53 @@
     const API_BASE = 'https://spritedex-api.abrasive-tax.workers.dev';
     const FN_API = 'https://fortnite-api.com/v2/cosmetics/br';
     let adminKey = '';
-    let cosmeticNames = {}; // Cache for cosmetic ID -> name mapping
+    let cosmeticData = {}; // Cache for cosmetic ID -> {name, icon} mapping
 
-    // Fetch cosmetic names from Fortnite API
+    // Fetch cosmetic data from Fortnite API
     async function loadCosmeticNames() {
-      if (Object.keys(cosmeticNames).length > 0) return;
+      if (Object.keys(cosmeticData).length > 0) return;
       try {
         const res = await fetch(FN_API);
         const data = await res.json();
         if (data.data) {
           for (const item of data.data) {
-            // Store by backend ID (lowercase, no prefix)
             const id = item.id?.toLowerCase();
-            if (id) cosmeticNames[id] = item.name;
+            if (id) {
+              cosmeticData[id] = {
+                name: item.name,
+                icon: item.images?.icon || item.images?.smallIcon || null,
+                description: item.description || '',
+                rarity: item.rarity?.displayValue || 'Unknown',
+                type: item.type?.displayValue || 'Unknown'
+              };
+            }
           }
         }
-        console.log(`Loaded ${Object.keys(cosmeticNames).length} cosmetic names`);
+        console.log(`Loaded ${Object.keys(cosmeticData).length} cosmetics`);
       } catch (e) {
-        console.warn('Could not load cosmetic names:', e);
+        console.warn('Could not load cosmetic data:', e);
       }
     }
 
     function getCosmeticName(templateId) {
-      // templateId format: "AthenaCharacter:character_harborsnow"
+      const info = getCosmeticInfo(templateId);
+      return info.name;
+    }
+
+    function getCosmeticInfo(templateId) {
       const [type, rawId] = (templateId || '').split(':');
-      if (!rawId) return 'Unknown';
+      if (!rawId) return { name: 'Unknown', icon: null };
 
-      // Try direct match
       const id = rawId.toLowerCase();
-      if (cosmeticNames[id]) return cosmeticNames[id];
+      if (cosmeticData[id]) return cosmeticData[id];
 
-      // Try without prefix (character_, pickaxe_, etc)
       const stripped = id.replace(/^(character_|pickaxe_|glider_|backpack_|bid_|eid_|wrap_|spray_|emoji_|contrail_|musicpack_|loadingscreen_|athenaskydivecontrail_)/i, '');
-      if (cosmeticNames[stripped]) return cosmeticNames[stripped];
+      if (cosmeticData[stripped]) return cosmeticData[stripped];
 
-      // Fallback: format the ID nicely
-      return stripped.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+      return {
+        name: stripped.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase()),
+        icon: null
+      };
     }
 
     function login() {
@@ -515,7 +540,7 @@
             const category = typeMap[type] || 'Other';
             const name = getCosmeticName(item.templateId);
 
-            categories[category].push({ id, name, type });
+            categories[category].push({ id, name, type, templateId: item.templateId });
           }
 
           // Parse sprites from quests
@@ -581,8 +606,9 @@
             for (const item of items.slice(0, 100)) { // Limit to 100 per category
               const statusColor = item.type === 'Claimed' ? 'var(--green)' :
                                   item.type === 'Active' ? 'var(--accent2)' : 'var(--text2)';
+              const clickable = item.templateId ? `onclick="showItem('${item.templateId.replace(/'/g, "\\'")}')" style="cursor:pointer"` : '';
               html += `
-                <div class="locker-item">
+                <div class="locker-item" ${clickable}>
                   <div class="type" style="color:${statusColor}">${item.type}</div>
                   <div class="id">${escapeHtml(item.name)}</div>
                 </div>
@@ -612,6 +638,27 @@
       });
       const content = document.querySelector(`.category-content[data-cat="${cat}"]`);
       if (content) content.style.display = 'block';
+    }
+
+    function showItem(templateId) {
+      const info = getCosmeticInfo(templateId);
+      document.getElementById('itemModalTitle').textContent = info.name;
+      document.getElementById('itemModalRarity').textContent = info.rarity + ' ' + info.type;
+      document.getElementById('itemModalDesc').textContent = info.description || '';
+
+      const img = document.getElementById('itemModalImg');
+      if (info.icon) {
+        img.src = info.icon;
+        img.style.display = 'block';
+      } else {
+        img.style.display = 'none';
+      }
+
+      document.getElementById('itemModal').classList.add('active');
+    }
+
+    function closeItemModal() {
+      document.getElementById('itemModal').classList.remove('active');
     }
 
     function closeModal() {
