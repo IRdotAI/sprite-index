@@ -368,10 +368,10 @@
                 description: item.description || '',
                 rarity: item.rarity?.displayValue || 'Unknown',
                 type: item.type?.displayValue || 'Unknown',
-                price: item.shopHistory?.length > 0 ? (item.finalPrice || 'Shop Item') : null,
-                source: item.battlepass ? `Battle Pass Season ${item.battlepass.season}` :
-                        item.shopHistory?.length > 0 ? null :
-                        item.introduction?.text || 'Other'
+                intro: item.introduction?.text || null,
+                chapter: item.introduction?.chapter || null,
+                season: item.introduction?.season || null,
+                set: item.set?.text || null
               };
             }
           }
@@ -651,17 +651,23 @@
       document.getElementById('itemModalRarity').textContent = info.rarity + ' ' + info.type;
       document.getElementById('itemModalDesc').textContent = info.description || '';
 
-      // Price/source display
+      // Source/intro display
       const priceEl = document.getElementById('itemModalPrice');
-      if (info.price && typeof info.price === 'number') {
-        priceEl.innerHTML = `<span style="color:#00d4ff"><img src="img/v-bucks.jpg" style="height:1em;vertical-align:middle;margin-right:4px">${info.price.toLocaleString()} V-Bucks</span>`;
-      } else if (info.source && info.source.includes('Battle Pass')) {
-        priceEl.innerHTML = `<span style="color:#ffd700"><img src="img/battlepass.png" style="height:1em;vertical-align:middle;margin-right:4px">${info.source}</span>`;
-      } else if (info.source) {
-        priceEl.innerHTML = `<span style="color:var(--text2)">${info.source}</span>`;
-      } else {
-        priceEl.innerHTML = '';
+      let sourceHtml = '';
+      if (info.intro) {
+        // Check if it's an early season (likely Battle Pass/Season Shop)
+        const ch = parseInt(info.chapter);
+        const sn = parseInt(info.season);
+        if (ch === 1 && sn <= 10) {
+          sourceHtml = `<span style="color:#ffd700"><img src="img/battlepass.png" style="height:1.2em;vertical-align:middle;margin-right:4px">${info.intro}</span>`;
+        } else {
+          sourceHtml = `<span style="color:var(--text2)">${info.intro}</span>`;
+        }
       }
+      if (info.set) {
+        sourceHtml += `<br><span style="color:var(--accent2);font-size:0.85rem">${info.set}</span>`;
+      }
+      priceEl.innerHTML = sourceHtml;
 
       const img = document.getElementById('itemModalImg');
       if (info.icon) {
