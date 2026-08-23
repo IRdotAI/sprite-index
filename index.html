@@ -1348,12 +1348,11 @@ async function syncFromEpic(token){
       for(const stage of ownedStages){
         const spriteId = BLOCKSTACK_STAGE_MAP[stage];
         if(spriteId && !state['s4:' + spriteId + ':normal']){
-          // Require quest evidence: base quest must be Active or Claimed
-          // This prevents false positives from extracted cheatmasters
-          const hasQuestEvidence = s4QuestStates[spriteId]?.base === 'Active' ||
-                                   s4QuestStates[spriteId]?.base === 'Claimed' ||
-                                   s4QuestStates[spriteId]?.['00'] === 'Active' ||
-                                   s4QuestStates[spriteId]?.['00'] === 'Claimed';
+          // Check for extracted CM: if CM mastery quest (_01) is Claimed but base isn't,
+          // they likely extracted the CM from another player without owning base
+          const cmMasteredButNotBase = s4QuestStates[spriteId]?.['01'] === 'Claimed' &&
+                                       s4QuestStates[spriteId]?.base !== 'Claimed';
+          const hasQuestEvidence = !cmMasteredButNotBase;
           if(hasQuestEvidence){
             const baseMastered = s4QuestStates[spriteId]?.base === 'Claimed';
             state['s4:' + spriteId + ':normal'] = { owned: true, mastered: baseMastered };
