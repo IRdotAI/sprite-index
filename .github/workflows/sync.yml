@@ -4,8 +4,8 @@ name: Sync collection
 # GitHub's machines, so the Steam Deck can be off - it needs nothing but the
 # ST_SESSION secret (your spritetrading login cookie).
 on:
-  schedule:
-    - cron: "*/10 * * * *"   # GitHub queues these; expect a few minutes' drift
+  # schedule:
+  #   - cron: "*/10 * * * *"   # Disabled - using spritedex.xyz now
   workflow_dispatch:          # "Run workflow" button, for syncing on demand
 
 concurrency:
