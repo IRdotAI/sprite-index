@@ -1237,19 +1237,16 @@ async function syncFromEpic(token){
     }
 
     // MaterialParamSets Particle values = gold sprite ownership
-    // Theory: Particle numbers correspond to Stage numbers (same sprite index)
+    // Confirmed mappings based on user data
     const BLOCKSTACK_GOLD_MAP = {
-      // Particle number -> sprite ID (same index as Stage)
-      'Particle1': 'jackrabbit', // Testing - Particle1 might be jackrabbit gold
-      'Particle2': 'jonesy',     // Testing - Particle2 might be jonesy gold
+      'Particle1': 'jackrabbit',
+      'Particle2': 'jonesy',
       'Particle9': 'tails',
       'Particle13': 'adventure',
-      // Additional mappings as we discover them
+      // Likely mappings (Stage number = Particle number)
       'Particle6': 'killswitch',
-      'Particle10': 'jackrabbit',
       'Particle11': 'crown',
       'Particle12': '8bit',
-      'Particle15': 'jonesy',
       'Particle16': 'shadow',
       'Particle17': 'sonic'
     };
@@ -1262,7 +1259,7 @@ async function syncFromEpic(token){
       for(const particle of ownedParticles){
         const spriteId = BLOCKSTACK_GOLD_MAP[particle];
         if(spriteId && !state['s4:' + spriteId + ':gold']){
-          // Also ensure base is marked owned
+          // Ensure base is marked owned
           if(!state['s4:' + spriteId + ':normal']){
             state['s4:' + spriteId + ':normal'] = { owned: true, mastered: false };
             s4Count++;
@@ -1274,39 +1271,41 @@ async function syncFromEpic(token){
       }
     }
 
-    // MaterialParamSets2 Particle values = cheatmaster sprite ownership
-    const BLOCKSTACK_CHEATMASTER_MAP = {
-      // Particle numbers in MaterialParamSets2 -> sprite ID
-      'Particle0': 'tails',      // Testing
-      'Particle3': 'adventure',  // Testing
-      'Particle10': 'jackrabbit',
-      'Particle14': 'crown',     // Testing
+    // MaterialParamSets2 = cheatmaster ownership
+    // Particle values for most sprites, Mat27 = bush (Stage7 + 20)
+    const BLOCKSTACK_CHEATMASTER_PARTICLE_MAP = {
+      'Particle0': 'tails',
+      'Particle3': 'adventure',
+      'Particle10': '8bit',      // Fixed: was incorrectly jackrabbit
+      'Particle14': 'crown',
       'Particle15': 'jonesy',
-      // Additional guesses
+      // Likely mappings
       'Particle6': 'killswitch',
-      'Particle9': 'tails',
+      'Particle7': 'bush',
       'Particle11': 'crown',
-      'Particle12': '8bit',
-      'Particle13': 'adventure',
       'Particle16': 'shadow',
       'Particle17': 'sonic'
+    };
+
+    // Mat values for cheatmaster (Stage + 20 offset)
+    const BLOCKSTACK_CHEATMASTER_MAT_MAP = {
+      'Mat27': 'bush'   // Stage7 + 20 = 27
     };
 
     const paramSets2 = variants.find(v => v.channel === 'MaterialParamSets2');
     if(paramSets2?.owned){
       const ownedParticles2 = paramSets2.owned.filter(v => v.startsWith('Particle'));
+      const ownedMats2 = paramSets2.owned.filter(v => v.startsWith('Mat'));
       console.log('MaterialParamSets2 Particle values (cheatmaster):', ownedParticles2);
+      console.log('MaterialParamSets2 Mat values:', ownedMats2);
 
+      // Detect via Particle values
       for(const particle of ownedParticles2){
-        const spriteId = BLOCKSTACK_CHEATMASTER_MAP[particle];
+        const spriteId = BLOCKSTACK_CHEATMASTER_PARTICLE_MAP[particle];
         if(spriteId && !state['s4:' + spriteId + ':cheatmaster']){
-          // Ensure base and gold are marked owned
+          // Only ensure base is owned - cheatmaster doesn't require gold
           if(!state['s4:' + spriteId + ':normal']){
             state['s4:' + spriteId + ':normal'] = { owned: true, mastered: false };
-            s4Count++;
-          }
-          if(!state['s4:' + spriteId + ':gold']){
-            state['s4:' + spriteId + ':gold'] = { owned: true, mastered: false };
             s4Count++;
           }
           state['s4:' + spriteId + ':cheatmaster'] = { owned: true, mastered: false };
@@ -1314,11 +1313,44 @@ async function syncFromEpic(token){
           console.log(`  ${particle} -> ${spriteId}:cheatmaster (via Blockstack variants)`);
         }
       }
+
+      // Detect via Mat values
+      for(const mat of ownedMats2){
+        const spriteId = BLOCKSTACK_CHEATMASTER_MAT_MAP[mat];
+        if(spriteId && !state['s4:' + spriteId + ':cheatmaster']){
+          if(!state['s4:' + spriteId + ':normal']){
+            state['s4:' + spriteId + ':normal'] = { owned: true, mastered: false };
+            s4Count++;
+          }
+          state['s4:' + spriteId + ':cheatmaster'] = { owned: true, mastered: false };
+          s4Count++;
+          console.log(`  ${mat} -> ${spriteId}:cheatmaster (via Blockstack Mat variants)`);
+        }
+      }
     }
+
+    // MaterialParamSets3 = additional cheatmaster data
+    // Mat37 = sonic (Stage17 + 20)
+    const BLOCKSTACK_CHEATMASTER_MAT3_MAP = {
+      'Mat37': 'sonic'  // Stage17 + 20 = 37
+    };
 
     const paramSets3 = variants.find(v => v.channel === 'MaterialParamSets3');
     if(paramSets3?.owned){
-      console.log('MaterialParamSets3 owned (may contain additional data):', paramSets3.owned.length, 'values');
+      const ownedMats3 = paramSets3.owned.filter(v => v.startsWith('Mat'));
+
+      for(const mat of ownedMats3){
+        const spriteId = BLOCKSTACK_CHEATMASTER_MAT3_MAP[mat];
+        if(spriteId && !state['s4:' + spriteId + ':cheatmaster']){
+          if(!state['s4:' + spriteId + ':normal']){
+            state['s4:' + spriteId + ':normal'] = { owned: true, mastered: false };
+            s4Count++;
+          }
+          state['s4:' + spriteId + ':cheatmaster'] = { owned: true, mastered: false };
+          s4Count++;
+          console.log(`  ${mat} -> ${spriteId}:cheatmaster (via MaterialParamSets3)`);
+        }
+      }
     }
   }
 
@@ -1361,43 +1393,20 @@ async function syncFromEpic(token){
           if(!window._s4QuestDebug[spriteId]) window._s4QuestDebug[spriteId] = {};
           window._s4QuestDebug[spriteId]['_' + levelNum] = questState;
 
-          // Quest CLAIMED = ownership/mastery complete.
-          // _00 (base quest) Claimed = normal variant owned
-          // _01 Claimed = gold variant unlocked (also means normal owned)
-          // _02 Claimed = cheatmaster unlocked (also means normal+gold owned)
+          // Quest detection is now secondary to Blockstack variant detection.
+          // Variant data is authoritative for gold/cheatmaster.
+          // Quest data is ONLY used to detect base sprites that might be missing.
+          // NOTE: _01 Claimed does NOT reliably indicate gold ownership
+          //       (user can have cheatmaster without gold)
 
           if(questState === 'Claimed'){
-            if(levelNum === '00'){
-              // Base quest Claimed = normal sprite owned
-              if(!state['s4:' + spriteId + ':normal']){
-                state['s4:' + spriteId + ':normal'] = { owned: true, mastered: true };
-                s4Count++;
-              }
-            } else if(levelNum === '01'){
-              // _01 Claimed = gold variant unlocked, also normal owned
-              if(!state['s4:' + spriteId + ':normal']){
-                state['s4:' + spriteId + ':normal'] = { owned: true, mastered: true };
-                s4Count++;
-              }
-              if(!state['s4:' + spriteId + ':gold']){
-                state['s4:' + spriteId + ':gold'] = { owned: true, mastered: true };
-                s4Count++;
-              }
-            } else if(levelNum === '02'){
-              // _02 Claimed = cheatmaster unlocked, also normal+gold owned
-              if(!state['s4:' + spriteId + ':normal']){
-                state['s4:' + spriteId + ':normal'] = { owned: true, mastered: true };
-                s4Count++;
-              }
-              if(!state['s4:' + spriteId + ':gold']){
-                state['s4:' + spriteId + ':gold'] = { owned: true, mastered: true };
-                s4Count++;
-              }
-              if(!state['s4:' + spriteId + ':cheatmaster']){
-                state['s4:' + spriteId + ':cheatmaster'] = { owned: true, mastered: true };
-                s4Count++;
-              }
+            // Any Claimed quest indicates base sprite ownership
+            if(!state['s4:' + spriteId + ':normal']){
+              state['s4:' + spriteId + ':normal'] = { owned: true, mastered: levelNum === '00' };
+              s4Count++;
+              console.log(`  Quest ${questId} Claimed -> ${spriteId}:normal (quest fallback)`);
             }
+            // Don't trust quest state for gold/cheatmaster - use variant detection only
           }
         }
       }
