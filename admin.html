@@ -333,7 +333,45 @@
 
   <script>
     const API_BASE = 'https://spritedex-api.abrasive-tax.workers.dev';
+    const FN_API = 'https://fortnite-api.com/v2/cosmetics/br';
     let adminKey = '';
+    let cosmeticNames = {}; // Cache for cosmetic ID -> name mapping
+
+    // Fetch cosmetic names from Fortnite API
+    async function loadCosmeticNames() {
+      if (Object.keys(cosmeticNames).length > 0) return;
+      try {
+        const res = await fetch(FN_API);
+        const data = await res.json();
+        if (data.data) {
+          for (const item of data.data) {
+            // Store by backend ID (lowercase, no prefix)
+            const id = item.id?.toLowerCase();
+            if (id) cosmeticNames[id] = item.name;
+          }
+        }
+        console.log(`Loaded ${Object.keys(cosmeticNames).length} cosmetic names`);
+      } catch (e) {
+        console.warn('Could not load cosmetic names:', e);
+      }
+    }
+
+    function getCosmeticName(templateId) {
+      // templateId format: "AthenaCharacter:character_harborsnow"
+      const [type, rawId] = (templateId || '').split(':');
+      if (!rawId) return 'Unknown';
+
+      // Try direct match
+      const id = rawId.toLowerCase();
+      if (cosmeticNames[id]) return cosmeticNames[id];
+
+      // Try without prefix (character_, pickaxe_, etc)
+      const stripped = id.replace(/^(character_|pickaxe_|glider_|backpack_|bid_|eid_|wrap_|spray_|emoji_|contrail_|musicpack_|loadingscreen_|athenaskydivecontrail_)/i, '');
+      if (cosmeticNames[stripped]) return cosmeticNames[stripped];
+
+      // Fallback: format the ID nicely
+      return stripped.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+    }
 
     function login() {
       adminKey = document.getElementById('adminKey').value.trim();
@@ -350,6 +388,7 @@
           sessionStorage.setItem('adminKey', adminKey);
           document.getElementById('loginForm').style.display = 'none';
           document.getElementById('adminPanel').classList.add('active');
+          loadCosmeticNames();
           loadUsers();
         })
         .catch(err => {
@@ -474,10 +513,7 @@
             if (!type.startsWith('Athena')) continue;
 
             const category = typeMap[type] || 'Other';
-            const name = id ? id.replace(/^(character_|pickaxe_|glider_|backpack_|eid_|wrap_|spray_|emoji_)/i, '')
-                              .replace(/_/g, ' ')
-                              .replace(/\b\w/g, c => c.toUpperCase())
-                           : 'Unknown';
+            const name = getCosmeticName(item.templateId);
 
             categories[category].push({ id, name, type });
           }
@@ -609,6 +645,7 @@
       adminKey = savedKey;
       document.getElementById('loginForm').style.display = 'none';
       document.getElementById('adminPanel').classList.add('active');
+      loadCosmeticNames();
       loadUsers();
     }
 
