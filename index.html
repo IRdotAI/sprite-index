@@ -1216,6 +1216,27 @@ async function syncFromEpic(token){
     c.templateId === 'AthenaCharacter:character_blockstack'
   );
 
+  // First pass: collect all S4 quest states for mastery detection
+  const s4QuestStates = {};  // { spriteId: { base: 'Claimed', _01: 'Active', _02: 'Claimed' } }
+  for(const item of locker.cosmetics){
+    const templateId = item.templateId || '';
+    if(templateId.startsWith('Quest:quest_s42_spritemastery_')){
+      const questId = templateId.replace('Quest:quest_s42_spritemastery_', '');
+      const questState = item.attributes?.quest_state;
+      const match = questId.match(/^([a-z0-9]+)(?:_(\d+))?$/);
+      if(match){
+        const spriteName = match[1];
+        const levelNum = match[2] || 'base';
+        const spriteId = S4_SPRITE_MAP[spriteName];
+        if(spriteId){
+          if(!s4QuestStates[spriteId]) s4QuestStates[spriteId] = {};
+          s4QuestStates[spriteId][levelNum] = questState;
+        }
+      }
+    }
+  }
+  console.log('S4 quest states:', s4QuestStates);
+
   if(blockstackChar?.attributes?.variants){
     console.log('=== BLOCKSTACK VARIANT-BASED S4 DETECTION ===');
     const variants = blockstackChar.attributes.variants;
@@ -1229,9 +1250,11 @@ async function syncFromEpic(token){
       for(const stage of ownedStages){
         const spriteId = BLOCKSTACK_STAGE_MAP[stage];
         if(spriteId && !state['s4:' + spriteId + ':normal']){
-          state['s4:' + spriteId + ':normal'] = { owned: true, mastered: false };
+          // Base mastery: check if base quest (no number) is Claimed
+          const baseMastered = s4QuestStates[spriteId]?.base === 'Claimed';
+          state['s4:' + spriteId + ':normal'] = { owned: true, mastered: baseMastered };
           s4Count++;
-          console.log(`  ${stage} -> ${spriteId}:normal (via Blockstack variants)`);
+          console.log(`  ${stage} -> ${spriteId}:normal (via Blockstack variants)${baseMastered ? ' [MASTERED]' : ''}`);
         }
       }
     }
@@ -1314,6 +1337,9 @@ async function syncFromEpic(token){
     };
 
     const paramSets2 = variants.find(v => v.channel === 'MaterialParamSets2');
+    // Also need paramSets for CM mastery check (some mastery Mats are in gold channel)
+    const allMasteryMats = [...(paramSets?.owned || []), ...(paramSets2?.owned || [])].filter(v => v.startsWith('Mat'));
+
     if(paramSets2?.owned){
       const ownedParticles2 = paramSets2.owned.filter(v => v.startsWith('Particle'));
       const ownedMats2 = paramSets2.owned.filter(v => v.startsWith('Mat'));
@@ -1321,29 +1347,35 @@ async function syncFromEpic(token){
       console.log('MaterialParamSets2 Mat values:', ownedMats2);
 
       // Detect via Particle values
+      // CM mastery: Mat(Particle+20) in MaterialParamSets or MaterialParamSets2
       for(const particle of ownedParticles2){
         const spriteId = BLOCKSTACK_CHEATMASTER_PARTICLE_MAP[particle];
         if(spriteId && !state['s4:' + spriteId + ':cheatmaster']){
           // Only ensure base is owned - cheatmaster doesn't require gold
           if(!state['s4:' + spriteId + ':normal']){
-            state['s4:' + spriteId + ':normal'] = { owned: true, mastered: false };
+            const baseMastered = s4QuestStates[spriteId]?.base === 'Claimed';
+            state['s4:' + spriteId + ':normal'] = { owned: true, mastered: baseMastered };
             s4Count++;
           }
-          state['s4:' + spriteId + ':cheatmaster'] = { owned: true, mastered: false };
+          // Check CM mastery: Mat(Particle+20) in paramSets or paramSets2
+          const particleNum = parseInt(particle.replace('Particle', ''));
+          const masteryMat = 'Mat' + (particleNum + 20);
+          const cmMastered = allMasteryMats.includes(masteryMat);
+          state['s4:' + spriteId + ':cheatmaster'] = { owned: true, mastered: cmMastered };
           s4Count++;
-          console.log(`  ${particle} -> ${spriteId}:cheatmaster (via Blockstack variants)`);
+          console.log(`  ${particle} -> ${spriteId}:cheatmaster (via Blockstack variants)${cmMastered ? ' [MASTERED]' : ''}`);
         }
       }
 
       // Detect via Mat values (e.g., Mat27 = bush cheatmaster)
-      // NOTE: Don't auto-add base - some sprites have cheatmaster without owning base
-      // (Mat-detected sprites like bush may not have their Stage owned)
+      // Mat-based CM mastery: _01 quest Claimed
       for(const mat of ownedMats2){
         const spriteId = BLOCKSTACK_CHEATMASTER_MAT_MAP[mat];
         if(spriteId && !state['s4:' + spriteId + ':cheatmaster']){
-          state['s4:' + spriteId + ':cheatmaster'] = { owned: true, mastered: false };
+          const cmMastered = s4QuestStates[spriteId]?.['01'] === 'Claimed';
+          state['s4:' + spriteId + ':cheatmaster'] = { owned: true, mastered: cmMastered };
           s4Count++;
-          console.log(`  ${mat} -> ${spriteId}:cheatmaster (via Blockstack Mat variants)`);
+          console.log(`  ${mat} -> ${spriteId}:cheatmaster (via Blockstack Mat variants)${cmMastered ? ' [MASTERED]' : ''}`);
         }
       }
     }
@@ -1358,13 +1390,14 @@ async function syncFromEpic(token){
     if(paramSets3?.owned){
       const ownedMats3 = paramSets3.owned.filter(v => v.startsWith('Mat'));
 
-      // NOTE: Don't auto-add base for Mat3-detected sprites either
+      // Mat-based CM in MaterialParamSets3 (sonic), mastery = _01 quest Claimed
       for(const mat of ownedMats3){
         const spriteId = BLOCKSTACK_CHEATMASTER_MAT3_MAP[mat];
         if(spriteId && !state['s4:' + spriteId + ':cheatmaster']){
-          state['s4:' + spriteId + ':cheatmaster'] = { owned: true, mastered: false };
+          const cmMastered = s4QuestStates[spriteId]?.['01'] === 'Claimed';
+          state['s4:' + spriteId + ':cheatmaster'] = { owned: true, mastered: cmMastered };
           s4Count++;
-          console.log(`  ${mat} -> ${spriteId}:cheatmaster (via MaterialParamSets3)`);
+          console.log(`  ${mat} -> ${spriteId}:cheatmaster (via MaterialParamSets3)${cmMastered ? ' [MASTERED]' : ''}`);
         }
       }
     }
