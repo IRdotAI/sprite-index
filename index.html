@@ -1187,6 +1187,74 @@ async function syncFromEpic(token){
     if(key.startsWith('s4:')) delete state[key];
   }
 
+  // ===== S4 BLOCKSTACK VARIANT-BASED DETECTION =====
+  // The Blockstack character skin's variant data encodes sprite ownership!
+  // Material channel Stage values = base sprite ownership
+  // Each Stage number corresponds to a specific sprite
+  const BLOCKSTACK_STAGE_MAP = {
+    // Stage number -> sprite internal name (mapping based on data analysis)
+    // User owns: killswitch, 8bit, adventure, crown, jackrabbit, jonesy, shadow, sonic, tails
+    // Has stages: 6, 9, 10, 11, 12, 13, 15, 16, 17
+    // Missing sprites: bush, stormscout, klombo (would be 7, 8, 14?)
+    'Stage6': 'killswitch',
+    'Stage9': 'tails',
+    'Stage10': 'jackrabbit',
+    'Stage11': 'crown',
+    'Stage12': '8bit',
+    'Stage13': 'adventure',
+    'Stage15': 'jonesy',
+    'Stage16': 'shadow',
+    'Stage17': 'sonic',
+    // Not owned sprites (estimated):
+    'Stage7': 'bush',
+    'Stage8': 'stormscout',
+    'Stage14': 'klombo'
+  };
+
+  // Find the Blockstack character and parse its variants
+  const blockstackChar = locker.cosmetics.find(c =>
+    c.templateId === 'AthenaCharacter:character_blockstack'
+  );
+
+  if(blockstackChar?.attributes?.variants){
+    console.log('=== BLOCKSTACK VARIANT-BASED S4 DETECTION ===');
+    const variants = blockstackChar.attributes.variants;
+
+    // Material channel contains Stage values = base sprite ownership
+    const materialVariant = variants.find(v => v.channel === 'Material');
+    if(materialVariant?.owned){
+      const ownedStages = materialVariant.owned.filter(v => v.startsWith('Stage'));
+      console.log('Owned Stage values:', ownedStages);
+
+      for(const stage of ownedStages){
+        const spriteId = BLOCKSTACK_STAGE_MAP[stage];
+        if(spriteId && !state['s4:' + spriteId + ':normal']){
+          state['s4:' + spriteId + ':normal'] = { owned: true, mastered: false };
+          s4Count++;
+          console.log(`  ${stage} -> ${spriteId}:normal (via Blockstack variants)`);
+        }
+      }
+    }
+
+    // MaterialParamSets might contain gold variant data
+    // Particle values might indicate gold sprites
+    const paramSets = variants.find(v => v.channel === 'MaterialParamSets');
+    if(paramSets?.owned){
+      const ownedParticles = paramSets.owned.filter(v => v.startsWith('Particle'));
+      console.log('Owned Particle values (potential gold):', ownedParticles);
+      // TODO: Map Particle values to gold variants once mapping is determined
+    }
+
+    // MaterialParamSets2/3 might contain cheatmaster data
+    const paramSets2 = variants.find(v => v.channel === 'MaterialParamSets2');
+    const paramSets3 = variants.find(v => v.channel === 'MaterialParamSets3');
+    if(paramSets2?.owned || paramSets3?.owned){
+      console.log('MaterialParamSets2 owned:', paramSets2?.owned);
+      console.log('MaterialParamSets3 owned:', paramSets3?.owned);
+      // TODO: Map to cheatmaster variants once mapping is determined
+    }
+  }
+
   for(const item of locker.cosmetics){
     const templateId = item.templateId || '';
 
