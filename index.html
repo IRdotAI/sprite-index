@@ -495,7 +495,7 @@ function cardHTML(e){
   const vc=vcol(e.variantId);
   const name=e.variant.name==='Normal'?e.sprite.name:`${e.variant.name} ${e.sprite.name}`;
   const statusClass=s.unfetchable?'unfetchable':s.mastered?'mastered':s.owned?'owned':'missing';
-  const statusText=s.unfetchable?'⚠ UNFETCHABLE':s.mastered?'👑 MASTERED':s.owned?'OWNED':'MISSING';
+  const statusText=s.unfetchable?'⚠ UNFETCHABLE':s.mastered?'♛ MASTERED':s.owned?'OWNED':'MISSING';
   const isSpecial = e.variant.rarity === 'special';
   const tagClass = isSpecial ? 'tag special' : 'tag';
   const tagStyle = isSpecial ? '' : `style="background:${col}"`;
@@ -583,7 +583,7 @@ function openInfo(key){
   const name=e.variant.name==='Normal'?e.sprite.name:`${e.variant.name} ${e.sprite.name}`;
 
   const status=s.unfetchable ? '⚠ Could not fetch details'
-    : s.mastered ? '👑 Mastered'
+    : s.mastered ? '♛ Mastered'
     : s.owned ? (s.level ? 'Collected · Level '+s.level : 'Collected')
     : 'Not collected';
 
@@ -840,11 +840,9 @@ async function drawPNG(view, groupBy, season){
         }
         // Status badge
         if (isMastered) {
-          x.fillStyle = '#facc15';
-          x.beginPath(); x.arc(cellX + CELL_W - 10, rowY + CELL_H - 10, 8, 0, Math.PI*2); x.fill();
-          x.font = '9px system-ui';
+          x.fillStyle = '#facc15'; x.font = '700 14px Inter,system-ui,sans-serif';
           x.textAlign = 'center';
-          x.fillText('👑', cellX + CELL_W - 10, rowY + CELL_H - 6);
+          x.fillText('♛', cellX + CELL_W - 8, rowY + CELL_H - 6);
           x.textAlign = 'left';
         } else {
           x.fillStyle = '#22c55e';
