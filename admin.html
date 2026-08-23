@@ -656,7 +656,7 @@
       if (info.price && typeof info.price === 'number') {
         priceEl.innerHTML = `<span style="color:#00d4ff"><img src="img/v-bucks.jpg" style="height:1em;vertical-align:middle;margin-right:4px">${info.price.toLocaleString()} V-Bucks</span>`;
       } else if (info.source && info.source.includes('Battle Pass')) {
-        priceEl.innerHTML = `<span style="color:#ffd700">⭐ ${info.source}</span>`;
+        priceEl.innerHTML = `<span style="color:#ffd700"><img src="img/battlepass.png" style="height:1em;vertical-align:middle;margin-right:4px">${info.source}</span>`;
       } else if (info.source) {
         priceEl.innerHTML = `<span style="color:var(--text2)">${info.source}</span>`;
       } else {
