@@ -1556,7 +1556,10 @@ async function syncFromEpic(token){
 
             // Only trust quest for base/gold if Stage is owned in variants
             // This prevents false positives for sprites like bush that have CM but no base
-            if(hasStageOwned && !state['s4:' + spriteId + ':normal']){
+            // Also check for extracted CM: if _01 Claimed but base not Claimed, skip
+            const cmMasteredButNotBase = s4QuestStates[spriteId]?.['01'] === 'Claimed' &&
+                                         s4QuestStates[spriteId]?.base !== 'Claimed';
+            if(hasStageOwned && !state['s4:' + spriteId + ':normal'] && !cmMasteredButNotBase){
               state['s4:' + spriteId + ':normal'] = { owned: true, mastered: levelNum === '00' };
               s4Count++;
               console.log(`  Quest ${questId} Claimed -> ${spriteId}:normal (Stage-verified)`);
