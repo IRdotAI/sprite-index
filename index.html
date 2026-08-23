@@ -1335,14 +1335,12 @@ async function syncFromEpic(token){
         }
       }
 
-      // Detect via Mat values
+      // Detect via Mat values (e.g., Mat27 = bush cheatmaster)
+      // NOTE: Don't auto-add base - some sprites have cheatmaster without owning base
+      // (Mat-detected sprites like bush may not have their Stage owned)
       for(const mat of ownedMats2){
         const spriteId = BLOCKSTACK_CHEATMASTER_MAT_MAP[mat];
         if(spriteId && !state['s4:' + spriteId + ':cheatmaster']){
-          if(!state['s4:' + spriteId + ':normal']){
-            state['s4:' + spriteId + ':normal'] = { owned: true, mastered: false };
-            s4Count++;
-          }
           state['s4:' + spriteId + ':cheatmaster'] = { owned: true, mastered: false };
           s4Count++;
           console.log(`  ${mat} -> ${spriteId}:cheatmaster (via Blockstack Mat variants)`);
@@ -1360,13 +1358,10 @@ async function syncFromEpic(token){
     if(paramSets3?.owned){
       const ownedMats3 = paramSets3.owned.filter(v => v.startsWith('Mat'));
 
+      // NOTE: Don't auto-add base for Mat3-detected sprites either
       for(const mat of ownedMats3){
         const spriteId = BLOCKSTACK_CHEATMASTER_MAT3_MAP[mat];
         if(spriteId && !state['s4:' + spriteId + ':cheatmaster']){
-          if(!state['s4:' + spriteId + ':normal']){
-            state['s4:' + spriteId + ':normal'] = { owned: true, mastered: false };
-            s4Count++;
-          }
           state['s4:' + spriteId + ':cheatmaster'] = { owned: true, mastered: false };
           s4Count++;
           console.log(`  ${mat} -> ${spriteId}:cheatmaster (via MaterialParamSets3)`);
@@ -1427,21 +1422,25 @@ async function syncFromEpic(token){
               console.log(`  Quest ${questId} Claimed -> ${spriteId}:normal (quest fallback)`);
             }
 
-            // Only trust _01 gold if:
-            // 1. Base was detected via Stage variants (not quest)
-            // 2. Cheatmaster was NOT already detected (if they had CM without gold,
-            //    variant detection would have found CM but not gold)
+            // Only trust _01 gold if Stage is owned (base confirmed via variants)
+            // Exception: sprites with Mat-based cheatmaster (bush, sonic) may have
+            // gotten CM without gold, so skip quest gold for those
             if(levelNum === '01' && blockstackChar?.attributes?.variants){
               const materialVariant = blockstackChar.attributes.variants.find(v => v.channel === 'Material');
               const stageForSprite = Object.entries(BLOCKSTACK_STAGE_MAP).find(([stage, id]) => id === spriteId)?.[0];
               const hasStageOwned = stageForSprite && materialVariant?.owned?.includes(stageForSprite);
-              const hasCheatmaster = state['s4:' + spriteId + ':cheatmaster'];
 
-              // If CM exists but gold doesn't, user has CM without gold - don't add gold
-              if(hasStageOwned && !state['s4:' + spriteId + ':gold'] && !hasCheatmaster){
+              // Check if CM came from Mat-based detection (special path, may skip gold)
+              const paramSets2 = blockstackChar.attributes.variants.find(v => v.channel === 'MaterialParamSets2');
+              const paramSets3 = blockstackChar.attributes.variants.find(v => v.channel === 'MaterialParamSets3');
+              const matCheatmasterSprites = ['bush', 'sonic']; // Sprites that use Mat-based CM detection
+              const hasMatBasedCM = matCheatmasterSprites.includes(spriteId) && state['s4:' + spriteId + ':cheatmaster'];
+
+              // Trust quest gold if Stage is owned, unless it's a Mat-based CM sprite
+              if(hasStageOwned && !state['s4:' + spriteId + ':gold'] && !hasMatBasedCM){
                 state['s4:' + spriteId + ':gold'] = { owned: true, mastered: true };
                 s4Count++;
-                console.log(`  Quest ${questId} Claimed -> ${spriteId}:gold (Stage-verified, no CM)`);
+                console.log(`  Quest ${questId} Claimed -> ${spriteId}:gold (Stage-verified)`);
               }
             }
           }
