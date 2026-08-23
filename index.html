@@ -1502,6 +1502,43 @@ async function syncFromEpic(token){
         }
       }
     }
+  } else {
+    // FALLBACK: No Blockstack skin - use quest states only
+    console.log('=== QUEST-BASED S4 DETECTION (no Blockstack skin) ===');
+
+    // If base quest is Claimed, sprite is definitely owned and mastered
+    // If base quest is Active, sprite might be owned (less certain)
+    for(const [spriteId, quests] of Object.entries(s4QuestStates)){
+      const baseState = quests.base || quests['00'];
+      const goldState = quests['01'];
+      const cmState = quests['02'];
+
+      // Base sprite: owned if quest exists and is Claimed (mastered) or Active (in progress)
+      if(baseState === 'Claimed'){
+        state['s4:' + spriteId + ':normal'] = { owned: true, mastered: true };
+        s4Count++;
+        console.log(`  ${spriteId}:normal (quest Claimed - mastered)`);
+      } else if(baseState === 'Active'){
+        // Active = quest started, likely owns sprite but not mastered
+        state['s4:' + spriteId + ':normal'] = { owned: true, mastered: false };
+        s4Count++;
+        console.log(`  ${spriteId}:normal (quest Active - owned)`);
+      }
+
+      // Gold: if _01 quest exists and Claimed
+      if(goldState === 'Claimed' && state['s4:' + spriteId + ':normal']){
+        state['s4:' + spriteId + ':gold'] = { owned: true, mastered: false };
+        s4Count++;
+        console.log(`  ${spriteId}:gold (quest Claimed)`);
+      }
+
+      // Cheatmaster: if _02 quest exists and Claimed
+      if(cmState === 'Claimed'){
+        state['s4:' + spriteId + ':cheatmaster'] = { owned: true, mastered: true };
+        s4Count++;
+        console.log(`  ${spriteId}:cheatmaster (quest Claimed - mastered)`);
+      }
+    }
   }
 
   for(const item of locker.cosmetics){
