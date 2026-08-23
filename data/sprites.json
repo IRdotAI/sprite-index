@@ -594,6 +594,34 @@
       "ability": "Burns everything in sight with fire damage."
     },
     {
+      "id": "vinijr",
+      "name": "Vini Jr.",
+      "rarity": "mythic",
+      "season": "s3",
+      "variants": [
+        "normal"
+      ],
+      "variant_imgs": {
+        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_CokeParmesan_Default_L.webp"
+      },
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_CokeParmesan_Default_L.webp",
+      "ability": "Performs a skill move that dodges enemy attacks."
+    },
+    {
+      "id": "ironmouse",
+      "name": "Ironmouse",
+      "rarity": "mythic",
+      "season": "s3",
+      "variants": [
+        "normal"
+      ],
+      "variant_imgs": {
+        "normal": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_PedicureAntacid_L.webp"
+      },
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_PedicureAntacid_L.webp",
+      "ability": "Screeches to stun nearby enemies."
+    },
+    {
       "id": "8bit",
       "name": "8-Bit",
       "rarity": "rare",
