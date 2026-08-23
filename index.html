@@ -1236,22 +1236,89 @@ async function syncFromEpic(token){
       }
     }
 
-    // MaterialParamSets might contain gold variant data
-    // Particle values might indicate gold sprites
+    // MaterialParamSets Particle values = gold sprite ownership
+    // Theory: Particle numbers correspond to Stage numbers (same sprite index)
+    const BLOCKSTACK_GOLD_MAP = {
+      // Particle number -> sprite ID (same index as Stage)
+      'Particle1': 'jackrabbit', // Testing - Particle1 might be jackrabbit gold
+      'Particle2': 'jonesy',     // Testing - Particle2 might be jonesy gold
+      'Particle9': 'tails',
+      'Particle13': 'adventure',
+      // Additional mappings as we discover them
+      'Particle6': 'killswitch',
+      'Particle10': 'jackrabbit',
+      'Particle11': 'crown',
+      'Particle12': '8bit',
+      'Particle15': 'jonesy',
+      'Particle16': 'shadow',
+      'Particle17': 'sonic'
+    };
+
     const paramSets = variants.find(v => v.channel === 'MaterialParamSets');
     if(paramSets?.owned){
       const ownedParticles = paramSets.owned.filter(v => v.startsWith('Particle'));
-      console.log('Owned Particle values (potential gold):', ownedParticles);
-      // TODO: Map Particle values to gold variants once mapping is determined
+      console.log('Owned Particle values (gold):', ownedParticles);
+
+      for(const particle of ownedParticles){
+        const spriteId = BLOCKSTACK_GOLD_MAP[particle];
+        if(spriteId && !state['s4:' + spriteId + ':gold']){
+          // Also ensure base is marked owned
+          if(!state['s4:' + spriteId + ':normal']){
+            state['s4:' + spriteId + ':normal'] = { owned: true, mastered: false };
+            s4Count++;
+          }
+          state['s4:' + spriteId + ':gold'] = { owned: true, mastered: false };
+          s4Count++;
+          console.log(`  ${particle} -> ${spriteId}:gold (via Blockstack variants)`);
+        }
+      }
     }
 
-    // MaterialParamSets2/3 might contain cheatmaster data
+    // MaterialParamSets2 Particle values = cheatmaster sprite ownership
+    const BLOCKSTACK_CHEATMASTER_MAP = {
+      // Particle numbers in MaterialParamSets2 -> sprite ID
+      'Particle0': 'tails',      // Testing
+      'Particle3': 'adventure',  // Testing
+      'Particle10': 'jackrabbit',
+      'Particle14': 'crown',     // Testing
+      'Particle15': 'jonesy',
+      // Additional guesses
+      'Particle6': 'killswitch',
+      'Particle9': 'tails',
+      'Particle11': 'crown',
+      'Particle12': '8bit',
+      'Particle13': 'adventure',
+      'Particle16': 'shadow',
+      'Particle17': 'sonic'
+    };
+
     const paramSets2 = variants.find(v => v.channel === 'MaterialParamSets2');
+    if(paramSets2?.owned){
+      const ownedParticles2 = paramSets2.owned.filter(v => v.startsWith('Particle'));
+      console.log('MaterialParamSets2 Particle values (cheatmaster):', ownedParticles2);
+
+      for(const particle of ownedParticles2){
+        const spriteId = BLOCKSTACK_CHEATMASTER_MAP[particle];
+        if(spriteId && !state['s4:' + spriteId + ':cheatmaster']){
+          // Ensure base and gold are marked owned
+          if(!state['s4:' + spriteId + ':normal']){
+            state['s4:' + spriteId + ':normal'] = { owned: true, mastered: false };
+            s4Count++;
+          }
+          if(!state['s4:' + spriteId + ':gold']){
+            state['s4:' + spriteId + ':gold'] = { owned: true, mastered: false };
+            s4Count++;
+          }
+          state['s4:' + spriteId + ':cheatmaster'] = { owned: true, mastered: false };
+          s4Count++;
+          console.log(`  ${particle} -> ${spriteId}:cheatmaster (via Blockstack variants)`);
+        }
+      }
+    }
+
     const paramSets3 = variants.find(v => v.channel === 'MaterialParamSets3');
-    if(paramSets2?.owned || paramSets3?.owned){
-      console.log('MaterialParamSets2 owned:', paramSets2?.owned);
-      console.log('MaterialParamSets3 owned:', paramSets3?.owned);
-      // TODO: Map to cheatmaster variants once mapping is determined
+    if(paramSets3?.owned){
+      console.log('MaterialParamSets3 owned (may contain additional data):', paramSets3.owned.length, 'values');
     }
   }
 
