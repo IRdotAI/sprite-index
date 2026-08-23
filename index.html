@@ -148,12 +148,13 @@ main{padding:16px;max-width:1400px;margin:0 auto}
 .empty{color:var(--dim);text-align:center;padding:60px 20px;font-size:15px}
 
 @keyframes spin{to{transform:rotate(360deg)}}
-@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+@keyframes shimmer{0%{background-position:200% 200%}100%{background-position:-200% -200%}}
 .tag.special{
-  background:linear-gradient(90deg,#00ffcc,#ff00ff,#00ffcc,#ff00ff,#00ffcc);
-  background-size:200% 100%;
-  animation:shimmer 3s linear infinite;
+  background:linear-gradient(135deg,#00e5cc,#e066ff,#00e5cc,#e066ff,#00e5cc);
+  background-size:200% 200%;
+  animation:shimmer 2.5s linear infinite;
   color:#000;font-weight:700;text-shadow:0 0 2px rgba(255,255,255,.5);
+  border-radius:4px;
 }
 .info-details{margin-top:16px;padding:12px;background:var(--card);border-radius:8px}
 .info-details .detail-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--line)}
