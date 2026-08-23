@@ -356,34 +356,155 @@
           }
 
           const locker = data.locker;
-          const types = locker.debug_template_types || {};
+          const cosmetics = locker.cosmetics || [];
 
+          // Group cosmetics by type
+          const categories = {
+            'Skins': [],
+            'Pickaxes': [],
+            'Gliders': [],
+            'Backblings': [],
+            'Emotes': [],
+            'Wraps': [],
+            'Sprites': [],
+            'Other': []
+          };
+
+          const typeMap = {
+            'AthenaCharacter': 'Skins',
+            'AthenaPickaxe': 'Pickaxes',
+            'AthenaGlider': 'Gliders',
+            'AthenaBackpack': 'Backblings',
+            'AthenaDance': 'Emotes',
+            'AthenaItemWrap': 'Wraps',
+            'AthenaSpray': 'Emotes',
+            'AthenaEmoji': 'Emotes',
+            'AthenaLoadingScreen': 'Other',
+            'AthenaMusicPack': 'Other',
+            'AthenaSkyDiveContrail': 'Other'
+          };
+
+          // S4 sprite quest patterns
+          const spriteQuests = {};
+
+          for (const item of cosmetics) {
+            const tid = item.templateId || '';
+            const [type, id] = tid.split(':');
+
+            // Detect sprite quests
+            if (tid.startsWith('Quest:quest_s42_spritemastery_')) {
+              const questId = tid.replace('Quest:quest_s42_spritemastery_', '');
+              const state = item.attributes?.quest_state || 'Unknown';
+              spriteQuests[questId] = state;
+              continue;
+            }
+
+            // Skip non-cosmetic items
+            if (!type.startsWith('Athena')) continue;
+
+            const category = typeMap[type] || 'Other';
+            const name = id ? id.replace(/^(character_|pickaxe_|glider_|backpack_|eid_|wrap_|spray_|emoji_)/i, '')
+                              .replace(/_/g, ' ')
+                              .replace(/\b\w/g, c => c.toUpperCase())
+                           : 'Unknown';
+
+            categories[category].push({ id, name, type });
+          }
+
+          // Parse sprites from quests
+          const spriteNames = {
+            '8bit': '8-Bit', 'dwarf': 'Adventure', 'bushranger': 'Bush',
+            'jonesy': 'Jonesy', 'killswitch': 'Killswitch', 'reloadovertime': 'Shadow',
+            'narrowflea': 'Sonic', 'narrowfleamonkey': 'Tails', 'doublejump': 'Jackrabbit',
+            'crown': 'Crown', 'klombo': 'Klombo', 'stormscout': 'Storm Scout'
+          };
+
+          for (const [questId, state] of Object.entries(spriteQuests)) {
+            const match = questId.match(/^([a-z]+)(?:_(\d+))?$/);
+            if (match) {
+              const spriteName = spriteNames[match[1]] || match[1];
+              const variant = match[2] === '01' ? 'Gold' : match[2] === '02' ? 'Cheatmaster' : 'Normal';
+              categories['Sprites'].push({
+                id: questId,
+                name: `${spriteName} (${variant})`,
+                type: state
+              });
+            }
+          }
+
+          // Build HTML
           let html = `
             <div class="stats" style="margin-bottom:1.5rem">
+              <div class="stat-card">
+                <div class="number">${categories['Skins'].length}</div>
+                <div class="label">Skins</div>
+              </div>
+              <div class="stat-card">
+                <div class="number">${categories['Pickaxes'].length}</div>
+                <div class="label">Pickaxes</div>
+              </div>
+              <div class="stat-card">
+                <div class="number">${categories['Sprites'].length}</div>
+                <div class="label">Sprites</div>
+              </div>
               <div class="stat-card">
                 <div class="number">${locker.total}</div>
                 <div class="label">Total Items</div>
               </div>
             </div>
-            <h3 style="margin-bottom:1rem">Item Types</h3>
-            <div class="locker-grid">
           `;
 
-          for (const [type, count] of Object.entries(types).sort((a,b) => b[1] - a[1])) {
-            html += `
-              <div class="locker-item">
-                <div class="type">${count} items</div>
-                <div class="id">${type}</div>
-              </div>
-            `;
+          // Category tabs
+          html += `<div class="tabs" style="display:flex;gap:0.5rem;margin-bottom:1rem;flex-wrap:wrap">`;
+          for (const [cat, items] of Object.entries(categories)) {
+            if (items.length === 0) continue;
+            html += `<button class="tab-btn" onclick="showCategory('${cat}')" data-cat="${cat}"
+                      style="padding:0.5rem 1rem;background:var(--bg3);border:1px solid var(--line);
+                             border-radius:6px;color:var(--text);cursor:pointer">
+                      ${cat} (${items.length})
+                    </button>`;
+          }
+          html += `</div>`;
+
+          // Category content
+          for (const [cat, items] of Object.entries(categories)) {
+            if (items.length === 0) continue;
+            html += `<div class="category-content" data-cat="${cat}" style="display:none">
+                      <div class="locker-grid">`;
+            for (const item of items.slice(0, 100)) { // Limit to 100 per category
+              const statusColor = item.type === 'Claimed' ? 'var(--green)' :
+                                  item.type === 'Active' ? 'var(--accent2)' : 'var(--text2)';
+              html += `
+                <div class="locker-item">
+                  <div class="type" style="color:${statusColor}">${item.type}</div>
+                  <div class="id">${escapeHtml(item.name)}</div>
+                </div>
+              `;
+            }
+            if (items.length > 100) {
+              html += `<div class="locker-item"><div class="id" style="color:var(--text2)">+${items.length - 100} more...</div></div>`;
+            }
+            html += `</div></div>`;
           }
 
-          html += '</div>';
           document.getElementById('modalBody').innerHTML = html;
+
+          // Show first non-empty category
+          const firstCat = Object.entries(categories).find(([,items]) => items.length > 0)?.[0];
+          if (firstCat) showCategory(firstCat);
         })
         .catch(err => {
           document.getElementById('modalBody').innerHTML = `<div class="error">Failed to load locker</div>`;
         });
+    }
+
+    function showCategory(cat) {
+      document.querySelectorAll('.category-content').forEach(el => el.style.display = 'none');
+      document.querySelectorAll('.tab-btn').forEach(el => {
+        el.style.background = el.dataset.cat === cat ? 'var(--accent)' : 'var(--bg3)';
+      });
+      const content = document.querySelector(`.category-content[data-cat="${cat}"]`);
+      if (content) content.style.display = 'block';
     }
 
     function closeModal() {
