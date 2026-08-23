@@ -135,7 +135,8 @@
       "name": "Water",
       "rarity": "rare",
       "season": "s3",
-      "ability": "Creates a healing pool that regenerates health over time.",
+      "ability": "Replenish shields while standing in water! Increases in power at each Level Up: 2 → 3 → 4 → 5 → 6 Shield per tick.",
+      "location": "Spotted near rivers and beaches",
       "variants": [
         "normal",
         "gold",
@@ -669,6 +670,8 @@
       "name": "8-Bit",
       "rarity": "rare",
       "season": "s4",
+      "ability": "Grants extra score while using the 8-Bit Shotgun! Score bonus increases with each Level Up!",
+      "location": "Spotted near urban areas and buildings",
       "variants": [
         "normal",
         "gold",
@@ -679,14 +682,15 @@
         "cheatmaster": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_EightBitBlaster_Cheatmaster_L.webp",
         "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_EightBitBlaster_Gold_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_EightBitBlaster_L.webp",
-      "ability": "Fires pixel projectiles that deal bonus damage to shields."
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_EightBitBlaster_L.webp"
     },
     {
       "id": "adventure",
       "name": "Adventure",
       "rarity": "rare",
       "season": "s4",
+      "ability": "Upgrades a random item in the player's inventory with each Level Up!",
+      "location": "Spotted near high and mountainous areas",
       "variants": [
         "normal",
         "gold",
@@ -697,14 +701,15 @@
         "cheatmaster": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Dwarf_Cheatmaster_L.webp",
         "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Dwarf_Gold_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Dwarf_L.webp",
-      "ability": "Grants extra loot from chests and supply drops."
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Dwarf_L.webp"
     },
     {
       "id": "bush",
       "name": "Bush",
       "rarity": "rare",
       "season": "s4",
+      "ability": "Grants a Bush disguise after a certain time! Time decreases with each Level Up!",
+      "location": "Spotted near grassy areas and forests",
       "variants": [
         "normal",
         "gold",
@@ -715,14 +720,15 @@
         "cheatmaster": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_BushRanger_Cheatmaster_L.webp",
         "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_BushRanger_Gold_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_BushRanger_L.webp",
-      "ability": "Creates a bush disguise that hides you from enemies."
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_BushRanger_L.webp"
     },
     {
       "id": "jonesy",
       "name": "Jonesy",
       "rarity": "rare",
       "season": "s4",
+      "ability": "Heals you after being shot! Healing increases with each Level Up!",
+      "location": "Spotted in POIs and named locations",
       "variants": [
         "normal",
         "gold",
@@ -733,14 +739,15 @@
         "cheatmaster": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Jonesy_Cheatmaster_L.webp",
         "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Jonesy_Gold_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Jonesy_L.webp",
-      "ability": "Rallies nearby allies, boosting their damage."
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Jonesy_L.webp"
     },
     {
       "id": "stormscout",
       "name": "Storm Scout",
       "rarity": "rare",
       "season": "s4",
+      "ability": "Reveals the next Storm Circle earlier! Time revealed increases with each Level Up!",
+      "location": "Spotted near the edge of the Storm",
       "variants": [
         "normal",
         "gold",
@@ -751,14 +758,15 @@
         "cheatmaster": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_StormScout_Cheatmaster_L.webp",
         "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_StormScout_Gold_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_StormScout_L.webp",
-      "ability": "Reveals the next storm circle location."
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_StormScout_L.webp"
     },
     {
       "id": "killswitch",
       "name": "Killswitch",
       "rarity": "epic",
       "season": "s4",
+      "ability": "Hover while aiming in mid-air! Hover duration increases with each Level Up!",
+      "location": "Spotted near high and mountainous areas",
       "variants": [
         "normal",
         "gold",
@@ -769,14 +777,15 @@
         "cheatmaster": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Killswitch_Cheatmaster_L.webp",
         "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Killswitch_Gold_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Killswitch_L.webp",
-      "ability": "Disables enemy traps and electronic devices."
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Killswitch_L.webp"
     },
     {
       "id": "shadow",
       "name": "Shadow",
       "rarity": "epic",
       "season": "s4",
+      "ability": "Automatically reload unequipped weapons over time. Reloads equipped weapon at max level. Automatic reload gets faster with each Level Up!",
+      "location": "Spotted near high and mountainous areas",
       "variants": [
         "normal",
         "gold",
@@ -787,14 +796,15 @@
         "cheatmaster": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_NarrowFlea_Scribe_Cheatmaster_L.webp",
         "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_NarrowFlea_Scribe_Gold_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_NarrowFlea_Scribe_L.webp",
-      "ability": "Creates a shadow clone that confuses enemies."
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_NarrowFlea_Scribe_L.webp"
     },
     {
       "id": "sonic",
       "name": "Sonic",
       "rarity": "epic",
       "season": "s4",
+      "ability": "Gotta Go Fast! Sprint faster with each Level Up!",
+      "location": "Spotted near high and mountainous areas",
       "variants": [
         "normal",
         "gold",
@@ -805,14 +815,15 @@
         "cheatmaster": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_NarrowFlea_Obsidian_Cheatmaster_L.webp",
         "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_NarrowFlea_Obsidian_Gold_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_NarrowFlea_Obsidian_L.webp",
-      "ability": "Grants extreme speed and momentum damage."
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_NarrowFlea_Obsidian_L.webp"
     },
     {
       "id": "tails",
       "name": "Tails",
       "rarity": "epic",
       "season": "s4",
+      "ability": "Grants the ability to hover with the Help of Tails! Hover speed increased with each Level Up!",
+      "location": "Spotted near high and mountainous areas",
       "variants": [
         "normal",
         "gold",
@@ -823,14 +834,15 @@
         "cheatmaster": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_NarrowFlea_Monkey_Cheatmaster_L.webp",
         "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_NarrowFlea_Monkey_Gold_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_NarrowFlea_Monkey_L.webp",
-      "ability": "Grants double jump ability and extended flight."
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_NarrowFlea_Monkey_L.webp"
     },
     {
       "id": "jackrabbit",
       "name": "Jackrabbit",
       "rarity": "legendary",
       "season": "s4",
+      "ability": "Grants the ability to perform another jump while mid-air! Cooldown between jumps decreases with each Level Up!",
+      "location": "Spotted near high and mountainous areas",
       "variants": [
         "normal",
         "gold",
@@ -841,14 +853,15 @@
         "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_JazzJackrabbit_Gold_L.webp",
         "cheatmaster": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_JazzJackrabbit_Cheatmaster_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_JazzJackrabbit_L.webp",
-      "ability": "Enables high jumps and rapid movement."
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_JazzJackrabbit_L.webp"
     },
     {
       "id": "crown",
       "name": "Crown",
       "rarity": "mythic",
       "season": "s4",
+      "ability": "Only levels up by winning matches. Level up faster with Crown Wins. New variants unlocked after mastering!",
+      "location": "Spotted near high and mountainous areas",
       "variants": [
         "normal",
         "gold",
@@ -859,8 +872,7 @@
         "cheatmaster": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Crown_Cheatmaster_L.webp",
         "gold": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Crown_Gold_L.webp"
       },
-      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Crown_L.webp",
-      "ability": "Grants the power of a Victory Crown."
+      "img": "https://fortnite.gg/img/x/sprites/icons/T_Icon_BR_Creature_Sprite_Crown_L.webp"
     },
     {
       "id": "klombo",

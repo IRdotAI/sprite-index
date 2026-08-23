@@ -149,15 +149,15 @@ main{padding:16px;max-width:1400px;margin:0 auto}
 
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes specialFlow{
-  0%{background-position:100% 0%}
-  100%{background-position:0% 100%}
+  from{background-position:0 0}
+  to{background-position:200% 0}
 }
 .tag.special{
-  background:linear-gradient(315deg,#00e5cc 0%,#e066ff 50%,#00e5cc 100%);
-  background-size:200% 200%;
-  animation:specialFlow 2s ease infinite;
+  background:linear-gradient(105deg,#5dffe4,#8dff9a,#fff36a,#60dfff,#7b7cff,#ff77d8,#ffc45f,#5dffe4,#8dff9a,#fff36a,#60dfff,#7b7cff,#ff77d8,#ffc45f);
+  background-size:200% 100%;
+  animation:specialFlow 8s linear infinite;
   color:#000;font-weight:700;
-  border-radius:4px;
+  border-radius:6px;
 }
 .info-details{margin-top:16px;padding:12px;background:var(--card);border-radius:8px}
 .info-details .detail-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--line)}
@@ -266,6 +266,7 @@ dialog[open]{display:block}
     <span class="note">#EpicPartner</span>
   </button>
   <div class="header-top">
+    <img src="logo.png" alt="Spritedex" class="logo-img" style="height:36px;width:auto;border-radius:8px">
     <span class="logo">Spritedex</span>
     <span class="tagline">Fortnite Sprite Tracker by RDOTA</span>
     <div class="header-actions">
@@ -594,6 +595,7 @@ function openInfo(key){
   const secs=[
     ['Status', status],
     ['Ability', e.sprite.ability],
+    ['Location', e.sprite.location],
     [e.variant.name+' Effect', e.variant.effect],
     ['How to Obtain', e.variant.howToObtain],
   ].filter(([,v])=>v);
@@ -662,56 +664,45 @@ function loadArt(url){
 }
 
 async function drawPNG(view, groupBy, season){
-  // Load the selected season's data
-  const file = season === 's4' ? 'data/sprites-s4.json' : 'data/sprites-s3.json';
-  let exportDB;
-  try {
-    exportDB = await (await fetch(file + '?t=' + Date.now(), {cache:'no-store'})).json();
-  } catch {
-    alert('Could not load sprite data for export.');
-    return;
-  }
+  // Use current season's sprites from ENTRIES
+  const seasonSprites = [...new Set(ENTRIES.filter(e => e.sprite.season === season).map(e => e.sprite.id))];
+  const sprites = seasonSprites.map(id => ENTRIES.find(e => e.sprite.id === id).sprite);
 
-  // Grid layout: sprites as rows, variants as columns
-  const sprites = exportDB.sprites;
-  const variants = exportDB.variants;
-  const COLS = variants.length; // 8 variants
-  const ROWS = sprites.length;  // 26 sprites
+  // Get variants for this season's sprites
+  const variantIds = [...new Set(ENTRIES.filter(e => e.sprite.season === season).map(e => e.variant.id))];
+  const variants = variantIds.map(id => ENTRIES.find(e => e.variant.id === id).variant);
 
-  // Load all variant images using variant_imgs
+  const COLS = variants.length;
+  const ROWS = sprites.length;
+
+  // Load all variant images
   const art = new Map();
   const imgUrls = [];
-  for(const s of sprites){
-    if(s.variant_imgs){
-      for(const v of s.variants){
-        if(s.variant_imgs[v]) imgUrls.push(s.variant_imgs[v]);
-      }
-    } else if(s.img){
-      imgUrls.push(s.img);
-    }
+  for(const e of ENTRIES.filter(e => e.sprite.season === season)){
+    if(e.img) imgUrls.push(e.img);
   }
   await Promise.all([...new Set(imgUrls)].map(async u=>art.set(u,await loadArt(u))));
 
   const S = 2;
   const PAD = 24;
-  const LABEL_W = 120;      // sprite name column
-  const CELL_W = 68;
-  const CELL_H = 72;
-  const GAP = 6;
-  const HDR_H = 50;         // variant header row
+  const LABEL_W = 140;
+  const CELL_W = 64;
+  const CELL_H = 68;
+  const GAP = 4;
+  const HDR_H = 44;
   const ROW_H = CELL_H + GAP;
 
   const w = PAD + LABEL_W + COLS * (CELL_W + GAP) + PAD;
-  const h = PAD + 120 + HDR_H + ROWS * ROW_H + 40;
+  const h = PAD + 140 + HDR_H + ROWS * ROW_H + 50;
 
   const cv = document.createElement('canvas');
   cv.width = w * S; cv.height = h * S;
   const x = cv.getContext('2d'); x.scale(S,S);
 
-  // Blue gradient background
+  // Dark gradient background (like fortnite.gg)
   const grad = x.createLinearGradient(0, 0, 0, h);
-  grad.addColorStop(0, '#1e4a8a');
-  grad.addColorStop(1, '#0f2847');
+  grad.addColorStop(0, '#1a1d24');
+  grad.addColorStop(1, '#0d0f14');
   x.fillStyle = grad;
   x.fillRect(0, 0, w, h);
 
@@ -721,53 +712,61 @@ async function drawPNG(view, groupBy, season){
     x.arcTo(a,b+d,a,b,r); x.arcTo(a,b,a+c,b,r); x.closePath();
   };
 
-  // Count stats
-  const owned = ENTRIES.filter(e=>st(e.key).owned).length;
-  const T = ENTRIES.length;
+  // Count stats for this season
+  const seasonEntries = ENTRIES.filter(e => e.sprite.season === season);
+  const owned = seasonEntries.filter(e=>st(e.key).owned).length;
+  const mastered = seasonEntries.filter(e=>st(e.key).mastered).length;
+  const T = seasonEntries.length;
   const pct = Math.round(owned/T*100);
 
-  // Header
-  x.fillStyle = 'rgba(255,255,255,0.6)'; x.font = '600 11px Inter,system-ui,sans-serif';
-  x.fillText('FORTNITE COLLECTION TRACKER', PAD, PAD + 14);
-  x.fillStyle = '#fff'; x.font = '800 36px Inter,system-ui,sans-serif';
-  x.fillText('SPRITEDEX', PAD, PAD + 52);
-  x.fillStyle = 'rgba(255,255,255,0.7)'; x.font = '400 13px Inter,system-ui,sans-serif';
-  x.fillText('Have vs. need — open to trade', PAD, PAD + 72);
+  // Header - SPRITEDEX title
+  x.fillStyle = '#00d4ff'; x.font = '800 42px Inter,system-ui,sans-serif';
+  x.fillText('SPRITEDEX', PAD, PAD + 40);
 
-  // Progress count (right side)
+  // Season label
+  x.fillStyle = 'rgba(255,255,255,0.5)'; x.font = '600 14px Inter,system-ui,sans-serif';
+  x.fillText(season === 's4' ? 'SEASON 4 SPRITES' : 'SEASON 3 SPRITES', PAD, PAD + 60);
+
+  // Stats on right side
   x.textAlign = 'right';
-  x.fillStyle = '#fff'; x.font = '700 20px Inter,system-ui,sans-serif';
-  x.fillText(`${owned} / ${T} - ${pct}%`, w - PAD, PAD + 40);
+  x.fillStyle = '#fff'; x.font = '700 28px Inter,system-ui,sans-serif';
+  x.fillText(`${owned}/${T}`, w - PAD, PAD + 36);
+  x.fillStyle = '#00d4ff'; x.font = '700 18px Inter,system-ui,sans-serif';
+  x.fillText(`${pct}%`, w - PAD, PAD + 58);
+  x.fillStyle = 'rgba(255,255,255,0.5)'; x.font = '500 12px Inter,system-ui,sans-serif';
+  x.fillText(`${mastered} mastered`, w - PAD, PAD + 76);
   x.textAlign = 'left';
 
   // Progress bar
-  const barY = PAD + 86, barW = w - PAD*2, barH = 8;
-  x.fillStyle = 'rgba(255,255,255,0.2)';
-  rr(PAD, barY, barW, barH, 4); x.fill();
+  const barY = PAD + 96, barW = w - PAD*2, barH = 10;
+  x.fillStyle = 'rgba(255,255,255,0.1)';
+  rr(PAD, barY, barW, barH, 5); x.fill();
   x.fillStyle = '#00d4ff';
-  rr(PAD, barY, barW * (owned/T), barH, 4); x.fill();
+  rr(PAD, barY, barW * (owned/T), barH, 5); x.fill();
 
-  // Variant header row (colored pills)
+  // Variant header row
   const variantColors = {
-    'normal': ['#e8e8e8','#333'],
-    'gold': ['#ffd700','#333'],
-    'gummy': ['#ff69b4','#fff'],
-    'galaxy': ['#9966ff','#fff'],
-    'gem': ['#00cc99','#fff'],
-    'holofoil': ['#66ccff','#333'],
-    'cube': ['#ff6633','#fff'],
-    'quack': ['#99cc33','#333']
+    'normal': ['#4a5568','#fff'],
+    'gold': ['#f6ad55','#000'],
+    'cheatmaster': ['#48bb78','#000'],
+    'gummy': ['#ed64a6','#fff'],
+    'galaxy': ['#805ad5','#fff'],
+    'gem': ['#38b2ac','#fff'],
+    'holofoil': ['#4299e1','#fff'],
+    'cube': ['#9f7aea','#fff'],
+    'quack': ['#ecc94b','#000']
   };
 
-  const hdrY = PAD + 110;
+  const hdrY = PAD + 120;
   x.textAlign = 'center';
   variants.forEach((v, i) => {
     const cx = PAD + LABEL_W + i * (CELL_W + GAP) + CELL_W/2;
-    const cols = variantColors[v.id] || ['#666','#fff'];
+    const cols = variantColors[v.id] || ['#4a5568','#fff'];
     x.fillStyle = cols[0];
-    rr(cx - 30, hdrY, 60, 24, 12); x.fill();
-    x.fillStyle = cols[1]; x.font = '700 10px Inter,system-ui,sans-serif';
-    x.fillText(v.name.toUpperCase(), cx, hdrY + 16);
+    rr(cx - 28, hdrY, 56, 22, 11); x.fill();
+    x.fillStyle = cols[1]; x.font = '700 9px Inter,system-ui,sans-serif';
+    const label = v.name.length > 8 ? v.name.slice(0,7)+'..' : v.name.toUpperCase();
+    x.fillText(label, cx, hdrY + 15);
   });
   x.textAlign = 'left';
 
@@ -775,60 +774,97 @@ async function drawPNG(view, groupBy, season){
   const gridY = hdrY + HDR_H;
   sprites.forEach((sprite, row) => {
     const rowY = gridY + row * ROW_H;
-    const rarityCol = exportDB.rarities.find(r=>r.id===sprite.rarity)?.color || '#3AA7F0';
+    const rarityCol = DB.rarities.find(r=>r.id===sprite.rarity)?.color || '#3AA7F0';
 
-    // Sprite name label (left side)
+    // Sprite name label
     x.fillStyle = rarityCol;
     x.beginPath(); x.arc(PAD + 8, rowY + CELL_H/2, 5, 0, Math.PI*2); x.fill();
-    x.fillStyle = '#fff'; x.font = '700 13px Inter,system-ui,sans-serif';
+    x.fillStyle = '#fff'; x.font = '700 12px Inter,system-ui,sans-serif';
     x.fillText(sprite.name.toUpperCase(), PAD + 20, rowY + CELL_H/2 + 4);
 
     // Draw cells for each variant
     variants.forEach((variant, col) => {
+      // Check if this sprite has this variant
+      const entry = ENTRIES.find(e => e.sprite.id === sprite.id && e.variant.id === variant.id);
+      if (!entry) {
+        // This variant doesn't exist for this sprite - skip or show empty
+        return;
+      }
+
       const cellX = PAD + LABEL_W + col * (CELL_W + GAP);
-      const key = uid(sprite, variant.id);
-      const s = st(key);
+      const s = st(entry.key);
       const hasIt = s.owned;
+      const isMastered = s.mastered;
 
       // Cell background
-      x.fillStyle = hasIt ? 'rgba(255,255,255,0.15)' : 'rgba(0,40,80,0.5)';
-      rr(cellX, rowY, CELL_W, CELL_H, 8); x.fill();
-      x.strokeStyle = hasIt ? 'rgba(255,255,255,0.3)' : 'rgba(255,255,255,0.1)';
-      x.lineWidth = 1;
-      rr(cellX, rowY, CELL_W, CELL_H, 8); x.stroke();
-
-      // Get variant-specific image
-      let imgUrl = null;
-      if(sprite.variant_imgs && sprite.variant_imgs[variant.id]){
-        imgUrl = sprite.variant_imgs[variant.id];
-      } else if(sprite.img){
-        imgUrl = sprite.img;
+      if (isMastered) {
+        x.fillStyle = 'rgba(250,204,21,0.2)'; // Gold tint for mastered
+      } else if (hasIt) {
+        x.fillStyle = 'rgba(34,197,94,0.15)'; // Green tint for owned
+      } else {
+        x.fillStyle = 'rgba(255,255,255,0.05)';
       }
+      rr(cellX, rowY, CELL_W, CELL_H, 6); x.fill();
+
+      // Border
+      if (isMastered) {
+        x.strokeStyle = '#facc15';
+      } else if (hasIt) {
+        x.strokeStyle = '#22c55e';
+      } else {
+        x.strokeStyle = 'rgba(255,255,255,0.1)';
+      }
+      x.lineWidth = isMastered ? 2 : 1;
+      rr(cellX, rowY, CELL_W, CELL_H, 6); x.stroke();
+
+      // Get image
+      const imgUrl = entry.img;
       const im = imgUrl ? art.get(imgUrl) : null;
-      if (hasIt && im) {
-        // Draw sprite image
-        x.drawImage(im, cellX + 10, rowY + 8, 48, 48);
-        // Checkmark badge
-        x.fillStyle = '#22c55e';
-        x.beginPath(); x.arc(cellX + CELL_W - 12, rowY + CELL_H - 12, 10, 0, Math.PI*2); x.fill();
-        x.strokeStyle = '#fff'; x.lineWidth = 2;
-        x.beginPath(); x.moveTo(cellX+CELL_W-17, rowY+CELL_H-12);
-        x.lineTo(cellX+CELL_W-13, rowY+CELL_H-8); x.lineTo(cellX+CELL_W-7, rowY+CELL_H-16); x.stroke();
-      } else if (!hasIt) {
-        // Lock icon for missing
-        x.fillStyle = 'rgba(255,255,255,0.3)';
-        x.font = '400 28px system-ui';
+
+      if (hasIt) {
+        if (im) {
+          x.drawImage(im, cellX + 8, rowY + 6, 48, 48);
+        } else {
+          // Fallback: colored circle with letter
+          x.fillStyle = rarityCol;
+          x.beginPath(); x.arc(cellX + CELL_W/2, rowY + CELL_H/2 - 2, 18, 0, Math.PI*2); x.fill();
+          x.fillStyle = '#fff'; x.font = '700 16px Inter,system-ui,sans-serif';
+          x.textAlign = 'center';
+          x.fillText(sprite.name[0], cellX + CELL_W/2, rowY + CELL_H/2 + 4);
+          x.textAlign = 'left';
+        }
+        // Status badge
+        if (isMastered) {
+          x.fillStyle = '#facc15';
+          x.beginPath(); x.arc(cellX + CELL_W - 10, rowY + CELL_H - 10, 8, 0, Math.PI*2); x.fill();
+          x.fillStyle = '#000'; x.font = '700 10px Inter';
+          x.textAlign = 'center';
+          x.fillText('★', cellX + CELL_W - 10, rowY + CELL_H - 6);
+          x.textAlign = 'left';
+        } else {
+          x.fillStyle = '#22c55e';
+          x.beginPath(); x.arc(cellX + CELL_W - 10, rowY + CELL_H - 10, 8, 0, Math.PI*2); x.fill();
+          x.strokeStyle = '#fff'; x.lineWidth = 2;
+          x.beginPath();
+          x.moveTo(cellX+CELL_W-14, rowY+CELL_H-10);
+          x.lineTo(cellX+CELL_W-11, rowY+CELL_H-7);
+          x.lineTo(cellX+CELL_W-6, rowY+CELL_H-13);
+          x.stroke();
+        }
+      } else {
+        // Missing - show faded
+        x.fillStyle = 'rgba(255,255,255,0.15)'; x.font = '700 24px Inter';
         x.textAlign = 'center';
-        x.fillText('🔒', cellX + CELL_W/2, rowY + CELL_H/2 + 10);
+        x.fillText('?', cellX + CELL_W/2, rowY + CELL_H/2 + 8);
         x.textAlign = 'left';
       }
     });
   });
 
   // Footer
-  x.fillStyle = 'rgba(255,255,255,0.5)'; x.font = '500 12px Inter,system-ui,sans-serif';
+  x.fillStyle = 'rgba(255,255,255,0.4)'; x.font = '600 13px Inter,system-ui,sans-serif';
   x.textAlign = 'center';
-  x.fillText('spritedex.xyz', w/2, h - 16);
+  x.fillText('spritedex.xyz • ' + new Date().toLocaleDateString(), w/2, h - 20);
   x.textAlign = 'left';
 
   try{
@@ -1025,16 +1061,45 @@ function showLoginFlow(){
   const epicAuthUrl = 'https://www.epicgames.com/id/api/redirect?clientId=ec684b8c687f479fadea3cb2ad83f5c6&responseType=code';
 
   epicContent.innerHTML = `
-    <p style="margin-bottom:16px;text-align:center">1. Click the button below and sign in to Epic Games</p>
-    <a href="${epicAuthUrl}" target="_blank" class="btn-primary" style="display:block;text-align:center;text-decoration:none;padding:14px;border-radius:10px;margin-bottom:16px">Open Epic Games →</a>
-    <p style="margin-bottom:12px;text-align:center">2. Copy the <strong>authorizationCode</strong> from the page and paste it below:</p>
-    <input type="text" id="epic-code-input" placeholder="Paste authorization code here" style="width:100%;padding:12px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--txt);font-size:14px;margin-bottom:12px">
-    <button id="epic-code-submit" class="btn-primary" style="width:100%;padding:14px;border-radius:10px">Link Account</button>
-    <p style="text-align:center;color:var(--dim);font-size:11px;margin-top:12px">The code looks like a long string of letters and numbers</p>
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div style="background:var(--panel);border-radius:12px;padding:16px">
+        <p style="font-weight:700;margin-bottom:8px;color:var(--accent)">Step 1: Login to Epic Games</p>
+        <p style="font-size:13px;color:var(--dim);margin-bottom:12px">Click the button below to sign in with your Epic account</p>
+        <a href="${epicAuthUrl}" target="_blank" class="btn-epic" style="display:block;text-align:center;text-decoration:none;padding:14px;border-radius:10px">⚡ Login to Epic Games</a>
+      </div>
+      <div style="background:var(--panel);border-radius:12px;padding:16px">
+        <p style="font-weight:700;margin-bottom:8px;color:var(--accent)">Step 2: Get Authorization Code</p>
+        <p style="font-size:13px;color:var(--dim)">After logging in, you'll see a page with your <strong>authorizationCode</strong>. Copy it.</p>
+      </div>
+      <div style="background:var(--panel);border-radius:12px;padding:16px">
+        <p style="font-weight:700;margin-bottom:8px;color:var(--accent)">Step 3: Paste & Authorize</p>
+        <p style="font-size:13px;color:var(--dim);margin-bottom:12px">Paste your code below to link your account</p>
+        <input type="text" id="epic-code-input" placeholder="Paste authorization code here" style="width:100%;padding:12px;border-radius:8px;border:1px solid var(--line);background:var(--bg2);color:var(--text);font-size:14px;margin-bottom:12px">
+      </div>
+      <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:12px;color:var(--dim)">
+        <input type="checkbox" id="tos-consent" style="width:18px;height:18px;margin-top:2px;accent-color:var(--accent)">
+        <span>I agree to the <a href="https://www.epicgames.com/site/en-US/tos" target="_blank" style="color:var(--accent)">Epic Games Terms of Service</a> and consent to Spritedex accessing my Fortnite locker data</span>
+      </label>
+      <button id="epic-code-submit" class="btn-primary" style="width:100%;padding:14px;border-radius:10px" disabled>✓ Link Account</button>
+    </div>
   `;
   epicDlg.showModal();
 
+  // Enable submit button only when TOS is checked
+  const tosCheckbox = document.getElementById('tos-consent');
+  const submitBtn = document.getElementById('epic-code-submit');
+  tosCheckbox.onchange = () => {
+    submitBtn.disabled = !tosCheckbox.checked;
+    submitBtn.style.opacity = tosCheckbox.checked ? '1' : '0.5';
+  };
+  submitBtn.style.opacity = '0.5';
+
   document.getElementById('epic-code-submit').onclick = async () => {
+    const tosChecked = document.getElementById('tos-consent').checked;
+    if(!tosChecked){
+      toast('Please agree to the terms first', true);
+      return;
+    }
     const code = document.getElementById('epic-code-input').value.trim();
     if(!code){
       toast('Please paste the authorization code', true);
