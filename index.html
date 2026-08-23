@@ -1338,6 +1338,8 @@ async function syncFromEpic(token){
     const variants = blockstackChar.attributes.variants;
 
     // Material channel contains Stage values = base sprite ownership
+    // Note: Stage can appear even for extracted cheatmasters, so we also require
+    // quest evidence (base quest started/claimed) to confirm true ownership
     const materialVariant = variants.find(v => v.channel === 'Material');
     if(materialVariant?.owned){
       const ownedStages = materialVariant.owned.filter(v => v.startsWith('Stage'));
@@ -1346,11 +1348,20 @@ async function syncFromEpic(token){
       for(const stage of ownedStages){
         const spriteId = BLOCKSTACK_STAGE_MAP[stage];
         if(spriteId && !state['s4:' + spriteId + ':normal']){
-          // Base mastery: check if base quest (no number) is Claimed
-          const baseMastered = s4QuestStates[spriteId]?.base === 'Claimed';
-          state['s4:' + spriteId + ':normal'] = { owned: true, mastered: baseMastered };
-          s4Count++;
-          console.log(`  ${stage} -> ${spriteId}:normal (via Blockstack variants)${baseMastered ? ' [MASTERED]' : ''}`);
+          // Require quest evidence: base quest must be Active or Claimed
+          // This prevents false positives from extracted cheatmasters
+          const hasQuestEvidence = s4QuestStates[spriteId]?.base === 'Active' ||
+                                   s4QuestStates[spriteId]?.base === 'Claimed' ||
+                                   s4QuestStates[spriteId]?.['00'] === 'Active' ||
+                                   s4QuestStates[spriteId]?.['00'] === 'Claimed';
+          if(hasQuestEvidence){
+            const baseMastered = s4QuestStates[spriteId]?.base === 'Claimed';
+            state['s4:' + spriteId + ':normal'] = { owned: true, mastered: baseMastered };
+            s4Count++;
+            console.log(`  ${stage} -> ${spriteId}:normal (via Blockstack variants)${baseMastered ? ' [MASTERED]' : ''}`);
+          } else {
+            console.log(`  ${stage} -> ${spriteId}:normal SKIPPED (no quest evidence - likely extracted CM only)`);
+          }
         }
       }
     }
@@ -1444,15 +1455,11 @@ async function syncFromEpic(token){
 
       // Detect via Particle values
       // CM mastery: Mat(Particle+20) in MaterialParamSets or MaterialParamSets2
+      // Note: Cheatmaster can be obtained by extracting from another player,
+      // so having CM does NOT mean you have the normal variant!
       for(const particle of ownedParticles2){
         const spriteId = BLOCKSTACK_CHEATMASTER_PARTICLE_MAP[particle];
         if(spriteId && !state['s4:' + spriteId + ':cheatmaster']){
-          // Only ensure base is owned - cheatmaster doesn't require gold
-          if(!state['s4:' + spriteId + ':normal']){
-            const baseMastered = s4QuestStates[spriteId]?.base === 'Claimed';
-            state['s4:' + spriteId + ':normal'] = { owned: true, mastered: baseMastered };
-            s4Count++;
-          }
           // Check CM mastery: Mat(Particle+20) in paramSets or paramSets2
           const particleNum = parseInt(particle.replace('Particle', ''));
           const masteryMat = 'Mat' + (particleNum + 20);
