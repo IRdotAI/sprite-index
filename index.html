@@ -1477,6 +1477,21 @@ async function syncFromEpic(token){
     }
   }
 
+  // Collab sprites (ironmouse, vinijr) - Epic API doesn't return their tokens
+  // but spritetrading.com detects them. Mark as owned+mastered if user has other S3 sprites.
+  if(s3Count > 0) {
+    if(!state['s3:ironmouse:normal']) {
+      state['s3:ironmouse:normal'] = { owned: true, mastered: true };
+      s3Count++;
+      console.log('  Added ironmouse:normal (collab sprite - API workaround)');
+    }
+    if(!state['s3:vinijr:normal']) {
+      state['s3:vinijr:normal'] = { owned: true, mastered: true };
+      s3Count++;
+      console.log('  Added vinijr:normal (collab sprite - API workaround)');
+    }
+  }
+
   console.log(`Synced: ${s3Count} S3 sprites, ${s4Count} S4 sprites`);
 
   // Debug: show all state keys by season
