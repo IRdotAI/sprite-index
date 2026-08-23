@@ -145,6 +145,7 @@ main{padding:16px;max-width:1400px;margin:0 auto}
   padding:3px 7px;border-radius:5px;background:var(--r);color:#0a0c12}
 .status{font-size:10px;font-weight:700;letter-spacing:.3px}
 .status.mastered{color:var(--mythic)}
+.crown-icon{width:1em;height:1em;vertical-align:-0.1em;fill:currentColor}
 .status.missing{color:var(--dim)}
 .status.owned{color:var(--accent)}
 .status.unfetchable{color:#f59e0b}
@@ -495,7 +496,7 @@ function cardHTML(e){
   const vc=vcol(e.variantId);
   const name=e.variant.name==='Normal'?e.sprite.name:`${e.variant.name} ${e.sprite.name}`;
   const statusClass=s.unfetchable?'unfetchable':s.mastered?'mastered':s.owned?'owned':'missing';
-  const statusText=s.unfetchable?'⚠ UNFETCHABLE':s.mastered?'♛ MASTERED':s.owned?'OWNED':'MISSING';
+  const statusText=s.unfetchable?'⚠ UNFETCHABLE':s.mastered?'<svg class="crown-icon" viewBox="0 0 256 256"><path d="M239.75 90.81c0 .11 0 .21-.07.32L217 195a16 16 0 0 1-15.72 13H54.71A16 16 0 0 1 39 195L16.32 91.13c0-.11-.05-.21-.07-.32A16 16 0 0 1 44 77.39l33.67 36.29 35.8-80.29a1 1 0 0 0 0-.1 16 16 0 0 1 29.06 0 1 1 0 0 0 0 .1l35.8 80.29L212 77.39a16 16 0 0 1 27.71 13.42Z"/></svg> MASTERED':s.owned?'OWNED':'MISSING';
   const isSpecial = e.variant.rarity === 'special';
   const tagClass = isSpecial ? 'tag special' : 'tag';
   const tagStyle = isSpecial ? '' : `style="background:${col}"`;
@@ -583,7 +584,7 @@ function openInfo(key){
   const name=e.variant.name==='Normal'?e.sprite.name:`${e.variant.name} ${e.sprite.name}`;
 
   const status=s.unfetchable ? '⚠ Could not fetch details'
-    : s.mastered ? '♛ Mastered'
+    : s.mastered ? '<svg class="crown-icon" viewBox="0 0 256 256"><path d="M239.75 90.81c0 .11 0 .21-.07.32L217 195a16 16 0 0 1-15.72 13H54.71A16 16 0 0 1 39 195L16.32 91.13c0-.11-.05-.21-.07-.32A16 16 0 0 1 44 77.39l33.67 36.29 35.8-80.29a1 1 0 0 0 0-.1 16 16 0 0 1 29.06 0 1 1 0 0 0 0 .1l35.8 80.29L212 77.39a16 16 0 0 1 27.71 13.42Z"/></svg> Mastered'
     : s.owned ? (s.level ? 'Collected · Level '+s.level : 'Collected')
     : 'Not collected';
 
@@ -840,10 +841,13 @@ async function drawPNG(view, groupBy, season){
         }
         // Status badge
         if (isMastered) {
-          x.fillStyle = '#facc15'; x.font = '700 14px Inter,system-ui,sans-serif';
-          x.textAlign = 'center';
-          x.fillText('♛', cellX + CELL_W - 8, rowY + CELL_H - 6);
-          x.textAlign = 'left';
+          x.save();
+          x.translate(cellX + CELL_W - 16, rowY + CELL_H - 16);
+          x.scale(0.05, 0.05);
+          x.fillStyle = '#facc15';
+          const crown = new Path2D('M239.75 90.81c0 .11 0 .21-.07.32L217 195a16 16 0 0 1-15.72 13H54.71A16 16 0 0 1 39 195L16.32 91.13c0-.11-.05-.21-.07-.32A16 16 0 0 1 44 77.39l33.67 36.29 35.8-80.29a1 1 0 0 0 0-.1 16 16 0 0 1 29.06 0 1 1 0 0 0 0 .1l35.8 80.29L212 77.39a16 16 0 0 1 27.71 13.42Z');
+          x.fill(crown);
+          x.restore();
         } else {
           x.fillStyle = '#22c55e';
           x.beginPath(); x.arc(cellX + CELL_W - 10, rowY + CELL_H - 10, 8, 0, Math.PI*2); x.fill();
