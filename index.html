@@ -1308,6 +1308,31 @@ async function syncFromEpic(token){
     variants: JSON.stringify(c.attributes?.variants || c.attributes?.item_variants || c.attributes?.owned_variants).substring(0, 200)
   })));
 
+  // DEBUG: Search for any gold/cheatmaster indicators (items with "gold" or "cheat" in name)
+  const goldCheatItems = locker.cosmetics.filter(c => {
+    const id = (c.templateId || '').toLowerCase();
+    return (id.includes('gold') || id.includes('cheat') || id.includes('progression')) &&
+           (id.includes('sprite') || id.includes('s42'));
+  });
+  console.log('=== GOLD/CHEATMASTER INDICATOR ITEMS ===');
+  console.table(goldCheatItems.map(c => ({
+    templateId: c.templateId,
+    state: c.attributes?.quest_state,
+    attrs: JSON.stringify(c.attributes || {}).substring(0, 150)
+  })));
+
+  // DEBUG: Look for extraction-related items
+  const extractionItems = locker.cosmetics.filter(c => {
+    const id = (c.templateId || '').toLowerCase();
+    return id.includes('extract') || id.includes('capture') || id.includes('acquire');
+  });
+  console.log('=== EXTRACTION/CAPTURE ITEMS ===');
+  console.table(extractionItems.map(c => ({
+    templateId: c.templateId,
+    state: c.attributes?.quest_state,
+    completion: Object.keys(c.attributes || {}).filter(k => k.includes('completion')).map(k => `${k}=${c.attributes[k]}`).join(', ')
+  })));
+
   // ===== S3 TOKEN-BASED DETECTION =====
   // Token format: "Token:athena_s41_spritemastery_token_qXX[letter]"
   // Token mapping based on variant letter analysis:
