@@ -1408,8 +1408,10 @@ async function syncFromEpic(token){
     c.templateId === 'AthenaCharacter:character_blockstack'
   );
 
-  // First pass: collect all S4 quest states for mastery detection
-  const s4QuestStates = {};  // { spriteId: { base: 'Claimed', _01: 'Active', _02: 'Claimed' } }
+  // First pass: collect all S4 quest states AND completion objectives for detection
+  // Completion objectives indicate sprite ownership even when quest is still Active
+  const s4QuestStates = {};  // { spriteId: { base: 'Claimed', '01': 'Active', '02': 'Claimed' } }
+  const s4QuestCompletions = {}; // { spriteId: { base: 1, '01': 0, '02': 1 } } - completion obj counts
   for(const item of locker.cosmetics){
     const templateId = item.templateId || '';
     if(templateId.startsWith('Quest:quest_s42_spritemastery_')){
@@ -1423,16 +1425,25 @@ async function syncFromEpic(token){
         if(spriteId){
           if(!s4QuestStates[spriteId]) s4QuestStates[spriteId] = {};
           s4QuestStates[spriteId][levelNum] = questState;
+
+          // Also capture completion objective count - this indicates ownership!
+          // Key format: completion_quest_s42_spritemastery_xxx_01_obj0
+          const completionKey = 'completion_quest_s42_spritemastery_' + questId + '_obj0';
+          const completionCount = item.attributes?.[completionKey] || 0;
+          if(!s4QuestCompletions[spriteId]) s4QuestCompletions[spriteId] = {};
+          s4QuestCompletions[spriteId][levelNum] = completionCount;
         }
       }
     }
   }
   console.log('S4 quest states:', s4QuestStates);
+  console.log('S4 quest completions:', s4QuestCompletions);
 
   // Store debug data for on-screen display (helps diagnose issues on mobile)
   window.S4_DEBUG = {
     hasBlockstack: !!blockstackChar,
     questStates: s4QuestStates,
+    questCompletions: s4QuestCompletions,
     variants: {}
   };
 
@@ -1607,42 +1618,49 @@ async function syncFromEpic(token){
       }
     }
   } else {
-    // FALLBACK: No Blockstack skin - use quest states only
+    // FALLBACK: No Blockstack skin - use quest completion objectives
+    // Key insight: completion_quest_xxx_obj0 >= 1 indicates ownership even when quest is Active
+    // Users without Blockstack can't claim quests (rewards are Blockstack variants), but
+    // the completion count still tracks that they HAVE the sprite
     console.log('=== QUEST-BASED S4 DETECTION (no Blockstack skin) ===');
 
-    // If base quest is Claimed, sprite is definitely owned and mastered
-    // If base quest is Active, sprite might be owned (less certain)
     for(const [spriteId, quests] of Object.entries(s4QuestStates)){
       const baseState = quests.base || quests['00'];
       const goldState = quests['01'];
       const cmState = quests['02'];
+      const completions = s4QuestCompletions[spriteId] || {};
 
-      // Base sprite: owned if quest exists and is Claimed (mastered) or Active (in progress)
+      // Base sprite: owned if base quest Active/Claimed AND completion count >= 1
+      // Claimed = definitely mastered; Active with completion >= 1 = owned
+      const baseCompletion = completions.base || completions['00'] || 0;
       if(baseState === 'Claimed'){
         state['s4:' + spriteId + ':normal'] = { owned: true, mastered: true };
         s4Count++;
         console.log(`  ${spriteId}:normal (quest Claimed - mastered)`);
-      } else if(baseState === 'Active'){
-        // Active = quest started, likely owns sprite but not mastered
+      } else if(baseState === 'Active' && baseCompletion >= 1){
+        // Active with completion = owns base sprite, not mastered yet
         state['s4:' + spriteId + ':normal'] = { owned: true, mastered: false };
         s4Count++;
-        console.log(`  ${spriteId}:normal (quest Active - owned)`);
+        console.log(`  ${spriteId}:normal (quest Active, completion=${baseCompletion} - owned)`);
       }
 
-      // Gold: only if _01 quest is Claimed (mastered)
-      // Note: Active quest doesn't confirm gold ownership - quests appear for all sprites
-      if(goldState === 'Claimed' && state['s4:' + spriteId + ':normal']){
-        state['s4:' + spriteId + ':gold'] = { owned: true, mastered: true };
+      // Gold: check _01 completion objective >= 1 (works even when quest is Active)
+      // This is how users without Blockstack can be detected having gold sprites
+      const goldCompletion = completions['01'] || 0;
+      if(goldCompletion >= 1 && state['s4:' + spriteId + ':normal']){
+        const goldMastered = goldState === 'Claimed';
+        state['s4:' + spriteId + ':gold'] = { owned: true, mastered: goldMastered };
         s4Count++;
-        console.log(`  ${spriteId}:gold (quest Claimed - mastered)`);
+        console.log(`  ${spriteId}:gold (completion=${goldCompletion}${goldMastered ? ', mastered' : ''})`);
       }
 
-      // Cheatmaster: only if _02 quest is Claimed
-      // Note: Without Blockstack skin, gold/cheatmaster detection is limited
-      if(cmState === 'Claimed'){
-        state['s4:' + spriteId + ':cheatmaster'] = { owned: true, mastered: true };
+      // Cheatmaster: check _02 completion objective >= 1
+      const cmCompletion = completions['02'] || 0;
+      if(cmCompletion >= 1){
+        const cmMastered = cmState === 'Claimed';
+        state['s4:' + spriteId + ':cheatmaster'] = { owned: true, mastered: cmMastered };
         s4Count++;
-        console.log(`  ${spriteId}:cheatmaster (quest Claimed - mastered)`);
+        console.log(`  ${spriteId}:cheatmaster (completion=${cmCompletion}${cmMastered ? ', mastered' : ''})`);
       }
     }
   }
