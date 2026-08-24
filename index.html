@@ -15,13 +15,10 @@
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Burbank+Big+Condensed:wght@700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-@font-face {
-  font-family: 'Fortnite';
-  src: local('Burbank Big Condensed Bold'), local('BurbankBigCondensed-Bold');
-  font-weight: 700;
-}
+/* Fortnite-style font for headings */
+.fn-font { font-family: 'Luckiest Guy', cursive; letter-spacing: 0.03em; }
 :root{
   --bg:#0a0c12; --bg2:#0f1118; --panel:#151820; --panel2:#1a1e28;
   --line:#252a38; --text:#f0f2f8; --dim:#6b7280; --accent:#00d4ff;
@@ -72,7 +69,7 @@ input::placeholder{color:var(--dim)}
 .creator:hover{box-shadow:0 0 30px rgba(0,212,255,.4);transform:translateY(-1px)}
 .creator .tag{font-size:10px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;
   background:rgba(10,12,18,.2);padding:3px 8px;border-radius:6px}
-.creator .code{font:800 18px/1 'Fortnite','Inter',sans-serif;letter-spacing:2px}
+.creator .code{font:800 18px/1 'Luckiest Guy','Inter',sans-serif;letter-spacing:2px}
 .creator .note{opacity:.7;font-size:12px}
 @media(max-width:500px){.creator .note{display:none}}
 
@@ -95,13 +92,13 @@ main{padding:16px;max-width:1400px;margin:0 auto}
   border:1px solid var(--line);border-radius:16px;padding:20px 24px;margin-bottom:20px}
 .hero-top{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
 @media(max-width:500px){.hero-top{flex-direction:column;text-align:center}}
-.hero-main h2{font:800 42px/1 'Fortnite','Inter',sans-serif;letter-spacing:1px;
+.hero-main h2{font:800 42px/1 'Luckiest Guy','Inter',sans-serif;letter-spacing:1px;
   background:linear-gradient(135deg,var(--text),var(--dim));
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .hero-main span{color:var(--dim);font-size:14px;font-weight:500}
 .hero-stats{display:flex;gap:24px}
 .stat{text-align:center}
-.stat-val{font:700 28px/1 'Fortnite','Inter',sans-serif;color:var(--accent)}
+.stat-val{font:700 28px/1 'Luckiest Guy','Inter',sans-serif;color:var(--accent)}
 .stat-val.gold{color:var(--mythic)}
 .stat-label{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.5px;margin-top:4px}
 .progress-bar{height:6px;background:var(--bg);border-radius:10px;overflow:hidden;margin-top:16px}
@@ -118,7 +115,7 @@ main{padding:16px;max-width:1400px;margin:0 auto}
 
 /* grid */
 .group-title{display:flex;align-items:center;gap:12px;margin:24px 0 14px;
-  font:700 14px/1 'Fortnite','Inter',sans-serif;text-transform:uppercase;
+  font:700 14px/1 'Luckiest Guy','Inter',sans-serif;text-transform:uppercase;
   letter-spacing:1.5px;color:var(--dim)}
 .group-title::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent)}
 .grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}
@@ -137,7 +134,7 @@ main{padding:16px;max-width:1400px;margin:0 auto}
 .art{position:relative;z-index:1;width:80%;height:80%;object-fit:contain;
   filter:drop-shadow(0 8px 20px rgba(0,0,0,.6))}
 .art-fallback{position:relative;z-index:1;width:60%;aspect-ratio:1;border-radius:12px;
-  display:grid;place-items:center;font:800 32px/1 'Fortnite','Inter',sans-serif;
+  display:grid;place-items:center;font:800 32px/1 'Luckiest Guy','Inter',sans-serif;
   color:rgba(10,12,18,.8);background:var(--vc)}
 .card-info{padding:10px 12px 12px}
 .card-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
@@ -187,7 +184,7 @@ dialog{border:1px solid var(--line);background:var(--panel);color:var(--text);
 dialog::backdrop{background:rgba(0,0,0,.7);backdrop-filter:blur(4px)}
 dialog[open]{display:block}
 .dlg-body{padding:20px}
-.dlg-body h2{font:700 18px/1.3 'Fortnite','Inter',sans-serif;margin-bottom:6px}
+.dlg-body h2{font:700 18px/1.3 'Luckiest Guy','Inter',sans-serif;margin-bottom:6px}
 .dlg-body p{color:var(--dim);font-size:13px;margin-bottom:16px}
 .dlg-body label{display:block;font-size:11px;color:var(--dim);text-transform:uppercase;
   letter-spacing:.5px;margin:12px 0 6px}
@@ -204,8 +201,8 @@ dialog[open]{display:block}
   background:radial-gradient(ellipse at top,transparent 0%,var(--panel) 70%)}
 .info-art{position:relative;z-index:1;width:120px;height:120px;margin:0 auto 14px;
   object-fit:contain;filter:drop-shadow(0 12px 30px rgba(0,0,0,.6));
-  display:grid;place-items:center;font:800 48px/1 'Fortnite','Inter',sans-serif;color:rgba(10,12,18,.8)}
-.info-head h2{position:relative;z-index:1;font:700 22px/1.2 'Fortnite','Inter',sans-serif}
+  display:grid;place-items:center;font:800 48px/1 'Luckiest Guy','Inter',sans-serif;color:rgba(10,12,18,.8)}
+.info-head h2{position:relative;z-index:1;font:700 22px/1.2 'Luckiest Guy','Inter',sans-serif}
 .info-sub{position:relative;z-index:1;color:var(--dim);font-size:13px;margin-top:5px}
 .pill{position:relative;z-index:1;display:inline-block;font-size:10px;font-weight:700;
   letter-spacing:.6px;text-transform:uppercase;padding:5px 14px;border-radius:20px;
@@ -226,7 +223,7 @@ dialog[open]{display:block}
 .btn-epic{background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;border:none;font-weight:700}
 .btn-epic:hover{box-shadow:0 0 24px rgba(168,85,247,.5)}
 .btn-epic.linked{background:var(--panel2);border:1px solid var(--accent);color:var(--accent)}
-.epic-code{font:800 32px/1 'Fortnite','Inter',sans-serif;letter-spacing:8px;color:var(--accent);
+.epic-code{font:800 32px/1 'Luckiest Guy','Inter',sans-serif;letter-spacing:8px;color:var(--accent);
   background:var(--bg);padding:16px 24px;border-radius:12px;margin:16px 0;text-align:center}
 .epic-waiting{color:var(--dim);font-size:13px;text-align:center}
 .epic-waiting::after{content:'';animation:dots 1.2s steps(4) infinite}
