@@ -1490,15 +1490,10 @@ async function syncFromEpic(token){
     const BLOCKSTACK_CHEATMASTER_PARTICLE_MAP = {
       'Particle0': 'tails',
       'Particle3': 'adventure',
-      'Particle10': '8bit',      // Fixed: was incorrectly jackrabbit
+      'Particle10': '8bit',
       'Particle14': 'crown',
-      'Particle15': 'jonesy',
-      // Likely mappings
-      'Particle6': 'killswitch',
-      'Particle7': 'bush',
-      'Particle11': 'crown',
-      'Particle16': 'shadow',
-      'Particle17': 'sonic'
+      'Particle15': 'jonesy'
+      // Note: Particle6, 7, 11, 16, 17 were removed - caused false positives
     };
 
     // Mat values for cheatmaster (Stage + 20 offset)
