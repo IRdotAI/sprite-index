@@ -1101,6 +1101,7 @@ async function showLoginFlow(){
       try {
         const pollRes = await fetch(`${API_BASE}/auth/device/poll?device_code=${encodeURIComponent(device_code)}`);
         const pollData = await pollRes.json();
+        console.log('Poll result:', pollData);
 
         if(pollData.status === 'pending') return;
 
