@@ -1058,82 +1058,91 @@ function showProfileMenu(){
   };
 }
 
-// Manual authorization code flow - user gets code from Epic and pastes it
-function showLoginFlow(){
+// Device Auth flow - official Epic login page like spritetrading.com
+let deviceAuthPollInterval = null;
+
+async function showLoginFlow(){
   epicTitle.textContent = 'Link Your Epic Account';
   epicDesc.textContent = 'Sync your Fortnite locker automatically.';
   epicClose.textContent = 'Cancel';
 
-  // Epic login page and auth code page
-  const epicLoginUrl = 'https://www.epicgames.com/id/login';
-  const epicAuthUrl = 'https://www.epicgames.com/id/api/redirect?clientId=ec684b8c687f479fadea3cb2ad83f5c6&responseType=code';
-
-  epicContent.innerHTML = `
-    <div style="display:flex;flex-direction:column;gap:12px">
-      <div style="background:var(--panel);border-radius:12px;padding:16px">
-        <p style="font-weight:700;margin-bottom:8px;color:var(--accent)">Step 1: Login to Epic Games</p>
-        <p style="font-size:13px;color:var(--dim);margin-bottom:12px">Sign in to your Epic Games account first</p>
-        <a href="${epicLoginUrl}" target="_blank" class="btn-epic" style="display:block;text-align:center;text-decoration:none;padding:12px;border-radius:10px">⚡ Login to Epic Games</a>
-      </div>
-      <div style="background:var(--panel);border-radius:12px;padding:16px">
-        <p style="font-weight:700;margin-bottom:8px;color:var(--accent)">Step 2: Get Authorization Code</p>
-        <p style="font-size:13px;color:var(--dim);margin-bottom:12px">After logging in, click below to get your code</p>
-        <a href="${epicAuthUrl}" target="_blank" class="btn-primary" style="display:block;text-align:center;text-decoration:none;padding:12px;border-radius:10px">Get Auth Code →</a>
-      </div>
-      <div style="background:var(--panel);border-radius:12px;padding:16px">
-        <p style="font-weight:700;margin-bottom:8px;color:var(--accent)">Step 3: Paste Code & Link</p>
-        <p style="font-size:13px;color:var(--dim);margin-bottom:12px">Copy the <strong>authorizationCode</strong> and paste it below</p>
-        <input type="text" id="epic-code-input" placeholder="Paste authorization code here" style="width:100%;padding:12px;border-radius:8px;border:1px solid var(--line);background:var(--bg2);color:var(--text);font-size:14px">
-      </div>
-      <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:12px;color:var(--dim)">
-        <input type="checkbox" id="tos-consent" style="width:18px;height:18px;margin-top:2px;accent-color:var(--accent)">
-        <span>I agree to the <a href="https://www.epicgames.com/site/en-US/tos" target="_blank" style="color:var(--accent)">Epic Games Terms of Service</a> and consent to Spritedex accessing my locker data</span>
-      </label>
-      <button id="epic-code-submit" class="btn-primary" style="width:100%;padding:14px;border-radius:10px" disabled>✓ Link Account</button>
-    </div>
-  `;
+  epicContent.innerHTML = '<p class="epic-waiting">Starting login...</p><div style="text-align:center;margin-top:12px"><div class="spinner" style="width:24px;height:24px;margin:0 auto"></div></div>';
   epicDlg.showModal();
 
-  // Enable submit button only when TOS is checked
-  const tosCheckbox = document.getElementById('tos-consent');
-  const submitBtn = document.getElementById('epic-code-submit');
-  tosCheckbox.onchange = () => {
-    submitBtn.disabled = !tosCheckbox.checked;
-    submitBtn.style.opacity = tosCheckbox.checked ? '1' : '0.5';
-  };
-  submitBtn.style.opacity = '0.5';
+  try {
+    // Start device auth flow
+    const res = await fetch(`${API_BASE}/auth/device`);
+    const data = await res.json();
 
-  document.getElementById('epic-code-submit').onclick = async () => {
-    const tosChecked = document.getElementById('tos-consent').checked;
-    if(!tosChecked){
-      toast('Please agree to the terms first', true);
-      return;
-    }
-    const code = document.getElementById('epic-code-input').value.trim();
-    if(!code){
-      toast('Please paste the authorization code', true);
+    if(data.error){
+      epicContent.innerHTML = `<p style="color:var(--legendary)">Error: ${data.error}</p><button onclick="showLoginFlow()" class="btn-primary" style="margin-top:12px">Try Again</button>`;
       return;
     }
 
-    epicContent.innerHTML = '<p class="epic-waiting">Linking account...</p><div style="text-align:center;margin-top:12px"><div class="spinner" style="width:24px;height:24px;margin:0 auto"></div></div>';
+    const { device_code, user_code, verification_uri_complete, expires_in, interval } = data;
 
-    try {
-      const result = await epicAuth.exchangeCode(code);
-      if(result.success){
-        localStorage.setItem('epic_account_id', result.account_id);
-        localStorage.setItem('epic_display_name', result.display_name);
+    epicContent.innerHTML = `
+      <div style="display:flex;flex-direction:column;gap:16px;text-align:center">
+        <div style="background:var(--panel);border-radius:12px;padding:20px">
+          <p style="font-weight:700;margin-bottom:12px;color:var(--accent)">Click the button below to login with Epic Games</p>
+          <a href="${verification_uri_complete}" target="_blank" class="btn-epic" style="display:block;text-align:center;text-decoration:none;padding:14px;border-radius:10px;font-size:16px">Login with Epic Games</a>
+        </div>
+        <div style="background:var(--panel);border-radius:12px;padding:16px">
+          <p style="font-size:13px;color:var(--dim);margin-bottom:8px">Your code:</p>
+          <p style="font-family:'Luckiest Guy',cursive;font-size:28px;letter-spacing:8px;color:var(--text)">${user_code}</p>
+        </div>
+        <p style="font-size:12px;color:var(--dim)">Waiting for confirmation... This will update automatically.</p>
+        <div class="spinner" style="width:20px;height:20px;margin:0 auto"></div>
+      </div>
+    `;
+
+    // Poll for completion
+    if(deviceAuthPollInterval) clearInterval(deviceAuthPollInterval);
+
+    deviceAuthPollInterval = setInterval(async () => {
+      try {
+        const pollRes = await fetch(`${API_BASE}/auth/device/poll?device_code=${encodeURIComponent(device_code)}`);
+        const pollData = await pollRes.json();
+
+        if(pollData.status === 'pending') return; // Still waiting
+
+        clearInterval(deviceAuthPollInterval);
+        deviceAuthPollInterval = null;
+
+        if(pollData.status === 'expired'){
+          epicContent.innerHTML = `<p style="color:var(--legendary)">Code expired. Please try again.</p><button onclick="showLoginFlow()" class="btn-primary" style="margin-top:12px">Try Again</button>`;
+          return;
+        }
+
+        if(pollData.error){
+          epicContent.innerHTML = `<p style="color:var(--legendary)">Error: ${pollData.error}</p><button onclick="showLoginFlow()" class="btn-primary" style="margin-top:12px">Try Again</button>`;
+          return;
+        }
+
+        // Success
+        localStorage.setItem('epic_account_id', pollData.account_id);
+        localStorage.setItem('epic_display_name', pollData.display_name);
         localStorage.setItem('epic_logged_in', 'true');
         await syncFromEpic();
         updateProfileArea();
         epicDlg.close();
-        toast(`Linked as ${result.display_name}!`);
-      } else {
-        epicContent.innerHTML = `<p style="color:var(--legendary)">Error: ${result.error}</p><button onclick="showLoginFlow()" class="btn-primary" style="margin-top:12px">Try Again</button>`;
+        toast(`Linked as ${pollData.display_name}!`);
+      } catch(e) {
+        // Network error, keep polling
       }
-    } catch(err){
-      epicContent.innerHTML = `<p style="color:var(--legendary)">Error: ${err.message}</p><button onclick="showLoginFlow()" class="btn-primary" style="margin-top:12px">Try Again</button>`;
-    }
-  };
+    }, (interval || 5) * 1000);
+
+    // Stop polling if dialog is closed
+    epicDlg.addEventListener('close', () => {
+      if(deviceAuthPollInterval){
+        clearInterval(deviceAuthPollInterval);
+        deviceAuthPollInterval = null;
+      }
+    }, { once: true });
+
+  } catch(err){
+    epicContent.innerHTML = `<p style="color:var(--legendary)">Error: ${err.message}</p><button onclick="showLoginFlow()" class="btn-primary" style="margin-top:12px">Try Again</button>`;
+  }
 }
 
 epicClose.onclick = () => epicDlg.close();
