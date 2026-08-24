@@ -1069,7 +1069,10 @@ function showProfileMenu(){
       'Mats: ' + ((debug.variants?.MaterialParamSets3 || []).filter(v => v.startsWith('Mat')).join(', ') || 'none'),
       '',
       '--- S4 QUEST STATES ---',
-      JSON.stringify(debug.questStates || {}, null, 2)
+      JSON.stringify(debug.questStates || {}, null, 2),
+      '',
+      '--- S4 QUEST COMPLETIONS (ownership indicator) ---',
+      JSON.stringify(debug.questCompletions || {}, null, 2)
     ].join('\n');
     epicTitle.textContent = 'Debug Data';
     epicDesc.textContent = 'Copy or screenshot this data to report issues';
