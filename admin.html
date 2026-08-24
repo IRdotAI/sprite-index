@@ -292,7 +292,7 @@
     <div class="header">
       <h1>Spritedex Admin</h1>
       <div style="display:flex;gap:0.5rem">
-        <button onclick="loadUsers()" title="Refresh">🔄 Refresh</button>
+        <button onclick="loadUsers()" title="Refresh">↻ Refresh</button>
         <button onclick="logout()">Logout</button>
       </div>
     </div>
@@ -475,7 +475,7 @@
                   <div class="account-id">
                     <span class="hidden" id="id-${i}">${maskedId}</span>
                     <button class="reveal-btn" onclick="toggleId(${i}, '${u.account_id}')" title="Show/Hide">
-                      <span id="eye-${i}">👁</span>
+                      <span id="eye-${i}">◉</span>
                     </button>
                   </div>
                 </td>
@@ -714,11 +714,11 @@
       const eye = document.getElementById(`eye-${index}`);
       if (revealedIds.has(index)) {
         span.textContent = '••••••••••••••••';
-        eye.textContent = '👁';
+        eye.innerHTML = '◉';
         revealedIds.delete(index);
       } else {
         span.textContent = realId;
-        eye.textContent = '🙈';
+        eye.innerHTML = '◯';
         revealedIds.add(index);
       }
     }
