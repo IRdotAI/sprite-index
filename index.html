@@ -1118,10 +1118,17 @@ async function showLoginFlow(){
           return;
         }
 
+        console.log('Success! Storing login...');
         localStorage.setItem('epic_account_id', pollData.account_id);
         localStorage.setItem('epic_display_name', pollData.display_name);
         localStorage.setItem('epic_logged_in', 'true');
-        await syncFromEpic();
+        epicAuth.accountId = pollData.account_id;
+        epicAuth.displayName = pollData.display_name;
+        try {
+          await syncFromEpic();
+        } catch(syncErr) {
+          console.error('Sync error:', syncErr);
+        }
         updateProfileArea();
         epicDlg.close();
         toast(`Linked as ${pollData.display_name}!`);
