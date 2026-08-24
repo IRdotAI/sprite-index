@@ -587,7 +587,7 @@
 
           // Build HTML
           const vbucks = locker.vbucks || 0;
-          const fnJoined = locker.fortnite_joined ? new Date(locker.fortnite_joined).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) : '—';
+          const firstSeason = locker.first_season ? `Season ${locker.first_season}` : '—';
           let html = `
             <div class="stats" style="margin-bottom:1.5rem">
               <div class="stat-card">
@@ -608,7 +608,8 @@
               </div>
             </div>
             <div style="text-align:center;margin-bottom:1.5rem;color:var(--text2)">
-              Fortnite Account Created: <strong style="color:var(--text)">${fnJoined}</strong>
+              Level: <strong style="color:var(--accent2)">${locker.account_level || 0}</strong>
+              · First Season: <strong style="color:var(--text)">${firstSeason}</strong>
             </div>
           `;
 

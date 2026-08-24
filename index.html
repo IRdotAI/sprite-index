@@ -1022,7 +1022,10 @@ function updateProfileArea(){
 
 function showProfileMenu(){
   epicTitle.textContent = 'Your Account';
-  epicDesc.textContent = `Logged in as ${epicAuth.displayName}`;
+  const accountLevel = localStorage.getItem('epic_account_level') || '—';
+  const firstSeason = localStorage.getItem('epic_first_season');
+  const firstSeasonText = firstSeason ? `Season ${firstSeason}` : '—';
+  epicDesc.innerHTML = `Logged in as <strong>${epicAuth.displayName}</strong><br><span style="font-size:12px;color:var(--dim)">Level ${accountLevel} · First Season: ${firstSeasonText}</span>`;
   epicContent.innerHTML = '';
   epicClose.textContent = 'Close';
   epicDlg.showModal();
@@ -1636,6 +1639,10 @@ async function syncFromEpic(token){
   const entriesNotInState = s3EntryKeys.filter(k => !s3Keys.includes(k));
   console.log('Keys in STATE but NOT in entries:', stateNotInEntries);
   console.log('Keys in ENTRIES but NOT in state:', entriesNotInState);
+
+  // Store account level and first season for profile display
+  if(locker.account_level) localStorage.setItem('epic_account_level', locker.account_level);
+  if(locker.first_season) localStorage.setItem('epic_first_season', locker.first_season);
 
   save();
   render();
