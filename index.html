@@ -1000,16 +1000,19 @@ const epicAuth = {
 function updateProfileArea(){
   const area = document.getElementById('profileArea');
   if(epicAuth.isLoggedIn()){
-    const avatarUrl = epicAuth.avatarUrl || '';
+    // Get equipped skin icon from fortnite-api.com
+    const equippedSkin = localStorage.getItem('epic_equipped_skin') || '';
+    const skinId = equippedSkin.split(':')[1] || '';
+    const avatarUrl = skinId ? `https://fortnite-api.com/images/cosmetics/br/${skinId}/smallicon.png` : '';
     area.innerHTML = `
       <button class="profile-btn" id="profileBtn" title="Account options">
-        ${avatarUrl ? `<img class="profile-avatar" src="${avatarUrl}" alt="">` : `<div class="profile-avatar" style="display:grid;place-items:center;font-size:14px;font-weight:700;color:var(--accent)">${(epicAuth.displayName||'?')[0].toUpperCase()}</div>`}
+        ${avatarUrl ? `<img class="profile-avatar" src="${avatarUrl}" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><div class="profile-avatar" style="display:none;place-items:center;font-size:14px;font-weight:700;color:var(--accent)">${(epicAuth.displayName||'?')[0].toUpperCase()}</div>` : `<div class="profile-avatar" style="display:grid;place-items:center;font-size:14px;font-weight:700;color:var(--accent)">${(epicAuth.displayName||'?')[0].toUpperCase()}</div>`}
         <span class="profile-name">${epicAuth.displayName || 'User'}</span>
       </button>
     `;
     document.getElementById('profileBtn').onclick = showProfileMenu;
   } else {
-    area.innerHTML = `<button id="epicLoginBtn" class="btn-epic" title="Link Epic Account">⚡ Link Epic</button>`;
+    area.innerHTML = `<button id="epicLoginBtn" class="btn-epic" title="Link Epic Account">Link Epic</button>`;
     document.getElementById('epicLoginBtn').onclick = showLoginFlow;
   }
   // Clear state if not logged in
@@ -1661,6 +1664,7 @@ async function syncFromEpic(token){
   // Store account level and first season for profile display
   if(locker.account_level) localStorage.setItem('epic_account_level', locker.account_level);
   if(locker.first_season) localStorage.setItem('epic_first_season', locker.first_season);
+  if(locker.equipped_skin) localStorage.setItem('epic_equipped_skin', locker.equipped_skin);
 
   save();
   render();
