@@ -1096,8 +1096,10 @@ async function showLoginFlow(){
     `;
 
     if(deviceAuthPollInterval) clearInterval(deviceAuthPollInterval);
+    let loginComplete = false;
 
     deviceAuthPollInterval = setInterval(async () => {
+      if(loginComplete) return;
       try {
         const pollRes = await fetch(`${API_BASE}/auth/device/poll?device_code=${encodeURIComponent(device_code)}`);
         const pollData = await pollRes.json();
@@ -1105,6 +1107,7 @@ async function showLoginFlow(){
 
         if(pollData.status === 'pending') return;
 
+        loginComplete = true;
         clearInterval(deviceAuthPollInterval);
         deviceAuthPollInterval = null;
 
