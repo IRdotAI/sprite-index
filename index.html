@@ -1647,8 +1647,7 @@ async function syncFromEpic(token){
     }
   } else {
     // FALLBACK: No Blockstack skin - use quest states
-    // Note: Without Blockstack, gold/CM detection is LIMITED - quests exist for all sprites
-    // but we can't distinguish "has gold" from "doesn't have gold" without Blockstack variants
+    // Quest suffix pattern: base quest = owns sprite, _01 Claimed = gold, _02 Claimed = cheatmaster
     console.log('=== QUEST-BASED S4 DETECTION (no Blockstack skin) ===');
 
     for(const [spriteId, quests] of Object.entries(s4QuestStates)){
@@ -1656,7 +1655,7 @@ async function syncFromEpic(token){
       const goldState = quests['01'];
       const cmState = quests['02'];
 
-      // Base sprite: trust Active/Claimed state (quest created when sprite acquired)
+      // Base sprite: Active = owned (quest created on acquisition), Claimed = mastered
       if(baseState === 'Claimed'){
         state['s4:' + spriteId + ':normal'] = { owned: true, mastered: true };
         s4Count++;
@@ -1667,25 +1666,20 @@ async function syncFromEpic(token){
         console.log(`  ${spriteId}:normal (quest Active - owned)`);
       }
 
-      // Gold: only trust Claimed state (users without Blockstack likely can't claim though)
+      // Gold: _01 quest Claimed = owns gold variant
       if(goldState === 'Claimed' && state['s4:' + spriteId + ':normal']){
         state['s4:' + spriteId + ':gold'] = { owned: true, mastered: true };
         s4Count++;
-        console.log(`  ${spriteId}:gold (quest Claimed)`);
+        console.log(`  ${spriteId}:gold (_01 quest Claimed)`);
       }
 
-      // Cheatmaster: only trust Claimed state
+      // Cheatmaster: _02 quest Claimed = owns cheatmaster variant
       if(cmState === 'Claimed'){
         state['s4:' + spriteId + ':cheatmaster'] = { owned: true, mastered: true };
         s4Count++;
-        console.log(`  ${spriteId}:cheatmaster (quest Claimed)`);
+        console.log(`  ${spriteId}:cheatmaster (_02 quest Claimed)`);
       }
     }
-
-    // LIMITATION: For users without Blockstack skin, gold/cheatmaster sprites
-    // cannot be reliably detected since the quest state doesn't indicate ownership.
-    // Consider getting the Blockstack skin for accurate tracking.
-    console.log('WARNING: Gold/Cheatmaster detection limited without Blockstack skin');
   }
 
   for(const item of locker.cosmetics){
