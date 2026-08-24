@@ -1629,14 +1629,16 @@ async function syncFromEpic(token){
         console.log(`  ${spriteId}:normal (quest Active - owned)`);
       }
 
-      // Gold: if _01 quest exists and Claimed
+      // Gold: only if _01 quest is Claimed (mastered)
+      // Note: Active quest doesn't confirm gold ownership - quests appear for all sprites
       if(goldState === 'Claimed' && state['s4:' + spriteId + ':normal']){
-        state['s4:' + spriteId + ':gold'] = { owned: true, mastered: false };
+        state['s4:' + spriteId + ':gold'] = { owned: true, mastered: true };
         s4Count++;
-        console.log(`  ${spriteId}:gold (quest Claimed)`);
+        console.log(`  ${spriteId}:gold (quest Claimed - mastered)`);
       }
 
-      // Cheatmaster: if _02 quest exists and Claimed
+      // Cheatmaster: only if _02 quest is Claimed
+      // Note: Without Blockstack skin, gold/cheatmaster detection is limited
       if(cmState === 'Claimed'){
         state['s4:' + spriteId + ':cheatmaster'] = { owned: true, mastered: true };
         s4Count++;
