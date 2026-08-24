@@ -315,12 +315,13 @@
           <th>Display Name</th>
           <th>Account ID</th>
           <th>Client</th>
+          <th>Joined</th>
           <th>Status</th>
           <th>Actions</th>
         </tr>
       </thead>
       <tbody id="usersTable">
-        <tr><td colspan="5" class="loading">Loading...</td></tr>
+        <tr><td colspan="6" class="loading">Loading...</td></tr>
       </tbody>
     </table>
   </div>
@@ -447,7 +448,7 @@
         .then(data => {
           if (data.error) {
             document.getElementById('usersTable').innerHTML =
-              `<tr><td colspan="5" class="error">${data.error}</td></tr>`;
+              `<tr><td colspan="6" class="error">${data.error}</td></tr>`;
             return;
           }
 
@@ -459,7 +460,7 @@
 
           if (data.users.length === 0) {
             document.getElementById('usersTable').innerHTML =
-              '<tr><td colspan="5" style="text-align:center;color:var(--text2)">No users yet</td></tr>';
+              '<tr><td colspan="6" style="text-align:center;color:var(--text2)">No users yet</td></tr>';
             return;
           }
 
@@ -468,6 +469,7 @@
             const statusClass = isActive ? 'active' : 'expired';
             const statusText = isActive ? 'Active' : 'Expired';
             const maskedId = '••••••••••••••••';
+            const joinedDate = u.joined_at ? new Date(u.joined_at).toLocaleDateString() : '—';
             return `
               <tr>
                 <td><strong>${escapeHtml(u.display_name)}</strong></td>
@@ -480,6 +482,7 @@
                   </div>
                 </td>
                 <td>${u.client_type}</td>
+                <td style="color:var(--text2)">${joinedDate}</td>
                 <td><span class="status ${statusClass}">${statusText}</span></td>
                 <td><button class="btn" onclick="viewLocker('${u.account_id}', '${escapeHtml(u.display_name)}')">View Locker</button></td>
               </tr>
