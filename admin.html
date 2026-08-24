@@ -492,6 +492,7 @@
     }
 
     function viewLocker(accountId, displayName) {
+      console.log('viewLocker called:', accountId, displayName);
       document.getElementById('lockerModal').classList.add('active');
       document.getElementById('modalTitle').textContent = `${displayName}'s Locker`;
       document.getElementById('modalBody').innerHTML = '<div class="loading">Loading locker data...</div>';
@@ -654,7 +655,7 @@
           if (firstCat) showCategory(firstCat);
         })
         .catch(err => {
-          document.getElementById('modalBody').innerHTML = `<div class="error">Failed to load locker</div>`;
+          document.getElementById('modalBody').innerHTML = `<div class="error">Failed to load locker: ${err.message}</div>`;
         });
     }
 
