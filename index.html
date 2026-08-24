@@ -1039,11 +1039,42 @@ function showProfileMenu(){
   btns.innerHTML = `
     <button id="epicAvatarBtn" class="btn-primary">Change Avatar</button>
     <button id="epicSyncBtn">Sync Locker Now</button>
+    <button id="epicDebugBtn">Show Debug Data</button>
     <button id="epicUnlinkBtn">Logout</button>
   `;
   epicContent.appendChild(btns);
 
   document.getElementById('epicAvatarBtn').onclick = showAvatarPicker;
+
+  document.getElementById('epicDebugBtn').onclick = () => {
+    const debug = window.S4_DEBUG || { error: 'No debug data - sync first' };
+    const debugText = [
+      'S4 SPRITE DEBUG DATA',
+      '====================',
+      '',
+      'Has Blockstack skin: ' + debug.hasBlockstack,
+      '',
+      '--- MATERIAL (Base sprites) ---',
+      (debug.variants?.Material || []).filter(v => v.startsWith('Stage')).join(', ') || 'none',
+      '',
+      '--- MATERIALPARAMSETS (Gold) ---',
+      'Particles: ' + ((debug.variants?.MaterialParamSets || []).filter(v => v.startsWith('Particle')).join(', ') || 'none'),
+      'Mats: ' + ((debug.variants?.MaterialParamSets || []).filter(v => v.startsWith('Mat')).join(', ') || 'none'),
+      '',
+      '--- MATERIALPARAMSETS2 (Cheatmaster) ---',
+      'Particles: ' + ((debug.variants?.MaterialParamSets2 || []).filter(v => v.startsWith('Particle')).join(', ') || 'none'),
+      'Mats: ' + ((debug.variants?.MaterialParamSets2 || []).filter(v => v.startsWith('Mat')).join(', ') || 'none'),
+      '',
+      '--- MATERIALPARAMSETS3 (Cheatmaster) ---',
+      'Mats: ' + ((debug.variants?.MaterialParamSets3 || []).filter(v => v.startsWith('Mat')).join(', ') || 'none'),
+      '',
+      '--- S4 QUEST STATES ---',
+      JSON.stringify(debug.questStates || {}, null, 2)
+    ].join('\n');
+    epicTitle.textContent = 'Debug Data';
+    epicDesc.textContent = 'Copy or screenshot this data to report issues';
+    epicContent.innerHTML = `<pre style="font-size:11px;white-space:pre-wrap;word-break:break-all;max-height:50vh;overflow:auto;background:#111;padding:12px;border-radius:8px;text-align:left">${debugText}</pre>`;
+  };
 
   document.getElementById('epicSyncBtn').onclick = async () => {
     try {
@@ -1398,9 +1429,21 @@ async function syncFromEpic(token){
   }
   console.log('S4 quest states:', s4QuestStates);
 
+  // Store debug data for on-screen display (helps diagnose issues on mobile)
+  window.S4_DEBUG = {
+    hasBlockstack: !!blockstackChar,
+    questStates: s4QuestStates,
+    variants: {}
+  };
+
   if(blockstackChar?.attributes?.variants){
     console.log('=== BLOCKSTACK VARIANT-BASED S4 DETECTION ===');
     const variants = blockstackChar.attributes.variants;
+
+    // Store raw variant data for debug panel
+    for(const v of variants){
+      window.S4_DEBUG.variants[v.channel] = v.owned || [];
+    }
 
     // Material channel contains Stage values = base sprite ownership
     // Note: Stage can appear even for extracted cheatmasters, so we also require
@@ -1413,17 +1456,18 @@ async function syncFromEpic(token){
       for(const stage of ownedStages){
         const spriteId = BLOCKSTACK_STAGE_MAP[stage];
         if(spriteId && !state['s4:' + spriteId + ':normal']){
-          // Note: Can't reliably detect extracted CMs (where user has CM but not base)
-          // because the API data looks identical to legitimately owned sprites.
-          // Trusting Stage ownership when any quest exists for the sprite.
-          const hasQuestEvidence = s4QuestStates[spriteId] !== undefined;
-          if(hasQuestEvidence){
-            const baseMastered = s4QuestStates[spriteId]?.base === 'Claimed';
+          // Require BASE quest to exist (not just any quest like gold/cheatmaster)
+          // This prevents false positives from extracted CMs where Stage value exists
+          // but user doesn't actually own the base sprite
+          const baseQuestState = s4QuestStates[spriteId]?.base;
+          const hasBaseQuest = baseQuestState === 'Active' || baseQuestState === 'Claimed';
+          if(hasBaseQuest){
+            const baseMastered = baseQuestState === 'Claimed';
             state['s4:' + spriteId + ':normal'] = { owned: true, mastered: baseMastered };
             s4Count++;
             console.log(`  ${stage} -> ${spriteId}:normal (via Blockstack variants)${baseMastered ? ' [MASTERED]' : ''}`);
           } else {
-            console.log(`  ${stage} -> ${spriteId}:normal SKIPPED (no quest evidence - likely extracted CM only)`);
+            console.log(`  ${stage} -> ${spriteId}:normal SKIPPED (no base quest - likely extracted CM only)`);
           }
         }
       }
