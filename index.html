@@ -726,7 +726,7 @@ function openInfo(key){
     <span class="${pillClass}" ${pillStyle}>${pillText}</span>`;
 
   // Variant effect badges for Gold and Cheatmaster
-  const effectBadgeStyle = 'background:linear-gradient(15deg,#9effef 0,#d1ffd6 17%,#fff8ad 34%,#a3edff 51%,#bdbdff 68%,#ffb8eb 85%,#ffdda3 100%);color:#000;font-weight:600;padding:10px 14px;border-radius:8px;font-size:13px;text-align:center';
+  const effectBadgeStyle = "background:linear-gradient(15deg,#9effef 0,#d1ffd6 17%,#fff8ad 34%,#a3edff 51%,#bdbdff 68%,#ffb8eb 85%,#ffdda3 100%);color:#000;font-family:'Luckiest Guy',cursive;font-weight:700;padding:12px 16px;border-radius:8px;font-size:14px;text-align:center;letter-spacing:0.5px";
   const variantEffectContent = e.variantId === 'gold'
     ? `<div style="${effectBadgeStyle}">Gain 3x bonus XP from eliminations</div>`
     : e.variantId === 'cheatmaster'
@@ -734,11 +734,12 @@ function openInfo(key){
     : e.variant.effect || '';
 
   // Only show sections we actually have text for - an empty heading is noise.
+  // Variant Effect goes right after Status
   const secs=[
     ['Status', status],
+    [e.variant.name+' Modifier', variantEffectContent],
     ['Ability', e.sprite.ability],
     ['Location', e.sprite.location],
-    [e.variant.name+' Effect', variantEffectContent],
     ['How to Obtain', e.variant.howToObtain],
   ].filter(([,v])=>v);
 
@@ -756,7 +757,7 @@ function openInfo(key){
   ].filter(Boolean);
 
   infoBody.innerHTML=
-    secs.map(([h,v])=>`<div class="info-sec"><h3>${esc(h)}</h3><p>${(h==='Status'||h.includes('Effect'))?v:esc(v)}</p></div>`).join('')+
+    secs.map(([h,v])=>`<div class="info-sec"><h3>${esc(h)}</h3><p>${(h==='Status'||h.includes('Modifier'))?v:esc(v)}</p></div>`).join('')+
     `<div class="facts">${facts.map(([b,l])=>
       `<div class="fact"><b>${esc(b)}</b><span>${esc(l)}</span></div>`).join('')}</div>`;
 
