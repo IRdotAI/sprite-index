@@ -219,15 +219,58 @@ dialog[open]{display:block}
 .info-foot{padding:0 20px 20px}
 .info-foot button{width:100%}
 
-/* epic login */
+/* login modal - ST style */
+#loginDlg{width:min(94vw,400px);padding:0;border:none;border-radius:16px;background:var(--panel)}
+#loginDlg::backdrop{background:rgba(0,0,0,.7);backdrop-filter:blur(4px)}
+.login-body{padding:32px 28px}
+.login-icon{width:48px;height:48px;background:var(--panel2);border-radius:12px;
+  display:flex;align-items:center;justify-content:center;margin:0 auto 20px;
+  font-size:24px;color:var(--mythic)}
+.login-title{font:700 22px/1.2 'Inter',sans-serif;text-align:center;margin-bottom:8px}
+.login-subtitle{color:var(--dim);font-size:14px;text-align:center;margin-bottom:24px;line-height:1.5}
+.login-age{display:flex;align-items:flex-start;gap:12px;background:var(--panel2);
+  border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:20px}
+.login-age input{width:18px;height:18px;accent-color:var(--accent);margin-top:2px;flex-shrink:0;cursor:pointer}
+.login-age label{font-size:13px;color:var(--dim);line-height:1.5;cursor:pointer}
+.login-age a{color:var(--mythic);text-decoration:none}
+.login-age a:hover{text-decoration:underline}
+.login-btns{display:flex;flex-direction:column;gap:10px;margin-bottom:20px}
+.login-btn{display:flex;align-items:center;gap:14px;width:100%;padding:14px 18px;
+  background:var(--panel2);border:1px solid var(--line);border-radius:10px;
+  cursor:pointer;transition:all .15s;text-align:left}
+.login-btn:hover:not(:disabled){border-color:var(--accent);box-shadow:var(--glow)}
+.login-btn:disabled{opacity:.5;cursor:not-allowed}
+.login-btn .icon{width:36px;height:36px;border-radius:8px;display:flex;
+  align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.login-btn.epic .icon{background:linear-gradient(135deg,#1a1a2e,#2d2d44);color:#fff}
+.login-btn.discord .icon{background:#5865F2;color:#fff}
+.login-btn .text{flex:1}
+.login-btn .text strong{display:block;font-size:15px;font-weight:600;color:var(--text);margin-bottom:2px}
+.login-btn .text span{font-size:12px;color:var(--dim)}
+.login-btn .arrow{color:var(--dim);font-size:18px}
+.login-footer{font-size:11px;color:var(--dim);text-align:center;line-height:1.6}
+.login-footer a{color:var(--dim);text-decoration:underline}
+
+/* device auth screen */
+.auth-screen{text-align:center;padding:32px 28px}
+.auth-icon{width:48px;height:48px;background:var(--panel2);border-radius:12px;
+  display:flex;align-items:center;justify-content:center;margin:0 auto 20px;
+  font-size:24px;color:var(--mythic)}
+.auth-title{font:700 22px/1.2 'Inter',sans-serif;margin-bottom:8px}
+.auth-subtitle{color:var(--dim);font-size:14px;margin-bottom:24px;line-height:1.5}
+.auth-btn{background:var(--mythic);color:#0a0c12;border:none;font-weight:700;
+  width:100%;padding:14px 20px;border-radius:10px;font-size:15px;margin-bottom:12px}
+.auth-btn:hover{box-shadow:0 0 24px rgba(250,204,21,.4)}
+.auth-waiting{color:var(--dim);font-size:13px;margin-bottom:16px}
+.auth-waiting::after{content:'';animation:dots 1.2s steps(4) infinite}
+@keyframes dots{0%{content:''}25%{content:'.'}50%{content:'..'}75%{content:'...'}}
+.auth-alt{color:var(--dim);font-size:13px;text-decoration:underline;cursor:pointer;background:none;border:none}
+.auth-alt:hover{color:var(--text)}
+
+/* epic login legacy */
 .btn-epic{background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;border:none;font-weight:700}
 .btn-epic:hover{box-shadow:0 0 24px rgba(168,85,247,.5)}
 .btn-epic.linked{background:var(--panel2);border:1px solid var(--accent);color:var(--accent)}
-.epic-code{font:800 32px/1 'Luckiest Guy','Inter',sans-serif;letter-spacing:8px;color:var(--accent);
-  background:var(--bg);padding:16px 24px;border-radius:12px;margin:16px 0;text-align:center}
-.epic-waiting{color:var(--dim);font-size:13px;text-align:center}
-.epic-waiting::after{content:'';animation:dots 1.2s steps(4) infinite}
-@keyframes dots{0%{content:''}25%{content:'.'}50%{content:'..'}75%{content:'...'}}
 
 /* season tabs */
 .season-tabs{display:flex;gap:6px;margin-bottom:12px}
@@ -342,6 +385,51 @@ dialog[open]{display:block}
   <div class="info-foot"><button id="infoClose" class="btn-primary">Close</button></div>
 </dialog>
 
+<!-- Login Modal - ST style -->
+<dialog id="loginDlg">
+  <div id="loginScreen" class="login-body">
+    <div class="login-icon">→]</div>
+    <h2 class="login-title">Sign in to Spritedex</h2>
+    <p class="login-subtitle">Link an account to track your collection and share with other players.</p>
+
+    <div class="login-age">
+      <input type="checkbox" id="ageCheck">
+      <label for="ageCheck">I am at least 13 years old, or 16 if I live in the EEA or the UK, and I have read the <a href="#" onclick="event.preventDefault()">Terms</a> and <a href="#" onclick="event.preventDefault()">Privacy Policy</a>.</label>
+    </div>
+
+    <div class="login-btns">
+      <button class="login-btn epic" id="loginEpic" disabled>
+        <div class="icon">🎮</div>
+        <div class="text">
+          <strong>Continue with Epic Games</strong>
+          <span>Pulls your sprite collection automatically</span>
+        </div>
+        <div class="arrow">→</div>
+      </button>
+      <button class="login-btn discord" id="loginDiscord" disabled>
+        <div class="icon">💬</div>
+        <div class="text">
+          <strong>Continue with Discord</strong>
+          <span>Track your collection manually</span>
+        </div>
+        <div class="arrow">→</div>
+      </button>
+    </div>
+
+    <p class="login-footer">By continuing you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>. Spritedex is not affiliated with Epic Games, Inc.</p>
+  </div>
+
+  <div id="authScreen" class="auth-screen" style="display:none">
+    <div class="auth-icon">🔑</div>
+    <h2 class="auth-title">Finish in your browser</h2>
+    <p class="auth-subtitle">Approve the sign-in on Epic's page, then come back here.</p>
+    <button class="auth-btn" id="authOpenBtn">Open Epic sign-in ↗</button>
+    <p class="auth-waiting">Waiting for you to approve the sign-in</p>
+    <button class="auth-alt" id="authBackBtn">Use a different method</button>
+  </div>
+</dialog>
+
+<!-- Legacy dialog (for compatibility) -->
 <dialog id="epicDlg"><div class="dlg-body">
   <h2 id="epicTitle">Link Your Epic Account</h2>
   <p id="epicDesc">Automatically sync your Fortnite locker to see which sprites you own.</p>
@@ -1012,7 +1100,7 @@ function updateProfileArea(){
     `;
     document.getElementById('profileBtn').onclick = showProfileMenu;
   } else {
-    area.innerHTML = `<button id="epicLoginBtn" class="btn-epic" title="Link Epic Account">Link Epic</button>`;
+    area.innerHTML = `<button id="epicLoginBtn" class="btn-epic" title="Sign in to track your collection">Sign In</button>`;
     document.getElementById('epicLoginBtn').onclick = showLoginFlow;
   }
   // Clear state if not logged in
@@ -1141,8 +1229,141 @@ async function showAvatarPicker(){
 
 // Device Auth flow - TV code style like SpriteTrading
 let deviceAuthPollInterval = null;
+const loginDlg = document.getElementById('loginDlg');
+const loginScreen = document.getElementById('loginScreen');
+const authScreen = document.getElementById('authScreen');
+const ageCheck = document.getElementById('ageCheck');
+const loginEpic = document.getElementById('loginEpic');
+const loginDiscord = document.getElementById('loginDiscord');
+const authOpenBtn = document.getElementById('authOpenBtn');
+const authBackBtn = document.getElementById('authBackBtn');
 
-async function showLoginFlow(){
+// Enable buttons when age check is checked
+ageCheck.onchange = () => {
+  loginEpic.disabled = !ageCheck.checked;
+  loginDiscord.disabled = !ageCheck.checked;
+};
+
+// Back to method selection
+authBackBtn.onclick = () => {
+  if(deviceAuthPollInterval){
+    clearInterval(deviceAuthPollInterval);
+    deviceAuthPollInterval = null;
+  }
+  authScreen.style.display = 'none';
+  loginScreen.style.display = 'block';
+};
+
+// Close dialog on backdrop click
+loginDlg.addEventListener('click', ev => { if(ev.target === loginDlg) loginDlg.close() });
+loginDlg.addEventListener('close', () => {
+  if(deviceAuthPollInterval){
+    clearInterval(deviceAuthPollInterval);
+    deviceAuthPollInterval = null;
+  }
+  // Reset to login screen for next open
+  authScreen.style.display = 'none';
+  loginScreen.style.display = 'block';
+});
+
+// Discord login (manual mode)
+loginDiscord.onclick = () => {
+  toast('Discord login coming soon! Use Epic Games for now.');
+};
+
+// Epic login
+loginEpic.onclick = () => startEpicDeviceAuth();
+
+async function startEpicDeviceAuth(){
+  loginScreen.style.display = 'none';
+  authScreen.style.display = 'block';
+  authOpenBtn.disabled = true;
+  authOpenBtn.textContent = 'Starting...';
+
+  try {
+    const res = await fetch(`${API_BASE}/auth/device`);
+    const data = await res.json();
+
+    if(data.error){
+      authScreen.innerHTML = `<div class="auth-icon">❌</div><h2 class="auth-title">Error</h2><p class="auth-subtitle">${data.error}</p><button class="auth-btn" onclick="startEpicDeviceAuth()">Try Again</button><button class="auth-alt" id="authBackBtn2">Use a different method</button>`;
+      document.getElementById('authBackBtn2').onclick = authBackBtn.onclick;
+      return;
+    }
+
+    const { device_code, verification_uri_complete, interval } = data;
+
+    authOpenBtn.disabled = false;
+    authOpenBtn.textContent = 'Open Epic sign-in ↗';
+    authOpenBtn.onclick = () => window.open(verification_uri_complete, '_blank');
+
+    // Start polling
+    if(deviceAuthPollInterval) clearInterval(deviceAuthPollInterval);
+    let loginComplete = false;
+
+    deviceAuthPollInterval = setInterval(async () => {
+      if(loginComplete) return;
+      try {
+        const pollRes = await fetch(`${API_BASE}/auth/device/poll?device_code=${encodeURIComponent(device_code)}`);
+        const pollData = await pollRes.json();
+
+        if(pollData.status === 'pending') return;
+
+        loginComplete = true;
+        clearInterval(deviceAuthPollInterval);
+        deviceAuthPollInterval = null;
+
+        if(pollData.status === 'expired'){
+          authScreen.innerHTML = `<div class="auth-icon">⏰</div><h2 class="auth-title">Code Expired</h2><p class="auth-subtitle">The sign-in code has expired.</p><button class="auth-btn" onclick="startEpicDeviceAuth()">Try Again</button><button class="auth-alt" id="authBackBtn2">Use a different method</button>`;
+          document.getElementById('authBackBtn2').onclick = authBackBtn.onclick;
+          return;
+        }
+
+        if(pollData.error){
+          authScreen.innerHTML = `<div class="auth-icon">❌</div><h2 class="auth-title">Error</h2><p class="auth-subtitle">${pollData.error}</p><button class="auth-btn" onclick="startEpicDeviceAuth()">Try Again</button><button class="auth-alt" id="authBackBtn2">Use a different method</button>`;
+          document.getElementById('authBackBtn2').onclick = authBackBtn.onclick;
+          return;
+        }
+
+        // Success! Show syncing state
+        authScreen.innerHTML = `<div class="auth-icon">✓</div><h2 class="auth-title">Welcome, ${pollData.display_name}!</h2><p class="auth-subtitle">Syncing your locker...</p><div class="spinner" style="width:24px;height:24px;margin:16px auto"></div>`;
+
+        localStorage.setItem('epic_account_id', pollData.account_id);
+        localStorage.setItem('epic_display_name', pollData.display_name);
+        localStorage.setItem('epic_logged_in', 'true');
+        epicAuth.accountId = pollData.account_id;
+        epicAuth.displayName = pollData.display_name;
+
+        try {
+          await syncFromEpic();
+        } catch(syncErr) {
+          console.error('Sync error:', syncErr);
+        }
+
+        updateProfileArea();
+        loginDlg.close();
+        toast(`Linked as ${pollData.display_name}!`);
+      } catch(e) {}
+    }, Math.min(interval || 5, 5) * 1000);
+
+  } catch(err){
+    authScreen.innerHTML = `<div class="auth-icon">❌</div><h2 class="auth-title">Error</h2><p class="auth-subtitle">${err.message}</p><button class="auth-btn" onclick="startEpicDeviceAuth()">Try Again</button><button class="auth-alt" id="authBackBtn2">Use a different method</button>`;
+    document.getElementById('authBackBtn2').onclick = authBackBtn.onclick;
+  }
+}
+
+// New login flow - opens ST-style modal
+function showLoginFlow(){
+  // Reset state
+  ageCheck.checked = false;
+  loginEpic.disabled = true;
+  loginDiscord.disabled = true;
+  authScreen.style.display = 'none';
+  loginScreen.style.display = 'block';
+  loginDlg.showModal();
+}
+
+// Legacy showLoginFlow for backwards compatibility
+async function showLoginFlowLegacy(){
   epicTitle.textContent = 'Link Your Epic Account';
   epicDesc.textContent = 'Sync your Fortnite locker automatically.';
   epicClose.textContent = 'Cancel';
