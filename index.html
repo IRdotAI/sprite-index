@@ -1321,6 +1321,29 @@ async function syncFromEpic(token){
     attrs: JSON.stringify(c.attributes || {}).substring(0, 150)
   })));
 
+  // DEBUG: Dump ALL S42 tokens (potential gold/CM ownership indicators)
+  const s42Tokens = locker.cosmetics.filter(c => {
+    const id = (c.templateId || '').toLowerCase();
+    return id.startsWith('token:') && id.includes('s42');
+  });
+  console.log('=== ALL S42 TOKENS ===');
+  console.table(s42Tokens.map(c => ({
+    templateId: c.templateId,
+    attrs: JSON.stringify(c.attributes || {})
+  })));
+
+  // DEBUG: Look for sprite pet/backbling cosmetics with variant data
+  const spritePetBackblings = locker.cosmetics.filter(c => {
+    const id = (c.templateId || '').toLowerCase();
+    return (id.includes('athenabackpack:') || id.includes('athenapet:')) &&
+           (id.includes('sprite') || id.includes('s42') || id.includes('s41'));
+  });
+  console.log('=== S4 SPRITE PET/BACKBLING COSMETICS ===');
+  for(const item of spritePetBackblings){
+    console.log(item.templateId);
+    console.log('  FULL ATTRS:', JSON.stringify(item.attributes, null, 2));
+  }
+
   // DEBUG: Look for extraction-related items
   const extractionItems = locker.cosmetics.filter(c => {
     const id = (c.templateId || '').toLowerCase();
