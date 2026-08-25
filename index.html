@@ -1646,51 +1646,74 @@ async function syncFromEpic(token){
       }
     }
   } else {
-    // FALLBACK: No Blockstack skin - use quest states
-    // LIMITATION: Can only detect MASTERED sprites/variants (Claimed state)
-    // Quests are created for everyone when available - Active doesn't mean ownership!
-    // Unmastered sprites won't show without Blockstack skin.
+    // FALLBACK: No Blockstack skin - use quest completion counts + state
+    // completion >= 1 on base = started mastery = OWNS base sprite
+    // Claimed on _01/_02 = mastered gold/CM
+    // Gold/CM ownership without mastery CANNOT be detected without Blockstack
     console.log('=== QUEST-BASED S4 DETECTION (no Blockstack skin) ===');
-    console.log('NOTE: Only mastered sprites will show. Get Blockstack skin for full tracking.');
 
     for(const [spriteId, quests] of Object.entries(s4QuestStates)){
       const baseState = quests.base || quests['00'];
       const goldState = quests['01'];
       const cmState = quests['02'];
 
-      // Base sprite: only Claimed = owned+mastered (Active means nothing without Blockstack)
+      // Get completion counts
+      const completions = s4QuestCompletions[spriteId] || {};
+      const baseCompletion = completions.base || completions['00'] || 0;
+      const goldCompletion = completions['01'] || 0;
+      const cmCompletion = completions['02'] || 0;
+
+      // Base sprite: Claimed = mastered, OR completion >= 1 = has started mastery = owns
       if(baseState === 'Claimed'){
         state['s4:' + spriteId + ':normal'] = { owned: true, mastered: true };
         s4Count++;
         console.log(`  ${spriteId}:normal (quest Claimed)`);
+      } else if(baseCompletion >= 1){
+        state['s4:' + spriteId + ':normal'] = { owned: true, mastered: false };
+        s4Count++;
+        console.log(`  ${spriteId}:normal (completion=${baseCompletion})`);
       }
 
-      // Gold: _01 quest Claimed = gold owned+mastered
+      // Gold: _01 Claimed = gold mastered, completion >= 1 = started gold mastery = owns gold
       if(goldState === 'Claimed'){
-        // Also mark base as owned if gold is claimed (you need base to have gold)
         if(!state['s4:' + spriteId + ':normal']){
           state['s4:' + spriteId + ':normal'] = { owned: true, mastered: true };
           s4Count++;
-          console.log(`  ${spriteId}:normal (inferred from gold)`);
         }
         state['s4:' + spriteId + ':gold'] = { owned: true, mastered: true };
         s4Count++;
-        console.log(`  ${spriteId}:gold (_01 quest Claimed)`);
+        console.log(`  ${spriteId}:gold (_01 Claimed)`);
+      } else if(goldCompletion >= 1){
+        if(!state['s4:' + spriteId + ':normal']){
+          state['s4:' + spriteId + ':normal'] = { owned: true, mastered: false };
+          s4Count++;
+        }
+        state['s4:' + spriteId + ':gold'] = { owned: true, mastered: false };
+        s4Count++;
+        console.log(`  ${spriteId}:gold (completion=${goldCompletion})`);
       }
 
-      // Cheatmaster: _02 quest Claimed = CM owned+mastered
+      // Cheatmaster: _02 Claimed = CM mastered, completion >= 1 = owns CM
       if(cmState === 'Claimed'){
-        // Also mark base as owned if CM is claimed
         if(!state['s4:' + spriteId + ':normal']){
           state['s4:' + spriteId + ':normal'] = { owned: true, mastered: true };
           s4Count++;
-          console.log(`  ${spriteId}:normal (inferred from cheatmaster)`);
         }
         state['s4:' + spriteId + ':cheatmaster'] = { owned: true, mastered: true };
         s4Count++;
-        console.log(`  ${spriteId}:cheatmaster (_02 quest Claimed)`);
+        console.log(`  ${spriteId}:cheatmaster (_02 Claimed)`);
+      } else if(cmCompletion >= 1){
+        if(!state['s4:' + spriteId + ':normal']){
+          state['s4:' + spriteId + ':normal'] = { owned: true, mastered: false };
+          s4Count++;
+        }
+        state['s4:' + spriteId + ':cheatmaster'] = { owned: true, mastered: false };
+        s4Count++;
+        console.log(`  ${spriteId}:cheatmaster (completion=${cmCompletion})`);
       }
     }
+
+    console.log('NOTE: Gold/CM without mastery progress cannot be detected without Blockstack skin');
   }
 
   for(const item of locker.cosmetics){
