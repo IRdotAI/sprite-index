@@ -725,17 +725,19 @@ function openInfo(key){
     <div class="info-sub">${esc(e.variant.name)} variant</div>
     <span class="${pillClass}" ${pillStyle}>${pillText}</span>`;
 
-  // Variant effect images for Gold and Cheatmaster
-  const variantEffectImg = e.variantId === 'gold' ? '<img src="GDinfo.png" alt="Gain 3x bonus XP from eliminations" style="width:100%;border-radius:8px;margin-top:8px">'
-    : e.variantId === 'cheatmaster' ? '<img src="CMinfo.png" alt="Button mash! All inputs are correct when entering cheat codes" style="width:100%;border-radius:8px;margin-top:8px">'
-    : '';
+  // Variant effect images for Gold and Cheatmaster - replace text with image only
+  const variantEffectContent = e.variantId === 'gold'
+    ? '<img src="GDinfo.png" alt="Gain 3x bonus XP from eliminations" style="width:100%;border-radius:8px">'
+    : e.variantId === 'cheatmaster'
+    ? '<img src="CMinfo.png" alt="Button mash! All inputs are correct when entering cheat codes" style="width:100%;border-radius:8px">'
+    : e.variant.effect || '';
 
   // Only show sections we actually have text for - an empty heading is noise.
   const secs=[
     ['Status', status],
     ['Ability', e.sprite.ability],
     ['Location', e.sprite.location],
-    [e.variant.name+' Effect', (e.variant.effect || '') + variantEffectImg],
+    [e.variant.name+' Effect', variantEffectContent],
     ['How to Obtain', e.variant.howToObtain],
   ].filter(([,v])=>v);
 
