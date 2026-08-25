@@ -156,7 +156,7 @@ main{padding:16px;max-width:1400px;margin:0 auto}
   50%{background-position:100% 50%}
   100%{background-position:0% 50%}
 }
-.tag.special{
+.tag.special, .pill.special{
   background:linear-gradient(225deg,#5dffe4,#8dff9a,#fff36a,#60dfff,#7b7cff,#ff77d8,#ffc45f,#5dffe4);
   background-size:400% 400%;
   animation:specialFlow 8s ease infinite;
@@ -713,13 +713,17 @@ function openInfo(key){
     : 'Not collected';
 
   infoHead.style.setProperty('--vc',vc);
+  const isSpecialVariant = e.variantId === 'gold' || e.variantId === 'cheatmaster';
+  const pillClass = isSpecialVariant ? 'pill special' : (s.owned ? 'pill' : 'pill miss');
+  const pillText = isSpecialVariant ? 'Special' : (s.owned ? r.name : 'Missing');
+  const pillStyle = isSpecialVariant ? '' : `style="--r:${col}"`;
   infoHead.innerHTML=`
     ${e.img
       ? `<img class="info-art" src="${esc(e.img)}" alt="">`
       : `<div class="info-art" style="background:${vc}">${esc(e.sprite.name[0])}</div>`}
     <h2>${esc(name)}</h2>
     <div class="info-sub">${esc(e.variant.name)} variant</div>
-    <span class="pill ${s.owned?'':'miss'}" style="--r:${col}">${esc(s.owned?r.name:'Missing')}</span>`;
+    <span class="${pillClass}" ${pillStyle}>${pillText}</span>`;
 
   // Variant effect images for Gold and Cheatmaster
   const variantEffectImg = e.variantId === 'gold' ? '<img src="GDinfo.png" alt="Gain 3x bonus XP from eliminations" style="width:100%;border-radius:8px;margin-top:8px">'
