@@ -1647,34 +1647,45 @@ async function syncFromEpic(token){
     }
   } else {
     // FALLBACK: No Blockstack skin - use quest states
-    // Quest suffix pattern: base quest = owns sprite, _01 Claimed = gold, _02 Claimed = cheatmaster
+    // LIMITATION: Can only detect MASTERED sprites/variants (Claimed state)
+    // Quests are created for everyone when available - Active doesn't mean ownership!
+    // Unmastered sprites won't show without Blockstack skin.
     console.log('=== QUEST-BASED S4 DETECTION (no Blockstack skin) ===');
+    console.log('NOTE: Only mastered sprites will show. Get Blockstack skin for full tracking.');
 
     for(const [spriteId, quests] of Object.entries(s4QuestStates)){
       const baseState = quests.base || quests['00'];
       const goldState = quests['01'];
       const cmState = quests['02'];
 
-      // Base sprite: Active = owned (quest created on acquisition), Claimed = mastered
+      // Base sprite: only Claimed = owned+mastered (Active means nothing without Blockstack)
       if(baseState === 'Claimed'){
         state['s4:' + spriteId + ':normal'] = { owned: true, mastered: true };
         s4Count++;
-        console.log(`  ${spriteId}:normal (quest Claimed - mastered)`);
-      } else if(baseState === 'Active'){
-        state['s4:' + spriteId + ':normal'] = { owned: true, mastered: false };
-        s4Count++;
-        console.log(`  ${spriteId}:normal (quest Active - owned)`);
+        console.log(`  ${spriteId}:normal (quest Claimed)`);
       }
 
-      // Gold: _01 quest Claimed = owns gold variant
-      if(goldState === 'Claimed' && state['s4:' + spriteId + ':normal']){
+      // Gold: _01 quest Claimed = gold owned+mastered
+      if(goldState === 'Claimed'){
+        // Also mark base as owned if gold is claimed (you need base to have gold)
+        if(!state['s4:' + spriteId + ':normal']){
+          state['s4:' + spriteId + ':normal'] = { owned: true, mastered: true };
+          s4Count++;
+          console.log(`  ${spriteId}:normal (inferred from gold)`);
+        }
         state['s4:' + spriteId + ':gold'] = { owned: true, mastered: true };
         s4Count++;
         console.log(`  ${spriteId}:gold (_01 quest Claimed)`);
       }
 
-      // Cheatmaster: _02 quest Claimed = owns cheatmaster variant
+      // Cheatmaster: _02 quest Claimed = CM owned+mastered
       if(cmState === 'Claimed'){
+        // Also mark base as owned if CM is claimed
+        if(!state['s4:' + spriteId + ':normal']){
+          state['s4:' + spriteId + ':normal'] = { owned: true, mastered: true };
+          s4Count++;
+          console.log(`  ${spriteId}:normal (inferred from cheatmaster)`);
+        }
         state['s4:' + spriteId + ':cheatmaster'] = { owned: true, mastered: true };
         s4Count++;
         console.log(`  ${spriteId}:cheatmaster (_02 quest Claimed)`);
