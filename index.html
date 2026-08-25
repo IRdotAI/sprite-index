@@ -755,7 +755,7 @@ function openInfo(key){
   ].filter(Boolean);
 
   infoBody.innerHTML=
-    secs.map(([h,v])=>`<div class="info-sec"><h3>${esc(h)}</h3><p>${h==='Status'?v:esc(v)}</p></div>`).join('')+
+    secs.map(([h,v])=>`<div class="info-sec"><h3>${esc(h)}</h3><p>${(h==='Status'||h.includes('Effect'))?v:esc(v)}</p></div>`).join('')+
     `<div class="facts">${facts.map(([b,l])=>
       `<div class="fact"><b>${esc(b)}</b><span>${esc(l)}</span></div>`).join('')}</div>`;
 
