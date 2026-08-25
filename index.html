@@ -298,6 +298,12 @@ dialog[open]{display:block}
 .footer-links{display:flex;flex-direction:column;gap:8px}
 .footer-links a{color:var(--accent);font-size:13px;text-decoration:none;transition:color .15s}
 .footer-links a:hover{color:var(--text)}
+
+/* manual mode banner */
+.manual-banner{background:linear-gradient(90deg,#5865F2,#7289da);color:#fff;
+  text-align:center;padding:10px 16px;font-size:13px;font-weight:600;
+  border-radius:10px;margin-bottom:16px;display:flex;align-items:center;justify-content:center;gap:8px}
+.manual-banner svg{width:16px;height:16px;fill:currentColor}
 .footer-legal{text-align:right}
 .footer-legal p{color:var(--dim);font-size:12px;margin-bottom:8px}
 .footer-legal .disclaimer{font-size:11px;opacity:.7;max-width:300px;margin-left:auto}
@@ -399,7 +405,7 @@ dialog[open]{display:block}
 
     <div class="login-btns">
       <button class="login-btn epic" id="loginEpic" disabled>
-        <div class="icon">🎮</div>
+        <div class="icon"><img src="epic-logo.svg" alt="" style="width:24px;height:24px;filter:invert(1)"></div>
         <div class="text">
           <strong>Continue with Epic Games</strong>
           <span>Pulls your sprite collection automatically</span>
@@ -407,7 +413,7 @@ dialog[open]{display:block}
         <div class="arrow">→</div>
       </button>
       <button class="login-btn discord" id="loginDiscord" disabled>
-        <div class="icon">💬</div>
+        <div class="icon"><img src="discord-logo.svg" alt="" style="width:24px;height:24px"></div>
         <div class="text">
           <strong>Continue with Discord</strong>
           <span>Track your collection manually</span>
@@ -545,7 +551,15 @@ function renderHero(){
     </div>`;
   }).join('');
 
-  return `<section class="hero">
+  // Manual mode banner
+  const manualBanner = isManualMode() ? `
+    <div class="manual-banner">
+      <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+      Manual Mode — Click checkboxes on cards to mark sprites you own
+    </div>
+  ` : '';
+
+  return `${manualBanner}<section class="hero">
     <div class="hero-top">
       <div class="hero-main">
         <h2>${owned}/${t}</h2>
@@ -586,6 +600,19 @@ function cardHTML(e){
   const tagClass = isSpecial ? 'tag special' : 'tag';
   const tagStyle = isSpecial ? '' : `style="background:${col}"`;
   const tagText = isSpecial ? 'Special' : e.sprite.rarity;
+
+  // Manual mode checkboxes for Discord users
+  const manualCheckboxes = isManualMode() ? `
+    <div class="manual-checks" style="display:flex;gap:8px;margin-top:8px;padding:0 12px 12px">
+      <label style="display:flex;align-items:center;gap:4px;font-size:11px;color:var(--dim);cursor:pointer">
+        <input type="checkbox" ${s.owned?'checked':''} data-manual-owned="${e.key}" style="accent-color:var(--accent)"> Owned
+      </label>
+      <label style="display:flex;align-items:center;gap:4px;font-size:11px;color:var(--mythic);cursor:pointer">
+        <input type="checkbox" ${s.mastered?'checked':''} ${!s.owned?'disabled':''} data-manual-mastered="${e.key}" style="accent-color:var(--mythic)"> Mastered
+      </label>
+    </div>
+  ` : '';
+
   return `<div class="card ${s.owned?'owned':''} ${s.mastered?'mastered':''}"
     style="--r:${col};--vc:${vc}" data-k="${e.key}">
     <div class="art-wrap">
@@ -600,6 +627,7 @@ function cardHTML(e){
       </div>
       <div class="card-name">${name}</div>
     </div>
+    ${manualCheckboxes}
   </div>`;
 }
 
@@ -641,7 +669,18 @@ document.addEventListener('click',ev=>{
     return;
   }
   const card=ev.target.closest('[data-k]');
-  if(card) openInfo(card.dataset.k);
+  // Don't open info if clicking on manual checkboxes
+  if(card && !ev.target.closest('.manual-checks')) openInfo(card.dataset.k);
+});
+
+// Manual checkbox handlers
+document.addEventListener('change', ev => {
+  if(ev.target.dataset.manualOwned){
+    toggleManualSprite(ev.target.dataset.manualOwned, 'owned');
+  }
+  if(ev.target.dataset.manualMastered){
+    toggleManualSprite(ev.target.dataset.manualMastered, 'mastered');
+  }
 });
 search.addEventListener('input',e=>{filters.q=e.target.value;render()});
 
@@ -1099,16 +1138,56 @@ function updateProfileArea(){
       </button>
     `;
     document.getElementById('profileBtn').onclick = showProfileMenu;
+  } else if(discordAuth.isLoggedIn()){
+    // Discord user - manual mode
+    area.innerHTML = `
+      <button class="profile-btn" id="profileBtn" title="Account options" style="border-color:#5865F2">
+        <div class="profile-avatar" style="display:grid;place-items:center;font-size:14px;background:#5865F2;color:#fff">${(discordAuth.displayName||'?')[0].toUpperCase()}</div>
+        <span class="profile-name">${discordAuth.displayName || 'User'}</span>
+      </button>
+    `;
+    document.getElementById('profileBtn').onclick = showDiscordProfileMenu;
   } else {
     area.innerHTML = `<button id="epicLoginBtn" class="btn-epic" title="Sign in to track your collection">Sign In</button>`;
     document.getElementById('epicLoginBtn').onclick = showLoginFlow;
   }
-  // Clear state if not logged in
-  if(!epicAuth.isLoggedIn()){
+  // Clear state if not logged in to either
+  if(!epicAuth.isLoggedIn() && !discordAuth.isLoggedIn()){
     state = {};
     save();
   }
   render();
+}
+
+function showDiscordProfileMenu(){
+  epicTitle.textContent = 'Your Account';
+  epicDesc.innerHTML = `Logged in with Discord as <strong>${discordAuth.displayName}</strong><br><span style="font-size:12px;color:var(--dim)">Manual tracking mode</span>`;
+  epicContent.innerHTML = '';
+  epicClose.textContent = 'Close';
+  epicDlg.showModal();
+
+  const btns = document.createElement('div');
+  btns.className = 'dlg-actions';
+  btns.style.flexDirection = 'column';
+  btns.innerHTML = `
+    <button id="discordLinkEpic" class="btn-primary">Link Epic Games (auto-track)</button>
+    <button id="discordLogoutBtn">Logout</button>
+  `;
+  epicContent.appendChild(btns);
+
+  document.getElementById('discordLinkEpic').onclick = () => {
+    epicDlg.close();
+    showLoginFlow();
+  };
+
+  document.getElementById('discordLogoutBtn').onclick = () => {
+    discordAuth.logout();
+    state = {};
+    save();
+    updateProfileArea();
+    epicDlg.close();
+    toast('Logged out');
+  };
 }
 
 function showProfileMenu(){
@@ -1268,7 +1347,7 @@ loginDlg.addEventListener('close', () => {
 
 // Discord login (manual mode)
 loginDiscord.onclick = () => {
-  toast('Discord login coming soon! Use Epic Games for now.');
+  window.location.href = `${API_BASE}/auth/discord`;
 };
 
 // Epic login
@@ -2088,18 +2167,87 @@ async function syncFromEpic(token){
   render();
 }
 
+// --- Discord auth state ---
+const discordAuth = {
+  discordId: localStorage.getItem('discord_id'),
+  displayName: localStorage.getItem('discord_display_name'),
+  isLoggedIn(){ return localStorage.getItem('discord_logged_in') === 'true' && !!this.discordId },
+  logout(){
+    this.discordId = null;
+    this.displayName = null;
+    localStorage.removeItem('discord_id');
+    localStorage.removeItem('discord_display_name');
+    localStorage.removeItem('discord_logged_in');
+  }
+};
+
+// Check if in manual mode (Discord login, no Epic)
+function isManualMode(){
+  return discordAuth.isLoggedIn() && !epicAuth.isLoggedIn();
+}
+
+// Sync manual sprites to/from backend
+async function syncManualSprites(){
+  if(!discordAuth.isLoggedIn()) return;
+  try {
+    const r = await fetch(`${API_BASE}/sprites/manual?discord_id=${discordAuth.discordId}`);
+    const d = await r.json();
+    if(d.manual_sprites){
+      state = d.manual_sprites;
+      save();
+      render();
+    }
+  } catch(e){}
+}
+
+async function saveManualSprites(){
+  if(!discordAuth.isLoggedIn()) return;
+  try {
+    await fetch(`${API_BASE}/sprites/manual`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ discord_id: discordAuth.discordId, sprites: state })
+    });
+  } catch(e){}
+}
+
+// Toggle sprite ownership manually (for Discord users)
+function toggleManualSprite(key, field = 'owned'){
+  const s = state[key] || { owned: false, mastered: false };
+  if(field === 'owned'){
+    s.owned = !s.owned;
+    if(!s.owned) s.mastered = false; // Can't be mastered if not owned
+  } else if(field === 'mastered'){
+    if(s.owned) s.mastered = !s.mastered;
+  }
+  state[key] = s;
+  save();
+  saveManualSprites(); // Sync to backend
+  render();
+}
+
 // --- boot ---
 async function boot(){
   // Handle OAuth callback params
   const params = new URLSearchParams(window.location.search);
   if(params.get('auth_success')){
-    // Coming back from OAuth - store the auth info
+    // Coming back from Epic OAuth - store the auth info
     localStorage.setItem('epic_account_id', params.get('account_id'));
     localStorage.setItem('epic_display_name', params.get('display_name'));
     localStorage.setItem('epic_logged_in', 'true');
     // Clean up URL
     window.history.replaceState({}, '', '/');
     toast('Logged in! Syncing your locker...');
+  }
+  if(params.get('discord_success')){
+    // Coming back from Discord OAuth
+    localStorage.setItem('discord_id', params.get('discord_id'));
+    localStorage.setItem('discord_display_name', params.get('display_name'));
+    localStorage.setItem('discord_logged_in', 'true');
+    discordAuth.discordId = params.get('discord_id');
+    discordAuth.displayName = params.get('display_name');
+    window.history.replaceState({}, '', '/');
+    toast('Logged in with Discord! Mark your sprites manually.');
   }
   if(params.get('error')){
     toast('Login failed: ' + params.get('error'), true);
@@ -2117,18 +2265,21 @@ async function boot(){
   render();
   if(!DB) return;
 
-  // If not logged in, clear state to show all as not collected
-  if(!epicAuth.isLoggedIn()){
+  // If not logged in to either, clear state
+  if(!epicAuth.isLoggedIn() && !discordAuth.isLoggedIn()){
     state = {};
     save();
   }
 
   updateProfileArea();
 
-  // If linked to Epic, sync from there
+  // If linked to Epic, sync from there (takes priority)
   if(epicAuth.isLoggedIn()){
     try{ await syncFromEpic(); }
     catch(e){ render(); }
+  } else if(discordAuth.isLoggedIn()){
+    // Discord only - load manual sprites
+    await syncManualSprites();
   }
 }
 boot();
