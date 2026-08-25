@@ -1269,6 +1269,26 @@ async function syncFromEpic(token){
   console.log(locker.debug_sprite_stats || 'none found');
   console.log('=== ALL STATS KEYS ===');
   console.log(locker.debug_all_stats_keys || 'none returned');
+
+  // NEW: Backend gold/cheat raw items search
+  console.log('=== BACKEND: GOLD/CHEAT RAW ITEMS ===');
+  console.log(locker.debug_gold_cheat_items || 'none found');
+  if(locker.debug_gold_cheat_items?.length){
+    for(const item of locker.debug_gold_cheat_items){
+      console.log('GOLD/CHEAT ITEM:', item.templateId);
+      console.log('  FULL:', JSON.stringify(item, null, 2));
+    }
+  }
+
+  // NEW: Backend sprite cosmetics search
+  console.log('=== BACKEND: SPRITE COSMETICS ===');
+  console.log(locker.debug_sprite_cosmetics || 'none found');
+  if(locker.debug_sprite_cosmetics?.length){
+    for(const item of locker.debug_sprite_cosmetics){
+      console.log('SPRITE COSMETIC:', item.templateId);
+      console.log('  FULL:', JSON.stringify(item, null, 2));
+    }
+  }
   console.log('=== ALL SPRITE-RELATED LOCKER ITEMS ===');
   console.table(spriteItems.map(c => ({
     templateId: c.templateId,
