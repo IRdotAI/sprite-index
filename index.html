@@ -725,11 +725,12 @@ function openInfo(key){
     <div class="info-sub">${esc(e.variant.name)} variant</div>
     <span class="${pillClass}" ${pillStyle}>${pillText}</span>`;
 
-  // Variant effect images for Gold and Cheatmaster - replace text with image only
+  // Variant effect badges for Gold and Cheatmaster
+  const effectBadgeStyle = 'background:linear-gradient(15deg,#9effef 0,#d1ffd6 17%,#fff8ad 34%,#a3edff 51%,#bdbdff 68%,#ffb8eb 85%,#ffdda3 100%);color:#000;font-weight:600;padding:10px 14px;border-radius:8px;font-size:13px;text-align:center';
   const variantEffectContent = e.variantId === 'gold'
-    ? '<img src="GDinfo.png" alt="Gain 3x bonus XP from eliminations" style="width:100%;border-radius:8px">'
+    ? `<div style="${effectBadgeStyle}">Gain 3x bonus XP from eliminations</div>`
     : e.variantId === 'cheatmaster'
-    ? '<img src="CMinfo.png" alt="Button mash! All inputs are correct when entering cheat codes" style="width:100%;border-radius:8px">'
+    ? `<div style="${effectBadgeStyle}">Button mash! All inputs are correct when entering cheat codes found in the world</div>`
     : e.variant.effect || '';
 
   // Only show sections we actually have text for - an empty heading is noise.
