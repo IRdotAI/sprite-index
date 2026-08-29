@@ -1435,7 +1435,7 @@ async function startEpicDeviceAuth(){
         loginDlg.close();
         toast(`Linked as ${pollData.display_name}!`);
       } catch(e) {}
-    }, Math.min(interval || 5, 5) * 1000);
+    }, Math.max(interval || 10, 10) * 1000); // Epic requires 10s minimum
 
   } catch(err){
     authScreen.innerHTML = `<div class="auth-icon">❌</div><h2 class="auth-title">Error</h2><p class="auth-subtitle">${err.message}</p><button class="auth-btn" onclick="startEpicDeviceAuth()">Try Again</button><button class="auth-alt" id="authBackBtn2">Use a different method</button>`;
@@ -1534,7 +1534,7 @@ async function showLoginFlowLegacy(){
         epicDlg.close();
         toast(`Linked as ${pollData.display_name}!`);
       } catch(e) {}
-    }, Math.min(interval || 5, 5) * 1000);
+    }, Math.max(interval || 10, 10) * 1000); // Epic requires 10s minimum
 
     epicDlg.addEventListener('close', () => {
       if(deviceAuthPollInterval){
