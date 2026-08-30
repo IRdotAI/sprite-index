@@ -1172,10 +1172,15 @@ function updateProfileArea(){
     const equippedSkin = localStorage.getItem('epic_equipped_skin') || '';
     const skinId = equippedSkin.split(':')[1] || '';
     const avatarUrl = skinId ? `https://fortnite-api.com/images/cosmetics/br/${skinId}/smallicon.png` : '';
+    const seasonLv = localStorage.getItem('epic_season_level') || '';
+    const levelBadge = seasonLv ? `<span style="font-size:10px;color:var(--mythic);font-weight:700">Lv${seasonLv}</span>` : '';
     area.innerHTML = `
       <button class="profile-btn" id="profileBtn" title="Account options">
         ${avatarUrl ? `<img class="profile-avatar" src="${avatarUrl}" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><div class="profile-avatar" style="display:none;place-items:center;font-size:14px;font-weight:700;color:var(--accent)">${(epicAuth.displayName||'?')[0].toUpperCase()}</div>` : `<div class="profile-avatar" style="display:grid;place-items:center;font-size:14px;font-weight:700;color:var(--accent)">${(epicAuth.displayName||'?')[0].toUpperCase()}</div>`}
-        <span class="profile-name">${epicAuth.displayName || 'User'}</span>
+        <div style="display:flex;flex-direction:column;align-items:flex-start;gap:1px">
+          <span class="profile-name">${epicAuth.displayName || 'User'}</span>
+          ${levelBadge}
+        </div>
       </button>
     `;
     document.getElementById('profileBtn').onclick = showProfileMenu;
@@ -1234,9 +1239,11 @@ function showDiscordProfileMenu(){
 function showProfileMenu(){
   epicTitle.textContent = 'Your Account';
   const accountLevel = localStorage.getItem('epic_account_level') || '—';
+  const seasonLevel = localStorage.getItem('epic_season_level') || '—';
+  const bookLevel = localStorage.getItem('epic_book_level') || '—';
   const firstSeason = localStorage.getItem('epic_first_season');
   const firstSeasonText = firstSeason ? `Season ${firstSeason}` : '—';
-  epicDesc.innerHTML = `Logged in as <strong>${epicAuth.displayName}</strong><br><span style="font-size:12px;color:var(--dim)">Level ${accountLevel} · First Season: ${firstSeasonText}</span>`;
+  epicDesc.innerHTML = `Logged in as <strong>${epicAuth.displayName}</strong><br><span style="font-size:12px;color:var(--dim)">Account Lv ${accountLevel} · Season Lv ${seasonLevel} · BP Lv ${bookLevel} · First: ${firstSeasonText}</span>`;
   epicContent.innerHTML = '';
   epicClose.textContent = 'Close';
   epicDlg.showModal();
@@ -2014,8 +2021,10 @@ async function syncFromEpic(token){
   console.log('Keys in STATE but NOT in entries:', stateNotInEntries);
   console.log('Keys in ENTRIES but NOT in state:', entriesNotInState);
 
-  // Store account level and first season for profile display
+  // Store account level, season level, and first season for profile display
   if(locker.account_level) localStorage.setItem('epic_account_level', locker.account_level);
+  if(locker.season_level) localStorage.setItem('epic_season_level', locker.season_level);
+  if(locker.book_level) localStorage.setItem('epic_book_level', locker.book_level);
   if(locker.first_season) localStorage.setItem('epic_first_season', locker.first_season);
   if(locker.equipped_skin) localStorage.setItem('epic_equipped_skin', locker.equipped_skin);
 
