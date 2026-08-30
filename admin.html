@@ -638,12 +638,12 @@
               const iconUrl = item.id && item.type?.startsWith?.('Athena') !== false && cat !== 'Sprites'
                 ? `https://fortnite-api.com/images/cosmetics/br/${item.id}/smallicon.png` : '';
               html += `
-                <div class="locker-item" ${clickable} style="display:flex;align-items:center;gap:8px">
-                  ${iconUrl ? `<img src="${iconUrl}" style="width:32px;height:32px;border-radius:4px;object-fit:cover" onerror="this.style.display='none'">` : ''}
+                <div class="locker-item" ${clickable} style="display:flex;align-items:center;justify-content:space-between;gap:8px">
                   <div style="flex:1;min-width:0">
                     <div class="type" style="color:${statusColor}">${item.type}</div>
                     <div class="id">${escapeHtml(item.name)}</div>
                   </div>
+                  ${iconUrl ? `<img src="${iconUrl}" style="width:32px;height:32px;border-radius:4px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'">` : ''}
                 </div>
               `;
             }
