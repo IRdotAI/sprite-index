@@ -1247,12 +1247,14 @@ function showProfileMenu(){
   btns.innerHTML = `
     <button id="epicAvatarBtn" class="btn-primary">Change Avatar</button>
     <button id="epicSyncBtn">Sync Locker Now</button>
+    <button id="epicLockerBtn">View Locker</button>
     <button id="epicDebugBtn">Show Debug Data</button>
     <button id="epicUnlinkBtn">Logout</button>
   `;
   epicContent.appendChild(btns);
 
   document.getElementById('epicAvatarBtn').onclick = showAvatarPicker;
+  document.getElementById('epicLockerBtn').onclick = showLockerViewer;
 
   document.getElementById('epicDebugBtn').onclick = () => {
     const debug = window.S4_DEBUG || { error: 'No debug data - sync first' };
@@ -1340,6 +1342,113 @@ async function showAvatarPicker(){
         updateProfileArea();
         epicDlg.close();
         toast('Avatar updated!');
+      };
+    });
+  } catch(err){
+    epicContent.innerHTML = `<p style="color:var(--legendary)">Error: ${err.message}</p>`;
+  }
+}
+
+// Cosmetic type icons (SVG)
+const COSMETIC_ICONS = {
+  AthenaCharacter: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>',
+  AthenaPickaxe: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 2.5L22 9l-6 6-1.5-1.5 4.5-4.5-4.5-4.5L15.5 2.5zM9.5 8.5L3 15l6 6 1.5-1.5L6 15l4.5-4.5L9.5 8.5z"/></svg>',
+  AthenaGlider: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>',
+  AthenaBackpack: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 6h-3V4c0-1.1-.9-2-2-2H9c-1.1 0-2 .9-2 2v2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zM9 4h6v2H9V4z"/></svg>',
+  AthenaDance: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>',
+  AthenaLoadingScreen: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H3V5h18v14z"/></svg>',
+  AthenaSpray: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.5 12c0-1.77-1.02-3.29-2.5-4.03V4h-3v2H11V4H8v4.03C6.52 8.71 5.5 10.23 5.5 12c0 3.03 2.47 5.5 5.5 5.5h1c3.03 0 5.5-2.47 5.5-5.5z"/></svg>',
+  AthenaItemWrap: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14l-5-5 1.41-1.41L12 14.17l4.59-4.58L18 11l-6 6z"/></svg>',
+  AthenaMusicPack: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v9.28c-.47-.17-.97-.28-1.5-.28C8.01 12 6 14.01 6 16.5S8.01 21 10.5 21c2.31 0 4.2-1.75 4.45-4H15V6h4V3h-7z"/></svg>',
+  CosmeticVariantToken: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>',
+  Token: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>',
+  Quest: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>',
+  CosmeticMimosa: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>',
+  ChallengeBundle: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>',
+  default: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>'
+};
+
+async function showLockerViewer(){
+  epicTitle.textContent = 'Your Locker';
+  epicDesc.textContent = 'All cosmetics in your account';
+  epicContent.innerHTML = '<p class="epic-waiting">Loading locker...</p>';
+
+  try {
+    const locker = await epicAuth.getLocker();
+    const cosmetics = locker.cosmetics || [];
+
+    if(cosmetics.length === 0){
+      epicContent.innerHTML = '<p>No cosmetics found.</p>';
+      return;
+    }
+
+    // Group by type
+    const grouped = {};
+    for(const c of cosmetics){
+      const tid = c.templateId || 'Unknown:unknown';
+      const type = tid.split(':')[0];
+      if(!grouped[type]) grouped[type] = [];
+      grouped[type].push(c);
+    }
+
+    // Sort types by count
+    const types = Object.keys(grouped).sort((a,b) => grouped[b].length - grouped[a].length);
+
+    let html = '<div style="max-height:60vh;overflow-y:auto;text-align:left">';
+
+    // Type filter buttons
+    html += '<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;padding:8px;background:var(--bg2);border-radius:8px">';
+    html += '<button class="locker-type-btn active" data-type="all" style="display:flex;align-items:center;gap:4px;padding:6px 10px;border-radius:6px;background:var(--accent);color:#000;border:none;cursor:pointer;font-size:11px;font-weight:600">All ('+cosmetics.length+')</button>';
+    for(const type of types){
+      const icon = COSMETIC_ICONS[type] || COSMETIC_ICONS.default;
+      const name = type.replace('Athena','').replace('Cosmetic','') || type;
+      html += '<button class="locker-type-btn" data-type="'+type+'" style="display:flex;align-items:center;gap:4px;padding:6px 10px;border-radius:6px;background:var(--panel2);color:var(--text);border:1px solid var(--line);cursor:pointer;font-size:11px">';
+      html += '<span style="width:14px;height:14px;display:inline-flex">'+icon+'</span>';
+      html += name+' ('+grouped[type].length+')</button>';
+    }
+    html += '</div>';
+
+    // Items grid
+    html += '<div id="lockerGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px">';
+    for(const c of cosmetics){
+      const tid = c.templateId || '';
+      const type = tid.split(':')[0];
+      const itemId = tid.split(':')[1] || '';
+      const icon = COSMETIC_ICONS[type] || COSMETIC_ICONS.default;
+      const iconUrl = type.startsWith('Athena') ? `https://fortnite-api.com/images/cosmetics/br/${itemId}/smallicon.png` : '';
+
+      html += '<div class="locker-item" data-type="'+type+'" style="display:flex;align-items:center;gap:8px;padding:8px;background:var(--panel2);border-radius:8px;border:1px solid var(--line)">';
+      if(iconUrl){
+        html += '<img src="'+iconUrl+'" style="width:40px;height:40px;border-radius:6px;object-fit:cover" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">';
+        html += '<span style="width:40px;height:40px;display:none;align-items:center;justify-content:center;background:var(--bg);border-radius:6px;color:var(--dim)">'+icon+'</span>';
+      } else {
+        html += '<span style="width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:var(--bg);border-radius:6px;color:var(--dim)">'+icon+'</span>';
+      }
+      html += '<div style="flex:1;min-width:0">';
+      html += '<div style="font-size:11px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+itemId+'</div>';
+      html += '<div style="font-size:10px;color:var(--dim)">'+type.replace('Athena','')+'</div>';
+      html += '</div></div>';
+    }
+    html += '</div></div>';
+
+    epicContent.innerHTML = html;
+
+    // Filter handlers
+    document.querySelectorAll('.locker-type-btn').forEach(btn => {
+      btn.onclick = () => {
+        document.querySelectorAll('.locker-type-btn').forEach(b => {
+          b.style.background = 'var(--panel2)';
+          b.style.color = 'var(--text)';
+          b.classList.remove('active');
+        });
+        btn.style.background = 'var(--accent)';
+        btn.style.color = '#000';
+        btn.classList.add('active');
+
+        const type = btn.dataset.type;
+        document.querySelectorAll('.locker-item').forEach(item => {
+          item.style.display = (type === 'all' || item.dataset.type === type) ? 'flex' : 'none';
+        });
       };
     });
   } catch(err){
