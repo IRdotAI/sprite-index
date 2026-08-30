@@ -215,16 +215,22 @@
 
     .locker-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
       gap: 1rem;
     }
     .locker-item {
       background: var(--bg3);
       padding: 1rem;
       border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
     }
+    .locker-item .item-info { flex: 1; min-width: 0; }
     .locker-item .type { color: var(--accent2); font-size: 0.75rem; margin-bottom: 0.25rem; }
     .locker-item .id { font-size: 0.85rem; word-break: break-all; }
+    .locker-item .item-icon { width: 40px; height: 40px; border-radius: 6px; object-fit: cover; flex-shrink: 0; }
 
     .loading {
       text-align: center;
@@ -640,12 +646,12 @@
               const iconUrl = item.id && item.type?.startsWith?.('Athena') !== false && cat !== 'Sprites'
                 ? `https://fortnite-api.com/images/cosmetics/br/${item.id}/smallicon.png` : '';
               html += `
-                <div class="locker-item" ${clickable} style="display:flex;align-items:center;justify-content:space-between;gap:8px">
-                  <div style="flex:1;min-width:0">
+                <div class="locker-item" ${clickable}>
+                  <div class="item-info">
                     <div class="type" style="color:${statusColor}">${item.type}</div>
                     <div class="id">${escapeHtml(item.name)}</div>
                   </div>
-                  ${iconUrl ? `<img src="${iconUrl}" style="width:32px;height:32px;border-radius:4px;object-fit:cover;flex-shrink:0" onerror="this.style.display='none'">` : ''}
+                  ${iconUrl ? `<img class="item-icon" src="${iconUrl}" onerror="this.style.display='none'">` : ''}
                 </div>
               `;
             }
