@@ -635,10 +635,15 @@
               const statusColor = item.type === 'Claimed' ? 'var(--green)' :
                                   item.type === 'Active' ? 'var(--accent2)' : 'var(--text2)';
               const clickable = item.templateId ? `onclick="showItem('${item.templateId.replace(/'/g, "\\'")}')" style="cursor:pointer"` : '';
+              const iconUrl = item.id && item.type?.startsWith?.('Athena') !== false && cat !== 'Sprites'
+                ? `https://fortnite-api.com/images/cosmetics/br/${item.id}/smallicon.png` : '';
               html += `
-                <div class="locker-item" ${clickable}>
-                  <div class="type" style="color:${statusColor}">${item.type}</div>
-                  <div class="id">${escapeHtml(item.name)}</div>
+                <div class="locker-item" ${clickable} style="display:flex;align-items:center;gap:8px">
+                  ${iconUrl ? `<img src="${iconUrl}" style="width:32px;height:32px;border-radius:4px;object-fit:cover" onerror="this.style.display='none'">` : ''}
+                  <div style="flex:1;min-width:0">
+                    <div class="type" style="color:${statusColor}">${item.type}</div>
+                    <div class="id">${escapeHtml(item.name)}</div>
+                  </div>
                 </div>
               `;
             }
