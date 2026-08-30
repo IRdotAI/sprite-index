@@ -1969,67 +1969,7 @@ async function syncFromEpic(token){
   }
 
   // Store debug data
-  window.S4_DEBUG = { questStates: s4QuestStates, parserVersion: 'validated-2026-08-30' };
-
-  // ===== BLOCKSTACK VARIANT DETECTION FOR GOLD/CM =====
-  // Quest parser above only detects MASTERED. Blockstack variants detect OWNERSHIP.
-  const blockstackChar = locker.cosmetics.find(c =>
-    c.templateId === 'AthenaCharacter:character_blockstack'
-  );
-
-  if(blockstackChar?.attributes?.variants){
-    const variants = blockstackChar.attributes.variants;
-    console.log('=== BLOCKSTACK GOLD/CM DETECTION ===');
-
-    // MaterialParamSets = gold sprite ownership (Particle values)
-    const BLOCKSTACK_GOLD_MAP = {
-      'Particle1': 'jackrabbit', 'Particle2': 'jonesy', 'Particle4': 'stormscout',
-      'Particle8': 'klombo', 'Particle9': 'tails', 'Particle13': 'adventure'
-    };
-    const paramSets = variants.find(v => v.channel === 'MaterialParamSets');
-    if(paramSets?.owned){
-      const ownedParticles = paramSets.owned.filter(v => v.startsWith('Particle'));
-      console.log('Gold Particles owned:', ownedParticles);
-      for(const particle of ownedParticles){
-        const spriteId = BLOCKSTACK_GOLD_MAP[particle];
-        if(spriteId && (!state['s4:' + spriteId + ':gold'] || state['s4:' + spriteId + ':gold'].unknown)){
-          const existing = state['s4:' + spriteId + ':gold'];
-          state['s4:' + spriteId + ':gold'] = {
-            owned: true,
-            mastered: existing?.mastered || false
-          };
-          if(!existing || existing.unknown) s4Count++;
-          console.log(`  ${particle} -> ${spriteId}:gold OWNED (via Blockstack)`);
-        }
-      }
-    }
-
-    // MaterialParamSets2 = cheatmaster ownership (Particle values)
-    const BLOCKSTACK_CM_MAP = {
-      'Particle0': 'tails', 'Particle3': 'adventure', 'Particle5': 'stormscout',
-      'Particle6': 'killswitch', 'Particle10': '8bit', 'Particle11': 'klombo',
-      'Particle14': 'crown', 'Particle15': 'jonesy'
-    };
-    const paramSets2 = variants.find(v => v.channel === 'MaterialParamSets2');
-    if(paramSets2?.owned){
-      const ownedParticles2 = paramSets2.owned.filter(v => v.startsWith('Particle'));
-      console.log('CM Particles owned:', ownedParticles2);
-      for(const particle of ownedParticles2){
-        const spriteId = BLOCKSTACK_CM_MAP[particle];
-        if(spriteId && (!state['s4:' + spriteId + ':cheatmaster'] || state['s4:' + spriteId + ':cheatmaster'].unknown)){
-          const existing = state['s4:' + spriteId + ':cheatmaster'];
-          state['s4:' + spriteId + ':cheatmaster'] = {
-            owned: true,
-            mastered: existing?.mastered || false
-          };
-          if(!existing || existing.unknown) s4Count++;
-          console.log(`  ${particle} -> ${spriteId}:cheatmaster OWNED (via Blockstack)`);
-        }
-      }
-    }
-  } else {
-    console.log('No Blockstack character found - gold/CM ownership detection limited to mastered only');
-  }
+  window.S4_DEBUG = { questStates: s4QuestStates, parserVersion: 'quest-only-2026-08-30' };
 
   // ===== S3 TOKEN-BASED DETECTION =====
 
