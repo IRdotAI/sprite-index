@@ -33,7 +33,14 @@
 html{scroll-behavior:smooth;scrollbar-color:var(--line) var(--bg2)}
 body{background:var(--bg);color:var(--text);
   font:14px/1.5 'Inter',system-ui,-apple-system,sans-serif;
-  min-height:100vh;padding-bottom:env(safe-area-inset-bottom)}
+  min-height:100vh;padding-bottom:env(safe-area-inset-bottom);position:relative}
+
+/* Diagonal watermark - sits behind all content */
+.watermark{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;pointer-events:none;overflow:hidden}
+.watermark::before{content:'RdotA · spritedex.xyz · RdotA · spritedex.xyz · RdotA · spritedex.xyz · RdotA · spritedex.xyz · RdotA · spritedex.xyz · RdotA · spritedex.xyz · RdotA · spritedex.xyz · RdotA · spritedex.xyz · RdotA · spritedex.xyz · RdotA · spritedex.xyz · RdotA · spritedex.xyz · RdotA · spritedex.xyz · RdotA · spritedex.xyz · RdotA · spritedex.xyz · RdotA · spritedex.xyz · RdotA · spritedex.xyz · RdotA · spritedex.xyz · RdotA · spritedex.xyz · RdotA · spritedex.xyz · RdotA · spritedex.xyz · RdotA · spritedex.xyz · RdotA · spritedex.xyz · RdotA · spritedex.xyz · RdotA · spritedex.xyz · RdotA · spritedex.xyz · RdotA · spritedex.xyz · RdotA · spritedex.xyz · RdotA · spritedex.xyz · RdotA · spritedex.xyz · RdotA · spritedex.xyz · RdotA · spritedex.xyz · RdotA · spritedex.xyz · ';
+  position:absolute;top:-50%;left:-50%;width:200%;height:200%;
+  font:700 18px/3 'Inter',sans-serif;letter-spacing:8px;color:rgba(255,255,255,0.035);
+  white-space:nowrap;transform:rotate(-45deg);transform-origin:center center}
 
 /* header */
 header{position:sticky;top:0;z-index:50;
@@ -314,6 +321,7 @@ dialog[open]{display:block}
 </style>
 </head>
 <body>
+<div class="watermark" aria-hidden="true"></div>
 
 <header>
   <button class="creator" id="creatorBar" title="Copy creator code">
@@ -853,6 +861,22 @@ async function drawPNG(view, groupBy, season){
   x.fillStyle = grad;
   x.fillRect(0, 0, w, h);
 
+  // Diagonal watermark - behind everything
+  x.save();
+  x.translate(w/2, h/2);
+  x.rotate(-Math.PI/4);
+  x.fillStyle = 'rgba(255,255,255,0.035)';
+  x.font = '700 16px Inter,system-ui,sans-serif';
+  x.textAlign = 'center';
+  const wmText = 'RdotA · spritedex.xyz';
+  const wmSpacing = 180;
+  for(let y = -h; y < h*1.5; y += 48) {
+    for(let xp = -w; xp < w*1.5; xp += wmSpacing) {
+      x.fillText(wmText, xp + (y % 96 === 0 ? 0 : wmSpacing/2), y);
+    }
+  }
+  x.restore();
+
   const rr = (a,b,c,d,r) => {
     x.beginPath(); x.moveTo(a+r,b);
     x.arcTo(a+c,b,a+c,b+d,r); x.arcTo(a+c,b+d,a,b+d,r);
@@ -1009,10 +1033,10 @@ async function drawPNG(view, groupBy, season){
     });
   });
 
-  // Footer
+  // Footer with creator code
   x.fillStyle = 'rgba(255,255,255,0.4)'; x.font = '600 13px Inter,system-ui,sans-serif';
   x.textAlign = 'center';
-  x.fillText('spritedex.xyz • ' + new Date().toLocaleDateString(), w/2, h - 20);
+  x.fillText('spritedex.xyz • Creator Code: RDOTA • ' + new Date().toLocaleDateString(), w/2, h - 20);
   x.textAlign = 'left';
 
   try{
