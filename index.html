@@ -55,6 +55,22 @@ header{position:sticky;top:0;z-index:50;
 .tagline{font-size:11px;color:var(--dim);font-weight:500;margin-left:8px}
 @media(max-width:500px){.tagline{display:none}}
 .header-actions{display:flex;gap:8px;margin-left:auto;align-items:center}
+
+/* hamburger menu */
+.hamburger{display:none;background:var(--panel2);border:1px solid var(--line);border-radius:8px;
+  padding:8px;cursor:pointer;position:relative}
+.hamburger svg{width:20px;height:20px;display:block}
+.hamburger-menu{position:absolute;top:100%;right:0;margin-top:8px;background:var(--panel);
+  border:1px solid var(--line);border-radius:12px;min-width:200px;padding:8px;z-index:100;
+  box-shadow:0 10px 40px rgba(0,0,0,.5);display:none}
+.hamburger-menu.open{display:block}
+.hamburger-menu a,.hamburger-menu button{display:flex;align-items:center;gap:10px;width:100%;
+  padding:12px 14px;background:none;border:none;border-radius:8px;color:var(--text);
+  font-size:14px;font-weight:500;text-decoration:none;text-align:left;cursor:pointer}
+.hamburger-menu a:hover,.hamburger-menu button:hover{background:var(--panel2)}
+.hamburger-menu svg{width:18px;height:18px;color:var(--dim)}
+.hamburger-menu hr{border:none;border-top:1px solid var(--line);margin:8px 0}
+@media(max-width:600px){.hamburger{display:flex}}
 button,select,input{font:inherit;color:var(--text);background:var(--panel2);
   border:1px solid var(--line);border-radius:8px;padding:8px 14px;transition:all .15s}
 button{cursor:pointer;font-weight:600}
@@ -443,6 +459,15 @@ main{overflow-x:hidden}
     <div class="header-actions">
       <button id="exportBtn" class="btn-primary">Export</button>
       <div id="profileArea"></div>
+      <button class="hamburger" id="hamburgerBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+        <div class="hamburger-menu" id="hamburgerMenu">
+          <a href="/profile.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>Search Players</a>
+          <a href="#" id="menuMyProfile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>My Profile</a>
+          <hr>
+          <button id="menuPrivacy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>Privacy: <span id="privacyStatus">Public</span></button>
+        </div>
+      </button>
     </div>
   </div>
   <div class="season-tabs" id="seasonTabs">
@@ -2252,6 +2277,36 @@ async function boot(){
     await syncManualSprites();
   }
 }
+
+// --- hamburger menu ---
+const hamburgerBtn = document.getElementById('hamburgerBtn');
+const hamburgerMenu = document.getElementById('hamburgerMenu');
+hamburgerBtn?.addEventListener('click', (e) => {
+  e.stopPropagation();
+  hamburgerMenu.classList.toggle('open');
+});
+document.addEventListener('click', () => hamburgerMenu?.classList.remove('open'));
+hamburgerMenu?.addEventListener('click', (e) => e.stopPropagation());
+
+// My Profile link
+document.getElementById('menuMyProfile')?.addEventListener('click', (e) => {
+  e.preventDefault();
+  const name = epicAuth.displayName || discordAuth.displayName;
+  if(name) window.location.href = `/profile.html?u=${encodeURIComponent(name)}`;
+  else toast('Sign in to view your profile', true);
+});
+
+// Privacy toggle
+const privacyStatus = document.getElementById('privacyStatus');
+if(privacyStatus) privacyStatus.textContent = localStorage.getItem('profile_privacy') === 'private' ? 'Private' : 'Public';
+document.getElementById('menuPrivacy')?.addEventListener('click', async () => {
+  const current = localStorage.getItem('profile_privacy') || 'public';
+  const newPrivacy = current === 'public' ? 'private' : 'public';
+  await setProfilePrivacy(newPrivacy);
+  if(privacyStatus) privacyStatus.textContent = newPrivacy === 'private' ? 'Private' : 'Public';
+  hamburgerMenu?.classList.remove('open');
+});
+
 // --- share button ---
 document.getElementById('shareBtn')?.addEventListener('click', async () => {
   const displayName = epicAuth.displayName || discordAuth.displayName;
