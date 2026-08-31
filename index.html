@@ -334,14 +334,63 @@ dialog[open]{display:block}
   .feature-icon{margin:0 auto}
 }
 
-/* season tabs */
+/* season tabs with progress */
 .season-tabs{display:flex;gap:6px;margin-bottom:12px}
 .season-tab{flex:1;padding:10px 16px;border-radius:10px;font-weight:600;font-size:13px;
-  background:var(--panel);border:1px solid var(--line);color:var(--dim);transition:all .15s}
+  background:var(--panel);border:1px solid var(--line);color:var(--dim);transition:all .15s;
+  position:relative;overflow:hidden}
 .season-tab:hover{border-color:var(--accent);color:var(--text)}
 .season-tab.active{background:linear-gradient(135deg,var(--accent),#00ccff);
   color:#0a0c12;border:none;font-weight:700}
 .season-tab .badge{font-size:10px;opacity:.7;margin-left:4px}
+.season-tab .tab-progress{position:absolute;bottom:0;left:0;height:3px;background:var(--accent);border-radius:0 2px 0 0;transition:width .3s}
+.season-tab.active .tab-progress{background:rgba(0,0,0,.3)}
+.season-tab .tab-pct{font-size:10px;opacity:.7;margin-left:6px}
+
+/* loading skeleton */
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+.skeleton{background:linear-gradient(90deg,var(--panel) 25%,var(--panel2) 50%,var(--panel) 75%);
+  background-size:200% 100%;animation:shimmer 1.5s infinite;border-radius:14px}
+.skeleton-card{aspect-ratio:.85;min-height:180px}
+.skeleton-grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}
+@media(min-width:768px){.skeleton-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}}
+
+/* NEW badge */
+.new-badge{position:absolute;top:8px;right:8px;background:linear-gradient(135deg,#ff6b6b,#ff8e53);
+  color:#fff;font-size:9px;font-weight:800;letter-spacing:.5px;padding:3px 8px;border-radius:6px;
+  z-index:5;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(255,107,107,.4)}50%{box-shadow:0 0 12px 4px rgba(255,107,107,.2)}}
+
+/* sort dropdown */
+.sort-wrap{display:flex;align-items:center;gap:8px}
+.sort-wrap select{padding:8px 12px;font-size:12px;min-width:130px}
+.sort-wrap label{font-size:11px;color:var(--dim);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+
+/* share button */
+.btn-share{display:inline-flex;align-items:center;gap:6px;background:var(--panel2);border:1px solid var(--line);
+  padding:8px 14px;font-size:13px}
+.btn-share svg{width:16px;height:16px}
+.btn-share:hover{border-color:var(--accent);background:var(--panel)}
+
+/* mobile polish */
+@media(max-width:480px){
+  .landing-section{padding:40px 0}
+  .landing-title{font-size:28px}
+  .landing-title-accent{font-size:22px}
+  .landing-desc{font-size:14px}
+  .landing-buttons{flex-direction:column;gap:10px}
+  .landing-btn{width:100%;justify-content:center}
+  .feature-card{padding:20px}
+  .feature-card h3{font-size:17px}
+  .cta-section{padding:32px 20px}
+  .cta-section h2{font-size:22px}
+  .faq-question{padding:16px;font-size:14px}
+  .hero{padding:16px}
+  .hero-main h2{font-size:32px}
+  .stat-val{font-size:22px}
+  .header-actions{gap:6px}
+  #exportBtn{padding:8px 10px;font-size:12px}
+}
 
 /* profile */
 #profileArea{display:flex;align-items:center;gap:8px}
@@ -385,6 +434,7 @@ dialog[open]{display:block}
     <span class="logo">Spritedex</span>
     <span class="tagline">Fortnite Sprite Tracker by RDOTA</span>
     <div class="header-actions">
+      <button id="shareBtn" class="btn-share" title="Share your collection"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8M16 6l-4-4-4 4M12 2v13"/></svg>Share</button>
       <button id="exportBtn" class="btn-primary">Export</button>
       <div id="profileArea"></div>
     </div>
@@ -489,6 +539,16 @@ dialog[open]{display:block}
 <main id="trackerContent" style="display:none">
   <div class="search-row" style="margin-bottom:10px">
     <input type="search" id="search" placeholder="Search sprites..." autocomplete="off">
+    <div class="sort-wrap">
+      <label>Sort</label>
+      <select id="sortBy">
+        <option value="default">Default</option>
+        <option value="owned">Owned first</option>
+        <option value="missing">Missing first</option>
+        <option value="mastered">Mastered first</option>
+        <option value="name">Name A-Z</option>
+      </select>
+    </div>
   </div>
   <div class="filters" id="fStatus"></div>
   <div class="filters" id="fRarity"></div>
@@ -604,7 +664,8 @@ dialog[open]{display:block}
 
 <script>
 const KEY='spriteIndex.v1';
-let DB=null, state=load(), filters={status:'all',rarity:'all',variant:'all',season:'s4',q:''};
+let DB=null, state=load(), filters={status:'all',rarity:'all',variant:'all',season:'s4',q:'',sort:'default'};
+const NEW_SPRITES = ['stormscout']; // Mark newest sprites
 
 function load(){ try{return JSON.parse(localStorage.getItem(KEY))||{}}catch{return {}} }
 function save(){ localStorage.setItem(KEY,JSON.stringify(state)) }
@@ -645,7 +706,7 @@ function buildEntries(){
 
 function visible(){
   const q=filters.q.trim().toLowerCase();
-  return ENTRIES.filter(e=>{
+  let list = ENTRIES.filter(e=>{
     const s=st(e.key);
     // Season filter: s3 sprites have no season or season='s3', s4 sprites have season='s4'
     const spriteSeason = e.sprite.season || 's3';
@@ -661,6 +722,12 @@ function visible(){
     if(q && !(e.sprite.name+' '+e.variant.name).toLowerCase().includes(q)) return false;
     return true;
   });
+  // Apply sorting
+  if(filters.sort==='owned') list.sort((a,b)=>(st(b.key).owned?1:0)-(st(a.key).owned?1:0));
+  else if(filters.sort==='missing') list.sort((a,b)=>(st(a.key).owned?1:0)-(st(b.key).owned?1:0));
+  else if(filters.sort==='mastered') list.sort((a,b)=>(st(b.key).mastered?1:0)-(st(a.key).mastered?1:0));
+  else if(filters.sort==='name') list.sort((a,b)=>a.sprite.name.localeCompare(b.sprite.name));
+  return list;
 }
 
 // Per-variant colours (kept inside our palette), used for the breakdown bars
@@ -770,8 +837,10 @@ function cardHTML(e){
     </div>
   ` : '';
 
+  const isNew = NEW_SPRITES.includes(e.sprite.id.toLowerCase());
   return `<div class="card ${s.owned?'owned':''} ${s.mastered?'mastered':''} ${s.unknown?'unknown':''}"
     style="--r:${col};--vc:${vc}" data-k="${e.key}">
+    ${isNew ? '<span class="new-badge">NEW</span>' : ''}
     <div class="art-wrap">
       ${e.img
         ? `<img class="art" src="${e.img}" alt="" loading="lazy" decoding="async">`
@@ -840,6 +909,7 @@ document.addEventListener('change', ev => {
   }
 });
 search.addEventListener('input',e=>{filters.q=e.target.value;render()});
+document.getElementById('sortBy')?.addEventListener('change',e=>{filters.sort=e.target.value;render()});
 
 // Season tab click handler
 document.getElementById('seasonTabs')?.addEventListener('click', (ev) => {
@@ -1324,6 +1394,8 @@ function updateProfileArea(){
   if(trackerContent) trackerContent.style.display = isSignedIn ? 'block' : 'none';
   if(seasonTabs) seasonTabs.style.display = isSignedIn ? 'flex' : 'none';
   if(exportBtn) exportBtn.style.display = isSignedIn ? 'inline-flex' : 'none';
+  const shareBtn = document.getElementById('shareBtn');
+  if(shareBtn) shareBtn.style.display = isSignedIn ? 'inline-flex' : 'none';
 
   if(epicAuth.isLoggedIn()){
     // Get equipped skin icon from fortnite-api.com
@@ -2089,6 +2161,9 @@ async function boot(){
     window.history.replaceState({}, '', '/');
   }
 
+  // Show loading skeleton while fetching data
+  showLoadingSkeleton();
+
   // Load combined sprites database (S3 + S4)
   try{
     DB = await (await fetch('data/sprites.json?t=' + Date.now(), {cache:'no-store'})).json();
@@ -2123,6 +2198,79 @@ async function boot(){
     await syncManualSprites();
   }
 }
+// --- share button ---
+document.getElementById('shareBtn')?.addEventListener('click', async () => {
+  const seasonEntries = ENTRIES.filter(e => (e.sprite.season || 's3') === filters.season);
+  const owned = seasonEntries.filter(e => st(e.key).owned).length;
+  const total = seasonEntries.length;
+  const pct = Math.round(owned / total * 100);
+  const mastered = seasonEntries.filter(e => st(e.key).mastered).length;
+  const seasonLabel = filters.season === 's4' ? 'Season 4' : 'Season 3';
+  const displayName = epicAuth.displayName || discordAuth.displayName || 'Collector';
+
+  const shareText = `${displayName}'s Spritedex - ${seasonLabel}\n${owned}/${total} sprites (${pct}%) | ${mastered} mastered\n\nTrack your collection at spritedex.xyz`;
+
+  if(navigator.share){
+    try {
+      await navigator.share({ title: 'My Spritedex Collection', text: shareText, url: 'https://spritedex.xyz' });
+    } catch(e){ if(e.name !== 'AbortError') toast('Share failed'); }
+  } else {
+    try {
+      await navigator.clipboard.writeText(shareText + '\nhttps://spritedex.xyz');
+      toast('Collection stats copied to clipboard!');
+    } catch { toast('Could not copy to clipboard'); }
+  }
+});
+
+// --- update season tabs with progress ---
+function updateSeasonTabs(){
+  const tabs = document.querySelectorAll('.season-tab');
+  tabs.forEach(tab => {
+    const season = tab.dataset.season;
+    const seasonEntries = ENTRIES.filter(e => (e.sprite.season || 's3') === season);
+    const owned = seasonEntries.filter(e => st(e.key).owned).length;
+    const total = seasonEntries.length || 1;
+    const pct = Math.round(owned / total * 100);
+
+    // Add or update progress bar
+    let progress = tab.querySelector('.tab-progress');
+    if(!progress){
+      progress = document.createElement('span');
+      progress.className = 'tab-progress';
+      tab.appendChild(progress);
+    }
+    progress.style.width = pct + '%';
+
+    // Add percentage badge
+    let pctBadge = tab.querySelector('.tab-pct');
+    if(!pctBadge){
+      pctBadge = document.createElement('span');
+      pctBadge.className = 'tab-pct';
+      tab.appendChild(pctBadge);
+    }
+    pctBadge.textContent = pct + '%';
+  });
+}
+
+// Hook into render to update tabs
+const origRender = render;
+render = function(){
+  origRender();
+  updateSeasonTabs();
+};
+
+// --- loading skeleton ---
+function showLoadingSkeleton(){
+  const content = document.getElementById('content');
+  if(!content) return;
+  content.innerHTML = `
+    <section class="hero skeleton" style="height:180px;margin-bottom:20px"></section>
+    <div class="skeleton-grid">
+      ${Array(12).fill('<div class="skeleton skeleton-card"></div>').join('')}
+    </div>
+  `;
+}
+
 boot();
 if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});
 </script>
