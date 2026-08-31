@@ -284,18 +284,55 @@ dialog[open]{display:block}
 .btn-epic.linked{background:var(--panel2);border:1px solid var(--accent);color:var(--accent)}
 
 /* landing page */
-.landing{min-height:80vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px;text-align:center}
-.landing-hero{max-width:600px;margin-bottom:60px}
-.landing-hero h1{font-size:64px;background:linear-gradient(135deg,var(--accent),#00ffcc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:16px}
-.landing-tagline{font-size:24px;color:var(--text);margin-bottom:12px;font-weight:600}
-.landing-desc{font-size:16px;color:var(--dim);line-height:1.6;margin-bottom:32px}
-.landing-btn{font-size:18px;padding:16px 40px;border-radius:12px}
-.landing-features{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px;max-width:800px;width:100%}
-.feature{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px;text-align:center}
-.feature-icon{font-size:36px;display:block;margin-bottom:12px}
-.feature h3{font-size:18px;margin-bottom:8px;color:var(--text)}
-.feature p{font-size:14px;color:var(--dim);line-height:1.5}
-@media(max-width:500px){.landing-hero h1{font-size:42px}.landing-tagline{font-size:18px}}
+.landing{padding:0 20px;max-width:900px;margin:0 auto}
+.landing-section{padding:60px 0;text-align:center}
+.landing-section:first-child{padding-top:40px}
+.landing-label{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:16px;display:block}
+.landing-title{font:800 42px/1.1 'Luckiest Guy','Inter',sans-serif;color:var(--text);margin-bottom:8px}
+.landing-title-accent{font:800 36px/1.1 'Inter',sans-serif;font-style:italic;background:linear-gradient(135deg,var(--accent),#00ffcc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:block;margin-bottom:24px}
+.landing-desc{font-size:16px;color:var(--dim);line-height:1.7;max-width:600px;margin:0 auto 32px}
+.landing-buttons{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.landing-btn{font-size:16px;padding:14px 28px;border-radius:10px;font-weight:600;display:inline-flex;align-items:center;gap:8px;transition:all .2s}
+.landing-btn-primary{background:linear-gradient(135deg,var(--accent),#00ccff);color:#0a0c12;border:none}
+.landing-btn-primary:hover{box-shadow:0 0 30px rgba(0,212,255,.4);transform:translateY(-2px)}
+.landing-btn-secondary{background:transparent;border:1px solid var(--line);color:var(--text)}
+.landing-btn-secondary:hover{border-color:var(--accent);color:var(--accent)}
+.landing-image{margin:40px auto 0;border-radius:16px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.landing-image img{width:100%;display:block}
+
+/* feature cards */
+.feature-grid{display:grid;gap:20px;text-align:left}
+.feature-card{background:linear-gradient(135deg,rgba(21,24,32,.8),rgba(26,30,40,.8));border:1px solid var(--line);border-radius:16px;padding:24px;display:flex;justify-content:space-between;align-items:flex-start;gap:20px;transition:all .3s;animation:fadeInUp .6s ease both}
+.feature-card:nth-child(1){animation-delay:.1s}
+.feature-card:nth-child(2){animation-delay:.2s}
+.feature-card:nth-child(3){animation-delay:.3s}
+.feature-card:nth-child(4){animation-delay:.4s}
+.feature-card:hover{border-color:var(--accent);transform:translateY(-4px);box-shadow:0 10px 40px rgba(0,212,255,.1)}
+.feature-card h3{font-size:20px;font-weight:700;color:var(--text);margin-bottom:10px}
+.feature-card p{font-size:14px;color:var(--dim);line-height:1.6}
+.feature-icon{width:48px;height:48px;flex-shrink:0;color:var(--accent)}
+.feature-icon svg{width:100%;height:100%}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+/* CTA section */
+.cta-section{background:linear-gradient(135deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:20px;padding:48px 32px;margin:40px 0}
+.cta-section h2{font:700 28px/1.2 'Luckiest Guy','Inter',sans-serif;color:var(--text);margin-bottom:20px}
+
+/* FAQ */
+.faq-item{background:linear-gradient(135deg,rgba(21,24,32,.6),rgba(26,30,40,.6));border:1px solid var(--line);border-radius:12px;margin-bottom:12px;overflow:hidden}
+.faq-question{width:100%;padding:20px 24px;display:flex;justify-content:space-between;align-items:center;background:transparent;border:none;color:var(--text);font-size:16px;font-weight:600;text-align:left;cursor:pointer}
+.faq-question:hover{color:var(--accent)}
+.faq-arrow{width:20px;height:20px;transition:transform .3s}
+.faq-answer{padding:0 24px 20px;color:var(--dim);font-size:14px;line-height:1.6;display:none}
+.faq-item.open .faq-answer{display:block}
+.faq-item.open .faq-arrow{transform:rotate(180deg)}
+
+@media(max-width:600px){
+  .landing-title{font-size:32px}
+  .landing-title-accent{font-size:26px}
+  .feature-card{flex-direction:column-reverse;text-align:center}
+  .feature-icon{margin:0 auto}
+}
 
 /* season tabs */
 .season-tabs{display:flex;gap:6px;margin-bottom:12px}
@@ -360,27 +397,90 @@ dialog[open]{display:block}
 
 <!-- Landing page for non-signed-in users -->
 <div id="landingPage" class="landing">
-  <div class="landing-hero">
-    <h1 class="fn-font">SPRITEDEX</h1>
-    <p class="landing-tagline">Track your Fortnite Sprite collection</p>
-    <p class="landing-desc">Sync your Epic Games account to automatically track which sprites you've collected and mastered across all seasons.</p>
-    <button id="landingSignIn" class="btn-primary landing-btn">Sign In with Epic Games</button>
+  <!-- Hero Section -->
+  <div class="landing-section">
+    <span class="landing-label">Sprite Collection Tracker</span>
+    <h1 class="landing-title">The Best Fortnite Sprite Tracker</h1>
+    <span class="landing-title-accent">for collectors who want it all.</span>
+    <p class="landing-desc">Track every sprite you've collected and mastered across all Fortnite seasons. Connect your Epic Games account for automatic syncing, or manage your collection manually. 100% free, no registration required.</p>
+    <div class="landing-buttons">
+      <button id="landingSignIn" class="landing-btn landing-btn-primary">Get Started <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+      <a href="#features" class="landing-btn landing-btn-secondary">Learn more <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></a>
+    </div>
   </div>
-  <div class="landing-features">
-    <div class="feature">
-      <span class="feature-icon">🎮</span>
-      <h3>Auto-Sync</h3>
-      <p>Connect your Epic account and we'll track your sprites automatically</p>
+
+  <!-- Features Section -->
+  <div class="landing-section" id="features">
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div>
+          <h3>Automatic Sync</h3>
+          <p>Connect your Epic Games account and your sprite collection syncs automatically. No manual entry needed — we pull directly from your Fortnite profile.</p>
+        </div>
+        <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg></div>
+      </div>
+      <div class="feature-card">
+        <div>
+          <h3>Every Variant</h3>
+          <p>Track Normal, Gold, and Cheatmaster variants for every sprite. See your mastery progress and know exactly what you're missing at a glance.</p>
+        </div>
+        <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg></div>
+      </div>
+      <div class="feature-card">
+        <div>
+          <h3>Beautiful Exports</h3>
+          <p>Generate stunning PNG images of your collection to share with friends or on social media. Show off your progress with style.</p>
+        </div>
+        <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg></div>
+      </div>
+      <div class="feature-card">
+        <div>
+          <h3>Completely Free</h3>
+          <p>No premium tiers, no hidden fees, no ads. Spritedex is 100% free for everyone. Just sign in and start tracking your collection.</p>
+        </div>
+        <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg></div>
+      </div>
     </div>
-    <div class="feature">
-      <span class="feature-icon">✨</span>
-      <h3>All Variants</h3>
-      <p>Track Normal, Gold, and Cheatmaster variants for every sprite</p>
+  </div>
+
+  <!-- CTA Section -->
+  <div class="cta-section">
+    <h2>Ready to track your sprites?</h2>
+    <p class="landing-desc" style="margin-bottom:24px">Connect your Epic Games account and see your full collection in seconds.</p>
+    <button id="landingSignIn2" class="landing-btn landing-btn-primary">Sign in with Epic Games <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+  </div>
+
+  <!-- FAQ Section -->
+  <div class="landing-section">
+    <span class="landing-label">FAQ</span>
+    <h2 class="landing-title" style="margin-bottom:32px">Common Questions</h2>
+    <div class="faq-item">
+      <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+        What are Fortnite Sprites?
+        <svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="faq-answer">Sprites are collectible companions introduced in Fortnite Chapter 7. They follow you around in-game and provide various bonuses. Each sprite has multiple variants including Normal, Gold, and Cheatmaster versions.</div>
     </div>
-    <div class="feature">
-      <span class="feature-icon">📊</span>
-      <h3>Export</h3>
-      <p>Share your collection with a beautiful PNG image</p>
+    <div class="faq-item">
+      <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+        How does the sync work?
+        <svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="faq-answer">When you sign in with Epic Games, we securely read your Fortnite profile data to detect which sprites you've collected and mastered. We never store your password or modify your account in any way.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+        Is this safe to use?
+        <svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="faq-answer">Yes. We use Epic's official OAuth system — the same secure login used by other Fortnite companion apps. We only request read-only access to your profile and cannot make any changes to your account.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+        Is Spritedex free?
+        <svg class="faq-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="faq-answer">Completely free. No premium features, no subscriptions, no ads. We built this because we love collecting sprites too.</div>
     </div>
   </div>
 </div>
@@ -2009,9 +2109,11 @@ async function boot(){
 
   updateProfileArea();
 
-  // Landing page sign in button
+  // Landing page sign in buttons
   const landingSignIn = document.getElementById('landingSignIn');
+  const landingSignIn2 = document.getElementById('landingSignIn2');
   if(landingSignIn) landingSignIn.onclick = showLoginFlow;
+  if(landingSignIn2) landingSignIn2.onclick = showLoginFlow;
 
   // If linked to Epic, sync from there (takes priority)
   if(epicAuth.isLoggedIn()){
