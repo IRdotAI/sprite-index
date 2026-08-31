@@ -46,8 +46,8 @@ body{background:var(--bg);color:var(--text);
 header{position:sticky;top:0;z-index:50;
   background:linear-gradient(180deg,rgba(10,12,18,.98) 0%,rgba(10,12,18,.95) 100%);
   backdrop-filter:blur(20px);border-bottom:1px solid var(--line);
-  padding:12px 16px calc(12px + env(safe-area-inset-top));padding-top:calc(12px + env(safe-area-inset-top))}
-.header-top{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+  padding:10px 16px calc(10px + env(safe-area-inset-top));padding-top:calc(10px + env(safe-area-inset-top))}
+.header-top{display:flex;align-items:center;gap:12px;margin-bottom:8px}
 .logo{font:800 24px/1 'Fortnite','Burbank Big Condensed','Inter',sans-serif;
   letter-spacing:1px;text-transform:uppercase;
   background:linear-gradient(135deg,var(--accent),#00ffcc);
@@ -324,11 +324,6 @@ dialog[open]{display:block}
 <div class="watermark" aria-hidden="true"></div>
 
 <header>
-  <button class="creator" id="creatorBar" title="Copy creator code">
-    <span class="tag">Creator Code</span>
-    <span class="code">RDOTA</span>
-    <span class="note">#EpicPartner</span>
-  </button>
   <div class="header-top">
     <span class="logo">Spritedex</span>
     <span class="tagline">Fortnite Sprite Tracker by RDOTA</span>
@@ -341,14 +336,21 @@ dialog[open]{display:block}
     <button class="season-tab active" data-season="s4">Current Season</button>
     <button class="season-tab" data-season="s3">Past Sprites <span class="badge">Vaulted</span></button>
   </div>
-  <div class="search-row">
+</header>
+
+<main>
+  <button class="creator" id="creatorBar" title="Copy creator code">
+    <span class="tag">Creator Code</span>
+    <span class="code">RDOTA</span>
+    <span class="note">#EpicPartner</span>
+  </button>
+  <div class="search-row" style="margin-bottom:10px">
     <input type="search" id="search" placeholder="Search sprites..." autocomplete="off">
   </div>
   <div class="filters" id="fStatus"></div>
   <div class="filters" id="fRarity"></div>
-</header>
-
-<main><div id="content"></div></main>
+  <div id="content"></div>
+</main>
 
 <footer class="site-footer">
   <div class="footer-content">
