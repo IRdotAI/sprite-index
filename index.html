@@ -81,7 +81,8 @@ input::placeholder{color:var(--dim)}
 @media(max-width:500px){.creator .note{display:none}}
 
 /* filters */
-.search-row{display:flex;gap:10px;margin-bottom:10px}
+.search-row{display:flex;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+@media(max-width:500px){.search-row{gap:8px}.search-row input[type=search]{width:100%;min-width:0}}
 .toggle{display:inline-flex;align-items:center;gap:8px;margin-top:10px;font-size:12px;
   font-weight:600;color:var(--dim);cursor:pointer;user-select:none}
 .toggle input{width:16px;height:16px;accent-color:var(--accent);margin:0;cursor:pointer}
@@ -362,15 +363,21 @@ dialog[open]{display:block}
 @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(255,107,107,.4)}50%{box-shadow:0 0 12px 4px rgba(255,107,107,.2)}}
 
 /* sort dropdown */
-.sort-wrap{display:flex;align-items:center;gap:8px}
-.sort-wrap select{padding:8px 12px;font-size:12px;min-width:130px}
+.sort-wrap{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.sort-wrap select{padding:8px 12px;font-size:12px;min-width:110px}
 .sort-wrap label{font-size:11px;color:var(--dim);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+@media(max-width:500px){.sort-wrap{width:100%;justify-content:flex-end}.sort-wrap select{min-width:100px}}
 
-/* share button */
+/* share button - hidden on mobile, share via export menu */
 .btn-share{display:inline-flex;align-items:center;gap:6px;background:var(--panel2);border:1px solid var(--line);
   padding:8px 14px;font-size:13px}
 .btn-share svg{width:16px;height:16px}
 .btn-share:hover{border-color:var(--accent);background:var(--panel)}
+@media(max-width:500px){.btn-share{display:none}}
+
+/* prevent horizontal scroll */
+html,body{overflow-x:hidden}
+main{overflow-x:hidden}
 
 /* mobile polish */
 @media(max-width:480px){
@@ -595,7 +602,8 @@ dialog[open]{display:block}
     <option value="rarity">Rarity</option>
     <option value="none">Nothing — one grid</option>
   </select>
-  <div class="dlg-actions">
+  <div class="dlg-actions" style="flex-wrap:wrap;gap:8px">
+    <button id="exShare" style="flex:1 1 100%;order:-1;background:var(--panel);border:1px solid var(--accent);color:var(--accent)">Share Stats</button>
     <button id="exCancel">Cancel</button>
     <button id="exGo" class="btn-primary">Save PNG</button>
   </div>
@@ -1001,6 +1009,25 @@ exportBtn.onclick=()=>{
   exportDlg.showModal();
 };
 exCancel.onclick=()=>exportDlg.close();
+document.getElementById('exShare').onclick=async()=>{
+  exportDlg.close();
+  const season = exSeason.value === 'current' ? 's4' : 's3';
+  const seasonEntries = ENTRIES.filter(e => (e.sprite.season || 's3') === season);
+  const owned = seasonEntries.filter(e => st(e.key).owned).length;
+  const total = seasonEntries.length;
+  const pct = Math.round(owned / total * 100);
+  const mastered = seasonEntries.filter(e => st(e.key).mastered).length;
+  const seasonLabel = season === 's4' ? 'Season 4' : 'Season 3';
+  const displayName = epicAuth.displayName || discordAuth.displayName || 'Collector';
+  const shareText = `${displayName}'s Spritedex - ${seasonLabel}\n${owned}/${total} sprites (${pct}%) | ${mastered} mastered\n\nTrack your collection at spritedex.xyz`;
+  if(navigator.share){
+    try { await navigator.share({ title: 'My Spritedex', text: shareText, url: 'https://spritedex.xyz' }); }
+    catch(e){ if(e.name !== 'AbortError') toast('Share failed'); }
+  } else {
+    try { await navigator.clipboard.writeText(shareText); toast('Stats copied!'); }
+    catch { toast('Could not copy'); }
+  }
+};
 exGo.onclick=async ()=>{
   exportDlg.close();
   const season = exSeason.value === 'current' ? 's4' : 's3';
