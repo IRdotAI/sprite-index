@@ -1320,7 +1320,7 @@ function updateProfileArea(){
   const isSignedIn = epicAuth.isLoggedIn() || discordAuth.isLoggedIn();
 
   // Toggle landing page vs tracker content
-  if(landingPage) landingPage.style.display = isSignedIn ? 'none' : 'flex';
+  if(landingPage) landingPage.style.display = isSignedIn ? 'none' : 'block';
   if(trackerContent) trackerContent.style.display = isSignedIn ? 'block' : 'none';
   if(seasonTabs) seasonTabs.style.display = isSignedIn ? 'flex' : 'none';
   if(creatorBar) creatorBar.style.display = isSignedIn ? 'flex' : 'none';
