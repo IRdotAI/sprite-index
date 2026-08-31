@@ -282,6 +282,20 @@ dialog[open]{display:block}
 .btn-epic:hover{box-shadow:0 0 24px rgba(168,85,247,.5)}
 .btn-epic.linked{background:var(--panel2);border:1px solid var(--accent);color:var(--accent)}
 
+/* landing page */
+.landing{min-height:80vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px;text-align:center}
+.landing-hero{max-width:600px;margin-bottom:60px}
+.landing-hero h1{font-size:64px;background:linear-gradient(135deg,var(--accent),#00ffcc);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:16px}
+.landing-tagline{font-size:24px;color:var(--text);margin-bottom:12px;font-weight:600}
+.landing-desc{font-size:16px;color:var(--dim);line-height:1.6;margin-bottom:32px}
+.landing-btn{font-size:18px;padding:16px 40px;border-radius:12px}
+.landing-features{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px;max-width:800px;width:100%}
+.feature{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px;text-align:center}
+.feature-icon{font-size:36px;display:block;margin-bottom:12px}
+.feature h3{font-size:18px;margin-bottom:8px;color:var(--text)}
+.feature p{font-size:14px;color:var(--dim);line-height:1.5}
+@media(max-width:500px){.landing-hero h1{font-size:42px}.landing-tagline{font-size:18px}}
+
 /* season tabs */
 .season-tabs{display:flex;gap:6px;margin-bottom:12px}
 .season-tab{flex:1;padding:10px 16px;border-radius:10px;font-weight:600;font-size:13px;
@@ -343,7 +357,35 @@ dialog[open]{display:block}
   </div>
 </header>
 
-<main>
+<!-- Landing page for non-signed-in users -->
+<div id="landingPage" class="landing">
+  <div class="landing-hero">
+    <h1 class="fn-font">SPRITEDEX</h1>
+    <p class="landing-tagline">Track your Fortnite Sprite collection</p>
+    <p class="landing-desc">Sync your Epic Games account to automatically track which sprites you've collected and mastered across all seasons.</p>
+    <button id="landingSignIn" class="btn-primary landing-btn">Sign In with Epic Games</button>
+  </div>
+  <div class="landing-features">
+    <div class="feature">
+      <span class="feature-icon">🎮</span>
+      <h3>Auto-Sync</h3>
+      <p>Connect your Epic account and we'll track your sprites automatically</p>
+    </div>
+    <div class="feature">
+      <span class="feature-icon">✨</span>
+      <h3>All Variants</h3>
+      <p>Track Normal, Gold, and Cheatmaster variants for every sprite</p>
+    </div>
+    <div class="feature">
+      <span class="feature-icon">📊</span>
+      <h3>Export</h3>
+      <p>Share your collection with a beautiful PNG image</p>
+    </div>
+  </div>
+</div>
+
+<!-- Main tracker content (hidden until signed in) -->
+<main id="trackerContent" style="display:none">
   <div class="search-row" style="margin-bottom:10px">
     <input type="search" id="search" placeholder="Search sprites..." autocomplete="off">
   </div>
@@ -1169,6 +1211,20 @@ const epicAuth = {
 
 function updateProfileArea(){
   const area = document.getElementById('profileArea');
+  const landingPage = document.getElementById('landingPage');
+  const trackerContent = document.getElementById('trackerContent');
+  const seasonTabs = document.getElementById('seasonTabs');
+  const creatorBar = document.getElementById('creatorBar');
+  const exportBtn = document.getElementById('exportBtn');
+  const isSignedIn = epicAuth.isLoggedIn() || discordAuth.isLoggedIn();
+
+  // Toggle landing page vs tracker content
+  if(landingPage) landingPage.style.display = isSignedIn ? 'none' : 'flex';
+  if(trackerContent) trackerContent.style.display = isSignedIn ? 'block' : 'none';
+  if(seasonTabs) seasonTabs.style.display = isSignedIn ? 'flex' : 'none';
+  if(creatorBar) creatorBar.style.display = isSignedIn ? 'flex' : 'none';
+  if(exportBtn) exportBtn.style.display = isSignedIn ? 'inline-flex' : 'none';
+
   if(epicAuth.isLoggedIn()){
     // Get equipped skin icon from fortnite-api.com
     const equippedSkin = localStorage.getItem('epic_equipped_skin') || '';
@@ -1200,7 +1256,7 @@ function updateProfileArea(){
     document.getElementById('epicLoginBtn').onclick = showLoginFlow;
   }
   // Clear state if not logged in to either
-  if(!epicAuth.isLoggedIn() && !discordAuth.isLoggedIn()){
+  if(!isSignedIn){
     state = {};
     save();
   }
@@ -1951,6 +2007,10 @@ async function boot(){
   }
 
   updateProfileArea();
+
+  // Landing page sign in button
+  const landingSignIn = document.getElementById('landingSignIn');
+  if(landingSignIn) landingSignIn.onclick = showLoginFlow;
 
   // If linked to Epic, sync from there (takes priority)
   if(epicAuth.isLoggedIn()){
