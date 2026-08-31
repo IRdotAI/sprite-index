@@ -58,10 +58,10 @@ header{position:sticky;top:0;z-index:50;
 
 /* hamburger menu */
 .hamburger{display:none;background:var(--panel2);border:1px solid var(--line);border-radius:8px;
-  padding:6px;cursor:pointer;position:relative;flex-shrink:0}
-.hamburger svg{width:18px;height:18px;display:block}
-.hamburger-menu{position:absolute;top:100%;right:0;margin-top:8px;background:var(--panel);
-  border:1px solid var(--line);border-radius:12px;min-width:200px;padding:8px;z-index:100;
+  padding:6px;cursor:pointer;flex-shrink:0}
+.hamburger>svg{width:18px;height:18px;display:block}
+.hamburger-menu{position:fixed;top:60px;right:16px;background:var(--panel);
+  border:1px solid var(--line);border-radius:12px;min-width:200px;padding:8px;z-index:200;
   box-shadow:0 10px 40px rgba(0,0,0,.5);display:none}
 .hamburger-menu.open{display:block}
 .hamburger-menu a,.hamburger-menu button{display:flex;align-items:center;gap:10px;width:100%;
@@ -467,15 +467,15 @@ main{overflow-x:hidden}
       <div id="profileArea"></div>
       <button class="hamburger" id="hamburgerBtn">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
-        <div class="hamburger-menu" id="hamburgerMenu">
-          <button id="menuExport"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>Export Image</button>
-          <a href="/profile.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>Search Players</a>
-          <a href="#" id="menuMyProfile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>My Profile</a>
-          <hr>
-          <button id="menuPrivacy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>Privacy: <span id="privacyStatus">Public</span></button>
-        </div>
       </button>
     </div>
+  </div>
+  <div class="hamburger-menu" id="hamburgerMenu">
+    <button id="menuExport"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>Export Image</button>
+    <a href="/profile.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>Search Players</a>
+    <a href="#" id="menuMyProfile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>My Profile</a>
+    <hr>
+    <button id="menuPrivacy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>Privacy: <span id="privacyStatus">Public</span></button>
   </div>
   <div class="season-tabs" id="seasonTabs">
     <button class="season-tab active" data-season="s4">Current Season</button>
