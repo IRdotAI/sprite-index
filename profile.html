@@ -123,13 +123,18 @@ const searchBtn = document.getElementById('searchBtn');
 const searchResults = document.getElementById('searchResults');
 const profileContent = document.getElementById('profileContent');
 
-// Check URL for username
+// Check URL for username (supports both /profile/user and ?u=user)
 const urlPath = window.location.pathname;
-const match = urlPath.match(/\/profile\/(.+)/);
-if (match) {
-  const username = decodeURIComponent(match[1]);
+const urlParams = new URLSearchParams(window.location.search);
+const pathMatch = urlPath.match(/\/profile\/(.+)/);
+const queryUser = urlParams.get('u');
+if (pathMatch) {
+  const username = decodeURIComponent(pathMatch[1]);
   searchInput.value = username;
   loadProfile(username);
+} else if (queryUser) {
+  searchInput.value = decodeURIComponent(queryUser);
+  loadProfile(decodeURIComponent(queryUser));
 }
 
 // Search functionality

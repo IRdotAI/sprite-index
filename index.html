@@ -603,7 +603,7 @@ main{overflow-x:hidden}
     <option value="none">Nothing — one grid</option>
   </select>
   <div class="dlg-actions" style="flex-wrap:wrap;gap:8px">
-    <button id="exShare" style="flex:1 1 100%;order:-1;background:var(--panel);border:1px solid var(--accent);color:var(--accent)">Share Stats</button>
+    <button id="exShare" style="flex:1 1 100%;order:-1;background:var(--panel);border:2px solid var(--accent);color:var(--accent);padding:12px;font-weight:700;border-radius:8px;cursor:pointer">Share Profile Link</button>
     <button id="exCancel">Cancel</button>
     <button id="exGo" class="btn-primary">Save PNG</button>
   </div>
@@ -1013,7 +1013,7 @@ document.getElementById('exShare').onclick=async()=>{
   exportDlg.close();
   const displayName = epicAuth.displayName || discordAuth.displayName;
   if(!displayName){ toast('Sign in to share your profile', true); return; }
-  const profileUrl = `https://spritedex.xyz/profile/${encodeURIComponent(displayName)}`;
+  const profileUrl = `https://spritedex.xyz/profile.html?u=${encodeURIComponent(displayName)}`;
   const season = exSeason.value === 'current' ? 's4' : 's3';
   const seasonEntries = ENTRIES.filter(e => (e.sprite.season || 's3') === season);
   const owned = seasonEntries.filter(e => st(e.key).owned).length;
@@ -2264,7 +2264,7 @@ async function boot(){
 document.getElementById('shareBtn')?.addEventListener('click', async () => {
   const displayName = epicAuth.displayName || discordAuth.displayName;
   if(!displayName){ toast('Sign in to share your profile', true); return; }
-  const profileUrl = `https://spritedex.xyz/profile/${encodeURIComponent(displayName)}`;
+  const profileUrl = `https://spritedex.xyz/profile.html?u=${encodeURIComponent(displayName)}`;
   const seasonEntries = ENTRIES.filter(e => (e.sprite.season || 's3') === filters.season);
   const owned = seasonEntries.filter(e => st(e.key).owned).length;
   const total = seasonEntries.length;
