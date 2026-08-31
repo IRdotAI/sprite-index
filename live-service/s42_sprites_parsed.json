@@ -1,0 +1,182 @@
+{
+  "8bit": {
+    "codename": "8bit",
+    "normal": {
+      "owned": true,
+      "mastered": true
+    },
+    "gold": {
+      "owned": true,
+      "mastered": true
+    },
+    "cheatmaster": {
+      "owned": true,
+      "mastered": true
+    }
+  },
+  "adventure": {
+    "codename": "dwarf",
+    "normal": {
+      "owned": true,
+      "mastered": true
+    },
+    "gold": {
+      "owned": true,
+      "mastered": true
+    },
+    "cheatmaster": {
+      "owned": true,
+      "mastered": true
+    }
+  },
+  "bush": {
+    "codename": "bushranger",
+    "normal": {
+      "owned": true,
+      "mastered": false
+    },
+    "gold": {
+      "owned": true,
+      "mastered": true
+    },
+    "cheatmaster": {
+      "owned": true,
+      "mastered": false
+    }
+  },
+  "jonesy": {
+    "codename": "jonesy",
+    "normal": {
+      "owned": true,
+      "mastered": true
+    },
+    "gold": {
+      "owned": true,
+      "mastered": false
+    },
+    "cheatmaster": {
+      "owned": true,
+      "mastered": true
+    }
+  },
+  "stormscout": {
+    "codename": "stormscout",
+    "normal": {
+      "owned": true,
+      "mastered": false
+    },
+    "gold": {
+      "owned": true,
+      "mastered": false
+    },
+    "cheatmaster": {
+      "owned": true,
+      "mastered": false
+    }
+  },
+  "killswitch": {
+    "codename": "killswitch",
+    "normal": {
+      "owned": true,
+      "mastered": true
+    },
+    "gold": {
+      "owned": true,
+      "mastered": false
+    },
+    "cheatmaster": {
+      "owned": true,
+      "mastered": false
+    }
+  },
+  "shadow": {
+    "codename": "reloadovertime",
+    "normal": {
+      "owned": true,
+      "mastered": true
+    },
+    "gold": {
+      "owned": true,
+      "mastered": false
+    },
+    "cheatmaster": {
+      "owned": true,
+      "mastered": false
+    }
+  },
+  "sonic": {
+    "codename": "narrowflea",
+    "normal": {
+      "owned": true,
+      "mastered": true
+    },
+    "gold": {
+      "owned": true,
+      "mastered": true
+    },
+    "cheatmaster": {
+      "owned": true,
+      "mastered": false
+    }
+  },
+  "tails": {
+    "codename": "narrowfleamonkey",
+    "normal": {
+      "owned": true,
+      "mastered": true
+    },
+    "gold": {
+      "owned": true,
+      "mastered": true
+    },
+    "cheatmaster": {
+      "owned": true,
+      "mastered": false
+    }
+  },
+  "jackrabbit": {
+    "codename": "doublejump",
+    "normal": {
+      "owned": true,
+      "mastered": true
+    },
+    "gold": {
+      "owned": true,
+      "mastered": false
+    },
+    "cheatmaster": {
+      "owned": true,
+      "mastered": true
+    }
+  },
+  "crown": {
+    "codename": "crown",
+    "normal": {
+      "owned": true,
+      "mastered": true
+    },
+    "gold": {
+      "owned": true,
+      "mastered": false
+    },
+    "cheatmaster": {
+      "owned": true,
+      "mastered": false
+    }
+  },
+  "klombo": {
+    "codename": "klombo",
+    "normal": {
+      "owned": true,
+      "mastered": false
+    },
+    "gold": {
+      "owned": true,
+      "mastered": false
+    },
+    "cheatmaster": {
+      "owned": true,
+      "mastered": true
+    }
+  }
+}

@@ -1,0 +1,1914 @@
+{
+  "accountId": "603813eac7304b3fbf52768471b9bef1",
+  "displayName": "RdotA-_-",
+  "timestamp": "2026-08-30T06:06:24.533Z",
+  "endpoints": {
+    "/fortnite/api/matchmaking/session/findPlayer/603813eac7304b3fbf52768471b9bef1": {
+      "method": "GET",
+      "status": 200,
+      "data": []
+    },
+    "/fortnite/api/matchmaking": {
+      "method": "GET",
+      "status": 404,
+      "data": {
+        "errorCode": "errors.com.epicgames.common.not_found",
+        "errorMessage": "Sorry the resource you were trying to find could not be found",
+        "messageVars": [],
+        "numericErrorCode": 1004,
+        "originatingService": "fortnite",
+        "intent": "prod-live"
+      }
+    },
+    "/fortnite/api/game/v2/matchmaking": {
+      "method": "GET",
+      "status": 404,
+      "data": {
+        "errorCode": "errors.com.epicgames.common.not_found",
+        "errorMessage": "Sorry the resource you were trying to find could not be found",
+        "messageVars": [],
+        "numericErrorCode": 1004,
+        "originatingService": "fortnite",
+        "intent": "prod-live"
+      }
+    },
+    "/fortnite/api/game/v2/matchmakingservice": {
+      "method": "GET",
+      "status": 404,
+      "data": {
+        "errorCode": "errors.com.epicgames.common.not_found",
+        "errorMessage": "Sorry the resource you were trying to find could not be found",
+        "messageVars": [],
+        "numericErrorCode": 1004,
+        "originatingService": "fortnite",
+        "intent": "prod-live"
+      }
+    },
+    "/fortnite/api/game/v2/session": {
+      "method": "GET",
+      "status": 404,
+      "data": {
+        "errorCode": "errors.com.epicgames.common.not_found",
+        "errorMessage": "Sorry the resource you were trying to find could not be found",
+        "messageVars": [],
+        "numericErrorCode": 1004,
+        "originatingService": "fortnite",
+        "intent": "prod-live"
+      }
+    },
+    "/fortnite/api/session": {
+      "method": "GET",
+      "status": 404,
+      "data": {
+        "errorCode": "errors.com.epicgames.common.not_found",
+        "errorMessage": "Sorry the resource you were trying to find could not be found",
+        "messageVars": [],
+        "numericErrorCode": 1004,
+        "originatingService": "fortnite",
+        "intent": "prod-live"
+      }
+    },
+    "/fortnite/api/game/v2/world": {
+      "method": "GET",
+      "status": 404,
+      "data": {
+        "errorCode": "errors.com.epicgames.common.not_found",
+        "errorMessage": "Sorry the resource you were trying to find could not be found",
+        "messageVars": [],
+        "numericErrorCode": 1004,
+        "originatingService": "fortnite",
+        "intent": "prod-live"
+      }
+    },
+    "/fortnite/api/game/v2/enabled_features": {
+      "method": "GET",
+      "status": 200,
+      "data": []
+    },
+    "/fortnite/api/game/v2/privacy/account/603813eac7304b3fbf52768471b9bef1": {
+      "method": "GET",
+      "status": 200,
+      "data": {
+        "accountId": "603813eac7304b3fbf52768471b9bef1",
+        "optOutOfPublicLeaderboards": false
+      }
+    },
+    "/fortnite/api/calendar/v1/timeline": {
+      "method": "GET",
+      "status": 200,
+      "data": {
+        "channels": {
+          "standalone-store": {
+            "states": [
+              {
+                "validFrom": "2026-08-30T05:49:20.498Z",
+                "activeEvents": [],
+                "state": {
+                  "activePurchaseLimitingEventIds": [],
+                  "storefront": {},
+                  "rmtPromotionConfig": [],
+                  "storeEnd": "0001-01-01T00:00:00.000Z"
+                }
+              }
+            ],
+            "cacheExpire": "2026-08-30T07:49:20.498Z"
+          },
+          "client-matchmaking": {
+            "states": [
+              {
+                "validFrom": "2026-08-30T05:49:20.498Z",
+                "activeEvents": [],
+                "state": {
+                  "region": {
+                    "ME": {
+                      "eventFlagsForcedOff": [
+                        "Playlist_NoBuildBR_Habanero_Squad",
+                        "Playlist_HabaneroSquad",
+                        "Playlist_Habanero_NoBuild_Sunflower_Squads"
+                      ],
+                      "eventFlagsForcedOn": [
+                        "Playlist_NoBuildBR_Habanero_Solo"
+                      ]
+                    },
+                    "NAE": {
+                      "eventFlagsForcedOn": [
+                        "Playlist_NoBuildBR_Habanero_Solo",
+                        "Playlist_NoBuildBR_Habanero_Squad"
+                      ]
+                    },
+                    "NAW": {
+                      "eventFlagsForcedOn": [
+                        "Playlist_NoBuildBR_Habanero_Solo",
+                        "Playlist_NoBuildBR_Habanero_Squad"
+                      ]
+                    },
+                    "NAC": {
+                      "eventFlagsForcedOn": [
+                        "Playlist_NoBuildBR_Habanero_Solo",
+                        "Playlist_NoBuildBR_Habanero_Squad"
+                      ]
+                    },
+                    "EU": {
+                      "eventFlagsForcedOn": [
+                        "Playlist_NoBuildBR_Habanero_Solo",
+                        "Playlist_NoBuildBR_Habanero_Squad"
+                      ]
+                    },
+                    "ASIA": {
+                      "eventFlagsForcedOn": [
+                        "Playlist_NoBuildBR_Habanero_Solo",
+                        "Playlist_NoBuildBR_Habanero_Squad",
+                        "Playlist_HabaneroSquad",
+                        "Playlist_Habanero_Sunflower_Solo",
+                        "Playlist_Habanero_NoBuild_Sunflower_Squads"
+                      ]
+                    },
+                    "BR": {
+                      "eventFlagsForcedOn": [
+                        "Playlist_NoBuildBR_Habanero_Solo"
+                      ],
+                      "eventFlagsForcedOff": [
+                        "Playlist_NoBuildBR_Habanero_Squad",
+                        "Playlist_HabaneroSquad",
+                        "Playlist_Habanero_Sunflower_Squads",
+                        "Playlist_Habanero_NoBuild_Sunflower_Squads"
+                      ]
+                    },
+                    "OCE": {
+                      "eventFlagsForcedOn": [
+                        "Playlist_NoBuildBR_Habanero_Solo",
+                        "Playlist_Habanero_Sunflower_Solo",
+                        "Playlist_Habanero_Sunflower_Squad"
+                      ],
+                      "eventFlagsForcedOff": [
+                        "Playlist_NoBuildBR_Habanero_Squad",
+                        "Playlist_NoBuildBR_Habanero_Trio",
+                        "Playlist_HabaneroSquad",
+                        "Playlist_HabaneroTrio",
+                        "Playlist_Habanero_NoBuild_Sunflower_Squads"
+                      ]
+                    }
+                  }
+                }
+              },
+              {
+                "validFrom": "2026-08-30T08:00:00.000Z",
+                "activeEvents": [],
+                "state": {
+                  "region": {
+                    "NAE": {
+                      "eventFlagsForcedOn": [
+                        "Playlist_NoBuildBR_Habanero_Solo",
+                        "Playlist_NoBuildBR_Habanero_Squad"
+                      ]
+                    },
+                    "NAW": {
+                      "eventFlagsForcedOn": [
+                        "Playlist_NoBuildBR_Habanero_Solo",
+                        "Playlist_NoBuildBR_Habanero_Squad"
+                      ]
+                    },
+                    "NAC": {
+                      "eventFlagsForcedOn": [
+                        "Playlist_NoBuildBR_Habanero_Solo",
+                        "Playlist_NoBuildBR_Habanero_Squad"
+                      ]
+                    },
+                    "EU": {
+                      "eventFlagsForcedOn": [
+                        "Playlist_NoBuildBR_Habanero_Solo",
+                        "Playlist_NoBuildBR_Habanero_Squad"
+                      ]
+                    },
+                    "ASIA": {
+                      "eventFlagsForcedOn": [
+                        "Playlist_NoBuildBR_Habanero_Solo",
+                        "Playlist_NoBuildBR_Habanero_Squad",
+                        "Playlist_HabaneroSquad",
+                        "Playlist_Habanero_Sunflower_Solo",
+                        "Playlist_Habanero_NoBuild_Sunflower_Squads"
+                      ]
+                    },
+                    "ME": {
+                      "eventFlagsForcedOn": [
+                        "Playlist_NoBuildBR_Habanero_Solo",
+                        "Playlist_NoBuildBR_Habanero_Squad",
+                        "Playlist_HabaneroSquad",
+                        "Playlist_Habanero_NoBuild_Sunflower_Squads"
+                      ]
+                    },
+                    "BR": {
+                      "eventFlagsForcedOn": [
+                        "Playlist_NoBuildBR_Habanero_Solo"
+                      ],
+                      "eventFlagsForcedOff": [
+                        "Playlist_NoBuildBR_Habanero_Squad",
+                        "Playlist_HabaneroSquad",
+                        "Playlist_Habanero_Sunflower_Squads",
+                        "Playlist_Habanero_NoBuild_Sunflower_Squads"
+                      ]
+                    },
+                    "OCE": {
+                      "eventFlagsForcedOn": [
+                        "Playlist_NoBuildBR_Habanero_Solo",
+                        "Playlist_Habanero_Sunflower_Solo",
+                        "Playlist_Habanero_Sunflower_Squad"
+                      ],
+                      "eventFlagsForcedOff": [
+                        "Playlist_NoBuildBR_Habanero_Squad",
+                        "Playlist_NoBuildBR_Habanero_Trio",
+                        "Playlist_HabaneroSquad",
+                        "Playlist_HabaneroTrio",
+                        "Playlist_Habanero_NoBuild_Sunflower_Squads"
+                      ]
+                    }
+                  }
+                }
+              }
+            ],
+            "cacheExpire": "2026-08-30T07:49:20.498Z"
+          },
+          "tk": {
+            "states": [
+              {
+                "validFrom": "2026-08-30T05:49:20.498Z",
+                "activeEvents": [],
+                "state": {
+                  "k": []
+                }
+              }
+            ],
+            "cacheExpire": "2026-08-30T07:49:20.498Z"
+          },
+          "featured-islands": {
+            "states": [
+              {
+                "validFrom": "2026-08-30T05:49:20.498Z",
+                "activeEvents": [],
+                "state": {
+                  "islandCodes": [],
+                  "playlistCuratedContent": {},
+                  "playlistCuratedHub": {},
+                  "islandTemplates": []
+                }
+              }
+            ],
+            "cacheExpire": "2026-08-30T07:49:20.498Z"
+          },
+          "community-votes": {
+            "states": [
+              {
+                "validFrom": "2026-08-30T05:49:20.498Z",
+                "activeEvents": [],
+                "state": {
+                  "electionId": "",
+                  "candidates": [],
+                  "electionEnds": "9999-12-31T23:59:59.999Z",
+                  "numWinners": 1
+                }
+              }
+            ],
+            "cacheExpire": "2026-08-30T07:49:20.498Z"
+          },
+          "client-events": {
+            "states": [
+              {
+                "validFrom": "2026-08-30T05:49:20.498Z",
+                "activeEvents": [
+                  {
+                    "eventType": "EventFlag.Event_Juno_Hardcore",
+                    "activeUntil": "2026-12-01T09:00:00.000Z",
+                    "activeSince": "2024-06-11T08:00:00.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Event_Ecosystem_DailyBonusGoals",
+                    "activeUntil": "2028-11-17T07:00:00.000Z",
+                    "activeSince": "2024-11-28T09:00:00.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Event_ JunoQuestRepeatable  ",
+                    "activeUntil": "2026-12-01T05:00:00.000Z",
+                    "activeSince": "2024-11-30T05:00:00.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Event_Evergreen_DailyQuests",
+                    "activeUntil": "2028-05-05T06:00:00.000Z",
+                    "activeSince": "2024-12-01T07:00:00.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Event_FigmentQuests_Evergreen",
+                    "activeUntil": "2026-11-27T14:00:00.000Z",
+                    "activeSince": "2024-12-06T14:00:00.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Event_ReloadQuests_Ch06_MapDiscovery",
+                    "activeUntil": "2026-11-28T14:00:00.000Z",
+                    "activeSince": "2024-12-06T14:00:00.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Event_FigmentQuests_Ch01_MapDiscovery",
+                    "activeUntil": "2026-11-28T14:00:00.000Z",
+                    "activeSince": "2024-12-06T14:00:00.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Event_STW_DailyQuests",
+                    "activeUntil": "2029-02-07T07:00:00.000Z",
+                    "activeSince": "2025-02-18T09:00:00.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Event_ForbiddenFruitQuests_MapDiscovery_01",
+                    "activeUntil": "2027-06-15T13:00:00.000Z",
+                    "activeSince": "2025-06-17T09:30:00.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Event_ForbiddenFruitQuests_Evergreen",
+                    "activeUntil": "2027-06-15T13:00:00.000Z",
+                    "activeSince": "2025-06-17T13:00:00.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Event_Juno_Potions",
+                    "activeUntil": "2027-11-01T00:00:00.000Z",
+                    "activeSince": "2025-10-15T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Event_TofuGardenQuests_Evergreen",
+                    "activeUntil": "2027-10-30T13:00:00.000Z",
+                    "activeSince": "2025-11-01T13:00:00.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Event_TofuGardenQuests_GrantEmote",
+                    "activeUntil": "2026-11-10T14:00:00.000Z",
+                    "activeSince": "2025-11-10T14:00:00.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Event_ForbiddenFruitQuests_Kickstart_02",
+                    "activeUntil": "2027-12-02T14:00:00.000Z",
+                    "activeSince": "2025-12-04T14:00:00.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Event_Mobile_CleverGeyser_Quests",
+                    "activeUntil": "2026-12-04T05:00:00.000Z",
+                    "activeSince": "2026-03-19T04:00:00.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Event_HabaneroQuests_Emote",
+                    "activeUntil": "2029-03-18T22:00:00.000Z",
+                    "activeSince": "2026-03-19T05:00:00.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Event_Juno_S07",
+                    "activeUntil": "2026-11-01T09:00:00.000Z",
+                    "activeSince": "2026-04-16T08:00:00.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Juno_TabascoPart2",
+                    "activeUntil": "2027-04-16T07:00:20.000Z",
+                    "activeSince": "2026-04-16T08:00:20.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Event_S40_HabaneroQuests_Gauntlet",
+                    "activeUntil": "2026-12-04T05:00:00.000Z",
+                    "activeSince": "2026-04-20T11:00:00.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Event_Ecosystem_CreativeRoguelike",
+                    "activeUntil": "2026-10-30T13:00:00.000Z",
+                    "activeSince": "2026-05-30T13:00:00.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Phoenix.RoadTrip",
+                    "activeUntil": "2026-09-03T00:00:00.000Z",
+                    "activeSince": "2026-06-18T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.LobbyStW.RoadTrip",
+                    "activeUntil": "2026-09-03T00:00:00.000Z",
+                    "activeSince": "2026-06-18T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Mayday",
+                    "activeUntil": "2026-09-03T00:00:00.000Z",
+                    "activeSince": "2026-06-18T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Mayday.Quests",
+                    "activeUntil": "2026-09-03T00:00:00.000Z",
+                    "activeSince": "2026-06-18T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Mayday.Quests.1020",
+                    "activeUntil": "2026-09-03T00:00:00.000Z",
+                    "activeSince": "2026-06-18T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.PassiveIceStorms",
+                    "activeUntil": "2026-09-03T00:00:00.000Z",
+                    "activeSince": "2026-06-18T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.ActiveFireStorms",
+                    "activeUntil": "2026-09-03T00:00:00.000Z",
+                    "activeSince": "2026-06-18T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.PassiveLightningStorms",
+                    "activeUntil": "2026-09-03T00:00:00.000Z",
+                    "activeSince": "2026-06-18T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.PassiveMiniBosses",
+                    "activeUntil": "2026-09-03T00:00:00.000Z",
+                    "activeSince": "2026-06-18T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.MissionAlert.MegaAlert",
+                    "activeUntil": "2026-09-03T00:00:00.000Z",
+                    "activeSince": "2026-06-18T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.ElderGroupMissions",
+                    "activeUntil": "2026-09-03T00:00:00.000Z",
+                    "activeSince": "2026-06-18T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Phoenix.RoadTrip.Quests",
+                    "activeUntil": "2026-09-03T00:00:00.000Z",
+                    "activeSince": "2026-06-18T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Event_Figment_S09",
+                    "activeUntil": "2026-09-03T08:00:00.000Z",
+                    "activeSince": "2026-06-25T08:00:00.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Event_FigmentQuests_S09",
+                    "activeUntil": "2026-09-03T08:00:00.000Z",
+                    "activeSince": "2026-06-25T09:30:00.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Event_SquareClub_Daily_Quests",
+                    "activeUntil": "2027-07-15T04:00:00.000Z",
+                    "activeSince": "2026-07-16T04:00:00.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Event_SquareClub_S02_Quests",
+                    "activeUntil": "2026-10-01T08:00:00.000Z",
+                    "activeSince": "2026-07-16T04:00:00.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Season9.Phase1",
+                    "activeUntil": "2026-09-03T00:00:00.000Z",
+                    "activeSince": "2026-07-23T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Event_Sparks_Season15_JamDaily",
+                    "activeUntil": "2026-11-02T03:00:29.000Z",
+                    "activeSince": "2026-07-29T07:00:29.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Event_SparksS15",
+                    "activeUntil": "2026-11-02T03:00:49.000Z",
+                    "activeSince": "2026-07-29T07:00:49.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Event_Sparks_Season15_WeeklyQuests",
+                    "activeUntil": "2026-11-02T03:00:45.000Z",
+                    "activeSince": "2026-07-30T00:00:45.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Event_Reload_S41_FirstWin_Umbrella",
+                    "activeUntil": "2026-10-08T13:00:00.000Z",
+                    "activeSince": "2026-07-30T04:00:00.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Event_MapMastery03",
+                    "activeUntil": "2026-10-08T13:00:00.000Z",
+                    "activeSince": "2026-07-30T08:00:00.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Event_ReloadQuests_RopeSmile_Kickstart",
+                    "activeUntil": "2026-10-08T13:00:00.000Z",
+                    "activeSince": "2026-07-30T08:00:00.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Event_S41_HabaneroQuests_Reload",
+                    "activeUntil": "2026-10-08T07:59:00.000Z",
+                    "activeSince": "2026-07-30T08:00:22.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Event_ReloadQuests_RopeSmile_Specific_Kickstart",
+                    "activeUntil": "2026-09-30T08:00:29.000Z",
+                    "activeSince": "2026-07-30T08:00:29.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Event_OG_S09_Kickstart_Pt2",
+                    "activeUntil": "2026-09-03T08:00:00.000Z",
+                    "activeSince": "2026-07-30T13:00:00.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.STWOutlandish",
+                    "activeUntil": "2026-09-03T00:00:00.000Z",
+                    "activeSince": "2026-08-06T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.STWRobert",
+                    "activeUntil": "2026-09-03T00:00:00.000Z",
+                    "activeSince": "2026-08-06T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Event_Sparks_Season15_WeeklyQuests_W01",
+                    "activeUntil": "2026-11-02T03:00:32.000Z",
+                    "activeSince": "2026-08-07T00:00:32.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.LobbySeason42",
+                    "activeUntil": "2026-11-08T14:00:00.000Z",
+                    "activeSince": "2026-08-13T13:00:00.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Event_Sparks_Season15_WeeklyQuests_W02",
+                    "activeUntil": "2026-11-02T03:00:31.000Z",
+                    "activeSince": "2026-08-14T00:00:31.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Event_S42_SpriteMastery_P01",
+                    "activeUntil": "2026-11-01T14:00:51.000Z",
+                    "activeSince": "2026-08-19T12:00:51.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Event_S42_CosmicThunder_TutorialQuests",
+                    "activeUntil": "2026-11-01T09:00:00.000Z",
+                    "activeSince": "2026-08-19T13:00:00.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.ProgressionTrack_S42",
+                    "activeUntil": "2026-11-01T07:00:49.000Z",
+                    "activeSince": "2026-08-19T13:00:49.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Mayday.Quests.Phase10",
+                    "activeUntil": "2026-09-03T00:00:00.000Z",
+                    "activeSince": "2026-08-20T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Event_SuperLevels_Timer_S42",
+                    "activeUntil": "2026-09-03T05:00:00.000Z",
+                    "activeSince": "2026-08-20T05:00:00.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Event_SuperLevels20_Timer_S42",
+                    "activeUntil": "2026-09-17T08:00:00.000Z",
+                    "activeSince": "2026-08-20T05:00:00.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Event_S42_Audiologs_4200",
+                    "activeUntil": "2026-11-02T06:00:27.000Z",
+                    "activeSince": "2026-08-20T05:00:27.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Event_S42_Story_BlockStack_BonusGoals",
+                    "activeUntil": "2026-11-01T08:00:00.000Z",
+                    "activeSince": "2026-08-20T06:00:01.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Event_S42_Story_SheerWill_P02",
+                    "activeUntil": "2026-11-01T08:00:12.000Z",
+                    "activeSince": "2026-08-20T06:00:12.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Event_S42_NarrativeLoadingScreen_01",
+                    "activeUntil": "2026-11-01T08:00:25.000Z",
+                    "activeSince": "2026-08-20T06:00:25.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Event_S42_Story_BlockStack_P02",
+                    "activeUntil": "2026-11-01T08:00:28.000Z",
+                    "activeSince": "2026-08-20T06:00:28.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Event_S42_Story_PhoenixKick",
+                    "activeUntil": "2026-11-01T08:00:35.000Z",
+                    "activeSince": "2026-08-20T06:00:35.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Event_S42_Story_HeroicTale",
+                    "activeUntil": "2026-11-01T08:00:00.000Z",
+                    "activeSince": "2026-08-20T06:00:42.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.PreviousSeason_SpriteDust",
+                    "activeUntil": "2026-11-01T08:00:44.000Z",
+                    "activeSince": "2026-08-20T06:00:44.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Event_WarmPrize_SpriteUnlock",
+                    "activeUntil": "2026-09-03T08:00:00.000Z",
+                    "activeSince": "2026-08-20T08:00:00.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Event_LlamaSupplyDropRadioGizmo_S42",
+                    "activeUntil": "2026-11-01T09:00:00.000Z",
+                    "activeSince": "2026-08-20T08:00:00.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Event_SmugglerExtractionKeyGizmo_S42",
+                    "activeUntil": "2026-11-01T09:00:00.000Z",
+                    "activeSince": "2026-08-20T08:00:00.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Event_CheatCodeFinderGizmo_S42",
+                    "activeUntil": "2026-11-01T09:00:00.000Z",
+                    "activeSince": "2026-08-20T08:00:00.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Event_ExtractionRelicExtractorGizmo_S42",
+                    "activeUntil": "2026-11-01T09:00:00.000Z",
+                    "activeSince": "2026-08-20T08:00:00.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Event_SpicyTacoGizmo_S42",
+                    "activeUntil": "2026-11-01T09:00:00.000Z",
+                    "activeSince": "2026-08-20T08:00:00.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Event_MapMastery_JumpBear_03",
+                    "activeUntil": "2026-10-08T13:00:00.000Z",
+                    "activeSince": "2026-08-20T08:00:00.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Event_S42_Story_BlockStack_P01",
+                    "activeUntil": "2026-10-01T08:00:01.000Z",
+                    "activeSince": "2026-08-20T08:00:01.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Event_S42_BlockStackCosmetics",
+                    "activeUntil": "2026-11-01T08:00:11.000Z",
+                    "activeSince": "2026-08-20T08:00:11.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Event_S42_Story_SheerWill_P01",
+                    "activeUntil": "2026-10-01T08:00:14.000Z",
+                    "activeSince": "2026-08-20T08:00:14.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.CalendarEvent_CosmicThunder_00_CSProgression",
+                    "activeUntil": "2026-11-01T09:00:17.000Z",
+                    "activeSince": "2026-08-20T08:00:17.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Event_S42_HabaneroQuests",
+                    "activeUntil": "2026-11-01T14:00:00.000Z",
+                    "activeSince": "2026-08-20T08:00:19.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Event_CosmicThunder_00_Promo",
+                    "activeUntil": "2026-11-01T09:00:40.000Z",
+                    "activeSince": "2026-08-20T08:00:40.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Event_LootInjectionRefresh",
+                    "activeUntil": "2026-09-03T08:00:53.000Z",
+                    "activeSince": "2026-08-20T08:01:53.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Event_Sparks_Season15_WeeklyQuests_W03",
+                    "activeUntil": "2026-11-02T03:00:55.000Z",
+                    "activeSince": "2026-08-21T00:00:55.000Z"
+                  },
+                  {
+                    "eventType": "RockStory2_10",
+                    "activeUntil": "2026-09-03T18:00:00.000Z",
+                    "activeSince": "2026-08-21T18:00:00.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.CalendarEvent_CosmicThunder_00_CheatMonday_01",
+                    "activeUntil": "2026-11-01T01:00:08.000Z",
+                    "activeSince": "2026-08-24T13:00:08.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Event_Juno_ShatterDragon",
+                    "activeUntil": "2026-09-03T08:00:00.000Z",
+                    "activeSince": "2026-08-27T08:00:00.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Event_Juno_TabascoKraken_Disabled",
+                    "activeUntil": "2026-09-17T08:00:00.000Z",
+                    "activeSince": "2026-08-27T08:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.battery",
+                    "activeUntil": "2026-09-04T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.basketcase",
+                    "activeUntil": "2026-09-04T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.provenza",
+                    "activeUntil": "2026-09-04T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.onemoretime",
+                    "activeUntil": "2026-09-04T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.fireball",
+                    "activeUntil": "2026-09-04T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.iloveit",
+                    "activeUntil": "2026-09-04T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.dontyouworrychild",
+                    "activeUntil": "2026-09-04T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.wolves",
+                    "activeUntil": "2026-09-04T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.lovinonme",
+                    "activeUntil": "2026-09-04T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.fellinlovewithagirl",
+                    "activeUntil": "2026-09-04T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.killbill",
+                    "activeUntil": "2026-09-04T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.feather",
+                    "activeUntil": "2026-09-04T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.jane",
+                    "activeUntil": "2026-09-04T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.hotblooded",
+                    "activeUntil": "2026-09-04T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.mambonofive",
+                    "activeUntil": "2026-09-04T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.spenddat",
+                    "activeUntil": "2026-09-04T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.rottweiler",
+                    "activeUntil": "2026-09-04T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.happy",
+                    "activeUntil": "2026-09-04T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.stupidlove",
+                    "activeUntil": "2026-09-04T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.lunch",
+                    "activeUntil": "2026-09-04T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.whenicomearound",
+                    "activeUntil": "2026-09-04T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.bazooka",
+                    "activeUntil": "2026-09-04T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.tubthumping",
+                    "activeUntil": "2026-09-04T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.stickseason",
+                    "activeUntil": "2026-09-04T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.bullsonparade",
+                    "activeUntil": "2026-09-04T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.youngwildandfree",
+                    "activeUntil": "2026-09-04T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.irisout",
+                    "activeUntil": "2026-09-04T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.irun",
+                    "activeUntil": "2026-09-04T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.getbusy",
+                    "activeUntil": "2026-09-04T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.thebrave",
+                    "activeUntil": "2026-09-04T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.song2",
+                    "activeUntil": "2026-09-04T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.hysteria",
+                    "activeUntil": "2026-09-04T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.bloodymary",
+                    "activeUntil": "2026-09-04T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.nowornever",
+                    "activeUntil": "2026-09-04T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.sadbuttrue",
+                    "activeUntil": "2026-09-04T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.ibelieveinathing",
+                    "activeUntil": "2026-09-04T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.folded",
+                    "activeUntil": "2026-09-04T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.sidetoside",
+                    "activeUntil": "2026-09-04T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.maps",
+                    "activeUntil": "2026-09-04T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.poison",
+                    "activeUntil": "2026-09-04T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.luciddreams",
+                    "activeUntil": "2026-09-04T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.whereismyhusband",
+                    "activeUntil": "2026-09-04T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.gethimback",
+                    "activeUntil": "2026-09-04T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.funnysong",
+                    "activeUntil": "2026-09-04T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.theemptinessmachine",
+                    "activeUntil": "2026-09-04T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.passobemsolto",
+                    "activeUntil": "2026-09-04T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.breakfromtoronto",
+                    "activeUntil": "2026-09-04T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.allidoiswin",
+                    "activeUntil": "2026-09-04T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.earrings",
+                    "activeUntil": "2026-09-04T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.todayisgonnabe",
+                    "activeUntil": "2026-09-04T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "Sparks_CuratedSetlist_3,setlist_title_3,setlist_desc_3:lunch, passobemsolto, irisout, spenddat, poison, sidetoside",
+                    "activeUntil": "2026-09-04T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "Sparks_CuratedSetlist_2,setlist_title_2,setlist_desc_2:bullsonparade, irun, basketcase, bloodymary, ibelieveinathing",
+                    "activeUntil": "2026-08-31T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.barbiegirl",
+                    "activeUntil": "2026-09-01T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.buddyholly",
+                    "activeUntil": "2026-09-01T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.callmemaybe",
+                    "activeUntil": "2026-09-01T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.cantfeelmyface",
+                    "activeUntil": "2026-09-01T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.carryonwaywardson",
+                    "activeUntil": "2026-09-01T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.dogdaysareover",
+                    "activeUntil": "2026-09-01T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.good4u",
+                    "activeUntil": "2026-09-01T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.highhopes",
+                    "activeUntil": "2026-09-01T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.intoyou",
+                    "activeUntil": "2026-09-01T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.miserybusiness",
+                    "activeUntil": "2026-09-01T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.moveslikejagger",
+                    "activeUntil": "2026-09-01T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.partyrockanthem",
+                    "activeUntil": "2026-09-01T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.pompeii",
+                    "activeUntil": "2026-09-01T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.saveyourtears",
+                    "activeUntil": "2026-09-01T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "PilgrimSong.whatsmyageagain",
+                    "activeUntil": "2026-09-01T00:00:00.000Z",
+                    "activeSince": "2026-08-28T00:00:00.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Event_Sparks_Season15_WeeklyQuests_W04",
+                    "activeUntil": "2026-11-02T03:00:45.000Z",
+                    "activeSince": "2026-08-28T00:00:45.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Event_Sparks_Season15_WeeklyCountdown_W05",
+                    "activeUntil": "2026-09-04T00:00:52.000Z",
+                    "activeSince": "2026-08-28T00:00:52.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Event_S42_DailyChase_Q03",
+                    "activeUntil": "2026-08-30T12:59:00.000Z",
+                    "activeSince": "2026-08-29T13:00:00.000Z"
+                  },
+                  {
+                    "eventType": "EventFlag.Event_S42_CosmicThunder_DailyBonusXP",
+                    "activeUntil": "2026-08-30T12:59:00.000Z",
+                    "activeSince": "2026-08-29T13:00:32.000Z"
+                  },
+                  {
+                    "eventType": "Sparks_CuratedSetlist_1,setlist_title_1,setlist_desc_1:earrings, hysteria",
+                    "activeUntil": "2026-08-31T00:00:00.000Z",
+                    "activeSince": "2026-08-30T00:00:00.000Z"
+                  }
+                ],
+                "state": {
+                  "activeStorefronts": [],
+                  "eventNamedWeights": {},
+                  "activeEvents": [
+                    {
+                      "instanceId": "0jo2qb31biq7seotnp8s0809dk[2]0",
+                      "devName": "Juno_Hardcore",
+                      "eventName": "CalendarEvent_Juno_Hardcore",
+                      "eventStart": "2024-06-11T08:00:00Z",
+                      "eventEnd": "2026-12-01T09:00:00Z",
+                      "eventType": "EventFlag.Event_Juno_Hardcore"
+                    },
+                    {
+                      "instanceId": "41ohiiqdfkkj5u2bln49e0tu20[2]0",
+                      "devName": "Event_Ecosystem_DailyBonusGoals",
+                      "eventName": "CalendarEvent_Ecosystem_DailyBonusGoals",
+                      "eventStart": "2024-11-28T09:00:00Z",
+                      "eventEnd": "2028-11-17T07:00:00Z",
+                      "eventType": "EventFlag.Event_Ecosystem_DailyBonusGoals"
+                    },
+                    {
+                      "instanceId": "0fb0h0brau7neh8bcfoamsb55p[2]0",
+                      "devName": "Juno Quest Repeatable",
+                      "eventName": "CalendarEvent_JunoQuestRepeatable",
+                      "eventStart": "2024-11-30T05:00:00Z",
+                      "eventEnd": "2026-12-01T05:00:00Z",
+                      "eventType": "EventFlag.Event_ JunoQuestRepeatable  "
+                    },
+                    {
+                      "instanceId": "2n648d5gppk8s9goebvr3pqkdg[2]0",
+                      "devName": "Event_Evergreen_DailyQuests",
+                      "eventName": "CalendarEvent_Evergreen_DailyQuests",
+                      "eventStart": "2024-12-01T07:00:00Z",
+                      "eventEnd": "2028-05-05T06:00:00Z",
+                      "eventType": "EventFlag.Event_Evergreen_DailyQuests"
+                    },
+                    {
+                      "instanceId": "16cv3o0snsm1qg870rta5m5aph[2]0",
+                      "devName": "Event_FigmentQuests_Evergreen",
+                      "eventName": "CalendarEvent_FigmentQuests_Evergreen",
+                      "eventStart": "2024-12-06T14:00:00Z",
+                      "eventEnd": "2026-11-27T14:00:00Z",
+                      "eventType": "EventFlag.Event_FigmentQuests_Evergreen"
+                    },
+                    {
+                      "instanceId": "7f2r4flm3237k352umm2df7k5s[2]0",
+                      "devName": "Event_ReloadQuests_Ch06_MapDiscovery",
+                      "eventName": "CalendarEvent_ReloadQuests_Ch06_MapDiscovery",
+                      "eventStart": "2024-12-06T14:00:00Z",
+                      "eventEnd": "2026-11-28T14:00:00Z",
+                      "eventType": "EventFlag.Event_ReloadQuests_Ch06_MapDiscovery"
+                    },
+                    {
+                      "instanceId": "00i294dhu6e32spc6q4jpe5fus[2]0",
+                      "devName": "Event_FigmentQuests_Ch01_MapDiscovery",
+                      "eventName": "CalendarEvent_FigmentQuests_Ch01_MapDiscovery",
+                      "eventStart": "2024-12-06T14:00:00Z",
+                      "eventEnd": "2026-11-28T14:00:00Z",
+                      "eventType": "EventFlag.Event_FigmentQuests_Ch01_MapDiscovery"
+                    },
+                    {
+                      "instanceId": "0tgcde6n2l0hend4kc4updclm9[2]0",
+                      "devName": "Event_STW_DailyQuests",
+                      "eventName": "CalendarEvent_STW_DailyQuests",
+                      "eventStart": "2025-02-18T09:00:00Z",
+                      "eventEnd": "2029-02-07T07:00:00Z",
+                      "eventType": "EventFlag.Event_STW_DailyQuests"
+                    },
+                    {
+                      "instanceId": "57m99tjih6535tpv3pp9ep8l7o[2]0",
+                      "devName": "Event_ForbiddenFruitQuests_MapDiscovery_01",
+                      "eventName": "CalendarEvent_ForbiddenFruitQuests_MapDiscovery_01",
+                      "eventStart": "2025-06-17T09:30:00Z",
+                      "eventEnd": "2027-06-15T13:00:00Z",
+                      "eventType": "EventFlag.Event_ForbiddenFruitQuests_MapDiscovery_01"
+                    },
+                    {
+                      "instanceId": "74qn08d6s928c01dt6t4jdjbst[2]0",
+                      "devName": "Event_ForbiddenFruitQuests_Evergreen",
+                      "eventName": "CalendarEvent_ForbiddenFruitQuests_Evergreen",
+                      "eventStart": "2025-06-17T13:00:00Z",
+                      "eventEnd": "2027-06-15T13:00:00Z",
+                      "eventType": "EventFlag.Event_ForbiddenFruitQuests_Evergreen"
+                    },
+                    {
+                      "instanceId": "7rtvlcq1gjpe5ubgsj32mav4cb[2]0",
+                      "devName": "Juno_Quests_Potions",
+                      "eventName": "CalendarEvent_Juno_Potions",
+                      "eventStart": "2025-10-15T00:00:00Z",
+                      "eventEnd": "2027-11-01T00:00:00Z",
+                      "eventType": "EventFlag.Event_Juno_Potions"
+                    },
+                    {
+                      "instanceId": "7gprvos5sn1e8nuslgobjdidaf[2]0",
+                      "devName": "Event_TofuGardenQuests_Evergreen",
+                      "eventName": "CalendarEvent_TofuGardenQuests_Evergreen",
+                      "eventStart": "2025-11-01T13:00:00Z",
+                      "eventEnd": "2027-10-30T13:00:00Z",
+                      "eventType": "EventFlag.Event_TofuGardenQuests_Evergreen"
+                    },
+                    {
+                      "instanceId": "16rd830jr3l1v1o3bt9oqahsmf[2]0",
+                      "devName": "Event_TofuGardenQuests_GrantEmote",
+                      "eventName": "CalendarEvent_TofuGardenQuests_GrantEmote",
+                      "eventStart": "2025-11-10T14:00:00Z",
+                      "eventEnd": "2026-11-10T14:00:00Z",
+                      "eventType": "EventFlag.Event_TofuGardenQuests_GrantEmote"
+                    },
+                    {
+                      "instanceId": "2hokouj74lqc3a3fdp40t4qbos[2]0",
+                      "devName": "Event_ForbiddenFruitQuests_Kickstart_02",
+                      "eventName": "CalendarEvent_ForbiddenFruitQuests_Kickstart_02",
+                      "eventStart": "2025-12-04T14:00:00Z",
+                      "eventEnd": "2027-12-02T14:00:00Z",
+                      "eventType": "EventFlag.Event_ForbiddenFruitQuests_Kickstart_02"
+                    },
+                    {
+                      "instanceId": "2ik4t8lc92m2lmaot10564jc6f[2]0",
+                      "devName": "Event_Mobile_CleverGeyser_Quests",
+                      "eventName": "Event_Mobile_CleverGeyser_Quests",
+                      "eventStart": "2026-03-19T04:00:00Z",
+                      "eventEnd": "2026-12-04T05:00:00Z",
+                      "eventType": "EventFlag.Event_Mobile_CleverGeyser_Quests"
+                    },
+                    {
+                      "instanceId": "6j1kg59tve3p16f0cjs52ardjs[2]0",
+                      "devName": "Event_HabaneroQuests_Emote",
+                      "eventName": "CalendarEvent_HabaneroQuests_Emote",
+                      "eventStart": "2026-03-19T05:00:00Z",
+                      "eventEnd": "2029-03-18T22:00:00Z",
+                      "eventType": "EventFlag.Event_HabaneroQuests_Emote"
+                    },
+                    {
+                      "instanceId": "5pkjpl5q8odujhpclaue08qujd[2]0",
+                      "devName": "Juno Season 7 Pass",
+                      "eventName": "CalendarEvent_JunoSeason7Pass",
+                      "eventStart": "2026-04-16T08:00:00Z",
+                      "eventEnd": "2026-11-01T09:00:00Z",
+                      "eventType": "EventFlag.Event_Juno_S07"
+                    },
+                    {
+                      "instanceId": "4dahmv7150i8ps1frtfkdgn0dg[2]0",
+                      "devName": "Juno_TabascoPart2",
+                      "eventName": "CalendarEvent_Juno_TabascoPart2",
+                      "eventStart": "2026-04-16T08:00:20Z",
+                      "eventEnd": "2027-04-16T07:00:20Z",
+                      "eventType": "EventFlag.Juno_TabascoPart2"
+                    },
+                    {
+                      "instanceId": "0vmnfcg5shtgtpn8hkaomggkj7[2]0",
+                      "devName": "Event_S40_HabaneroQuests_Gauntlet",
+                      "eventName": "CalendarEvent_S40_HabaneroQuests_Gauntlet",
+                      "eventStart": "2026-04-20T11:00:00Z",
+                      "eventEnd": "2026-12-04T05:00:00Z",
+                      "eventType": "EventFlag.Event_S40_HabaneroQuests_Gauntlet"
+                    },
+                    {
+                      "instanceId": "0ljrupeah9nd28iu1udfb9mpsh[2]0",
+                      "devName": "Event_Ecosystem_CreativeRoguelike",
+                      "eventName": "CalendarEvent_Ecosystem_CreativeRoguelike",
+                      "eventStart": "2026-05-30T13:00:00Z",
+                      "eventEnd": "2026-10-30T13:00:00Z",
+                      "eventType": "EventFlag.Event_Ecosystem_CreativeRoguelike"
+                    },
+                    {
+                      "instanceId": "4nc0k3a237tte3ppjl3998sku4[2]0",
+                      "devName": "Event_Figment_S09",
+                      "eventName": "CalendarEvent_FigmentPass_S09",
+                      "eventStart": "2026-06-25T08:00:00Z",
+                      "eventEnd": "2026-09-03T08:00:00Z",
+                      "eventType": "EventFlag.Event_Figment_S09"
+                    },
+                    {
+                      "instanceId": "1t78v65ufm04mm3l4aa7hffufs[2]0",
+                      "devName": "Event_FigmentQuests_S09",
+                      "eventName": "CalendarEvent_FigmentQuests_S09",
+                      "eventStart": "2026-06-25T09:30:00Z",
+                      "eventEnd": "2026-09-03T08:00:00Z",
+                      "eventType": "EventFlag.Event_FigmentQuests_S09"
+                    },
+                    {
+                      "instanceId": "7pc5psnj1di0s37g5tcm5t2snt[2]0",
+                      "devName": "Event_SquareClub_Daily_Quests",
+                      "eventName": "CalendarEvent_SquareClub_Daily_Quests",
+                      "eventStart": "2026-07-16T04:00:00Z",
+                      "eventEnd": "2027-07-15T04:00:00Z",
+                      "eventType": "EventFlag.Event_SquareClub_Daily_Quests"
+                    },
+                    {
+                      "instanceId": "7tod4p72i8c5trtl82d5lki3c3[2]0",
+                      "devName": "Event_SquareClub_S02_Quests",
+                      "eventName": "CalendarEvent_SquareClub_S02_Quests",
+                      "eventStart": "2026-07-16T04:00:00Z",
+                      "eventEnd": "2026-10-01T08:00:00Z",
+                      "eventType": "EventFlag.Event_SquareClub_S02_Quests"
+                    },
+                    {
+                      "instanceId": "b3cqi1pu968gp3i8n52e298uto[2]0",
+                      "devName": "Event_Sparks_Season15_JamDaily",
+                      "eventName": "CalendarEvent_Sparks_Season15_JamDaily",
+                      "eventStart": "2026-07-29T07:00:29Z",
+                      "eventEnd": "2026-11-02T03:00:29Z",
+                      "eventType": "EventFlag.Event_Sparks_Season15_JamDaily"
+                    },
+                    {
+                      "instanceId": "0la3pcbegiim8h77vd280q7744[2]0",
+                      "devName": "Event_Sparks_Season15",
+                      "eventName": "CalendarEvent_SparksS15",
+                      "eventStart": "2026-07-29T07:00:49Z",
+                      "eventEnd": "2026-11-02T03:00:49Z",
+                      "eventType": "EventFlag.Event_SparksS15"
+                    },
+                    {
+                      "instanceId": "0pbjer8ebhdj1ekofnahmunujc[2]0",
+                      "devName": "Event_Sparks_Season15_WeeklyQuests",
+                      "eventName": "CalendarEvent_Sparks_Season15_WeeklyQuests",
+                      "eventStart": "2026-07-30T00:00:45Z",
+                      "eventEnd": "2026-11-02T03:00:45Z",
+                      "eventType": "EventFlag.Event_Sparks_Season15_WeeklyQuests"
+                    },
+                    {
+                      "instanceId": "6optoph6h6ehpsu11t3qj74c3g[2]0",
+                      "devName": "Event_Reload_S41_FirstWin_Umbrella",
+                      "eventName": "CalendarEvent_Reload_S41_FirstWin_Umbrella",
+                      "eventStart": "2026-07-30T04:00:00Z",
+                      "eventEnd": "2026-10-08T13:00:00Z",
+                      "eventType": "EventFlag.Event_Reload_S41_FirstWin_Umbrella"
+                    },
+                    {
+                      "instanceId": "2nrsdabs2nqbvhqpj8dqpdh56u[2]0",
+                      "devName": "Event_MapMastery03",
+                      "eventName": "CalendarEvent_MapMastery03",
+                      "eventStart": "2026-07-30T08:00:00Z",
+                      "eventEnd": "2026-10-08T13:00:00Z",
+                      "eventType": "EventFlag.Event_MapMastery03"
+                    },
+                    {
+                      "instanceId": "460nr136ap4jrqjsc0vid29n4h[2]0",
+                      "devName": "Event_ReloadQuests_RopeSmile_Kickstart",
+                      "eventName": "CalendarEvent_ReloadQuests_RopeSmile_Kickstart",
+                      "eventStart": "2026-07-30T08:00:00Z",
+                      "eventEnd": "2026-10-08T13:00:00Z",
+                      "eventType": "EventFlag.Event_ReloadQuests_RopeSmile_Kickstart"
+                    },
+                    {
+                      "instanceId": "17gvqhi4a5m8p5g25qkl3u46u8[2]0",
+                      "devName": "Event_S41_HabaneroQuests_Reload",
+                      "eventName": "CalendarEvent_S41_HabaneroQuests_Reload",
+                      "eventStart": "2026-07-30T08:00:22Z",
+                      "eventEnd": "2026-10-08T07:59:00Z",
+                      "eventType": "EventFlag.Event_S41_HabaneroQuests_Reload"
+                    },
+                    {
+                      "instanceId": "ns49u5ccgq5v870ff4hf2ecb7k[2]0",
+                      "devName": "Event_ReloadQuests_RopeSmile_Specific_Kickstart",
+                      "eventName": "CalendarEvent_ReloadQuests_RopeSmile_Specific_Kickstart",
+                      "eventStart": "2026-07-30T08:00:29Z",
+                      "eventEnd": "2026-09-30T08:00:29Z",
+                      "eventType": "EventFlag.Event_ReloadQuests_RopeSmile_Specific_Kickstart"
+                    },
+                    {
+                      "instanceId": "5s3td8r4famnjhofr7s019u3so[2]0",
+                      "devName": "Event_OG_S09_Kickstart_Pt2",
+                      "eventName": "CalendarEvent_OG_S09_Kickstart_Pt2",
+                      "eventStart": "2026-07-30T13:00:00Z",
+                      "eventEnd": "2026-09-03T08:00:00Z",
+                      "eventType": "EventFlag.Event_OG_S09_Kickstart_Pt2"
+                    },
+                    {
+                      "instanceId": "t2hf8me0slaq6tm1sh9s4ss994[2]0",
+                      "devName": "Event_Sparks_Season15_WeeklyQuests_W01",
+                      "eventName": "CalendarEvent_Sparks_Season15_WeeklyQuests_W01",
+                      "eventStart": "2026-08-07T00:00:32Z",
+                      "eventEnd": "2026-11-02T03:00:32Z",
+                      "eventType": "EventFlag.Event_Sparks_Season15_WeeklyQuests_W01"
+                    },
+                    {
+                      "instanceId": "ttk75o3jglic12nsr7ds8jgte8[2]0",
+                      "devName": "Event_Sparks_Season15_WeeklyQuests_W02",
+                      "eventName": "CalendarEvent_Sparks_Season15_WeeklyQuests_W02",
+                      "eventStart": "2026-08-14T00:00:31Z",
+                      "eventEnd": "2026-11-02T03:00:31Z",
+                      "eventType": "EventFlag.Event_Sparks_Season15_WeeklyQuests_W02"
+                    },
+                    {
+                      "instanceId": "hljtmh64an5qr2k9ffb1mm9778[2]0",
+                      "devName": "Event_S42_SpriteMastery_P01",
+                      "eventName": "CalendarEvent_S42_SpriteMastery_P01",
+                      "eventStart": "2026-08-19T12:00:51Z",
+                      "eventEnd": "2026-11-01T14:00:51Z",
+                      "eventType": "EventFlag.Event_S42_SpriteMastery_P01"
+                    },
+                    {
+                      "instanceId": "fcvumj9c0iogdoan2cgt3181us[2]0",
+                      "devName": "Event_S42_CosmicThunder_TutorialQuests",
+                      "eventName": "CalendarEvent_S42_CosmicThunder_TutorialQuests",
+                      "eventStart": "2026-08-19T13:00:00Z",
+                      "eventEnd": "2026-11-01T09:00:00Z",
+                      "eventType": "EventFlag.Event_S42_CosmicThunder_TutorialQuests"
+                    },
+                    {
+                      "instanceId": "egddeomau0k9uk6mpo96h8j0s4[2]0",
+                      "devName": "ProgressionTrack_S42",
+                      "eventName": "CalendarEvent_ProgressionTrack_S42",
+                      "eventStart": "2026-08-19T13:00:49Z",
+                      "eventEnd": "2026-11-01T07:00:49Z",
+                      "eventType": "EventFlag.ProgressionTrack_S42"
+                    },
+                    {
+                      "instanceId": "5d496nr01ist3l4i99294ji0v2[2]0",
+                      "devName": "Event_SuperLevels_Timer_S42",
+                      "eventName": "CalendarEvent_SuperLevels_Timer_S42",
+                      "eventStart": "2026-08-20T05:00:00Z",
+                      "eventEnd": "2026-09-03T05:00:00Z",
+                      "eventType": "EventFlag.Event_SuperLevels_Timer_S42"
+                    },
+                    {
+                      "instanceId": "6gtrgj3gcdtr5os6oa3m5a99gf[2]0",
+                      "devName": "Event_SuperLevels20_Timer_S42",
+                      "eventName": "CalendarEvent_SuperLevels20_Timer_S42",
+                      "eventStart": "2026-08-20T05:00:00Z",
+                      "eventEnd": "2026-09-17T08:00:00Z",
+                      "eventType": "EventFlag.Event_SuperLevels20_Timer_S42"
+                    },
+                    {
+                      "instanceId": "iv2em6cv7c0oq34oob3fuh194s[2]0",
+                      "devName": "Event_S42_Audiologs_4200",
+                      "eventName": "CalendarEvent_S42_Audiologs_4200",
+                      "eventStart": "2026-08-20T05:00:27Z",
+                      "eventEnd": "2026-11-02T06:00:27Z",
+                      "eventType": "EventFlag.Event_S42_Audiologs_4200"
+                    },
+                    {
+                      "instanceId": "4k3mvhdmnhub3tmkhqpkq5t2p3[2]0",
+                      "devName": "Event_S42_Story_BlockStack_BonusGoals",
+                      "eventName": "CalendarEvent_S42_Story_BlockStack_BonusGoals",
+                      "eventStart": "2026-08-20T06:00:01Z",
+                      "eventEnd": "2026-11-01T08:00:00Z",
+                      "eventType": "EventFlag.Event_S42_Story_BlockStack_BonusGoals"
+                    },
+                    {
+                      "instanceId": "maqhr3ernff4j7rjnha19faah8[2]0",
+                      "devName": "Event_S42_Story_SheerWill_P02",
+                      "eventName": "CalendarEvent_S42_Story_SheerWill_P02",
+                      "eventStart": "2026-08-20T06:00:12Z",
+                      "eventEnd": "2026-11-01T08:00:12Z",
+                      "eventType": "EventFlag.Event_S42_Story_SheerWill_P02"
+                    },
+                    {
+                      "instanceId": "2uvbjtdl0tiapj00psleqshcj0[2]0",
+                      "devName": "Event_S42_NarrativeLoadingScreen_01",
+                      "eventName": "CalendarEvent_S42_NarrativeLoadingScreen_01",
+                      "eventStart": "2026-08-20T06:00:25Z",
+                      "eventEnd": "2026-11-01T08:00:25Z",
+                      "eventType": "EventFlag.Event_S42_NarrativeLoadingScreen_01"
+                    },
+                    {
+                      "instanceId": "ib67kea8icalo7hgsv7ahj1r0o[2]0",
+                      "devName": "Event_S42_Story_BlockStack_P02",
+                      "eventName": "CalendarEvent_S42_Story_BlockStack_P02",
+                      "eventStart": "2026-08-20T06:00:28Z",
+                      "eventEnd": "2026-11-01T08:00:28Z",
+                      "eventType": "EventFlag.Event_S42_Story_BlockStack_P02"
+                    },
+                    {
+                      "instanceId": "lkoul047i9v4ugodd34o5r3ngo[2]0",
+                      "devName": "Event_S42_Story_PhoenixKick",
+                      "eventName": "CalendarEvent_S42_Story_PhoenixKick",
+                      "eventStart": "2026-08-20T06:00:35Z",
+                      "eventEnd": "2026-11-01T08:00:35Z",
+                      "eventType": "EventFlag.Event_S42_Story_PhoenixKick"
+                    },
+                    {
+                      "instanceId": "ajnt9kedpof44gmr8l7mgmjiek[2]0",
+                      "devName": "Event_S42_Story_HeroicTale",
+                      "eventName": "CalendarEvent_S42_Story_HeroicTale",
+                      "eventStart": "2026-08-20T06:00:42Z",
+                      "eventEnd": "2026-11-01T08:00:00Z",
+                      "eventType": "EventFlag.Event_S42_Story_HeroicTale"
+                    },
+                    {
+                      "instanceId": "khf9r62ca26f9ogbkqobmnha4s[2]0",
+                      "devName": "PreviousSeason_SpriteDust",
+                      "eventName": "CalendarEvent_PreviousSeason_SpriteDust",
+                      "eventStart": "2026-08-20T06:00:44Z",
+                      "eventEnd": "2026-11-01T08:00:44Z",
+                      "eventType": "EventFlag.PreviousSeason_SpriteDust"
+                    },
+                    {
+                      "instanceId": "54vn4b86crgrn0gt2g11qbd3hf[2]0",
+                      "devName": "Event_WarmPrize_SpriteUnlock",
+                      "eventName": "CalendarEvent_WarmPrize_SpriteUnlock",
+                      "eventStart": "2026-08-20T08:00:00Z",
+                      "eventEnd": "2026-09-03T08:00:00Z",
+                      "eventType": "EventFlag.Event_WarmPrize_SpriteUnlock"
+                    },
+                    {
+                      "instanceId": "5l6494gen9qavjpdcgnrgqvruq[2]0",
+                      "devName": "Event_LlamaSupplyDropRadioGizmo_S42",
+                      "eventName": "CalendarEvent_LlamaSupplyDropRadioGizmo_S42",
+                      "eventStart": "2026-08-20T08:00:00Z",
+                      "eventEnd": "2026-11-01T09:00:00Z",
+                      "eventType": "EventFlag.Event_LlamaSupplyDropRadioGizmo_S42"
+                    },
+                    {
+                      "instanceId": "1uo8vmbbl9qckim0eoe2j404lo[2]0",
+                      "devName": "Event_SmugglerExtractionKeyGizmo_S42",
+                      "eventName": "CalendarEvent_SmugglerExtractionKeyGizmo_S42",
+                      "eventStart": "2026-08-20T08:00:00Z",
+                      "eventEnd": "2026-11-01T09:00:00Z",
+                      "eventType": "EventFlag.Event_SmugglerExtractionKeyGizmo_S42"
+                    },
+                    {
+                      "instanceId": "0t9sf17pfca50dc7gpdrddkodb[2]0",
+                      "devName": "Event_CheatCodeFinderGizmo_S42",
+                      "eventName": "CalendarEvent_CheatCodeFinderGizmo_S42",
+                      "eventStart": "2026-08-20T08:00:00Z",
+                      "eventEnd": "2026-11-01T09:00:00Z",
+                      "eventType": "EventFlag.Event_CheatCodeFinderGizmo_S42"
+                    },
+                    {
+                      "instanceId": "4o5n4k6l0hvcpiipuegauqh72e[2]0",
+                      "devName": "Event_ExtractionRelicExtractorGizmo_S42",
+                      "eventName": "CalendarEvent_ExtractionRelicExtractorGizmo_S42",
+                      "eventStart": "2026-08-20T08:00:00Z",
+                      "eventEnd": "2026-11-01T09:00:00Z",
+                      "eventType": "EventFlag.Event_ExtractionRelicExtractorGizmo_S42"
+                    },
+                    {
+                      "instanceId": "549lc4pv6cqin485sfid99o3mn[2]0",
+                      "devName": "Event_SpicyTacoGizmo_S42",
+                      "eventName": "CalendarEvent_SpicyTacoGizmo_S42",
+                      "eventStart": "2026-08-20T08:00:00Z",
+                      "eventEnd": "2026-11-01T09:00:00Z",
+                      "eventType": "EventFlag.Event_SpicyTacoGizmo_S42"
+                    },
+                    {
+                      "instanceId": "6bmff9cp5ao2rt6v266dbjnrpo[2]0",
+                      "devName": "Event_MapMastery_JumpBear_03",
+                      "eventName": "CalendarEvent_MapMastery_JumpBear_03",
+                      "eventStart": "2026-08-20T08:00:00Z",
+                      "eventEnd": "2026-10-08T13:00:00Z",
+                      "eventType": "EventFlag.Event_MapMastery_JumpBear_03"
+                    },
+                    {
+                      "instanceId": "f1kdvrl26ol47mdrib1h5pvm6s[2]0",
+                      "devName": "Event_S42_Story_BlockStack_P01",
+                      "eventName": "CalendarEvent_S42_Story_BlockStack_P01",
+                      "eventStart": "2026-08-20T08:00:01Z",
+                      "eventEnd": "2026-10-01T08:00:01Z",
+                      "eventType": "EventFlag.Event_S42_Story_BlockStack_P01"
+                    },
+                    {
+                      "instanceId": "bguacmqmuooi7ad2bt6l15n7lc[2]0",
+                      "devName": "Event_S42_BlockStackCosmetics",
+                      "eventName": "CalendarEvent_S42_BlockStackCosmetics",
+                      "eventStart": "2026-08-20T08:00:11Z",
+                      "eventEnd": "2026-11-01T08:00:11Z",
+                      "eventType": "EventFlag.Event_S42_BlockStackCosmetics"
+                    },
+                    {
+                      "instanceId": "en53o0l50o3oat0shp5gt1q9ss[2]0",
+                      "devName": "Event_S42_Story_SheerWill_P01",
+                      "eventName": "CalendarEvent_S42_Story_SheerWill_P01",
+                      "eventStart": "2026-08-20T08:00:14Z",
+                      "eventEnd": "2026-10-01T08:00:14Z",
+                      "eventType": "EventFlag.Event_S42_Story_SheerWill_P01"
+                    },
+                    {
+                      "instanceId": "c2o0vgttc8qqrr5jr1e0crscs4[2]0",
+                      "devName": "CalendarEvent_CosmicThunder_00_CSProgression",
+                      "eventName": "CalendarEvent_CosmicThunder_00_CSProgression",
+                      "eventStart": "2026-08-20T08:00:17Z",
+                      "eventEnd": "2026-11-01T09:00:17Z",
+                      "eventType": "EventFlag.CalendarEvent_CosmicThunder_00_CSProgression"
+                    },
+                    {
+                      "instanceId": "0frmr6am0ouuva3m2734vjh37j[2]0",
+                      "devName": "Event_S42_HabaneroQuests",
+                      "eventName": "CalendarEvent_S42_HabaneroQuests",
+                      "eventStart": "2026-08-20T08:00:19Z",
+                      "eventEnd": "2026-11-01T14:00:00Z",
+                      "eventType": "EventFlag.Event_S42_HabaneroQuests"
+                    },
+                    {
+                      "instanceId": "j0vd3osp7rph9kp1als6j8u5o8[2]0",
+                      "devName": "Event_CosmicThunder_00_Promo",
+                      "eventName": "CalendarEvent_CosmicThunder_00_Promo",
+                      "eventStart": "2026-08-20T08:00:40Z",
+                      "eventEnd": "2026-11-01T09:00:40Z",
+                      "eventType": "EventFlag.Event_CosmicThunder_00_Promo"
+                    },
+                    {
+                      "instanceId": "2ucdofpdga4n5j0n7u405natfo[2]0",
+                      "devName": "Event_Sparks_Season15_WeeklyQuests_W03",
+                      "eventName": "CalendarEvent_Sparks_Season15_WeeklyQuests_W03",
+                      "eventStart": "2026-08-21T00:00:55Z",
+                      "eventEnd": "2026-11-02T03:00:55Z",
+                      "eventType": "EventFlag.Event_Sparks_Season15_WeeklyQuests_W03"
+                    },
+                    {
+                      "instanceId": "2qcse1om4f25k7mm6n6t5e2689[2]0",
+                      "devName": "Event_OG_S09_RockStory2_10",
+                      "eventName": "Event_OG_S09_RockStory2_10",
+                      "eventStart": "2026-08-21T18:00:00Z",
+                      "eventEnd": "2026-09-03T18:00:00Z",
+                      "eventType": "RockStory2_10"
+                    },
+                    {
+                      "instanceId": "tupqqdfma0omvab896868ihj6o[2]0",
+                      "devName": "CalendarEvent_CosmicThunder_00_CheatMonday_01",
+                      "eventName": "CalendarEvent_CosmicThunder_00_CheatMonday_01",
+                      "eventStart": "2026-08-24T13:00:08Z",
+                      "eventEnd": "2026-11-01T01:00:08Z",
+                      "eventType": "EventFlag.CalendarEvent_CosmicThunder_00_CheatMonday_01"
+                    },
+                    {
+                      "instanceId": "41bl08u9070tjoa662t29nl6up[2]0",
+                      "devName": "ShatterDragon_NunchuckandShuriken_I",
+                      "eventName": "CalendarEvent_Juno_ShatterDragonPortal",
+                      "eventStart": "2026-08-27T08:00:00Z",
+                      "eventEnd": "2026-09-03T08:00:00Z",
+                      "eventType": "EventFlag.Event_Juno_ShatterDragon"
+                    },
+                    {
+                      "instanceId": "0o4lp4eltjb81srq519jaclpvg[2]0",
+                      "devName": "Juno_TabascoKraken_Disabled",
+                      "eventName": "CalendarEvent_Juno_TabascoKraken_Disabled",
+                      "eventStart": "2026-08-27T08:00:00Z",
+                      "eventEnd": "2026-09-17T08:00:00Z",
+                      "eventType": "EventFlag.Event_Juno_TabascoKraken_Disabled"
+                    },
+                    {
+                      "instanceId": "5dr99tlu49pi2v37g9or63heh0[2]0",
+                      "devName": "Event_Sparks_Season15_WeeklyQuests_W04",
+                      "eventName": "CalendarEvent_Sparks_Season15_WeeklyQuests_W04",
+                      "eventStart": "2026-08-28T00:00:45Z",
+                      "eventEnd": "2026-11-02T03:00:45Z",
+                      "eventType": "EventFlag.Event_Sparks_Season15_WeeklyQuests_W04"
+                    },
+                    {
+                      "instanceId": "f66lescq1eut86jgt7vska0erk[2]0",
+                      "devName": "Event_Sparks_Season15_WeeklyCountdown_W05",
+                      "eventName": "CalendarEvent_Sparks_Season15_WeeklyCountdown_W05",
+                      "eventStart": "2026-08-28T00:00:52Z",
+                      "eventEnd": "2026-09-04T00:00:52Z",
+                      "eventType": "EventFlag.Event_Sparks_Season15_WeeklyCountdown_W05"
+                    },
+                    {
+                      "instanceId": "bbl7qkqs25v1vv95tidb1fg3rm[2]3",
+                      "devName": "Event_S42_DailyChase_Q03",
+                      "eventName": "CalendarEvent_S42_DailyChase_Q03",
+                      "eventStart": "2026-08-29T13:00:00Z",
+                      "eventEnd": "2026-08-30T12:59:00Z",
+                      "eventType": "EventFlag.Event_S42_DailyChase_Q03"
+                    },
+                    {
+                      "instanceId": "gu4prhkfjguifdhu0608139hrg[2]9",
+                      "devName": "Event_S42_CosmicThunder_DailyBonusXP",
+                      "eventName": "CalendarEvent_S42_CosmicThunder_DailyBonusXP",
+                      "eventStart": "2026-08-29T13:00:32Z",
+                      "eventEnd": "2026-08-30T12:59:00Z",
+                      "eventType": "EventFlag.Event_S42_CosmicThunder_DailyBonusXP"
+                    }
+                  ],
+                  "seasonNumber": 42,
+                  "seasonTemplateId": "AthenaSeason:athenaseason42",
+                  "matchXpBonusPoints": 0,
+                  "eventPunchCardTemplateId": "",
+                  "seasonBegin": "2026-08-13T13:00:00Z",
+                  "seasonEnd": "2026-11-08T14:00:00Z",
+                  "seasonDisplayedEnd": "0001-01-01T00:00:00.000Z",
+                  "weeklyStoreEnd": "0001-01-01T00:00:00.000Z",
+                  "stwEventStoreEnd": "2026-09-03T00:00:00.000Z",
+                  "stwWeeklyStoreEnd": "2026-09-03T00:00:00.000Z",
+                  "sectionStoreEnds": {},
+                  "rmtPromotion": "",
+                  "dailyStoreEnd": "2026-08-31T00:00:00Z"
+                }
+              }
+            ],
+            "cacheExpire": "2026-08-30T07:49:20.498Z"
+          }
+        },
+        "cacheIntervalMins": 15,
+        "currentTime": "2026-08-30T06:06:26.016Z"
+      }
+    },
+    "/fortnite/api/stats/accountId/603813eac7304b3fbf52768471b9bef1/bulk/window/alltime": {
+      "method": "GET",
+      "status": 404,
+      "data": {
+        "errorCode": "errors.com.epicgames.common.not_found",
+        "errorMessage": "Sorry the resource you were trying to find could not be found",
+        "messageVars": [],
+        "numericErrorCode": 1004,
+        "originatingService": "fortnite",
+        "intent": "prod-live"
+      }
+    },
+    "/fortnite/api/game/v2/br-inventory/account/603813eac7304b3fbf52768471b9bef1": {
+      "method": "GET",
+      "status": 200,
+      "data": {
+        "stash": {
+          "globalcash": 0
+        }
+      }
+    },
+    "/fortnite/api/receipts/v1/account/603813eac7304b3fbf52768471b9bef1/receipts": {
+      "method": "GET",
+      "status": 404,
+      "data": {
+        "errorCode": "errors.com.epicgames.common.not_found",
+        "errorMessage": "Sorry the resource you were trying to find could not be found",
+        "messageVars": [],
+        "numericErrorCode": 1004,
+        "originatingService": "fortnite",
+        "intent": "prod-live"
+      }
+    },
+    "/fortnite/api/game/v2/creative": {
+      "method": "GET",
+      "status": 404,
+      "data": {
+        "errorCode": "errors.com.epicgames.common.not_found",
+        "errorMessage": "Sorry the resource you were trying to find could not be found",
+        "messageVars": [],
+        "numericErrorCode": 1004,
+        "originatingService": "fortnite",
+        "intent": "prod-live"
+      }
+    },
+    "/fortnite/api/game/v2/discovery/surface/CreativeDiscoverySurface_Frontend": {
+      "method": "GET",
+      "status": 404,
+      "data": {
+        "errorCode": "errors.com.epicgames.common.not_found",
+        "errorMessage": "Sorry the resource you were trying to find could not be found",
+        "messageVars": [],
+        "numericErrorCode": 1004,
+        "originatingService": "fortnite",
+        "intent": "prod-live"
+      }
+    },
+    "/fortnite/api/cloudstorage/user/603813eac7304b3fbf52768471b9bef1": {
+      "method": "GET",
+      "status": 200,
+      "data": [
+        {
+          "uniqueFilename": "ClientSettingsPS4.Sav",
+          "filename": "ClientSettingsPS4.Sav",
+          "hash": "ae03f4858beb1103d76f8af7a34875175cc84458",
+          "hash256": "cd9b4d98ecbeab8516ec448d8f9a2e297ae6c54bc34219d193af86f1943eac74",
+          "length": 15552,
+          "contentType": "text/plain",
+          "uploaded": "2023-07-30T21:22:12.299Z",
+          "storageType": "S3",
+          "storageIds": {},
+          "metadata": {},
+          "accountId": "603813eac7304b3fbf52768471b9bef1"
+        },
+        {
+          "uniqueFilename": "ClientSettingsPS5.Sav",
+          "filename": "ClientSettingsPS5.Sav",
+          "hash": "b4862f898d0c919998eca539bfcc665b9f40cb51",
+          "hash256": "",
+          "length": 25670,
+          "contentType": "binary/octet-stream",
+          "uploaded": "2026-08-30T01:24:09.262Z",
+          "storageType": "DSS",
+          "storageIds": {
+            "DSS": "cloudstorage/Live/user/603813eac7304b3fbf52768471b9bef1/b66c39603c7c4eab9b3fbd777c4e89ff-ClientSettingsPS5.Sav"
+          },
+          "metadata": {},
+          "accountId": "603813eac7304b3fbf52768471b9bef1"
+        },
+        {
+          "uniqueFilename": "ClientSettings.Sav",
+          "filename": "ClientSettings.Sav",
+          "hash": "2076d1dcc170a092abb32ba5cff9f0af08e8c014",
+          "hash256": "6f916f7689ba6c9e99dd615a80fbd0f1af97c1649e8e0b808cbc5c7a53061c52",
+          "length": 12248,
+          "contentType": "text/plain",
+          "uploaded": "2023-02-26T12:55:46.047Z",
+          "storageType": "S3",
+          "storageIds": {},
+          "metadata": {},
+          "accountId": "603813eac7304b3fbf52768471b9bef1"
+        },
+        {
+          "uniqueFilename": "abd36fa3-1936-4687-9f5f-cb772508992e_r0_a0.sav",
+          "filename": "abd36fa3-1936-4687-9f5f-cb772508992e_r0_a0.sav",
+          "hash": "46eac98d4380ee7e502ca21e7d09a0321d439d3c",
+          "hash256": "d1713c4a02b9d26d7cc1e732ea3f08d9d5478d777bb7c1c50dc961ac6170f90c",
+          "length": 165696,
+          "contentType": "text/plain",
+          "uploaded": "2026-08-01T19:46:34.370Z",
+          "storageType": "DSS",
+          "storageIds": {
+            "DSS": "cloudstorage/Live/user/603813eac7304b3fbf52768471b9bef1/b646847b7de649fdae252ecd8dd6b018-abd36fa3-1936-4687-9f5f-cb772508992e_r0_a0.sav"
+          },
+          "metadata": {
+            "isHotfix": "false"
+          },
+          "accountId": "603813eac7304b3fbf52768471b9bef1"
+        },
+        {
+          "uniqueFilename": "abd36fa3-1936-4687-9f5f-cb772508992e_r0_a1.sav",
+          "filename": "abd36fa3-1936-4687-9f5f-cb772508992e_r0_a1.sav",
+          "hash": "5bdc452b6f04ee5cc5a6b17c9794b0e6b26cf526",
+          "hash256": "bd0cadb8663b6cb68fe907c08a6c45644dca16c2964e816e10876a16fcb56690",
+          "length": 164237,
+          "contentType": "text/plain",
+          "uploaded": "2026-08-01T19:46:31.326Z",
+          "storageType": "DSS",
+          "storageIds": {
+            "DSS": "cloudstorage/Live/user/603813eac7304b3fbf52768471b9bef1/ae4461717e7547fab5356d89b95a2e8c-abd36fa3-1936-4687-9f5f-cb772508992e_r0_a1.sav"
+          },
+          "metadata": {
+            "isHotfix": "false"
+          },
+          "accountId": "603813eac7304b3fbf52768471b9bef1"
+        },
+        {
+          "uniqueFilename": "ClientSettingsGFN.Sav",
+          "filename": "ClientSettingsGFN.Sav",
+          "hash": "6a9a0d6f6367ec80c29e034ca290670c5e5db942",
+          "hash256": "",
+          "length": 13760,
+          "contentType": "binary/octet-stream",
+          "uploaded": "2026-08-26T19:49:52.038Z",
+          "storageType": "DSS",
+          "storageIds": {
+            "DSS": "cloudstorage/Live/user/603813eac7304b3fbf52768471b9bef1/cf03e783429c670ffe103b8f4f72c18b-ClientSettingsGFN.Sav"
+          },
+          "metadata": {
+            "isHotfix": "false"
+          },
+          "accountId": "603813eac7304b3fbf52768471b9bef1"
+        }
+      ]
+    },
+    "/presence/subscriptions": {
+      "status": "error",
+      "error": "fetch failed"
+    },
+    "/presence/last-online": {
+      "status": "error",
+      "error": "fetch failed"
+    }
+  },
+  "partyMeta": {
+    "allKeys": [
+      "Default:BattlePassInfo_j",
+      "Default:CampaignBackpackRating_d",
+      "Default:CampaignCommanderLoadoutRating_d",
+      "Default:CampaignHero_j",
+      "Default:CampaignInfo_j",
+      "Default:CrossplayPreference_s",
+      "Default:DownloadOnDemandProgress_d",
+      "Default:FORTStats_j",
+      "Default:FeatDefinition_s",
+      "Default:FrontEndMapMarker_j",
+      "Default:FrontendEmote_j",
+      "Default:FrontendMimosa_j",
+      "Default:FrontendSparksSongPart_j",
+      "Default:JoinInProgressData_j",
+      "Default:JoinMethod_s",
+      "Default:LoadoutMeta_j",
+      "Default:LobbyState_j",
+      "Default:MatchmakingInfo_j",
+      "Default:MemberSquadAssignmentRequest_j",
+      "Default:MpLoadout1_j",
+      "Default:MpLoadout2_j",
+      "Default:NumAthenaPlayersLeft_U",
+      "Default:PackedState_j",
+      "Default:PlatformData_j",
+      "Default:SpectateInfo_j",
+      "Default:UtcTimeStartedMatchAthena_s",
+      "Default:bIsPartyUsingPartySignal_b",
+      "urn:epic:member:dn_s"
+    ],
+    "fullSchema": {
+      "Default:FrontEndMapMarker_j": "{\"FrontEndMapMarker\":{\"markerLocation\":{\"x\":0,\"y\":0},\"bIsSet\":false}}",
+      "Default:FORTStats_j": "{\"FORTStats\":{\"fortitude\":0,\"fortitude_Phoenix\":0,\"offense\":0,\"offense_Phoenix\":0,\"resistance\":0,\"resistance_Phoenix\":0,\"teamFortitude\":0,\"teamFortitude_Phoenix\":0,\"teamOffense\":0,\"teamOffense_Phoenix\":0,\"teamResistance\":0,\"teamResistance_Phoenix\":0,\"teamTech\":0,\"teamTech_Phoenix\":0,\"tech\":0,\"tech_Phoenix\":0}}",
+      "Default:NumAthenaPlayersLeft_U": "0",
+      "Default:CampaignInfo_j": "{\"CampaignInfo\":{\"matchmakingLevel\":0,\"zoneInstanceId\":\"\",\"homeBaseVersion\":1,\"bIsMatchmakingIntoHestiaBeauty\":false,\"hestiaBeautySessionId\":\"\"}}",
+      "Default:CampaignBackpackRating_d": "0.000000",
+      "Default:CampaignCommanderLoadoutRating_d": "0.000000",
+      "Default:BattlePassInfo_j": "{\"BattlePassInfo\":{\"bHasPurchasedPass\":false,\"passLevel\":0}}",
+      "Default:PackedState_j": "{\"PackedState\":{\"bAllowEmoteBeatSyncing\":true,\"bDownloadOnDemandActive\":false,\"bIsInAllSelectExperiment\":false,\"bIsPartyLFG\":false,\"bRecText\":false,\"bRecVoice\":false,\"bUploadLogs\":false,\"eOSProductUserId\":\"630e0dc2e24041299bb5137c238370a4\",\"gameMode\":\"None\",\"hasCompletedSTWTutorial\":false,\"hasPurchasedSTW\":false,\"location\":\"PreLobby\",\"platformSupportsSTW\":true,\"subGame\":\"Athena\",\"voiceChatStatus\":\"PartyVoice\"}}",
+      "Default:FeatDefinition_s": "None",
+      "Default:CampaignHero_j": "{\"CampaignHero\":{\"heroItemInstanceId\":\"\",\"heroType\":\"None\"}}",
+      "Default:SpectateInfo_j": "{\"SpectateInfo\":{\"gameSessionId\":\"\",\"gameSessionKey\":\"\"}}",
+      "Default:FrontendEmote_j": "{\"FrontendEmote\":{\"emoteEKey\":\"\",\"emoteSection\":-1,\"multipurposeEmoteData\":-1,\"pickable\":\"None\"}}",
+      "Default:FrontendSparksSongPart_j": "{\"FrontendSparksSongPart\":{\"pickable\":\"None\",\"emoteEKey\":\"\",\"emoteSection\":-1,\"multipurposeEmoteData\":-1}}",
+      "Default:bIsPartyUsingPartySignal_b": "false",
+      "Default:MemberSquadAssignmentRequest_j": "{\"MemberSquadAssignmentRequest\":{\"startingAbsoluteIdx\":-1,\"swapTargetMemberId\":\"INVALID\",\"targetAbsoluteIdx\":-1,\"version\":0}}",
+      "Default:CrossplayPreference_s": "OptedIn",
+      "Default:PlatformData_j": "{\"PlatformData\":{\"platform\":{\"platformDescription\":{\"name\":\"WIN\",\"platformType\":\"DESKTOP\",\"onlineSubsystem\":\"None\",\"sessionType\":\"\",\"externalAccountType\":\"\",\"crossplayPool\":\"DESKTOP\"}},\"uniqueId\":\"INVALID\",\"sessionId\":\"\"}}",
+      "Default:MatchmakingInfo_j": "{\"MatchmakingInfo\":{\"bHasOwnerStartedMM\":false,\"bIsEligible\":true,\"currentIsland\":{\"island\":\"{\\\"LinkId\\\":\\\"\\\",\\\"MatchmakingSettingsV2\\\":{\\\"/Fortnite.com/Matchmaking:Region\\\":\\\"EU\\\"},\\\"Session\\\":{\\\"iD\\\":\\\"\\\",\\\"joinInfo\\\":{\\\"joinability\\\":\\\"CanNotBeJoinedOrWatched\\\",\\\"sessionKey\\\":\\\"\\\"}}}\",\"bUsingGracefulUpgrade\":true,\"matchmakingId\":\"1A46A5842DB24877A63C303B4869BDDD\",\"timestamp\":0},\"islandSelection\":{\"island\":\"{\\\"LinkId\\\":\\\"\\\",\\\"MatchmakingSettingsV2\\\":{\\\"/Fortnite.com/BattleRoyale/Matchmaking:BuildMode\\\":\\\"Build\\\",\\\"/Fortnite.com/BattleRoyale/Matchmaking:TeamSize\\\":\\\"Solo\\\",\\\"/Fortnite.com/Matchmaking:Ranked\\\":\\\"Unranked\\\",\\\"/Fortnite.com/Matchmaking:Region\\\":\\\"EU\\\",\\\"/Fortnite.com/Matchmaking:SquadFill\\\":\\\"NoFill\\\"},\\\"Session\\\":{\\\"iD\\\":\\\"\\\",\\\"joinInfo\\\":{\\\"joinability\\\":\\\"CanNotBeJoinedOrWatched\\\",\\\"sessionKey\\\":\\\"\\\"}}}\",\"bUsingGracefulUpgrade\":true,\"matchmakingId\":\"1A46A5842DB24877A63C303B4869BDDD\",\"timestamp\":0},\"maxMatchmakingDelay\":0,\"playlistVersion\":0,\"readyStatus\":\"NotReady\",\"readyStatusMMId\":\"\",\"result\":\"None\",\"stayTogetherHash\":0,\"travelId\":\"\",\"worldSessionId\":\"\"}}",
+      "Default:DownloadOnDemandProgress_d": "0.000000",
+      "Default:JoinMethod_s": "Creation",
+      "Default:UtcTimeStartedMatchAthena_s": "0001-01-01T00:00:00.000Z",
+      "Default:FrontendMimosa_j": "{\"FrontendMimosa\":{\"frontendMimosaAnimType\":\"None\",\"frontendMimosaInstanceId\":\"\"}}",
+      "Default:LobbyState_j": "{\"LobbyState\":{\"currentInputType\":\"MouseAndKeyboard\",\"hasPreloadedAthena\":false,\"hiddenMatchmakingDelayMax\":0,\"inGameReadyCheckStatus\":\"None\",\"readyInputType\":\"Count\"}}",
+      "Default:MpLoadout1_j": "{\"MpLoadout1\":{\"s\":{\"ac\":{\"i\":\"CID_A_272_Athena_Commando_F_Prime\",\"v\":[]},\"ap\":{\"i\":\"DefaultPickaxe\",\"v\":[]},\"ag\":{\"i\":\"DefaultGlider\",\"v\":[]},\"li\":{\"i\":\"BRS17_Alt_1\",\"v\":[]},\"lc\":{\"i\":\"DefaultColor22\",\"v\":[]},\"vo\":{\"i\":\"ID_Booster_Standard\",\"v\":[\"0\"]},\"vd\":{\"i\":\"ID_DriftTrail_Standard\",\"v\":[\"0\"]},\"vw\":{\"i\":\"ID_Wheel_OEM\",\"v\":[\"0\"]},\"vws\":{\"i\":\"ID_Wheel_OEM\",\"v\":[\"0\"]},\"vds\":{\"i\":\"ID_DriftTrail_Standard\",\"v\":[\"0\"]},\"vos\":{\"i\":\"ID_Booster_Standard\",\"v\":[\"0\"]},\"sb\":{\"i\":\"Sparks_Bass_Generic\",\"v\":[\"0\"]},\"sg\":{\"i\":\"Sparks_Guitar_Generic\",\"v\":[\"0\"]},\"sd\":{\"i\":\"Sparks_Drum_Generic\",\"v\":[\"0\"]},\"sk\":{\"i\":\"Sparks_Keytar_Generic\",\"v\":[\"0\"]},\"sm\":{\"i\":\"Sparks_Mic_Generic\",\"v\":[\"0\"]}}}}",
+      "Default:MpLoadout2_j": "{\"MpLoadout2\":{\"s\":{}}}",
+      "Default:LoadoutMeta_j": "{\"LoadoutMeta\":{\"enKeys\":[],\"rand\":6284611384,\"vAssets\":[],\"scratchpad\":[],\"stats\":[{\"statName\":\"TotalVictoryCrowns\",\"statValue\":0},{\"statName\":\"TotalRoyalRoyales\",\"statValue\":0},{\"statName\":\"HasCrown\",\"statValue\":0},{\"statName\":\"HabaneroProgression\",\"statValue\":0}],\"force\":0}}",
+      "Default:JoinInProgressData_j": "{\"JoinInProgressData\":{\"request\":{\"target\":\"INVALID\",\"time\":0},\"responses\":[]}}",
+      "urn:epic:member:dn_s": "RdotA-_-"
+    }
+  },
+  "presence": null
+}
