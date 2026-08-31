@@ -441,6 +441,7 @@ main{overflow-x:hidden}
     <span class="logo">Spritedex</span>
     <span class="tagline">Fortnite Sprite Tracker by RDOTA</span>
     <div class="header-actions">
+      <a href="/profile.html" id="searchPlayersBtn" style="display:none;align-items:center;gap:6px;padding:8px 14px;background:var(--panel2);border:1px solid var(--line);border-radius:8px;color:var(--text);text-decoration:none;font-size:13px;font-weight:600"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>Players</a>
       <button id="exportBtn" class="btn-primary">Export</button>
       <div id="profileArea"></div>
     </div>
@@ -1421,6 +1422,8 @@ function updateProfileArea(){
   if(trackerContent) trackerContent.style.display = isSignedIn ? 'block' : 'none';
   if(seasonTabs) seasonTabs.style.display = isSignedIn ? 'flex' : 'none';
   if(exportBtn) exportBtn.style.display = isSignedIn ? 'inline-flex' : 'none';
+  const searchPlayersBtn = document.getElementById('searchPlayersBtn');
+  if(searchPlayersBtn) searchPlayersBtn.style.display = isSignedIn ? 'inline-flex' : 'none';
   const shareBtn = document.getElementById('shareBtn');
   if(shareBtn) shareBtn.style.display = isSignedIn ? 'inline-flex' : 'none';
 
