@@ -47,19 +47,19 @@ header{position:sticky;top:0;z-index:50;
   background:linear-gradient(180deg,rgba(10,12,18,.98) 0%,rgba(10,12,18,.95) 100%);
   backdrop-filter:blur(20px);border-bottom:1px solid var(--line);
   padding:10px 16px calc(10px + env(safe-area-inset-top));padding-top:calc(10px + env(safe-area-inset-top))}
-.header-top{display:flex;align-items:center;gap:12px;margin-bottom:8px}
-.logo{font:800 24px/1 'Fortnite','Burbank Big Condensed','Inter',sans-serif;
+.header-top{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.logo{font:800 22px/1 'Fortnite','Burbank Big Condensed','Inter',sans-serif;
   letter-spacing:1px;text-transform:uppercase;
   background:linear-gradient(135deg,var(--accent),#00ffcc);
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .tagline{font-size:11px;color:var(--dim);font-weight:500;margin-left:8px}
-@media(max-width:500px){.tagline{display:none}}
-.header-actions{display:flex;gap:8px;margin-left:auto;align-items:center}
+@media(max-width:600px){.tagline{display:none}}
+.header-actions{display:flex;gap:6px;margin-left:auto;align-items:center}
 
 /* hamburger menu */
 .hamburger{display:none;background:var(--panel2);border:1px solid var(--line);border-radius:8px;
-  padding:8px;cursor:pointer;position:relative}
-.hamburger svg{width:20px;height:20px;display:block}
+  padding:6px;cursor:pointer;position:relative;flex-shrink:0}
+.hamburger svg{width:18px;height:18px;display:block}
 .hamburger-menu{position:absolute;top:100%;right:0;margin-top:8px;background:var(--panel);
   border:1px solid var(--line);border-radius:12px;min-width:200px;padding:8px;z-index:100;
   box-shadow:0 10px 40px rgba(0,0,0,.5);display:none}
@@ -70,7 +70,13 @@ header{position:sticky;top:0;z-index:50;
 .hamburger-menu a:hover,.hamburger-menu button:hover{background:var(--panel2)}
 .hamburger-menu svg{width:18px;height:18px;color:var(--dim)}
 .hamburger-menu hr{border:none;border-top:1px solid var(--line);margin:8px 0}
-@media(max-width:600px){.hamburger{display:flex}}
+@media(max-width:600px){
+  .hamburger{display:flex}
+  #exportBtn{display:none!important}
+  .profile-btn{padding:4px 8px 4px 4px}
+  .profile-btn .profile-name{display:none}
+  .logo{font-size:18px}
+}
 button,select,input{font:inherit;color:var(--text);background:var(--panel2);
   border:1px solid var(--line);border-radius:8px;padding:8px 14px;transition:all .15s}
 button{cursor:pointer;font-weight:600}
@@ -462,6 +468,7 @@ main{overflow-x:hidden}
       <button class="hamburger" id="hamburgerBtn">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
         <div class="hamburger-menu" id="hamburgerMenu">
+          <button id="menuExport"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>Export Image</button>
           <a href="/profile.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>Search Players</a>
           <a href="#" id="menuMyProfile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>My Profile</a>
           <hr>
@@ -2287,6 +2294,13 @@ hamburgerBtn?.addEventListener('click', (e) => {
 });
 document.addEventListener('click', () => hamburgerMenu?.classList.remove('open'));
 hamburgerMenu?.addEventListener('click', (e) => e.stopPropagation());
+
+// Menu Export
+document.getElementById('menuExport')?.addEventListener('click', () => {
+  hamburgerMenu?.classList.remove('open');
+  exSeason.value = filters.season === 's4' ? 'current' : 'past';
+  exportDlg.showModal();
+});
 
 // My Profile link
 document.getElementById('menuMyProfile')?.addEventListener('click', (e) => {
