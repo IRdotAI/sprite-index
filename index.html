@@ -441,7 +441,6 @@ main{overflow-x:hidden}
     <span class="logo">Spritedex</span>
     <span class="tagline">Fortnite Sprite Tracker by RDOTA</span>
     <div class="header-actions">
-      <a href="/profile.html" id="searchPlayersBtn" style="display:none;align-items:center;gap:6px;padding:8px 14px;background:var(--panel2);border:1px solid var(--line);border-radius:8px;color:var(--text);text-decoration:none;font-size:13px;font-weight:600"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>Players</a>
       <button id="exportBtn" class="btn-primary">Export</button>
       <div id="profileArea"></div>
     </div>
@@ -546,16 +545,6 @@ main{overflow-x:hidden}
 <main id="trackerContent" style="display:none">
   <div class="search-row" style="margin-bottom:10px">
     <input type="search" id="search" placeholder="Search sprites..." autocomplete="off">
-    <div class="sort-wrap">
-      <label>Sort</label>
-      <select id="sortBy">
-        <option value="default">Default</option>
-        <option value="owned">Owned first</option>
-        <option value="missing">Missing first</option>
-        <option value="mastered">Mastered first</option>
-        <option value="name">Name A-Z</option>
-      </select>
-    </div>
   </div>
   <div class="filters" id="fStatus"></div>
   <div class="filters" id="fRarity"></div>
@@ -604,6 +593,7 @@ main{overflow-x:hidden}
   </select>
   <div class="dlg-actions" style="flex-wrap:wrap;gap:8px">
     <button id="exShare" style="flex:1 1 100%;order:-1;background:var(--panel);border:2px solid var(--accent);color:var(--accent);padding:12px;font-weight:700;border-radius:8px;cursor:pointer">Share Profile Link</button>
+    <a href="/profile.html" style="flex:1 1 100%;order:-1;text-align:center;color:var(--dim);font-size:13px;text-decoration:none;padding:8px">Search other players →</a>
     <button id="exCancel">Cancel</button>
     <button id="exGo" class="btn-primary">Save PNG</button>
   </div>
