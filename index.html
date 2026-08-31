@@ -60,10 +60,11 @@ header{position:sticky;top:0;z-index:50;
 .hamburger{display:none;background:var(--panel2);border:1px solid var(--line);border-radius:8px;
   padding:6px;cursor:pointer;flex-shrink:0}
 .hamburger>svg{width:18px;height:18px;display:block}
+@keyframes menuIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
 .hamburger-menu{position:fixed;top:60px;right:16px;background:var(--panel);
   border:1px solid var(--line);border-radius:12px;min-width:200px;padding:8px;z-index:200;
   box-shadow:0 10px 40px rgba(0,0,0,.5);display:none}
-.hamburger-menu.open{display:block}
+.hamburger-menu.open{display:block;animation:menuIn .15s ease-out}
 .hamburger-menu a,.hamburger-menu button{display:flex;align-items:center;gap:10px;width:100%;
   padding:12px 14px;background:none;border:none;border-radius:8px;color:var(--text);
   font-size:14px;font-weight:500;text-decoration:none;text-align:left;cursor:pointer}
@@ -211,11 +212,14 @@ main{padding:16px;max-width:1400px;margin:0 auto}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 .toast.bad{border-color:var(--legendary);color:var(--legendary)}
 
-/* dialogs */
+/* dialog animations */
+@keyframes dialogIn{from{opacity:0;transform:translate(-50%,-50%) scale(.95)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+@keyframes backdropIn{from{opacity:0}to{opacity:1}}
 dialog{border:1px solid var(--line);background:var(--panel);color:var(--text);
   border-radius:16px;padding:0;width:min(92vw,420px);box-shadow:0 20px 60px rgba(0,0,0,.6);
-  position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);margin:0}
-dialog::backdrop{background:rgba(0,0,0,.7);backdrop-filter:blur(4px)}
+  position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);margin:0;
+  animation:dialogIn .2s ease-out}
+dialog::backdrop{background:rgba(0,0,0,.7);backdrop-filter:blur(4px);animation:backdropIn .2s ease-out}
 dialog[open]{display:block}
 .dlg-body{padding:20px}
 .dlg-body h2{font:700 18px/1.3 'Luckiest Guy','Inter',sans-serif;margin-bottom:6px}
