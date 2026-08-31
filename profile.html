@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#0a0c12">
+<meta name="description" content="Spritedex - View Fortnite Sprite collection">
+<title>Profile - Spritedex</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0c12; --bg2:#0f1118; --panel:#151820; --panel2:#1a1e28;
+  --line:#252a38; --text:#f0f2f8; --dim:#6b7280; --accent:#00d4ff;
+  --rare:#3AA7F0; --epic:#A855F7; --legendary:#F97316; --mythic:#FACC15;
+  --glow:0 0 20px rgba(0,212,255,.3);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font:14px/1.5 'Inter',system-ui,sans-serif;min-height:100vh}
+.container{max-width:900px;margin:0 auto;padding:20px}
+
+/* Header */
+header{background:linear-gradient(180deg,rgba(10,12,18,.98),rgba(10,12,18,.95));
+  border-bottom:1px solid var(--line);padding:16px 20px;position:sticky;top:0;z-index:50}
+.header-inner{max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+.logo{font:800 24px/1 'Inter',sans-serif;letter-spacing:1px;text-transform:uppercase;
+  background:linear-gradient(135deg,var(--accent),#00ffcc);-webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;background-clip:text;text-decoration:none}
+.back-btn{color:var(--dim);text-decoration:none;font-size:13px;display:flex;align-items:center;gap:6px}
+.back-btn:hover{color:var(--text)}
+
+/* Search */
+.search-section{margin-bottom:32px}
+.search-box{display:flex;gap:10px;margin-bottom:16px}
+.search-box input{flex:1;background:var(--panel);border:1px solid var(--line);border-radius:10px;
+  padding:12px 16px;color:var(--text);font-size:15px}
+.search-box input:focus{outline:none;border-color:var(--accent);box-shadow:var(--glow)}
+.search-box input::placeholder{color:var(--dim)}
+.search-box button{background:linear-gradient(135deg,var(--accent),#00ccff);color:#0a0c12;
+  border:none;border-radius:10px;padding:12px 24px;font-weight:700;cursor:pointer}
+.search-box button:hover{box-shadow:0 0 24px rgba(0,212,255,.4)}
+.search-results{display:flex;flex-direction:column;gap:8px}
+.search-result{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 18px;
+  display:flex;justify-content:space-between;align-items:center;cursor:pointer;transition:all .15s}
+.search-result:hover{border-color:var(--accent);transform:translateX(4px)}
+.search-result .name{font-weight:600;font-size:15px}
+.search-result .badge{font-size:11px;color:var(--dim);background:var(--panel2);padding:4px 10px;border-radius:6px}
+.search-result.private .badge{background:var(--legendary);color:#fff}
+.no-results{color:var(--dim);text-align:center;padding:40px 20px}
+
+/* Profile */
+.profile-card{background:linear-gradient(135deg,var(--panel),var(--panel2));border:1px solid var(--line);
+  border-radius:16px;padding:32px;text-align:center;margin-bottom:24px}
+.profile-avatar{width:80px;height:80px;border-radius:50%;background:var(--bg);margin:0 auto 16px;
+  display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:700;color:var(--accent);
+  border:3px solid var(--accent)}
+.profile-name{font:700 28px/1.2 'Luckiest Guy','Inter',sans-serif;margin-bottom:4px}
+.profile-joined{color:var(--dim);font-size:13px;margin-bottom:20px}
+.profile-stats{display:flex;justify-content:center;gap:32px}
+.profile-stat{text-align:center}
+.profile-stat-val{font:700 32px/1 'Luckiest Guy','Inter',sans-serif;color:var(--accent)}
+.profile-stat-val.gold{color:var(--mythic)}
+.profile-stat-label{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.5px;margin-top:4px}
+.profile-private{color:var(--dim);font-size:15px;padding:40px 20px}
+.profile-private svg{width:48px;height:48px;color:var(--line);margin-bottom:16px}
+
+/* Sprite Grid */
+.section-title{font:700 14px/1 'Inter',sans-serif;text-transform:uppercase;letter-spacing:1px;
+  color:var(--dim);margin:24px 0 14px;display:flex;align-items:center;gap:12px}
+.section-title::after{content:"";flex:1;height:1px;background:var(--line)}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(100px,1fr))}
+.sprite{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px;text-align:center}
+.sprite.owned{border-color:var(--accent);background:rgba(0,212,255,.05)}
+.sprite.mastered{border-color:var(--mythic);background:rgba(250,204,21,.05)}
+.sprite.missing{opacity:.4;filter:grayscale(1)}
+.sprite img{width:60px;height:60px;object-fit:contain;margin-bottom:8px}
+.sprite-name{font-size:11px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sprite-status{font-size:9px;color:var(--dim);text-transform:uppercase;margin-top:2px}
+.sprite.mastered .sprite-status{color:var(--mythic)}
+.sprite.owned .sprite-status{color:var(--accent)}
+
+/* Loading */
+.loading{text-align:center;padding:60px 20px;color:var(--dim)}
+.loading-spinner{width:40px;height:40px;border:3px solid var(--line);border-top-color:var(--accent);
+  border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 16px}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* Error */
+.error-card{background:var(--panel);border:1px solid var(--legendary);border-radius:16px;
+  padding:40px;text-align:center}
+.error-card h2{color:var(--legendary);font-size:18px;margin-bottom:8px}
+.error-card p{color:var(--dim);font-size:14px}
+</style>
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a href="/" class="logo">Spritedex</a>
+    <a href="/" class="back-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> Back to tracker</a>
+  </div>
+</header>
+
+<div class="container">
+  <!-- Search Section -->
+  <div class="search-section">
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Search by Epic Games username..." autocomplete="off">
+      <button id="searchBtn">Search</button>
+    </div>
+    <div id="searchResults" class="search-results"></div>
+  </div>
+
+  <!-- Profile Content -->
+  <div id="profileContent"></div>
+</div>
+
+<script>
+const API_BASE = 'https://spritedex-api.abrasive-tax.workers.dev';
+const searchInput = document.getElementById('searchInput');
+const searchBtn = document.getElementById('searchBtn');
+const searchResults = document.getElementById('searchResults');
+const profileContent = document.getElementById('profileContent');
+
+// Check URL for username
+const urlPath = window.location.pathname;
+const match = urlPath.match(/\/profile\/(.+)/);
+if (match) {
+  const username = decodeURIComponent(match[1]);
+  searchInput.value = username;
+  loadProfile(username);
+}
+
+// Search functionality
+searchBtn.onclick = () => doSearch();
+searchInput.onkeydown = (e) => { if(e.key === 'Enter') doSearch(); };
+
+async function doSearch() {
+  const query = searchInput.value.trim();
+  if (query.length < 2) {
+    searchResults.innerHTML = '<div class="no-results">Enter at least 2 characters to search</div>';
+    return;
+  }
+
+  searchResults.innerHTML = '<div class="loading"><div class="loading-spinner"></div>Searching...</div>';
+
+  try {
+    const res = await fetch(`${API_BASE}/search?q=${encodeURIComponent(query)}`);
+    const data = await res.json();
+
+    if (!data.results || data.results.length === 0) {
+      searchResults.innerHTML = '<div class="no-results">No users found matching "' + query + '"</div>';
+      return;
+    }
+
+    searchResults.innerHTML = data.results.map(u => `
+      <div class="search-result ${u.private ? 'private' : ''}" onclick="loadProfile('${u.display_name.replace(/'/g, "\\'")}')">
+        <span class="name">${u.display_name}</span>
+        <span class="badge">${u.private ? 'Private' : 'View Profile'}</span>
+      </div>
+    `).join('');
+  } catch (e) {
+    searchResults.innerHTML = '<div class="no-results">Search failed. Please try again.</div>';
+  }
+}
+
+async function loadProfile(username) {
+  // Update URL without reload
+  history.pushState({}, '', `/profile/${encodeURIComponent(username)}`);
+  document.title = `${username} - Spritedex`;
+
+  profileContent.innerHTML = '<div class="loading"><div class="loading-spinner"></div>Loading profile...</div>';
+
+  try {
+    const res = await fetch(`${API_BASE}/profile/${encodeURIComponent(username)}`);
+    const data = await res.json();
+
+    if (!data.found) {
+      profileContent.innerHTML = `
+        <div class="error-card">
+          <h2>User Not Found</h2>
+          <p>"${username}" is not registered on Spritedex. They need to sign in at spritedex.xyz first.</p>
+        </div>
+      `;
+      return;
+    }
+
+    if (data.private) {
+      profileContent.innerHTML = `
+        <div class="profile-card">
+          <div class="profile-avatar">${data.display_name[0].toUpperCase()}</div>
+          <div class="profile-name">${data.display_name}</div>
+          <div class="profile-private">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/>
+            </svg>
+            <p>This profile is private</p>
+          </div>
+        </div>
+      `;
+      return;
+    }
+
+    // Calculate stats
+    const sprites = data.sprites || {};
+    const stats = data.stats || {};
+    const owned = Object.values(sprites).filter(s => s.owned).length;
+    const mastered = Object.values(sprites).filter(s => s.mastered).length;
+    const total = Object.keys(sprites).length || 1;
+    const pct = Math.round(owned / total * 100);
+    const joinDate = data.joined_at ? new Date(data.joined_at).toLocaleDateString('en-US', {month:'short',year:'numeric'}) : '';
+
+    profileContent.innerHTML = `
+      <div class="profile-card">
+        <div class="profile-avatar">${data.display_name[0].toUpperCase()}</div>
+        <div class="profile-name">${data.display_name}</div>
+        <div class="profile-joined">${joinDate ? 'Member since ' + joinDate : ''}</div>
+        <div class="profile-stats">
+          <div class="profile-stat">
+            <div class="profile-stat-val">${owned}/${total}</div>
+            <div class="profile-stat-label">Collected</div>
+          </div>
+          <div class="profile-stat">
+            <div class="profile-stat-val gold">${mastered}</div>
+            <div class="profile-stat-label">Mastered</div>
+          </div>
+          <div class="profile-stat">
+            <div class="profile-stat-val">${pct}%</div>
+            <div class="profile-stat-label">Complete</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-title">Collection</div>
+      <div class="grid" id="spriteGrid"></div>
+    `;
+
+    // Render sprites
+    const grid = document.getElementById('spriteGrid');
+    const spriteEntries = Object.entries(sprites).sort((a,b) => {
+      if(a[1].mastered !== b[1].mastered) return b[1].mastered ? 1 : -1;
+      if(a[1].owned !== b[1].owned) return b[1].owned ? 1 : -1;
+      return 0;
+    });
+
+    grid.innerHTML = spriteEntries.map(([key, s]) => {
+      const parts = key.split(':');
+      const name = parts[1] || key;
+      const variant = parts[2] || 'normal';
+      const statusClass = s.mastered ? 'mastered' : s.owned ? 'owned' : 'missing';
+      const statusText = s.mastered ? 'Mastered' : s.owned ? 'Owned' : 'Missing';
+      return `
+        <div class="sprite ${statusClass}">
+          <div style="width:60px;height:60px;background:var(--panel2);border-radius:8px;margin:0 auto 8px;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;color:var(--dim)">${name[0].toUpperCase()}</div>
+          <div class="sprite-name">${variant !== 'normal' ? variant + ' ' : ''}${name}</div>
+          <div class="sprite-status">${statusText}</div>
+        </div>
+      `;
+    }).join('');
+
+  } catch (e) {
+    profileContent.innerHTML = `
+      <div class="error-card">
+        <h2>Error Loading Profile</h2>
+        <p>Could not load profile. Please try again.</p>
+      </div>
+    `;
+  }
+}
+</script>
+</body>
+</html>

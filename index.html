@@ -1011,20 +1011,21 @@ exportBtn.onclick=()=>{
 exCancel.onclick=()=>exportDlg.close();
 document.getElementById('exShare').onclick=async()=>{
   exportDlg.close();
+  const displayName = epicAuth.displayName || discordAuth.displayName;
+  if(!displayName){ toast('Sign in to share your profile', true); return; }
+  const profileUrl = `https://spritedex.xyz/profile/${encodeURIComponent(displayName)}`;
   const season = exSeason.value === 'current' ? 's4' : 's3';
   const seasonEntries = ENTRIES.filter(e => (e.sprite.season || 's3') === season);
   const owned = seasonEntries.filter(e => st(e.key).owned).length;
   const total = seasonEntries.length;
   const pct = Math.round(owned / total * 100);
   const mastered = seasonEntries.filter(e => st(e.key).mastered).length;
-  const seasonLabel = season === 's4' ? 'Season 4' : 'Season 3';
-  const displayName = epicAuth.displayName || discordAuth.displayName || 'Collector';
-  const shareText = `${displayName}'s Spritedex - ${seasonLabel}\n${owned}/${total} sprites (${pct}%) | ${mastered} mastered\n\nTrack your collection at spritedex.xyz`;
+  const shareText = `Check out my Fortnite Sprite collection! ${owned}/${total} (${pct}%) collected, ${mastered} mastered`;
   if(navigator.share){
-    try { await navigator.share({ title: 'My Spritedex', text: shareText, url: 'https://spritedex.xyz' }); }
+    try { await navigator.share({ title: `${displayName}'s Spritedex`, text: shareText, url: profileUrl }); }
     catch(e){ if(e.name !== 'AbortError') toast('Share failed'); }
   } else {
-    try { await navigator.clipboard.writeText(shareText); toast('Stats copied!'); }
+    try { await navigator.clipboard.writeText(profileUrl); toast('Profile link copied!'); }
     catch { toast('Could not copy'); }
   }
 };
@@ -2099,6 +2100,7 @@ async function syncFromEpic(token){
 
   save();
   render();
+  saveProfileData(); // Save to backend for public profile
 }
 
 // --- Discord auth state ---
@@ -2143,6 +2145,39 @@ async function saveManualSprites(){
       body: JSON.stringify({ discord_id: discordAuth.discordId, sprites: state })
     });
   } catch(e){}
+}
+
+// Save profile data to backend for public profile
+async function saveProfileData(){
+  if(!epicAuth.isLoggedIn()) return;
+  const seasonEntries = ENTRIES.filter(e => (e.sprite.season || 's3') === 's4');
+  const owned = seasonEntries.filter(e => st(e.key).owned).length;
+  const mastered = seasonEntries.filter(e => st(e.key).mastered).length;
+  try {
+    await fetch(`${API_BASE}/profile/save`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        account_id: epicAuth.accountId,
+        sprites: state,
+        stats: { owned, mastered, total: seasonEntries.length }
+      })
+    });
+  } catch(e){}
+}
+
+// Update profile privacy
+async function setProfilePrivacy(privacy){
+  if(!epicAuth.isLoggedIn()) return;
+  try {
+    await fetch(`${API_BASE}/profile/privacy`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ account_id: epicAuth.accountId, privacy })
+    });
+    localStorage.setItem('profile_privacy', privacy);
+    toast(privacy === 'public' ? 'Profile is now public' : 'Profile is now private');
+  } catch(e){ toast('Failed to update privacy', true); }
 }
 
 // Toggle sprite ownership manually (for Discord users)
@@ -2227,24 +2262,24 @@ async function boot(){
 }
 // --- share button ---
 document.getElementById('shareBtn')?.addEventListener('click', async () => {
+  const displayName = epicAuth.displayName || discordAuth.displayName;
+  if(!displayName){ toast('Sign in to share your profile', true); return; }
+  const profileUrl = `https://spritedex.xyz/profile/${encodeURIComponent(displayName)}`;
   const seasonEntries = ENTRIES.filter(e => (e.sprite.season || 's3') === filters.season);
   const owned = seasonEntries.filter(e => st(e.key).owned).length;
   const total = seasonEntries.length;
   const pct = Math.round(owned / total * 100);
   const mastered = seasonEntries.filter(e => st(e.key).mastered).length;
-  const seasonLabel = filters.season === 's4' ? 'Season 4' : 'Season 3';
-  const displayName = epicAuth.displayName || discordAuth.displayName || 'Collector';
-
-  const shareText = `${displayName}'s Spritedex - ${seasonLabel}\n${owned}/${total} sprites (${pct}%) | ${mastered} mastered\n\nTrack your collection at spritedex.xyz`;
+  const shareText = `Check out my Fortnite Sprite collection! ${owned}/${total} (${pct}%) collected, ${mastered} mastered`;
 
   if(navigator.share){
     try {
-      await navigator.share({ title: 'My Spritedex Collection', text: shareText, url: 'https://spritedex.xyz' });
+      await navigator.share({ title: `${displayName}'s Spritedex`, text: shareText, url: profileUrl });
     } catch(e){ if(e.name !== 'AbortError') toast('Share failed'); }
   } else {
     try {
-      await navigator.clipboard.writeText(shareText + '\nhttps://spritedex.xyz');
-      toast('Collection stats copied to clipboard!');
+      await navigator.clipboard.writeText(profileUrl);
+      toast('Profile link copied!');
     } catch { toast('Could not copy to clipboard'); }
   }
 });
