@@ -2220,6 +2220,76 @@ async function setProfilePrivacy(privacy){
   } catch(e){ toast('Failed to update privacy', true); }
 }
 
+// Auto-poll party service for gold/CM variants
+let variantPollInterval = null;
+let lastVariantPoll = 0;
+const VARIANT_POLL_INTERVAL = 30000; // 30 seconds
+
+async function pollLiveVariants() {
+  if (!epicAuth.isLoggedIn()) return;
+
+  // Don't poll too frequently
+  if (Date.now() - lastVariantPoll < 10000) return;
+  lastVariantPoll = Date.now();
+
+  try {
+    const res = await fetch(`${API}/sync/live-variants?account_id=${epicAuth.accountId}`);
+    const data = await res.json();
+
+    if (data.success && data.online && data.detected_variants?.length > 0) {
+      let updated = false;
+      const liveVariants = data.all_variants || {};
+
+      // Update state with detected gold/CM variants
+      for (const [sprite, variants] of Object.entries(liveVariants)) {
+        if (variants.gold) {
+          const key = `s4:${sprite}:gold`;
+          const existing = state[key] || {};
+          if (!existing.owned) {
+            state[key] = { owned: true, mastered: false, autoDetected: true };
+            updated = true;
+            console.log(`[LiveSync] Detected gold ${sprite}`);
+          }
+        }
+        if (variants.cheatmaster) {
+          const key = `s4:${sprite}:cheatmaster`;
+          const existing = state[key] || {};
+          if (!existing.owned) {
+            state[key] = { owned: true, mastered: false, autoDetected: true };
+            updated = true;
+            console.log(`[LiveSync] Detected cheatmaster ${sprite}`);
+          }
+        }
+      }
+
+      if (updated) {
+        save();
+        render();
+        toast('Detected new sprite variants!');
+      }
+    }
+  } catch (e) {
+    console.log('[LiveSync] Poll error:', e.message);
+  }
+}
+
+function startVariantPolling() {
+  if (variantPollInterval) return;
+  console.log('[LiveSync] Starting auto-poll for gold/CM variants');
+
+  // Poll immediately, then every 30s
+  pollLiveVariants();
+  variantPollInterval = setInterval(pollLiveVariants, VARIANT_POLL_INTERVAL);
+}
+
+function stopVariantPolling() {
+  if (variantPollInterval) {
+    clearInterval(variantPollInterval);
+    variantPollInterval = null;
+    console.log('[LiveSync] Stopped auto-poll');
+  }
+}
+
 // Toggle sprite ownership manually (for Discord users)
 function toggleManualSprite(key, field = 'owned'){
   const s = state[key] || { owned: false, mastered: false };
@@ -2295,6 +2365,8 @@ async function boot(){
   if(epicAuth.isLoggedIn()){
     try{ await syncFromEpic(); }
     catch(e){ render(); }
+    // Start auto-polling for gold/CM variants
+    startVariantPolling();
   } else if(discordAuth.isLoggedIn()){
     // Discord only - load manual sprites
     await syncManualSprites();
