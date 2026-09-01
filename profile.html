@@ -93,6 +93,19 @@ header{background:linear-gradient(180deg,rgba(10,12,18,.98),rgba(10,12,18,.95));
 .error-card p{color:var(--dim);font-size:14px}
 .private-msg{color:var(--dim);padding:40px 20px;text-align:center}
 .private-msg svg{width:48px;height:48px;color:var(--line);margin-bottom:12px;display:block;margin:0 auto 12px}
+
+.sync-btn{background:linear-gradient(135deg,#22c55e,#16a34a);border:none;border-radius:8px;
+  padding:10px 20px;color:#fff;font-weight:600;cursor:pointer;margin-top:16px;display:inline-flex;align-items:center;gap:8px}
+.sync-btn:hover{filter:brightness(1.1)}
+.sync-btn:disabled{opacity:.5;cursor:not-allowed}
+.sync-btn.syncing{background:var(--panel)}
+.sync-result{margin-top:12px;padding:12px;border-radius:8px;font-size:13px}
+.sync-result.success{background:rgba(34,197,94,.15);border:1px solid rgba(34,197,94,.3);color:#4ade80}
+.sync-result.info{background:rgba(0,212,255,.1);border:1px solid rgba(0,212,255,.2);color:var(--accent)}
+.sync-result.error{background:rgba(249,115,22,.15);border:1px solid rgba(249,115,22,.3);color:#fb923c}
+.variant-badge{display:inline-block;padding:2px 6px;border-radius:4px;font-size:9px;font-weight:700;margin-left:4px}
+.variant-badge.gold{background:linear-gradient(135deg,#facc15,#eab308);color:#000}
+.variant-badge.cm{background:linear-gradient(135deg,#a855f7,#7c3aed);color:#fff}
 </style>
 </head>
 <body>
@@ -119,6 +132,13 @@ const API_BASE = 'https://spritedex-api.abrasive-tax.workers.dev';
 let DB = null;
 let currentProfile = null;
 let currentSeason = 's4';
+let loggedInUser = null;
+
+// Check if logged in
+try {
+  const stored = localStorage.getItem('spritedex_user');
+  if (stored) loggedInUser = JSON.parse(stored);
+} catch(e) {}
 
 // Load sprite database for images
 async function loadDB() {
@@ -256,6 +276,15 @@ function renderProfile() {
         <div class="profile-stat"><div class="profile-stat-val gold">${mastered}</div><div class="profile-stat-label">Mastered</div></div>
         <div class="profile-stat"><div class="profile-stat-val">${pct}%</div><div class="profile-stat-label">Complete</div></div>
       </div>
+      ${isOwnProfile() ? `
+        <button class="sync-btn" onclick="syncLiveVariants()" id="syncBtn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/><path d="M9 12l2 2 4-4"/>
+          </svg>
+          Sync Live Variants
+        </button>
+        <div id="syncResult"></div>
+      ` : ''}
     </div>
 
     <div class="season-tabs">
@@ -274,6 +303,8 @@ function renderProfile() {
     return 0;
   });
 
+  const liveVariants = currentProfile.live_variants || {};
+
   grid.innerHTML = sorted.map(([key, s]) => {
     const [season, spriteId, variantId] = key.split(':');
     const img = getSpriteImg(spriteId, variantId || 'normal');
@@ -282,13 +313,19 @@ function renderProfile() {
     const statusClass = s.mastered ? 'mastered' : s.owned ? 'owned' : 'missing';
     const statusText = s.mastered ? 'Mastered' : s.owned ? 'Owned' : 'Missing';
 
+    // Check for gold/CM variants
+    const spriteVariants = liveVariants[spriteId] || {};
+    let badges = '';
+    if (spriteVariants.gold) badges += '<span class="variant-badge gold">G</span>';
+    if (spriteVariants.cheatmaster) badges += '<span class="variant-badge cm">CM</span>';
+
     return `
       <div class="card ${statusClass}">
         <div class="card-art">
           ${img ? `<img src="${img}" alt="" loading="lazy">` : `<div class="card-fallback">${name[0]}</div>`}
         </div>
         <div class="card-info">
-          <div class="card-name">${variantLabel}${name}</div>
+          <div class="card-name">${variantLabel}${name}${badges}</div>
           <div class="card-status">${statusText}</div>
         </div>
       </div>
@@ -299,6 +336,65 @@ function renderProfile() {
 function switchSeason(season) {
   currentSeason = season;
   renderProfile();
+}
+
+function isOwnProfile() {
+  if (!loggedInUser || !currentProfile) return false;
+  return loggedInUser.display_name?.toLowerCase() === currentProfile.display_name?.toLowerCase();
+}
+
+async function syncLiveVariants() {
+  if (!loggedInUser) return;
+
+  const btn = document.getElementById('syncBtn');
+  const result = document.getElementById('syncResult');
+
+  btn.disabled = true;
+  btn.classList.add('syncing');
+  btn.innerHTML = '<span>Syncing...</span>';
+  result.innerHTML = '';
+
+  try {
+    const res = await fetch(`${API_BASE}/sync/live-variants?account_id=${loggedInUser.account_id}`);
+    const data = await res.json();
+
+    if (!data.success) {
+      if (data.needs_reauth) {
+        result.innerHTML = '<div class="sync-result error">Session expired. Please sign in again.</div>';
+      } else if (!data.online) {
+        result.innerHTML = '<div class="sync-result info">Open Fortnite and enter the lobby, then try again.</div>';
+      } else {
+        result.innerHTML = `<div class="sync-result error">${data.error || 'Sync failed'}</div>`;
+      }
+      return;
+    }
+
+    // Show what was detected
+    const variants = data.detected_variants || [];
+    if (variants.length === 0) {
+      result.innerHTML = '<div class="sync-result info">Online but no sprite equipped. Equip a sprite to detect variants!</div>';
+    } else {
+      const found = variants.map(v => {
+        let badges = '';
+        if (v.has_gold) badges += '<span class="variant-badge gold">GOLD</span>';
+        if (v.has_cheatmaster) badges += '<span class="variant-badge cm">CM</span>';
+        return `<strong>${v.sprite}</strong>${badges}`;
+      }).join(', ');
+      result.innerHTML = `<div class="sync-result success">Detected: ${found}</div>`;
+    }
+
+    // Refresh profile to show new variants
+    setTimeout(() => loadProfile(currentProfile.display_name), 1500);
+
+  } catch(e) {
+    result.innerHTML = `<div class="sync-result error">Network error</div>`;
+  } finally {
+    btn.disabled = false;
+    btn.classList.remove('syncing');
+    btn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/><path d="M9 12l2 2 4-4"/>
+    </svg> Sync Live Variants`;
+  }
 }
 </script>
 </body>
