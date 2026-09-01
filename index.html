@@ -2233,7 +2233,7 @@ async function pollLiveVariants() {
   lastVariantPoll = Date.now();
 
   try {
-    const res = await fetch(`${API}/sync/live-variants?account_id=${epicAuth.accountId}`);
+    const res = await fetch(`${API_BASE}/sync/live-variants?account_id=${epicAuth.accountId}`);
     const data = await res.json();
 
     if (data.success && data.online && data.detected_variants?.length > 0) {
