@@ -2044,26 +2044,38 @@ async function syncFromEpic(token){
       console.log(`  ${spriteId}:normal - owned${baseState === 'Claimed' ? ' [MASTERED]' : ''}`);
     }
 
-    // GOLD (_02): mastered if Claimed, otherwise UNKNOWN (cannot detect ownership)
+    // GOLD (_02): mastered if Claimed, otherwise preserve manual state or mark unknown
+    const goldKey = 's4:' + spriteId + ':gold';
     if(goldState === 'Claimed'){
-      state['s4:' + spriteId + ':gold'] = { owned: true, mastered: true };
+      state[goldKey] = { owned: true, mastered: true };
       s4Count++;
       console.log(`  ${spriteId}:gold - MASTERED`);
     } else if(goldState === 'Active'){
-      // Quest exists but not claimed - could be owned OR not owned
-      // Mark as unknown so UI shows "?" - user can manually confirm
-      state['s4:' + spriteId + ':gold'] = { owned: false, mastered: false, unknown: true };
-      console.log(`  ${spriteId}:gold - UNKNOWN (quest Active, ownership unconfirmed)`);
+      // Quest exists but not claimed - preserve manual state if user already marked it
+      const existing = state[goldKey];
+      if(!existing || (!existing.owned && !existing.mastered)){
+        state[goldKey] = { owned: false, mastered: false, unknown: true };
+        console.log(`  ${spriteId}:gold - UNKNOWN (quest Active, ownership unconfirmed)`);
+      } else {
+        console.log(`  ${spriteId}:gold - KEEPING MANUAL STATE (owned: ${existing.owned})`);
+      }
     }
 
-    // CHEATMASTER (_01): mastered if Claimed, otherwise UNKNOWN
+    // CHEATMASTER (_01): mastered if Claimed, otherwise preserve manual state or mark unknown
+    const cmKey = 's4:' + spriteId + ':cheatmaster';
     if(cmState === 'Claimed'){
-      state['s4:' + spriteId + ':cheatmaster'] = { owned: true, mastered: true };
+      state[cmKey] = { owned: true, mastered: true };
       s4Count++;
       console.log(`  ${spriteId}:cheatmaster - MASTERED`);
     } else if(cmState === 'Active'){
-      state['s4:' + spriteId + ':cheatmaster'] = { owned: false, mastered: false, unknown: true };
-      console.log(`  ${spriteId}:cheatmaster - UNKNOWN (quest Active, ownership unconfirmed)`);
+      // Preserve manual state if user already marked it
+      const existing = state[cmKey];
+      if(!existing || (!existing.owned && !existing.mastered)){
+        state[cmKey] = { owned: false, mastered: false, unknown: true };
+        console.log(`  ${spriteId}:cheatmaster - UNKNOWN (quest Active, ownership unconfirmed)`);
+      } else {
+        console.log(`  ${spriteId}:cheatmaster - KEEPING MANUAL STATE (owned: ${existing.owned})`);
+      }
     }
   }
 
