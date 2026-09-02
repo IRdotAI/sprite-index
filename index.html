@@ -1539,9 +1539,24 @@ function showProfileMenu(){
   btns.style.flexDirection = 'column';
   btns.innerHTML = `
     <button id="epicSyncBtn" class="btn-primary">Sync Locker Now</button>
+    <button id="epicScanBtn" style="background:var(--legendary);color:#000">Scan Current Sprite</button>
     <button id="epicUnlinkBtn">Logout</button>
   `;
   epicContent.appendChild(btns);
+
+  document.getElementById('epicScanBtn').onclick = async () => {
+    const btn = document.getElementById('epicScanBtn');
+    btn.textContent = 'Scanning...';
+    btn.disabled = true;
+    try {
+      await pollLiveVariants(true);
+      btn.textContent = 'Scan Current Sprite';
+    } catch(e) {
+      toast('Scan failed: ' + e.message, true);
+      btn.textContent = 'Scan Current Sprite';
+    }
+    btn.disabled = false;
+  };
 
   document.getElementById('epicSyncBtn').onclick = async () => {
     try {
@@ -2225,20 +2240,22 @@ let variantPollInterval = null;
 let lastVariantPoll = 0;
 const VARIANT_POLL_INTERVAL = 30000; // 30 seconds
 
-async function pollLiveVariants() {
+async function pollLiveVariants(force = false) {
   if (!epicAuth.isLoggedIn()) return;
 
-  // Don't poll too frequently
-  if (Date.now() - lastVariantPoll < 10000) return;
+  // Don't poll too frequently (unless forced)
+  if (!force && Date.now() - lastVariantPoll < 10000) return;
   lastVariantPoll = Date.now();
 
   try {
     const res = await fetch(`${API_BASE}/sync/live-variants?account_id=${epicAuth.accountId}`);
     const data = await res.json();
 
-    if (data.success && data.online && data.detected_variants?.length > 0) {
+    if (data.success && data.online) {
       let updated = false;
       const liveVariants = data.all_variants || {};
+      const spriteName = data.sprite_id || 'unknown';
+      const detectedList = [];
 
       // Update state with detected gold/CM variants
       for (const [sprite, variants] of Object.entries(liveVariants)) {
@@ -2248,6 +2265,7 @@ async function pollLiveVariants() {
           if (!existing.owned) {
             state[key] = { owned: true, mastered: false, autoDetected: true };
             updated = true;
+            detectedList.push(`${sprite} gold`);
             console.log(`[LiveSync] Detected gold ${sprite}`);
           }
         }
@@ -2257,6 +2275,7 @@ async function pollLiveVariants() {
           if (!existing.owned) {
             state[key] = { owned: true, mastered: false, autoDetected: true };
             updated = true;
+            detectedList.push(`${sprite} CM`);
             console.log(`[LiveSync] Detected cheatmaster ${sprite}`);
           }
         }
@@ -2265,11 +2284,29 @@ async function pollLiveVariants() {
       if (updated) {
         save();
         render();
-        toast('Detected new sprite variants!');
+        toast(`Detected: ${detectedList.join(', ')}`);
+      } else if (force) {
+        // Manual scan - show what was found even if not new
+        const variants = liveVariants[spriteName];
+        if (variants) {
+          const has = [];
+          if (variants.gold) has.push('gold');
+          if (variants.cheatmaster) has.push('CM');
+          if (has.length) {
+            toast(`${spriteName}: ${has.join(' + ')} (already tracked)`);
+          } else {
+            toast(`${spriteName}: no gold/CM equipped`);
+          }
+        } else {
+          toast('No sprite detected (are you in-game?)');
+        }
       }
+    } else if (force && !data.online) {
+      toast('Not online - launch Fortnite and join a lobby');
     }
   } catch (e) {
     console.log('[LiveSync] Poll error:', e.message);
+    if (force) toast('Scan failed: ' + e.message, true);
   }
 }
 
