@@ -2254,7 +2254,7 @@ async function pollLiveVariants(force = false) {
     if (data.success && data.online) {
       let updated = false;
       const liveVariants = data.all_variants || {};
-      const spriteName = data.sprite_id || 'unknown';
+      const spriteName = data.detected_variants?.[0]?.sprite || 'unknown';
       const detectedList = [];
 
       // Update state with detected gold/CM variants
