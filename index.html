@@ -2097,14 +2097,15 @@ async function syncFromEpic(token){
     const cmState = quests['01'];   // _01 = cheatmaster (validated)
     const goldState = quests['02']; // _02 = gold (validated)
 
-    // NORMAL: owned if quest exists (Active or Claimed), mastered if Claimed
-    if(baseState === 'Active' || baseState === 'Claimed'){
+    // NORMAL: mastered only if Claimed (ownership detected via CosmeticMimosa below)
+    // NOTE: "Active" just means quest is available, NOT that sprite is owned!
+    if(baseState === 'Claimed'){
       state['s4:' + spriteId + ':normal'] = {
         owned: true,
-        mastered: baseState === 'Claimed'
+        mastered: true
       };
       s4Count++;
-      console.log(`  ${spriteId}:normal - owned${baseState === 'Claimed' ? ' [MASTERED]' : ''}`);
+      console.log(`  ${spriteId}:normal - MASTERED via quest`);
     }
 
     // GOLD (_02): mastered if Claimed, otherwise preserve manual state or mark unknown
@@ -2144,6 +2145,47 @@ async function syncFromEpic(token){
 
   // Store debug data
   window.S4_DEBUG = { questStates: s4QuestStates, parserVersion: 'quest-only-2026-08-30' };
+
+  // ===== S4 BASE SPRITE OWNERSHIP via CosmeticMimosa =====
+  // CosmeticMimosa:companion_X = you OWN that sprite
+  const MIMOSA_MAP = {
+    'sizetribe': 'crown',
+    'dwarf': 'adventure',
+    '8bitblaster': '8bit',
+    'bushranger': 'bush',
+    'jonesy': 'jonesy',
+    'stormscout': 'stormscout',
+    'killswitch': 'killswitch',
+    'reloadovertime': 'shadow',
+    'narrowflea': 'sonic',
+    'narrowfleamonkey': 'tails',
+    'cosmicthunderdoublejump': 'jackrabbit',
+    'generalhound': 'klombo',
+    'improvedslide': 'megaman',
+    'overshield': 'overshield',
+    'winnerb': 'xray',
+    'winnerc': 'onigiri'
+  };
+
+  for(const item of locker.cosmetics){
+    const templateId = item.templateId || '';
+    // Match CosmeticMimosa:companion_X (not CosmeticMimosaC which is particle effects)
+    const mimosaMatch = templateId.match(/^CosmeticMimosa:companion_([a-z0-9]+)$/i);
+    if(mimosaMatch){
+      const mimosaId = mimosaMatch[1].toLowerCase();
+      const spriteId = MIMOSA_MAP[mimosaId];
+      if(spriteId){
+        const key = 's4:' + spriteId + ':normal';
+        const existing = state[key];
+        // Only set owned if not already mastered
+        if(!existing || !existing.mastered){
+          state[key] = { owned: true, mastered: existing?.mastered || false };
+          console.log(`  ${spriteId}:normal - OWNED via CosmeticMimosa`);
+          s4Count++;
+        }
+      }
+    }
+  }
 
   // ===== S3 TOKEN-BASED DETECTION =====
 
