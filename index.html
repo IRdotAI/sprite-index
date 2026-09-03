@@ -1431,6 +1431,9 @@ const epicAuth = {
     localStorage.removeItem('epic_account_id');
     localStorage.removeItem('epic_display_name');
     localStorage.removeItem('epic_logged_in');
+    // Clear sprite state on logout to prevent data leaking between accounts
+    localStorage.removeItem(KEY);
+    state = {};
   }
 };
 
@@ -1845,6 +1848,16 @@ epicClose.onclick = () => epicDlg.close();
 epicDlg.addEventListener('click', ev => { if(ev.target === epicDlg) epicDlg.close() });
 
 async function syncFromEpic(token){
+  // Check if account changed - clear state if so
+  const currentAccountId = epicAuth.accountId;
+  const lastSyncedAccount = localStorage.getItem('spriteIndex.lastAccount');
+  if (lastSyncedAccount && lastSyncedAccount !== currentAccountId) {
+    console.log('[Sync] Account changed, clearing old state');
+    localStorage.removeItem(KEY);
+    state = {};
+  }
+  localStorage.setItem('spriteIndex.lastAccount', currentAccountId);
+
   const locker = await epicAuth.getLocker(token);
 
   // DEBUG: Log all sprite-related items
