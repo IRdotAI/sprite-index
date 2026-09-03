@@ -942,7 +942,13 @@
         "cheatmaster",
         "loothack"
       ],
-      "img": "img/sprites/T_Icon_BR_Creature_Sprite_Overshield_L.webp"
+      "img": "img/sprites/T_Icon_BR_Creature_Sprite_Overshield_L.webp",
+      "variant_imgs": {
+        "normal": "img/sprites/T_Icon_BR_Creature_Sprite_Overshield_L.webp",
+        "gold": "img/sprites/T_Icon_BR_Creature_Sprite_Overshield_Gold_L.webp",
+        "cheatmaster": "img/sprites/T_Icon_BR_Creature_Sprite_Overshield_Cheatmaster_L.webp",
+        "loothack": "img/sprites/T_Icon_BR_Creature_Sprite_Overshield_Loothack_L.webp"
+      }
     },
     {
       "id": "xray",
@@ -957,7 +963,13 @@
         "cheatmaster",
         "loothack"
       ],
-      "img": "img/sprites/T_Icon_BR_Creature_Sprite_WinnerB_L.webp"
+      "img": "img/sprites/T_Icon_BR_Creature_Sprite_WinnerB_L.webp",
+      "variant_imgs": {
+        "normal": "img/sprites/T_Icon_BR_Creature_Sprite_WinnerB_L.webp",
+        "gold": "img/sprites/T_Icon_BR_Creature_Sprite_WinnerB_Gold_L.webp",
+        "cheatmaster": "img/sprites/T_Icon_BR_Creature_Sprite_WinnerB_Cheatmaster_L.webp",
+        "loothack": "img/sprites/T_Icon_BR_Creature_Sprite_WinnerB_Loothack_L.webp"
+      }
     },
     {
       "id": "onigiri",
@@ -972,7 +984,13 @@
         "cheatmaster",
         "loothack"
       ],
-      "img": "img/sprites/T_Icon_BR_Creature_Sprite_WinnerC_L.webp"
+      "img": "img/sprites/T_Icon_BR_Creature_Sprite_WinnerC_L.webp",
+      "variant_imgs": {
+        "normal": "img/sprites/T_Icon_BR_Creature_Sprite_WinnerC_L.webp",
+        "gold": "img/sprites/T_Icon_BR_Creature_Sprite_WinnerC_Gold_L.webp",
+        "cheatmaster": "img/sprites/T_Icon_BR_Creature_Sprite_WinnerC_Cheatmaster_L.webp",
+        "loothack": "img/sprites/T_Icon_BR_Creature_Sprite_WinnerC_Loothack_L.webp"
+      }
     }
   ]
 }
