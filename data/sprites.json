@@ -94,6 +94,16 @@
       "howToObtain": "Master a sprite to unlock Cheat Master variant",
       "dropRate": "Earned",
       "dustCost": 10000
+    },
+    {
+      "id": "loothack",
+      "name": "Loot Hack",
+      "letter": "",
+      "effect": "Enhanced loot abilities.",
+      "rarity": "special",
+      "howToObtain": "Rare drop or special event",
+      "dropRate": "Rare",
+      "dustCost": 5000
     }
   ],
   "rarities": [
@@ -675,7 +685,8 @@
       "variants": [
         "normal",
         "gold",
-        "cheatmaster"
+        "cheatmaster",
+        "loothack"
       ],
       "variant_imgs": {
         "normal": "img/sprites/T_Icon_BR_Creature_Sprite_EightBitBlaster_L.webp",
@@ -694,7 +705,8 @@
       "variants": [
         "normal",
         "gold",
-        "cheatmaster"
+        "cheatmaster",
+        "loothack"
       ],
       "variant_imgs": {
         "normal": "img/sprites/T_Icon_BR_Creature_Sprite_Dwarf_L.webp",
@@ -713,7 +725,8 @@
       "variants": [
         "normal",
         "gold",
-        "cheatmaster"
+        "cheatmaster",
+        "loothack"
       ],
       "variant_imgs": {
         "normal": "img/sprites/T_Icon_BR_Creature_Sprite_BushRanger_L.webp",
@@ -732,7 +745,8 @@
       "variants": [
         "normal",
         "gold",
-        "cheatmaster"
+        "cheatmaster",
+        "loothack"
       ],
       "variant_imgs": {
         "normal": "img/sprites/T_Icon_BR_Creature_Sprite_Jonesy_L.webp",
@@ -751,7 +765,8 @@
       "variants": [
         "normal",
         "gold",
-        "cheatmaster"
+        "cheatmaster",
+        "loothack"
       ],
       "variant_imgs": {
         "normal": "img/sprites/T_Icon_BR_Creature_Sprite_StormScout_L.webp",
@@ -770,7 +785,8 @@
       "variants": [
         "normal",
         "gold",
-        "cheatmaster"
+        "cheatmaster",
+        "loothack"
       ],
       "variant_imgs": {
         "normal": "img/sprites/T_Icon_BR_Creature_Sprite_Killswitch_L.webp",
@@ -789,7 +805,8 @@
       "variants": [
         "normal",
         "gold",
-        "cheatmaster"
+        "cheatmaster",
+        "loothack"
       ],
       "variant_imgs": {
         "normal": "img/sprites/T_Icon_BR_Creature_Sprite_NarrowFlea_Scribe_L.webp",
@@ -808,7 +825,8 @@
       "variants": [
         "normal",
         "gold",
-        "cheatmaster"
+        "cheatmaster",
+        "loothack"
       ],
       "variant_imgs": {
         "normal": "img/sprites/T_Icon_BR_Creature_Sprite_NarrowFlea_Obsidian_L.webp",
@@ -827,7 +845,8 @@
       "variants": [
         "normal",
         "gold",
-        "cheatmaster"
+        "cheatmaster",
+        "loothack"
       ],
       "variant_imgs": {
         "normal": "img/sprites/T_Icon_BR_Creature_Sprite_NarrowFlea_Monkey_L.webp",
@@ -846,7 +865,8 @@
       "variants": [
         "normal",
         "gold",
-        "cheatmaster"
+        "cheatmaster",
+        "loothack"
       ],
       "variant_imgs": {
         "normal": "img/sprites/T_Icon_BR_Creature_Sprite_JazzJackrabbit_L.webp",
@@ -865,7 +885,8 @@
       "variants": [
         "normal",
         "gold",
-        "cheatmaster"
+        "cheatmaster",
+        "loothack"
       ],
       "variant_imgs": {
         "normal": "img/sprites/T_Icon_BR_Creature_Sprite_Crown_L.webp",
@@ -882,7 +903,8 @@
       "variants": [
         "normal",
         "gold",
-        "cheatmaster"
+        "cheatmaster",
+        "loothack"
       ],
       "variant_imgs": {
         "normal": "img/sprites/T_Icon_BR_Creature_Sprite_Klombo_L.webp",
@@ -891,6 +913,66 @@
       },
       "img": "img/sprites/T_Icon_BR_Creature_Sprite_Klombo_L.webp",
       "ability": "Summons Klombo to eat enemies in an area."
+    },
+    {
+      "id": "megaman",
+      "name": "Mega Man",
+      "rarity": "rare",
+      "season": "s4",
+      "ability": "Improved slide ability with enhanced movement.",
+      "location": "Special spawn locations",
+      "variants": [
+        "normal",
+        "gold",
+        "cheatmaster",
+        "loothack"
+      ],
+      "img": "img/sprites/T_Icon_BR_Creature_Sprite_ImprovedSlide_L.webp"
+    },
+    {
+      "id": "overshield",
+      "name": "Overshield",
+      "rarity": "rare",
+      "season": "s4",
+      "ability": "Grants overshield protection.",
+      "location": "Special spawn locations",
+      "variants": [
+        "normal",
+        "gold",
+        "cheatmaster",
+        "loothack"
+      ],
+      "img": "img/sprites/T_Icon_BR_Creature_Sprite_Overshield_L.webp"
+    },
+    {
+      "id": "xray",
+      "name": "X-Ray",
+      "rarity": "legendary",
+      "season": "s4",
+      "ability": "Reveals enemies and loot through walls.",
+      "location": "Special spawn locations",
+      "variants": [
+        "normal",
+        "gold",
+        "cheatmaster",
+        "loothack"
+      ],
+      "img": "img/sprites/T_Icon_BR_Creature_Sprite_WinnerB_L.webp"
+    },
+    {
+      "id": "onigiri",
+      "name": "Onigiri",
+      "rarity": "rare",
+      "season": "s4",
+      "ability": "Provides healing and sustenance bonuses.",
+      "location": "Special spawn locations",
+      "variants": [
+        "normal",
+        "gold",
+        "cheatmaster",
+        "loothack"
+      ],
+      "img": "img/sprites/T_Icon_BR_Creature_Sprite_WinnerC_L.webp"
     }
   ]
 }

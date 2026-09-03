@@ -699,7 +699,7 @@ main{overflow-x:hidden}
 <script>
 const KEY='spriteIndex.v1';
 let DB=null, state=load(), filters={status:'all',rarity:'all',variant:'all',season:'s4',q:'',sort:'default'};
-const NEW_SPRITES = ['stormscout']; // Mark newest sprites
+const NEW_SPRITES = ['megaman', 'overshield', 'xray', 'onigiri']; // Mark newest sprites
 
 function load(){ try{return JSON.parse(localStorage.getItem(KEY))||{}}catch{return {}} }
 function save(){ localStorage.setItem(KEY,JSON.stringify(state)) }
@@ -768,7 +768,7 @@ function visible(){
 // and to tint each card the way spritetrading tints its cards.
 const VCOL={normal:'#8b94ad',base:'#8b94ad',gold:'#F5C542',gummy:'#4dd4ff',
   galaxy:'#A64BF4',gem:'#3ddc97',holofoil:'#ff6ec7',cube:'#F0862E',quack:'#7bd88f',
-  cheatmaster:'#ff4d4d'};
+  cheatmaster:'#ff4d4d',loothack:'#00ff88'};
 const vcol=id=>VCOL[(id||'').toLowerCase()]||'#8b94ad';
 // VORDER is now dynamic based on DB variants
 function getVOrder(){
