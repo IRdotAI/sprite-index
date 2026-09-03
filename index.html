@@ -1534,28 +1534,63 @@ function showProfileMenu(){
   epicClose.textContent = 'Close';
   epicDlg.showModal();
 
+  // Help text for gold/CM detection
+  const helpText = document.createElement('p');
+  helpText.style.cssText = 'font-size:12px;color:var(--dim);margin-bottom:12px;line-height:1.4';
+  helpText.innerHTML = '<strong style="color:var(--mythic)">Gold/CM Detection:</strong> Use Quick Scan while cycling through your gold/CM sprites in Fortnite. Each one you equip gets detected and remembered automatically.';
+  epicContent.appendChild(helpText);
+
   const btns = document.createElement('div');
   btns.className = 'dlg-actions';
   btns.style.flexDirection = 'column';
   btns.innerHTML = `
     <button id="epicSyncBtn" class="btn-primary">Sync Locker Now</button>
-    <button id="epicScanBtn" style="background:var(--legendary);color:#000">Scan Current Sprite</button>
+    <button id="epicQuickScanBtn" style="background:var(--legendary);color:#000">Quick Scan Mode (60s)</button>
     <button id="epicUnlinkBtn">Logout</button>
   `;
   epicContent.appendChild(btns);
 
-  document.getElementById('epicScanBtn').onclick = async () => {
-    const btn = document.getElementById('epicScanBtn');
-    btn.textContent = 'Scanning...';
-    btn.disabled = true;
-    try {
-      await pollLiveVariants(true);
-      btn.textContent = 'Scan Current Sprite';
-    } catch(e) {
-      toast('Scan failed: ' + e.message, true);
-      btn.textContent = 'Scan Current Sprite';
+  // Quick Scan Mode - polls every 2s for 60s while user cycles through sprites
+  let quickScanInterval = null;
+  document.getElementById('epicQuickScanBtn').onclick = async () => {
+    const btn = document.getElementById('epicQuickScanBtn');
+
+    if (quickScanInterval) {
+      // Stop scanning
+      clearInterval(quickScanInterval);
+      quickScanInterval = null;
+      btn.textContent = 'Quick Scan Mode (60s)';
+      btn.style.background = 'var(--legendary)';
+      toast('Quick scan stopped');
+      return;
     }
-    btn.disabled = false;
+
+    // Start rapid scanning
+    btn.textContent = 'SCANNING... (click to stop)';
+    btn.style.background = 'var(--mythic)';
+    toast('Quick scan active! Equip each gold/CM sprite in your locker...');
+
+    let scansLeft = 30; // 60 seconds at 2s intervals
+    const doScan = async () => {
+      scansLeft--;
+      if (scansLeft <= 0) {
+        clearInterval(quickScanInterval);
+        quickScanInterval = null;
+        btn.textContent = 'Quick Scan Mode (60s)';
+        btn.style.background = 'var(--legendary)';
+        toast('Quick scan complete!');
+        return;
+      }
+      btn.textContent = `SCANNING ${scansLeft*2}s... (click to stop)`;
+      try {
+        await pollLiveVariants(true);
+      } catch(e) {
+        console.log('[QuickScan] Error:', e.message);
+      }
+    };
+
+    await doScan(); // First scan immediately
+    quickScanInterval = setInterval(doScan, 2000);
   };
 
   document.getElementById('epicSyncBtn').onclick = async () => {
