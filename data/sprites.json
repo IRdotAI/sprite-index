@@ -919,8 +919,8 @@
       "name": "Mega Man",
       "rarity": "rare",
       "season": "s4",
-      "ability": "Improved slide ability with enhanced movement.",
-      "location": "Special spawn locations",
+      "ability": "Slip and slide around with reduced friction while Sliding. Slide farther with each Level Up!",
+      "location": "Spotted near high and mountainous areas",
       "variants": [
         "normal",
         "gold",
@@ -934,7 +934,7 @@
       "name": "Overshield",
       "rarity": "rare",
       "season": "s4",
-      "ability": "Grants overshield protection.",
+      "ability": "Grants overshield, scaling with level.",
       "location": "Special spawn locations",
       "variants": [
         "normal",
@@ -949,7 +949,7 @@
       "name": "X-Ray",
       "rarity": "legendary",
       "season": "s4",
-      "ability": "Reveals enemies and loot through walls.",
+      "ability": "Periodically mark enemies in an area around you. Mark more often and in a larger radius with each Level Up!",
       "location": "Special spawn locations",
       "variants": [
         "normal",
@@ -964,7 +964,7 @@
       "name": "Onigiri",
       "rarity": "rare",
       "season": "s4",
-      "ability": "Provides healing and sustenance bonuses.",
+      "ability": "Applies Overdrive after eating or drinking a Consumable. Overdrive lasts longer with each Level Up!",
       "location": "Special spawn locations",
       "variants": [
         "normal",
