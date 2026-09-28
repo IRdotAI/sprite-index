@@ -699,7 +699,7 @@ main{overflow-x:hidden}
 <script>
 const KEY='spriteIndex.v1';
 let DB=null, state=load(), filters={status:'all',rarity:'all',variant:'all',season:'s4',q:'',sort:'default'};
-const NEW_SPRITES = ['megaman', 'overshield', 'xray', 'onigiri']; // Mark newest sprites
+const NEW_SPRITES = ['morgana', 'crashbandicoot', 'pond', 'birthday', 'blinky']; // Mark newest sprites
 
 function load(){ try{return JSON.parse(localStorage.getItem(KEY))||{}}catch{return {}} }
 function save(){ localStorage.setItem(KEY,JSON.stringify(state)) }
@@ -768,7 +768,7 @@ function visible(){
 // and to tint each card the way spritetrading tints its cards.
 const VCOL={normal:'#8b94ad',base:'#8b94ad',gold:'#F5C542',gummy:'#4dd4ff',
   galaxy:'#A64BF4',gem:'#3ddc97',holofoil:'#ff6ec7',cube:'#F0862E',quack:'#7bd88f',
-  cheatmaster:'#ff4d4d',loothack:'#00ff88'};
+  cheatmaster:'#ff4d4d',loothack:'#00ff88',reaper:'#9aa3b5'};
 const vcol=id=>VCOL[(id||'').toLowerCase()]||'#8b94ad';
 // VORDER is now dynamic based on DB variants
 function getVOrder(){
@@ -1847,394 +1847,87 @@ async function showLoginFlowLegacy(){
 epicClose.onclick = () => epicDlg.close();
 epicDlg.addEventListener('click', ev => { if(ev.target === epicDlg) epicDlg.close() });
 
+// Bump whenever detection changes. State written by an older parser is thrown
+// away on the next sync: earlier versions marked sprites owned from unrelated
+// cosmetics (Wrixel outfit styles, Sidekick pets) and a shuffled S3 quest map,
+// so their "owned" flags can't be trusted.
+const SYNC_PARSER = 'game-data-2026-09-28';
+
+// Read sprite mastery out of the athena profile. The quest/token IDs and what
+// each suffix/letter means come from data/sprites.json (masteryKeys + each
+// sprite's `mastery`), which tools/build_sprites.py derives from the game files.
+// Returns the state keys ("s3:water:gold") Epic says are mastered, plus any
+// mastery IDs it couldn't place (a sign sprites.json needs a rebuild).
+function masteredFromProfile(items){
+  const { s3, s4 } = DB.masteryKeys;
+  const s3ByQuest = {}, s4ByQuest = {};
+  for(const s of DB.sprites){
+    if(s.mastery?.q) s3ByQuest[s.mastery.q] = s;
+    if(s.mastery?.quest) s4ByQuest[s.mastery.quest] = s;
+  }
+  const mastered = new Set(), unplaced = [];
+  let id;
+  const add = (sprite, variant) => {
+    if(sprite && variant && sprite.variants.includes(variant)) mastered.add(uid(sprite, variant));
+    else unplaced.push(id);
+  };
+
+  for(const item of items){
+    id = (item.templateId || '').toLowerCase();
+    const claimed = item.attributes?.quest_state === 'Claimed';
+    let m;
+
+    // S3: the mastery token, or the mastery quest itself once claimed.
+    if((m = id.match(/^token:athena_s41_spritemastery_token_q(\d\d)([a-g]?)$/))){
+      add(s3ByQuest[m[1]], s3.letters[m[2]]);
+    } else if(claimed && (m = id.match(/^quest:quest_s41_spritemastery_p\d\d_q(\d\d)([a-g]?)$/))){
+      add(s3ByQuest[m[1]], s3.letters[m[2]]);
+    }
+    // S4: the mastery quest once claimed, or its (battle pass) reward token.
+    else if(claimed && (m = id.match(/^quest:quest_s42_spritemastery_([a-z0-9]+?)(_\d\d)?$/))){
+      add(s4ByQuest[m[1]], s4.suffixes[m[2] || '']);
+    } else if(id !== 'token:athena_s42_spritemastery_token_generic' &&
+              (m = id.match(/^token:athena_s42_spritemastery_token_([a-z0-9]+?)(_\d\d)?$/))){
+      add(s4ByQuest[m[1]], s4.suffixes[m[2] || '']);
+    }
+  }
+  return { mastered, unplaced };
+}
+
 async function syncFromEpic(token){
-  // Check if account changed - clear state if so
+  // Start clean if the account or the parser changed since the last sync.
   const currentAccountId = epicAuth.accountId;
   const lastSyncedAccount = localStorage.getItem('spriteIndex.lastAccount');
-  if (lastSyncedAccount && lastSyncedAccount !== currentAccountId) {
-    console.log('[Sync] Account changed, clearing old state');
-    localStorage.removeItem(KEY);
+  if((lastSyncedAccount && lastSyncedAccount !== currentAccountId) ||
+     localStorage.getItem('spriteIndex.parser') !== SYNC_PARSER){
+    console.log('[Sync] Account or parser changed, clearing old state');
     state = {};
   }
   localStorage.setItem('spriteIndex.lastAccount', currentAccountId);
 
   const locker = await epicAuth.getLocker(token);
+  const { mastered, unplaced } = masteredFromProfile(locker.cosmetics || []);
 
-  // DEBUG: Log all sprite-related items
-  const spriteItems = locker.cosmetics.filter(c => {
-    const id = (c.templateId || '').toLowerCase();
-    return id.includes('sprite') || id.includes('creature') || id.includes('s41') || id.includes('s42');
-  });
-
-  // DEBUG: Look for S4 sprite ownership indicators (not quests)
-  const s4OwnershipItems = locker.cosmetics.filter(c => {
-    const id = (c.templateId || '').toLowerCase();
-    // Look for tokens, cosmetics, or other items that might indicate S4 sprite ownership
-    return (id.includes('s42') || id.includes('sprite')) &&
-           !id.startsWith('quest:') &&
-           !id.startsWith('challengebundle') &&
-           !id.startsWith('challengebundleschedule');
-  });
-  console.log('=== S4 SPRITE OWNERSHIP ITEMS (non-quest) ===');
-  console.table(s4OwnershipItems.map(c => ({ templateId: c.templateId, attrs: JSON.stringify(c.attributes) })));
-
-  // Log which profiles were loaded (for debugging S4 sprite locations)
-  if(locker.debug_profiles_loaded){
-    console.log('=== PROFILES LOADED ===');
-    console.table(locker.debug_profiles_loaded);
-  }
-  // Log stats data - sprite ownership might be here!
-  console.log('=== SPRITE-RELATED STATS ===');
-  console.log(locker.debug_sprite_stats || 'none found');
-  console.log('=== ALL STATS KEYS ===');
-  console.log(locker.debug_all_stats_keys || 'none returned');
-
-  // NEW: Backend gold/cheat raw items search
-  console.log('=== BACKEND: GOLD/CHEAT RAW ITEMS ===');
-  console.log(locker.debug_gold_cheat_items || 'none found');
-  if(locker.debug_gold_cheat_items?.length){
-    for(const item of locker.debug_gold_cheat_items){
-      console.log('GOLD/CHEAT ITEM:', item.templateId);
-      console.log('  FULL:', JSON.stringify(item, null, 2));
+  // Epic's profile only records mastery. A sprite you own but haven't mastered
+  // leaves no trace there, so anything not mastered stays "unconfirmed" unless
+  // it was marked owned by hand or by the live lobby scan.
+  let masteredCount = 0;
+  for(const e of ENTRIES){
+    if(!e.sprite.mastery) continue; // the game has no mastery quest for it
+    const prev = state[e.key] || {};
+    if(mastered.has(e.key)){
+      state[e.key] = { owned: true, mastered: true, source: 'epic' };
+      masteredCount++;
+    } else if(prev.owned && prev.source !== 'epic'){
+      state[e.key] = { ...prev, mastered: false };
+    } else {
+      state[e.key] = { owned: false, mastered: false, unknown: true };
     }
   }
+  localStorage.setItem('spriteIndex.parser', SYNC_PARSER);
 
-  // NEW: Backend sprite cosmetics search
-  console.log('=== BACKEND: SPRITE COSMETICS ===');
-  console.log(locker.debug_sprite_cosmetics || 'none found');
-  if(locker.debug_sprite_cosmetics?.length){
-    for(const item of locker.debug_sprite_cosmetics){
-      console.log('SPRITE COSMETIC:', item.templateId);
-      console.log('  FULL:', JSON.stringify(item, null, 2));
-    }
-  }
-  console.log('=== ALL SPRITE-RELATED LOCKER ITEMS ===');
-  console.table(spriteItems.map(c => ({
-    templateId: c.templateId,
-    quantity: c.quantity,
-    level: c.attributes?.level,
-    state: c.attributes?.quest_state
-  })));
-  window.lastLockerDebug = spriteItems;
-
-  // DEBUG: Look for sprite cosmetics (pets, backblings, creatures)
-  const possibleSpriteCosmetics = locker.cosmetics.filter(c => {
-    const id = (c.templateId || '').toLowerCase();
-    return id.includes('pet') || id.includes('backpack') || id.includes('creature') ||
-           id.includes('sprite') || id.includes('blockstack');
-  });
-  console.log('=== POSSIBLE SPRITE COSMETICS (pets/backblings/creatures) ===');
-  console.table(possibleSpriteCosmetics.map(c => ({
-    templateId: c.templateId,
-    attrs: JSON.stringify(c.attributes).substring(0, 200)
-  })));
-
-  // DEBUG: Check the generic sprite token's full attributes
-  const genericToken = locker.cosmetics.find(c => c.templateId === 'Token:athena_s42_spritemastery_token_generic');
-  if(genericToken){
-    console.log('=== GENERIC SPRITE TOKEN FULL ATTRIBUTES ===');
-    console.log(JSON.stringify(genericToken.attributes, null, 2));
-  }
-
-  // DEBUG: Look for any item with variants/styles that might indicate owned sprites
-  const itemsWithVariants = locker.cosmetics.filter(c => {
-    const attrs = c.attributes || {};
-    return attrs.variants || attrs.item_variants || attrs.owned_variants;
-  });
-  console.log('=== ITEMS WITH VARIANTS ===');
-  console.table(itemsWithVariants.slice(0, 20).map(c => ({
-    templateId: c.templateId,
-    variants: JSON.stringify(c.attributes?.variants || c.attributes?.item_variants || c.attributes?.owned_variants).substring(0, 200)
-  })));
-
-  // DEBUG: Search for any gold/cheatmaster indicators (items with "gold" or "cheat" in name)
-  const goldCheatItems = locker.cosmetics.filter(c => {
-    const id = (c.templateId || '').toLowerCase();
-    return (id.includes('gold') || id.includes('cheat') || id.includes('progression')) &&
-           (id.includes('sprite') || id.includes('s42'));
-  });
-  console.log('=== GOLD/CHEATMASTER INDICATOR ITEMS ===');
-  console.table(goldCheatItems.map(c => ({
-    templateId: c.templateId,
-    state: c.attributes?.quest_state,
-    attrs: JSON.stringify(c.attributes || {}).substring(0, 150)
-  })));
-
-  // DEBUG: Dump ALL S42 tokens (potential gold/CM ownership indicators)
-  const s42Tokens = locker.cosmetics.filter(c => {
-    const id = (c.templateId || '').toLowerCase();
-    return id.startsWith('token:') && id.includes('s42');
-  });
-  console.log('=== ALL S42 TOKENS ===');
-  console.table(s42Tokens.map(c => ({
-    templateId: c.templateId,
-    attrs: JSON.stringify(c.attributes || {})
-  })));
-
-  // DEBUG: Look for sprite pet/backbling cosmetics with variant data
-  const spritePetBackblings = locker.cosmetics.filter(c => {
-    const id = (c.templateId || '').toLowerCase();
-    return (id.includes('athenabackpack:') || id.includes('athenapet:')) &&
-           (id.includes('sprite') || id.includes('s42') || id.includes('s41'));
-  });
-  console.log('=== S4 SPRITE PET/BACKBLING COSMETICS ===');
-  for(const item of spritePetBackblings){
-    console.log(item.templateId);
-    console.log('  FULL ATTRS:', JSON.stringify(item.attributes, null, 2));
-  }
-
-  // DEBUG: Look for extraction-related items
-  const extractionItems = locker.cosmetics.filter(c => {
-    const id = (c.templateId || '').toLowerCase();
-    return id.includes('extract') || id.includes('capture') || id.includes('acquire');
-  });
-  console.log('=== EXTRACTION/CAPTURE ITEMS ===');
-  console.table(extractionItems.map(c => ({
-    templateId: c.templateId,
-    state: c.attributes?.quest_state,
-    completion: Object.keys(c.attributes || {}).filter(k => k.includes('completion')).map(k => `${k}=${c.attributes[k]}`).join(', ')
-  })));
-
-  // ===== S3 TOKEN-BASED DETECTION =====
-  // Token format: "Token:athena_s41_spritemastery_token_qXX[letter]"
-  // Token mapping based on variant letter analysis:
-  // q01: d,e,g (holofoil+gem+quack, no cube) = water
-  // q02: d,f,g (holofoil+cube+quack, no gem) = fire
-  // q03: e,f,g (gem+cube+quack, no holofoil) = earth
-  // q11: all 8 variants = zeropoint
-  // q18: d,e,f (holofoil+gem+cube, no quack) = grim
-  // q19: e,f (gem+cube) = batman variant updated?
-  // q10, q22, q23 = normal-only mythics
-  const S3_SPRITE_MAP = {
-    '01': 'water', '02': 'fire', '03': 'earth', '04': 'fishy', '05': 'air',
-    '06': 'duck', '07': 'ghost', '08': 'demon', '09': 'king', '10': 'striker',
-    '11': 'zeropoint', '12': 'aura', '13': 'dream', '14': 'punk', '15': 'boss',
-    '16': 'seven', '17': 'llama', '18': 'grim', '19': 'batman',
-    '21': 'ironmouse', '22': 'johnwick', '23': 'pollo', '24': 'vinijr',
-    '25': 'peely', '26': 'burntpeanut'
-  };
-  const S3_VARIANT_MAP = {
-    '': 'normal', 'a': 'gold', 'b': 'gummy', 'c': 'galaxy',
-    'd': 'holofoil', 'e': 'gem', 'f': 'cube', 'g': 'quack'
-  };
-
-  // DEBUG: Check Blockstack skin/backbling variants - sprites might be tracked as variants!
-  const blockstackItems = locker.cosmetics.filter(c =>
-    c.templateId?.toLowerCase().includes('blockstack')
-  );
-  console.log('=== BLOCKSTACK ITEMS (character/backbling with variants) ===');
-  for(const item of blockstackItems){
-    console.log(item.templateId);
-    console.log('  FULL ATTRS:', JSON.stringify(item.attributes, null, 2));
-  }
-
-  // DEBUG: Check for sprite-specific mastery tokens (reward from quests)
-  const s4SpriteTokens = locker.cosmetics.filter(c =>
-    c.templateId?.includes('athena_s42_spritemastery_token_') &&
-    !c.templateId?.includes('_generic')
-  );
-  console.log('=== S4 SPRITE-SPECIFIC TOKENS (ownership indicators) ===');
-  console.table(s4SpriteTokens.map(c => ({ templateId: c.templateId })));
-
-  // DEBUG: Check for battlepass sprite backbling token
-  const bpSpriteToken = locker.cosmetics.find(c =>
-    c.templateId?.includes('battlepasss42_spritebackbling')
-  );
-  console.log('=== BATTLE PASS SPRITE BACKBLING TOKEN ===');
-  console.log(bpSpriteToken ? JSON.stringify(bpSpriteToken, null, 2) : 'NOT FOUND');
-
-  // ===== S4 VALIDATED QUEST-BASED DETECTION =====
-  // Calibrated 2026-08-30: 36/36 mastery match, ownership reliable for normals only
-  // CRITICAL MAPPINGS (validated against spritetrading answer key):
-  //   _01 = CHEATMASTER (not gold!)
-  //   _02 = GOLD (not cheatmaster!)
-  //   Claimed = MASTERED (100% reliable)
-  //   Active/Claimed for base = OWNED (reliable)
-  //   Active for gold/CM = UNKNOWN (cannot distinguish owned from not-owned)
-  const S4_SPRITE_MAP = {
-    '8bit': '8bit',
-    'dwarf': 'adventure',
-    'bushranger': 'bush',
-    'jonesy': 'jonesy',
-    'stormscout': 'stormscout',
-    'killswitch': 'killswitch',
-    'reloadovertime': 'shadow',
-    'narrowflea': 'sonic',
-    'narrowfleamonkey': 'tails',
-    'doublejump': 'jackrabbit',
-    'crown': 'crown',
-    'klombo': 'klombo'
-  };
-
-  let s3Count = 0, s4Count = 0;
-
-  // Clear old S4 state before re-parsing
-  for(const key of Object.keys(state)){
-    if(key.startsWith('s4:')) delete state[key];
-  }
-
-  // ===== VALIDATED S4 PARSER =====
-  // Single-pass quest parsing with correct suffix mapping
-  const s4QuestStates = {}; // { spriteId: { base: 'Claimed', '01': 'Active', '02': 'Claimed' } }
-  for(const item of locker.cosmetics){
-    const templateId = item.templateId || '';
-    const m = templateId.match(/^Quest:quest_s42_spritemastery_([a-z0-9]+)(?:_(01|02))?$/);
-    if(m){
-      const codename = m[1];
-      const suffix = m[2] || 'base';
-      const spriteId = S4_SPRITE_MAP[codename];
-      if(spriteId){
-        if(!s4QuestStates[spriteId]) s4QuestStates[spriteId] = {};
-        s4QuestStates[spriteId][suffix] = item.attributes?.quest_state || 'Unknown';
-      }
-    }
-  }
-  console.log('S4 quest states (validated parser):', s4QuestStates);
-
-  // Apply validated detection rules
-  for(const [spriteId, quests] of Object.entries(s4QuestStates)){
-    const baseState = quests.base;
-    const cmState = quests['01'];   // _01 = cheatmaster (validated)
-    const goldState = quests['02']; // _02 = gold (validated)
-
-    // NORMAL: mastered only if Claimed (ownership detected via CosmeticMimosa below)
-    // NOTE: "Active" just means quest is available, NOT that sprite is owned!
-    if(baseState === 'Claimed'){
-      state['s4:' + spriteId + ':normal'] = {
-        owned: true,
-        mastered: true
-      };
-      s4Count++;
-      console.log(`  ${spriteId}:normal - MASTERED via quest`);
-    }
-
-    // GOLD (_02): mastered if Claimed, otherwise preserve manual state or mark unknown
-    const goldKey = 's4:' + spriteId + ':gold';
-    if(goldState === 'Claimed'){
-      state[goldKey] = { owned: true, mastered: true };
-      s4Count++;
-      console.log(`  ${spriteId}:gold - MASTERED`);
-    } else if(goldState === 'Active'){
-      // Quest exists but not claimed - preserve manual state if user already marked it
-      const existing = state[goldKey];
-      if(!existing || (!existing.owned && !existing.mastered)){
-        state[goldKey] = { owned: false, mastered: false, unknown: true };
-        console.log(`  ${spriteId}:gold - UNKNOWN (quest Active, ownership unconfirmed)`);
-      } else {
-        console.log(`  ${spriteId}:gold - KEEPING MANUAL STATE (owned: ${existing.owned})`);
-      }
-    }
-
-    // CHEATMASTER (_01): mastered if Claimed, otherwise preserve manual state or mark unknown
-    const cmKey = 's4:' + spriteId + ':cheatmaster';
-    if(cmState === 'Claimed'){
-      state[cmKey] = { owned: true, mastered: true };
-      s4Count++;
-      console.log(`  ${spriteId}:cheatmaster - MASTERED`);
-    } else if(cmState === 'Active'){
-      // Preserve manual state if user already marked it
-      const existing = state[cmKey];
-      if(!existing || (!existing.owned && !existing.mastered)){
-        state[cmKey] = { owned: false, mastered: false, unknown: true };
-        console.log(`  ${spriteId}:cheatmaster - UNKNOWN (quest Active, ownership unconfirmed)`);
-      } else {
-        console.log(`  ${spriteId}:cheatmaster - KEEPING MANUAL STATE (owned: ${existing.owned})`);
-      }
-    }
-  }
-
-  // Store debug data
-  window.S4_DEBUG = { questStates: s4QuestStates, parserVersion: 'quest-only-2026-08-30' };
-
-  // ===== S4 BASE SPRITE OWNERSHIP via CosmeticMimosa =====
-  // CosmeticMimosa:companion_X = you OWN that sprite
-  const MIMOSA_MAP = {
-    'sizetribe': 'crown',
-    'dwarf': 'adventure',
-    '8bitblaster': '8bit',
-    'bushranger': 'bush',
-    'jonesy': 'jonesy',
-    'stormscout': 'stormscout',
-    'killswitch': 'killswitch',
-    'reloadovertime': 'shadow',
-    'narrowflea': 'sonic',
-    'narrowfleamonkey': 'tails',
-    'cosmicthunderdoublejump': 'jackrabbit',
-    'generalhound': 'klombo',
-    'improvedslide': 'megaman',
-    'overshield': 'overshield',
-    'winnerb': 'xray',
-    'winnerc': 'onigiri'
-  };
-
-  for(const item of locker.cosmetics){
-    const templateId = item.templateId || '';
-    // Match CosmeticMimosa:companion_X (not CosmeticMimosaC which is particle effects)
-    const mimosaMatch = templateId.match(/^CosmeticMimosa:companion_([a-z0-9]+)$/i);
-    if(mimosaMatch){
-      const mimosaId = mimosaMatch[1].toLowerCase();
-      const spriteId = MIMOSA_MAP[mimosaId];
-      if(spriteId){
-        const key = 's4:' + spriteId + ':normal';
-        const existing = state[key];
-        // Only set owned if not already mastered
-        if(!existing || !existing.mastered){
-          state[key] = { owned: true, mastered: existing?.mastered || false };
-          console.log(`  ${spriteId}:normal - OWNED via CosmeticMimosa`);
-          s4Count++;
-        }
-      }
-    }
-  }
-
-  // ===== S3 TOKEN-BASED DETECTION =====
-
-  for(const item of locker.cosmetics){
-    const templateId = item.templateId || '';
-
-    // S3: Token-based mastery (prefix keys with s3:)
-    if(templateId.startsWith('Token:athena_s41_spritemastery_token_q')){
-      const tokenId = templateId.replace('Token:athena_s41_spritemastery_token_q', '');
-      const match = tokenId.match(/^(\d+)([a-g]?)$/);
-      if(match){
-        const spriteNum = match[1].padStart(2, '0');
-        const variantLetter = match[2] || '';
-        const spriteId = S3_SPRITE_MAP[spriteNum];
-        const variantId = S3_VARIANT_MAP[variantLetter];
-        if(spriteId && variantId){
-          const key = 's3:' + spriteId + ':' + variantId;
-          state[key] = { owned: true, mastered: true };
-          s3Count++;
-        }
-      }
-    }
-    // S4 detection moved to validated parser above
-  }
-
-  // Collab sprites (ironmouse, vinijr) - Epic API doesn't return their tokens
-  // Mark as unfetchable so UI can show appropriate message
-  if(!state['s3:ironmouse:normal']) {
-    state['s3:ironmouse:normal'] = { owned: false, mastered: false, unfetchable: true };
-  }
-  if(!state['s3:vinijr:normal']) {
-    state['s3:vinijr:normal'] = { owned: false, mastered: false, unfetchable: true };
-  }
-
-  console.log(`Synced: ${s3Count} S3 sprites, ${s4Count} S4 sprites`);
-
-  // Debug: show all state keys by season
-  const s3Keys = Object.keys(state).filter(k => k.startsWith('s3:'));
-  const s4Keys = Object.keys(state).filter(k => k.startsWith('s4:'));
-  console.log(`State: ${s3Keys.length} S3 keys, ${s4Keys.length} S4 keys`);
-  console.log('S3 state keys:', s3Keys.sort());
-  console.log('S4 state:', s4Keys);
-
-  // Debug: find mismatches between state and ENTRIES
-  const s3EntryKeys = ENTRIES.filter(e => e.sprite.season === 's3').map(e => e.key);
-  const stateNotInEntries = s3Keys.filter(k => !s3EntryKeys.includes(k));
-  const entriesNotInState = s3EntryKeys.filter(k => !s3Keys.includes(k));
-  console.log('Keys in STATE but NOT in entries:', stateNotInEntries);
-  console.log('Keys in ENTRIES but NOT in state:', entriesNotInState);
+  window.SYNC_DEBUG = { parser: SYNC_PARSER, mastered: [...mastered].sort(), unplaced };
+  console.log(`[Sync] ${masteredCount} sprite variants mastered on Epic`, window.SYNC_DEBUG);
 
   // Store account level, season level, and first season for profile display
   if(locker.account_level) localStorage.setItem('epic_account_level', locker.account_level);

@@ -4,3 +4,9 @@ tools/profile_dump.json
 device_auth.json
 *.pyc
 __pycache__/
+
+# Raw account exports - contain IPs, device fingerprints, sessions, DMs
+spritetrading-export*.json
+
+# Local session notes
+sprite-index.txt
